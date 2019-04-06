@@ -18,7 +18,7 @@ class CreateShopsTable extends Migration
             $table->string('name');
             $table->string('address')->comment('longitude, latitude');
             $table->string('logo');
-            $table->string('mobile');
+            $table->string('phone');
             $table->string('pricing_category');
             $table->string('min_order_price');
             $table->string('average_ready_minutes')->nullable();
