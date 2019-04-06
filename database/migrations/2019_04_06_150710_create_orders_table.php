@@ -22,8 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_address');
 
             $table->unsignedInteger('client_id');
-            $table->unsignedInteger('transporter_id');
-            $table->unsignedInteger('promo_code_id');
+            $table->unsignedInteger('transporter_id')->nullable();
+            $table->unsignedInteger('promo_code_id')->nullable();
             $table->unsignedInteger('shop_id');
 
            $table->integer('created_at');
