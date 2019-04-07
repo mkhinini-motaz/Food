@@ -25,7 +25,7 @@ class CreateClientsTable extends Migration
             $table->string('address')->comment('longitude, latitude');
             $table->integer('last_login_at')->nullable();
 
-           $table->integer('created_at');
+            $table->integer('created_at');
             $table->integer('updated_at');
         });
     }

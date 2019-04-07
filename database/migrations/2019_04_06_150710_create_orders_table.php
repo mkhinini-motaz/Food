@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('promo_code_id')->nullable();
             $table->unsignedInteger('shop_id');
 
-           $table->integer('created_at');
+            $table->integer('created_at');
             $table->integer('updated_at');
 
             $table->foreign('client_id')

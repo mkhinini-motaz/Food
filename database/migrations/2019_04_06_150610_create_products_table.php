@@ -17,11 +17,17 @@ class CreateProductsTable extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->smallInteger('weight')->comment('In grams');
+            $table->integer('weight')->comment('In grams');
             $table->integer('price')->comment('In tunisian mellimes');
+
+            $table->unsignedInteger('shop_id');
 
             $table->integer('created_at');
             $table->integer('updated_at');
+
+            $table->foreign('shop_id')
+                ->references('id')
+                ->on('shops');
         });
     }
 

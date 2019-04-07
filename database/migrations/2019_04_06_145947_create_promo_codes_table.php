@@ -21,7 +21,7 @@ class CreatePromoCodesTable extends Migration
 
             $table->unsignedInteger('admin_id');
 
-           $table->integer('created_at');
+            $table->integer('created_at');
             $table->integer('updated_at');
 
             $table->foreign('admin_id')

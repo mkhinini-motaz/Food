@@ -1,5 +1,7 @@
 <?php
 
+use App\Admin;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,12 +21,19 @@ class CreateAdminsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->smallInteger('role');
-            $table->string('phone');
+            $table->smallInteger('role')->default(1);
+            $table->string('phone')->nullable();
 
-           $table->integer('created_at');
+            $table->integer('created_at');
             $table->integer('updated_at');
         });
+
+        factory(Admin::class)->create([
+            'first_name' => 'Moatez',
+            'last_name' => 'Mkhinini',
+            'email' => 'mkhinini.motaz@gmail.com',
+            'password' => bcrypt('azerty'),
+        ]);
     }
 
     /**
