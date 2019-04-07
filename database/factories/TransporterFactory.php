@@ -7,7 +7,7 @@ $factory->define(App\Transporter::class, function (Faker $faker) {
         'code_name' => $faker->userName,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'email' => $faker->email,
+        'phone' => $faker->phoneNumber,
         'password' => bcrypt('azerty'),
         'starts_working_at' => rand(8, 23),
         'ends_working_at' => rand(0, 23),

@@ -7,6 +7,7 @@ $factory->define(App\Product::class, function (Faker $faker) {
         'name' => $faker->word,
         'price' => rand(1, 999) * 100,
         'weight' => rand(1, 500) * 100,
+        'shop_id' => rand(1, 2),
 
         'created_at' => time(),
         'updated_at' => time()
