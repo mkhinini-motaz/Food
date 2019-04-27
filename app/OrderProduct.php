@@ -13,5 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OrderProduct extends Model
 {
+    protected $dateFormat = 'U';
+
     protected $table = 'order_product';
 }

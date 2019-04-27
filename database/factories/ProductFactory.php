@@ -5,8 +5,12 @@ use Faker\Generator as Faker;
 $factory->define(App\Product::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'price' => rand(1, 999) * 100,
+//        'photo' => $faker->imageUrl(),
+        'price' => rand(1, 250) * 100,
         'weight' => rand(1, 500) * 100,
+        'width' => rand(1, 50),
+        'length' => rand(1, 50),
+        'height' => rand(1, 50),
         'shop_id' => rand(1, 2),
 
         'created_at' => time(),
