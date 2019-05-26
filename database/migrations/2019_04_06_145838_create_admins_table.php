@@ -21,7 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->smallInteger('role')->default(1);
+            $table->smallInteger('role')->default(Admin::ROLE_DISPATCHER_ADMIN);
             $table->string('phone')->nullable();
 
             $table->integer('created_at');
@@ -33,6 +33,7 @@ class CreateAdminsTable extends Migration
             'last_name' => 'Mkhinini',
             'email' => 'mkhinini.motaz@gmail.com',
             'password' => bcrypt('azerty'),
+            'role' => Admin::ROLE_SUPER_ADMIN
         ]);
     }
 
