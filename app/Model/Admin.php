@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
     const ROLE_SUPER_ADMIN = 1;
-    const ROLE_VISITOR_ADMIN = 2;
+    const ROLE_VISITOR_ADMIN = 20;
+
+    const ROLES = [ self::ROLE_SUPER_ADMIN, self::ROLE_VISITOR_ADMIN ];
 
     protected $dateFormat = 'U';
 

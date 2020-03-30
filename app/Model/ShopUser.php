@@ -4,10 +4,12 @@ namespace App\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Authenticatable
+class ShopUser extends Authenticatable
 {
-    const ROLE_SUPER_ADMIN = 1;
-    const ROLE_VISITOR_ADMIN = 2;
+    const ROLE_OWNER = 1;
+    const ROLE_SHOP_KEEPER = 20;
+
+    const ROLES = [ self::ROLE_OWNER, self::ROLE_SHOP_KEEPER ];
 
     protected $dateFormat = 'U';
 
@@ -21,10 +23,10 @@ class Admin extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function promoCodes()
+    public function shop()
     {
-        return $this->hasMany(PromoCode::class);
+        return $this->belongsTo(Shop::class);
     }
 }
