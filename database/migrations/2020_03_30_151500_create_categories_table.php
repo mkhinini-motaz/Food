@@ -25,6 +25,7 @@ class CreateCategoriesTable extends Migration
             $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('shop_id')
+                ->onDelete('cascade')
                 ->references('id')
                 ->on('shops');
         });

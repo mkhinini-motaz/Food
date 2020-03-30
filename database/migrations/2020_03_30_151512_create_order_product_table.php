@@ -20,10 +20,12 @@ class CreateOrderProductTable extends Migration
             $table->unsignedInteger('product_id');
 
             $table->foreign('order_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('orders');
 
             $table->foreign('product_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('products');
 

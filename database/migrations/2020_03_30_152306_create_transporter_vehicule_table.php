@@ -23,10 +23,12 @@ class CreateTransporterVehiculeTable extends Migration
             $table->unsignedInteger('usage_end_at')->nullable();
 
             $table->foreign('transporter_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('transporters');
 
             $table->foreign('vehicule_id')
+                ->onDelete('cascade')
                 ->references('id')
                 ->on('vehicules');
         });

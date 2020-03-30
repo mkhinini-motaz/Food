@@ -27,6 +27,7 @@ class CreatePromoCodesTable extends Migration
             $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('admin_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('admins');
         });

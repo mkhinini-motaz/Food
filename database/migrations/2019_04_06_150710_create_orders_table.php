@@ -33,20 +33,28 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('client_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('clients');
 
-            $table->foreign('transporter_id')
-                ->references('id')
-                ->on('transporters');
-
             $table->foreign('promo_code_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('promo_codes');
 
             $table->foreign('shop_id')
+                ->onDelete('restrict')
                 ->references('id')
                 ->on('shops');
+
+            $table->foreign('transporter_id')
+                ->onDelete('restrict')
+                ->references('id')
+                ->on('transporters');
+
+            $table->index('client_id');
+            $table->index('shop_id');
+            $table->index('transporter_id');
         });
     }
 

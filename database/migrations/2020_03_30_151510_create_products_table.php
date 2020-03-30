@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('category_id')
+                ->onDelete('cascade')
                 ->references('id')
                 ->on('categories');
         });
