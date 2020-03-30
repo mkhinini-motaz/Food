@@ -16,6 +16,8 @@ class CreateShopPaymentsTable extends Migration
         Schema::create('shop_payments', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('amount')->comment('In tunisian mellimes');
+
             $table->unsignedInteger('shop_id');
 
             $table->unsignedInteger('created_at');

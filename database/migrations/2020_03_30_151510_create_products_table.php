@@ -18,10 +18,10 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
             $table->string('photo')->default('default image link'); // TODO: define default image
-            $table->integer('weight')->comment('In grams');
-            $table->integer('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
-            $table->integer('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
-            $table->integer('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
+            $table->smallInteger('weight')->comment('In grams');
+            $table->smallInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
+            $table->smallInteger('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
+            $table->smallInteger('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
             $table->integer('price')->comment('In tunisian mellimes');
 
             $table->unsignedInteger('category_id');

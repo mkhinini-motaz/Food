@@ -17,16 +17,17 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
 
             $table->string('message')->nullable();
-            $table->tinyInteger('status')->default(1)->comment(''); // TODO: define diffrent status
+            $table->tinyInteger('status')->default(1)->comment(''); // TODO: define const status
             $table->string('associated_phone');
-            $table->string('delivery_address');
+            $table->string('delivery_latitude', 50);
+            $table->string('delivery_longitude', 50);
 
             $table->unsignedInteger('client_id');
-            $table->unsignedInteger('transporter_id')->nullable();
             $table->unsignedInteger('promo_code_id')->nullable();
+            $table->unsignedInteger('transporter_id')->nullable();
             $table->unsignedInteger('shop_id');
 
-            $table->unsignedInteger('should_be_delivered_at')->nullable();
+            $table->unsignedInteger('to_be_delivered_at')->nullable()->comment('null means as soon as possible');
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();

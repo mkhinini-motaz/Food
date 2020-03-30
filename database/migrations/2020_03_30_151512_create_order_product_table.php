@@ -19,9 +19,6 @@ class CreateOrderProductTable extends Migration
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('product_id');
 
-            $table->unsignedInteger('created_at');
-            $table->unsignedInteger('updated_at');
-
             $table->foreign('order_id')
                 ->references('id')
                 ->on('orders');

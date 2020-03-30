@@ -19,12 +19,8 @@ class CreateTransporterVehiculeTable extends Migration
             $table->unsignedInteger('transporter_id');
             $table->unsignedInteger('vehicule_id');
 
-            $table->integer('usage_start_at');
-            $table->integer('usage_end_at')->nullable();
-
-            $table->unsignedInteger('created_at');
-            $table->unsignedInteger('updated_at');
-            $table->unsignedInteger('deleted_at')->nullable();
+            $table->unsignedInteger('usage_start_at');
+            $table->unsignedInteger('usage_end_at')->nullable();
 
             $table->foreign('transporter_id')
                 ->references('id')

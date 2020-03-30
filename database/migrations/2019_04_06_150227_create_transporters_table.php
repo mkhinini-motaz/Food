@@ -16,13 +16,13 @@ class CreateTransportersTable extends Migration
         Schema::create('transporters', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('code_name')->nullable();
+            $table->string('alias')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('password');
             $table->string('phone');
-            $table->integer('starts_working_at');
-            $table->integer('ends_working_at');
+            $table->string('shift_start_hour', 10);
+            $table->string('shift_end_hour', 10);
             $table->unsignedMediumInteger('max_supported_weight')->nullable()
                 ->comment('null means doesn\'t have a limit');
             $table->unsignedMediumInteger('max_supported_volume')->nullable()

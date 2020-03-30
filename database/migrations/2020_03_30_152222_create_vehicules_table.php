@@ -21,7 +21,7 @@ class CreateVehiculesTable extends Migration
             $table->string('model');
             $table->smallInteger('cylinder');
 
-            $table->integer('purchased_at');
+            $table->unsignedInteger('purchased_at');
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
