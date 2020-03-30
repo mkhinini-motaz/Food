@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(\App\OrderProduct::class, function (Faker $faker) {
+$factory->define(\App\Model\OrderProduct::class, function (Faker $faker) {
     return [
 
         'order_id' => rand(1, 500),

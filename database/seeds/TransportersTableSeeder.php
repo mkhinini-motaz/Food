@@ -10,6 +10,6 @@ class TransportersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Transporter::class, 10)->create();
+        factory(\App\Model\Transporter::class, 10)->create();
     }
 }

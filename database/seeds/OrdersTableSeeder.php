@@ -10,6 +10,6 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Order::class, 500)->create();
+        factory(\App\Model\Order::class, 100)->create();
     }
 }

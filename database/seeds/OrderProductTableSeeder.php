@@ -10,6 +10,5 @@ class OrderProductTableSeeder extends Seeder
      */
     public function run()
     {
-        $orderProductTableEntries = factory(\App\OrderProduct::class, 1000)->create();
     }
 }
