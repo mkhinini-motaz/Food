@@ -15,14 +15,16 @@ class CreatePromoCodesTable extends Migration
     {
         Schema::create('promo_codes', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('code');
             $table->integer('expires_at')->nullable();
             $table->integer('expiration_count')->nullable();
 
             $table->unsignedInteger('admin_id');
 
-            $table->integer('created_at');
-            $table->integer('updated_at');
+            $table->unsignedInteger('created_at');
+            $table->unsignedInteger('updated_at');
+            $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('admin_id')
                 ->references('id')
@@ -31,7 +33,7 @@ class CreatePromoCodesTable extends Migration
 
         Schema::table('promo_codes', function (Blueprint $table) {
             DB::statement(
-        'ALTER TABLE promo_codes
+            'ALTER TABLE promo_codes
                 ADD CONSTRAINT chk_code_has_at_least_one_expiration_method
                 CHECK (
                   CAST(expires_at <> NULL AS UNSIGNED) +

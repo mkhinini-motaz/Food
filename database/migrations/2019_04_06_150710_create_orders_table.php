@@ -26,9 +26,10 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('promo_code_id')->nullable();
             $table->unsignedInteger('shop_id');
 
-            $table->integer('should_be_delivered_at')->nullable();
-            $table->integer('created_at');
-            $table->integer('updated_at');
+            $table->unsignedInteger('should_be_delivered_at')->nullable();
+            $table->unsignedInteger('created_at');
+            $table->unsignedInteger('updated_at');
+            $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('client_id')
                 ->references('id')

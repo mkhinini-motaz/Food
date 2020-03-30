@@ -17,15 +17,17 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
+
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->smallInteger('role')->default(Admin::ROLE_DISPATCHER_ADMIN);
+            $table->smallInteger('role')->default(Admin::ROLE_VISITOR_ADMIN);
             $table->string('phone')->nullable();
 
-            $table->integer('created_at');
-            $table->integer('updated_at');
+            $table->unsignedInteger('created_at');
+            $table->unsignedInteger('updated_at');
+            $table->unsignedInteger('deleted_at')->nullable();
         });
 
         factory(Admin::class)->create([

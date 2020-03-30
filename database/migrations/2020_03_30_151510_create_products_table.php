@@ -24,14 +24,15 @@ class CreateProductsTable extends Migration
             $table->integer('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
             $table->integer('price')->comment('In tunisian mellimes');
 
-            $table->unsignedInteger('shop_id');
+            $table->unsignedInteger('category_id');
 
-            $table->integer('created_at');
-            $table->integer('updated_at');
+            $table->unsignedInteger('created_at');
+            $table->unsignedInteger('updated_at');
+            $table->unsignedInteger('deleted_at')->nullable();
 
-            $table->foreign('shop_id')
+            $table->foreign('category_id')
                 ->references('id')
-                ->on('shops');
+                ->on('categories');
         });
     }
 

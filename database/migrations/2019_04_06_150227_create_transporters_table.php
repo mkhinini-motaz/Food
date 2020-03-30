@@ -23,12 +23,15 @@ class CreateTransportersTable extends Migration
             $table->string('phone');
             $table->integer('starts_working_at');
             $table->integer('ends_working_at');
-            $table->unsignedMediumInteger('max_supported_weight')->nullable()->comment('null means doesn\'t have a limit');
-            $table->unsignedMediumInteger('max_supported_volume')->nullable()->comment('null means doesn\'t have a limit');
+            $table->unsignedMediumInteger('max_supported_weight')->nullable()
+                ->comment('null means doesn\'t have a limit');
+            $table->unsignedMediumInteger('max_supported_volume')->nullable()
+                ->comment('null means doesn\'t have a limit');
             $table->tinyInteger('is_approved')->default(0);
 
-            $table->integer('created_at');
-            $table->integer('updated_at');
+            $table->unsignedInteger('created_at');
+            $table->unsignedInteger('updated_at');
+            $table->unsignedInteger('deleted_at')->nullable();
         });
     }
 
