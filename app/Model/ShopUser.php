@@ -4,6 +4,26 @@ namespace App\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class ShopUser
+ * @package App\Model
+ *
+ * @property int id
+ * @property string first_name
+ * @property string last_name
+ * @property string email
+ * @property string password
+ * @property string role
+ * @property string phone
+ *
+ * @property int shop_id
+ *
+ * @property int created_at
+ * @property int updated_at
+ * @property int deleted_at
+ *
+ * @property Shop shop
+ */
 class ShopUser extends Authenticatable
 {
     const ROLE_OWNER = 1;

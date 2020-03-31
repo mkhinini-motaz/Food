@@ -3,7 +3,24 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class PromoCode
+ * @package App\Model
+ *
+ * @property string code
+ * @property int expires_at
+ * @property int max_usage_count
+ *
+ * @property int admin_id
+ *
+ * @property int created_at
+ * @property int updated_at
+ * @property int deleted_at
+ *
+ * @property Collection admin
+ */
 class PromoCode extends Model
 {
     protected $dateFormat = 'U';

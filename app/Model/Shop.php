@@ -3,9 +3,39 @@
 namespace App\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class Shop
+ * @package App\Model
+ *
+ * @property int id
+ * @property string name
+ * @property string logo
+ * @property string phone
+ * @property int pricing_category
+ * @property int min_order_price
+ * @property string average_ready_minutes
+ * @property bool is_approved
+ *
+ * @property int created_at
+ * @property int updated_at
+ * @property int deleted_at
+ *
+ * @property Collection categories
+ * @property Collection orders
+ * @property Collection products
+ */
 class Shop extends Authenticatable
 {
+    const PRICING_CATEGORY_VERY_LOW = 1;
+    const PRICING_CATEGORY_LOW = 2;
+    const PRICING_CATEGORY_MEDIUM = 3;
+    const PRICING_CATEGORY_HIGH = 4;
+    const PRICING_CATEGORY_VERY_HIGH = 5;
+
+    const PRICING_CATEGORIES = [ self::PRICING_CATEGORY_VERY_LOW, self::PRICING_CATEGORY_LOW, self::PRICING_CATEGORY_MEDIUM, self::PRICING_CATEGORY_HIGH, self::PRICING_CATEGORY_VERY_HIGH ];
+
     protected $dateFormat = 'U';
 
     /**
