@@ -18,7 +18,7 @@ class CreatePromoCodesTable extends Migration
 
             $table->string('code');
             $table->integer('expires_at')->nullable();
-            $table->integer('expiration_count')->nullable();
+            $table->integer('max_usage_count')->nullable();
 
             $table->unsignedInteger('admin_id');
 
@@ -35,10 +35,10 @@ class CreatePromoCodesTable extends Migration
         Schema::table('promo_codes', function (Blueprint $table) {
             DB::statement(
             'ALTER TABLE promo_codes
-                ADD CONSTRAINT chk_code_has_at_least_one_expiration_method
+                ADD CONSTRAINT chk_code_has_at_least_one_way_to_expire
                 CHECK (
                   CAST(expires_at <> NULL AS UNSIGNED) +
-                  CAST(expiration_count <> NULL AS UNSIGNED) > 1
+                  CAST(max_usage_count <> NULL AS UNSIGNED) > 1
                 );'
             );
         });

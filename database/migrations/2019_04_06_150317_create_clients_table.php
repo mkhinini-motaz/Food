@@ -18,13 +18,13 @@ class CreateClientsTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->nullable(); // TODO: login with either email or facebook
+            $table->string('email')->nullable(); // TODO: login with either email, phone or facebook
             // TODO: add Facebook id
             $table->string('password');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('address')->comment('longitude, latitude');
-            $table->integer('last_login_at')->nullable();
 
+            $table->unsignedInteger('last_login_at')->nullable();
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();

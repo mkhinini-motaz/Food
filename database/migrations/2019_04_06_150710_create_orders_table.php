@@ -17,15 +17,16 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
 
             $table->string('message')->nullable();
-            $table->tinyInteger('status')->default(1)->comment(''); // TODO: define const status
+            $table->tinyInteger('status')->default(1)->comment('@see \App\Model\Order::STATUSES');
+            $table->integer('total_price');
             $table->string('associated_phone');
             $table->string('delivery_latitude', 50);
             $table->string('delivery_longitude', 50);
 
             $table->unsignedInteger('client_id');
+            $table->unsignedInteger('location_id');
             $table->unsignedInteger('promo_code_id')->nullable();
             $table->unsignedInteger('transporter_id')->nullable();
-            $table->unsignedInteger('shop_id');
 
             $table->unsignedInteger('to_be_delivered_at')->nullable()->comment('null means as soon as possible');
             $table->unsignedInteger('created_at');
@@ -37,15 +38,15 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->on('clients');
 
+            $table->foreign('location_id')
+                ->onDelete('restrict')
+                ->references('id')
+                ->on('locations');
+
             $table->foreign('promo_code_id')
                 ->onDelete('restrict')
                 ->references('id')
                 ->on('promo_codes');
-
-            $table->foreign('shop_id')
-                ->onDelete('restrict')
-                ->references('id')
-                ->on('shops');
 
             $table->foreign('transporter_id')
                 ->onDelete('restrict')
@@ -53,7 +54,7 @@ class CreateOrdersTable extends Migration
                 ->on('transporters');
 
             $table->index('client_id');
-            $table->index('shop_id');
+            $table->index('location_id');
             $table->index('transporter_id');
         });
     }

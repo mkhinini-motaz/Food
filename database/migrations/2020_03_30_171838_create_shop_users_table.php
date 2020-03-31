@@ -25,9 +25,16 @@ class CreateShopUsersTable extends Migration
             $table->smallInteger('role')->default(ShopUser::ROLE_OWNER);
             $table->string('phone')->nullable();
 
+            $table->unsignedInteger('shop_id');
+
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
+
+            $table->foreign('shop_id')
+                ->onDelete('cascade')
+                ->references('id')
+                ->on('shops');
         });
     }
 

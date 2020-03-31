@@ -21,12 +21,9 @@ class CreateTransportersTable extends Migration
             $table->string('last_name');
             $table->string('password');
             $table->string('phone');
+            $table->string('email')->nullable();
             $table->string('shift_start_hour', 10);
             $table->string('shift_end_hour', 10);
-            $table->unsignedMediumInteger('max_supported_weight')->nullable()
-                ->comment('null means doesn\'t have a limit');
-            $table->unsignedMediumInteger('max_supported_volume')->nullable()
-                ->comment('null means doesn\'t have a limit');
             $table->tinyInteger('is_approved')->default(0);
 
             $table->unsignedInteger('created_at');

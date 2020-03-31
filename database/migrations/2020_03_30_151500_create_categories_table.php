@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
 
             $table->string('name');
             $table->string('description');
+            $table->string('photo');
             $table->unsignedInteger('shop_id');
 
             $table->unsignedInteger('created_at');

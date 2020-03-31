@@ -19,6 +19,7 @@ class CreateLocationsTable extends Migration
             $table->string('name');
             $table->string('latitude', 50);
             $table->string('longitude', 50);
+
             $table->unsignedInteger('shop_id');
 
             $table->unsignedInteger('created_at');

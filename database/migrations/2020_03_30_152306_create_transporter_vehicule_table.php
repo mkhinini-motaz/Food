@@ -31,6 +31,8 @@ class CreateTransporterVehiculeTable extends Migration
                 ->onDelete('cascade')
                 ->references('id')
                 ->on('vehicules');
+
+            $table->index([ 'transporter_id', 'usage_end_at' ]);
         });
     }
 

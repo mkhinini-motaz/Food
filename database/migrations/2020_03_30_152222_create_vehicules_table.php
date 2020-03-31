@@ -16,10 +16,12 @@ class CreateVehiculesTable extends Migration
         Schema::create('vehicules', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('manufacturer');
             $table->string('model');
             $table->smallInteger('cylinder');
+            $table->unsignedMediumInteger('max_supported_weight')->nullable()->comment('null means doesn\'t have a limit');
+            $table->unsignedMediumInteger('max_supported_volume')->nullable()->comment('null means doesn\'t have a limit');
 
             $table->unsignedInteger('purchased_at');
             $table->unsignedInteger('created_at');

@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->string('description');
             $table->string('photo')->default('default image link'); // TODO: define default image
             $table->smallInteger('weight')->comment('In grams');
             $table->smallInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products

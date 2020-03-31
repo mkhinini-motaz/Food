@@ -16,6 +16,8 @@ class CreateTransporterPaymentsTable extends Migration
         Schema::create('transporter_payments', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->integer('amount')->comment('In tunisian mellimes');
 
             $table->unsignedInteger('transporter_id');
