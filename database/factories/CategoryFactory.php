@@ -8,6 +8,7 @@ $factory->define(App\Model\Category::class, function (Faker $faker) {
 
         'name' => $faker->word,
         'description' => $faker->sentence(12, false),
+        'photo' => $faker->imageUrl(),
 
         'created_at' => time(),
         'updated_at' => time()

@@ -8,10 +8,10 @@ $factory->define(App\Model\Transporter::class, function (Faker $faker) {
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'phone' => $faker->phoneNumber,
+        'email' => $faker->safeEmail,
         'password' => bcrypt('azerty'),
         'shift_start_hour' => '10:00',
         'shift_end_hour' => '22:00',
-        'max_supported_weight' => rand(60, 140) * 100,
         'is_approved' => rand(0, 1),
 
         'created_at' => time(),

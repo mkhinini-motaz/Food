@@ -6,7 +6,7 @@ $factory->define(App\Model\PromoCode::class, function (Faker $faker) {
     return [
         'code' => $faker->postcode,
         'expires_at' => rand(time(), strtotime('+ 4 months')),
-        'expiration_count' => $faker->randomElement([null, rand(10, 50)]),
+        'max_usage_count' => $faker->randomElement([null, rand(10, 50)]),
         'admin_id' => 1,
 
         'created_at' => time(),
