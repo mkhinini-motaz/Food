@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 
+use App\Model\Shop;
+use App\Repositories\ShopRepository;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -21,9 +23,9 @@ class ShopController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
 
-        // TODO: implement
+        $shops = ShopRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json([ 'status' => 'success', 'data' => $shops ], 200);
     }
 
     /**
@@ -33,8 +35,8 @@ class ShopController extends Controller
      */
     public function show($shopId)
     {
-        // TODO: implement
+        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json([ 'status' => 'success', 'data' => $shop ], 200);
     }
 }
