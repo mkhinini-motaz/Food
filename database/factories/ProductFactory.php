@@ -12,7 +12,7 @@ $factory->define(App\Model\Product::class, function (Faker $faker) {
         'width' => rand(1, 50),
         'length' => rand(1, 50),
         'height' => rand(1, 50),
-        'shop_id' => rand(1, 2),
+        'category_id' => rand(1, 2),
 
         'created_at' => time(),
         'updated_at' => time()

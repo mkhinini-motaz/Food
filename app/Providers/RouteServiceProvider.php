@@ -35,11 +35,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+//        $this->mapApiRoutes();
+//        $this->mapWebRoutes();
 
-        $this->mapWebRoutes();
-
-        //
+        $this->mapClientRoutes();
     }
 
     /**
@@ -70,4 +69,23 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }
+
+    /**
+     * Define the "client api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapClientRoutes()
+    {
+        // TODO: global scope to exclude content of shops having is_approved === false
+
+        Route::prefix('api/client')
+            ->as('client.')
+            ->middleware(['api', 'client'])
+            ->namespace($this->namespace.'\Client')
+            ->group(base_path('routes/client.php'));
+    }
+
 }

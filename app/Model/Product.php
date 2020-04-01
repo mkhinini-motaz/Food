@@ -46,7 +46,7 @@ class Product extends Model
      */
     public function shop()
     {
-        return $this->belongsTo(Shop::class);
+        return $this->hasOneThrough(Shop::class, Category::class, 'id', 'id', 'category_id', 'shop_id');
     }
 
     /**
