@@ -41,7 +41,7 @@ class CategoryRepository
         $categories = Category::query();
 
         if (isset($search)) {
-            $categories->where(fieldsLike($search));
+            $categories->where(fieldsLike($search, 'name'));
         }
 
         if ($isShopApproved && in_array($isShopApproved, Shop::IS_APPROVED_VALUES)) {
