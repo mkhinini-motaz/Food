@@ -3,10 +3,6 @@
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/register', 'AuthController@register')->name('register');
 
-Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
-    Route::get('/', 'ProductController@index')->name('index');
-});
-
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     Route::get('/', 'CategoryController@index')->name('index');
     Route::get('/{categoryId}', 'CategoryController@show')->name('show');
@@ -15,7 +11,11 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
 
 Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
     Route::get('/', 'ShopController@index')->name('index');
-    Route::get('/{shopId}', 'ShopController@show')->name('show');
+
+    Route::group(['prefix' => '{shopId}', 'as' => 'product.'], function () {
+        Route::get('/', 'ShopController@show')->name('show');
+        Route::get('/product', 'ShopController@product')->name('product');
+    });
 });
 
 Route::group(['middleware' => [ 'auth:sanctum', 'accessible_by:client' ]], function () {
