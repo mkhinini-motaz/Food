@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         // TODO: implement
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json([ 'status' => 'success', 'data' => [] ], 200);
     }
 
     /**
@@ -29,7 +29,7 @@ class AuthController extends Controller
     {
         // TODO: implement
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json([ 'status' => 'success', 'data' => [] ], 200);
     }
 
     /**
@@ -41,6 +41,6 @@ class AuthController extends Controller
     {
         // TODO: implement
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json([ 'status' => 'success', 'data' => [] ], 200);
     }
 }

@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
         $categories = CategoryRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
 
-        return response()->json(['status' => 'success', 'data' => $categories], 200);
+        return response()->json([ 'status' => 'success', 'data' => $categories ], 200);
     }
 
     /**
@@ -48,7 +48,7 @@ class CategoryController extends Controller
 
         $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection);
 
-        return response()->json(['status' => 'success', 'data' => $products], 200);
+        return response()->json([ 'status' => 'success', 'data' => $products ], 200);
     }
 
     /**
@@ -60,6 +60,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($categoryId, Shop::IS_APPROVED_TRUE);
 
-        return response()->json(['status' => 'success', 'data' => $category], 200);
+        return response()->json([ 'status' => 'success', 'data' => $category ], 200);
     }
 }
