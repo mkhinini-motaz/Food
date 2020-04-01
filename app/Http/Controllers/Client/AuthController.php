@@ -30,15 +30,18 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'login' => 'required',
             'password' => 'required'
         ]);
 
-        $email = $request->get('email');
+        $login = $request->get('login');
         $password = $request->get('password');
 
-
-        $client = Client::where('email', $email)->first();
+        $client = Client::where('email', '=', $login)->first();
+        if (!$client) {
+            $login = preg_replace('#\s#', '', $request->get('login'));
+            $client = Client::where('phone', '=', $login)->first();
+        }
 
         if (!$client || !\Hash::check($password, $client->password)) {
             return response([ 'status' => 'error', 'messages' => ['credentials:wrong'] ], 404);
