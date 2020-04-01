@@ -25,7 +25,7 @@ class CategoryRepository
     }
 
     /**
-     * Paginates categories
+     * Paginate categories
      *
      * @param int $page
      * @param int $perPage
@@ -44,7 +44,7 @@ class CategoryRepository
             $categories->where(fieldsLike($search, 'name'));
         }
 
-        if ($isShopApproved && in_array($isShopApproved, Shop::IS_APPROVED_VALUES)) {
+        if (isset($isShopApproved) && in_array($isShopApproved, Shop::IS_APPROVED_VALUES)) {
             $categories->whereHas('shop', Shop::withIsApprovedEquals($isShopApproved));
         }
 
@@ -56,7 +56,7 @@ class CategoryRepository
     }
 
     /**
-     * Paginates category products
+     * Paginate category products
      *
      * @param int $page
      * @param int $perPage

@@ -24,7 +24,7 @@ class ShopRepository
     }
 
     /**
-     * Paginates shops
+     * Paginate shops
      *
      * @param int $page
      * @param int $perPage
@@ -43,7 +43,7 @@ class ShopRepository
             $shops->where(fieldsLike($search, 'name'));
         }
 
-        if ($isApproved && in_array($isApproved, Shop::IS_APPROVED_VALUES)) {
+        if (isset($isApproved) && in_array($isApproved, Shop::IS_APPROVED_VALUES)) {
             $shops->where('is_approved', '=', $isApproved);
         }
 

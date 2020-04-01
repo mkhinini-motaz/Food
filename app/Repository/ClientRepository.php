@@ -59,25 +59,25 @@ class ClientRepository
      */
     public function update($firstName = null, $lastName = null, $email = null, $password = null, $phone = null, $latitude = null, $longitude = null)
     {
-        if ($firstName) {
+        if (isset($firstName)) {
             $this->client->first_name = $firstName;
         }
-        if ($lastName) {
+        if (isset($lastName)) {
             $this->client->last_name = $lastName;
         }
-        if ($email) {
+        if (isset($email)) {
             $this->client->email = $email;
         }
-        if ($password) {
+        if (isset($password)) {
             $this->client->password = bcrypt($password);
         }
-        if ($phone) {
+        if (isset($phone)) {
             $this->client->phone = preg_replace('#\s#', '', $phone);
         }
-        if ($latitude) {
+        if (isset($latitude)) {
             $this->client->latitude = $latitude;
         }
-        if ($longitude) {
+        if (isset($longitude)) {
             $this->client->longitude = $longitude;
         }
 
