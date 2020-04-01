@@ -42,4 +42,18 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    /**
+     * @param int $categoryId
+     * @param int|null $isShopApproved
+     *
+     * @return Category|null
+     */
+    public static function findOrFail($categoryId, $isShopApproved = null)
+    {
+        if (in_array($isShopApproved, Shop::IS_APPROVED_VALUES)) {
+            return Category::whereHas('shop', Shop::withIsApprovedEquals($isShopApproved))->findOrFail($categoryId);
+        }
+        return parent::findOrFail($categoryId);
+    }
 }

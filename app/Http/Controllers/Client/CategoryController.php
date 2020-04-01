@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Model\Category;
+use App\Model\Shop;
+use App\Repositories\CategoryRepository;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -21,9 +24,9 @@ class CategoryController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
 
-        // TODO: implement
+        $categories = CategoryRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json(['status' => 'success', 'data' => $categories], 200);
     }
 
     /**
@@ -34,15 +37,18 @@ class CategoryController extends Controller
      */
     public function product($categoryId, Request $request)
     {
+        $category = Category::findOrFail($categoryId, Shop::IS_APPROVED_TRUE);
+        $categoryRepository = new CategoryRepository($category);
+
         $page = $request->input('page', null);
         $perPage = $request->input('perPage', null);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
 
-        // TODO: implement
+        $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection);
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json(['status' => 'success', 'data' => $products], 200);
     }
 
     /**
@@ -52,8 +58,8 @@ class CategoryController extends Controller
      */
     public function show($categoryId)
     {
-        // TODO: implement
+        $category = Category::findOrFail($categoryId, Shop::IS_APPROVED_TRUE);
 
-        return response()->json(['status' => 'success', 'data' => []], 200);
+        return response()->json(['status' => 'success', 'data' => $category], 200);
     }
 }

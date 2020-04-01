@@ -1,25 +1,25 @@
 <?php
 
-Route::post('/login', 'AuthController@login');
-Route::post('/register', 'AuthController@register');
+Route::post('/login', 'AuthController@login')->name('login');
+Route::post('/register', 'AuthController@register')->name('register');
 
 Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
-    Route::get('/', 'ProductController@index');
+    Route::get('/', 'ProductController@index')->name('index');
 });
 
-Route::group(['prefix' => '{shopId}/category', 'as' => 'category.'], function () {
-    Route::get('/', 'CategoryController@index');
-    Route::get('/{categoryId}', 'CategoryController@show');
-    Route::get('/{categoryId}/product', 'CategoryController@product');
+Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+    Route::get('/', 'CategoryController@index')->name('index');
+    Route::get('/{categoryId}', 'CategoryController@show')->name('show');
+    Route::get('/{categoryId}/product', 'CategoryController@product')->name('product');
 });
 
 Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
-    Route::get('/', 'ShopController@index');
-    Route::get('/{shopId}', 'ShopController@show');
+    Route::get('/', 'ShopController@index')->name('index');
+    Route::get('/{shopId}', 'ShopController@show')->name('show');
 });
 
 Route::group(['middleware' => ['client']], function () {
-    Route::get('/profile', 'AuthController@profile');
+    Route::get('/profile', 'AuthController@profile')->name('profile');
 
-    Route::post('/order', 'OrderController@create');
+    Route::post('/order', 'OrderController@create')->name('create');
 });

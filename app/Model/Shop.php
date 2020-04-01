@@ -28,6 +28,10 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Shop extends Authenticatable
 {
+    const IS_APPROVED_FALSE = 0;
+    const IS_APPROVED_TRUE = 1;
+    const IS_APPROVED_VALUES = [ self::IS_APPROVED_FALSE, self::IS_APPROVED_TRUE ];
+
     const PRICING_CATEGORY_VERY_LOW = 1;
     const PRICING_CATEGORY_LOW = 2;
     const PRICING_CATEGORY_MEDIUM = 3;
@@ -60,5 +64,17 @@ class Shop extends Authenticatable
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    /**
+     * @param int $isShopApproved
+     *
+     * @return \Closure
+     */
+    public static function withIsApprovedEquals($isShopApproved)
+    {
+        return function ($query) use ($isShopApproved) {
+            $query->where('is_approved', '=', $isShopApproved);
+        };
     }
 }

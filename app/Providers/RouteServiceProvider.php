@@ -83,8 +83,8 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::prefix('api/client')
             ->as('client.')
-            ->middleware(['api', 'client'])
-            ->namespace($this->namespace.'\Client')
+            ->middleware(['api'])
+            ->namespace($this->namespace . '\Client')
             ->group(base_path('routes/client.php'));
     }
 
