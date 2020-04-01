@@ -31,7 +31,7 @@ class AccessibleBy extends Middleware
 
         $user = $request->user();
         if (get_class($user) !== self::MODELS[$model]) {
-            return response()->json([ 'status' => 'error', 'message' => 'token:invalid' ], 403);
+            return response()->json([ 'status' => 'error', 'messages' => ['token:invalid'] ], 403);
         }
 
         return $next($request);

@@ -9,7 +9,9 @@ $factory->define(App\Model\Client::class, function (Faker $faker) {
         'email' => $faker->email,
         'password' => bcrypt('azerty'),
         'phone' => $faker->phoneNumber,
-        'address' => $faker->address,
+        'is_phone_confirmed' => rand(0, 1),
+        'latitude' => $faker->latitude,
+        'longitude' => $faker->longitude,
         'last_login_at' => null,
 
         'created_at' => time(),

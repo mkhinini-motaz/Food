@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string email
  * @property string password
  * @property string phone
- * @property string address
+ * @property string latitude
+ * @property string longitude
  * @property int last_login_at
  *
  * @property int created_at

@@ -12,9 +12,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string first_name
  * @property string last_name
  * @property string email
+ * @property string phone
  * @property string password
  * @property string role
- * @property string phone
  *
  * @property int shop_id
  *

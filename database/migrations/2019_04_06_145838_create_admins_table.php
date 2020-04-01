@@ -20,10 +20,10 @@ class CreateAdminsTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
+            $table->string('email')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->string('password');
             $table->smallInteger('role')->default(Admin::ROLE_VISITOR_ADMIN);
-            $table->string('phone')->nullable();
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

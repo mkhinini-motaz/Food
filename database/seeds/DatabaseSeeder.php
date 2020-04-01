@@ -11,19 +11,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(PromoCodesTableSeeder::class);
-         $this->call(ClientsTableSeeder::class);
-         $this->call(TransportersTableSeeder::class);
-         $this->call(ShopsTableSeeder::class);
-         $this->call(ProductsTableSeeder::class);
-         $this->call(OrdersTableSeeder::class);
-         $this->call(OrderProductTableSeeder::class);
+        factory(\App\Model\Client::class)->create([ 'email' => 'client@test.com' ]);
 
+//        $this->call(PromoCodesTableSeeder::class);
+//        $this->call(ClientsTableSeeder::class);
+//        $this->call(TransportersTableSeeder::class);
+        $this->call(ShopsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
-        $this->call(LocationsTableSeeder::class);
-        $this->call(ShopPaymentsTableSeeder::class);
-        $this->call(ShopUsersTableSeeder::class);
-        $this->call(TransporterPaymentsTableSeeder::class);
-        $this->call(VehiculesTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
+//        $this->call(OrdersTableSeeder::class);
+//        $this->call(OrderProductTableSeeder::class);
+
+//        $this->call(LocationsTableSeeder::class);
+//        $this->call(ShopPaymentsTableSeeder::class);
+//        $this->call(ShopUsersTableSeeder::class);
+//        $this->call(TransporterPaymentsTableSeeder::class);
+//        $this->call(VehiculesTableSeeder::class);
     }
 }

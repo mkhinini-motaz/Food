@@ -20,7 +20,8 @@ class CreateShopUsersTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique()->nullable();
             $table->string('password');
             $table->smallInteger('role')->default(ShopUser::ROLE_OWNER);
             $table->string('phone')->nullable();
