@@ -12,7 +12,6 @@ $factory->define(App\Model\ShopUser::class, function (Faker $faker) {
         'phone' => $faker->phoneNumber,
         'password' => bcrypt('azerty'),
         'role' => $faker->randomElement(App\Model\ShopUser::ROLES),
-        'phone' => $faker->phoneNumber,
 
         'created_at' => time(),
         'updated_at' => time()
