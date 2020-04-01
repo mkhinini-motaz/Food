@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Model\Client;
+
+class ClientRepository
+{
+    /**
+     * @var Client
+     */
+    private $client;
+
+    /**
+     * ClientRepository constructor.
+     *
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param string $password
+     * @param string $phone
+     * @param string|null $latitude
+     * @param string|null $longitude
+     *
+     * @return Client
+     */
+    public static function create($firstName, $lastName, $email, $password, $phone, $latitude = null, $longitude = null)
+    {
+        $client = new Client();
+
+        $client->first_name = $firstName;
+        $client->last_name = $lastName;
+        $client->email = $email;
+        $client->password = bcrypt($password);
+        $client->phone = $phone;
+        $client->latitude = $latitude;
+        $client->longitude = $longitude;
+
+        $client->save();
+        return $client;
+    }
+
+    /**
+     * @param string|null $firstName
+     * @param string|null $lastName
+     * @param string|null $email
+     * @param string|null $password
+     * @param string|null $phone
+     * @param string|null $latitude
+     * @param string|null $longitude
+     */
+    public function update($firstName = null, $lastName = null, $email = null, $password = null, $phone = null, $latitude = null, $longitude = null)
+    {
+        if ($firstName) {
+            $this->client->first_name = $firstName;
+        }
+        if ($lastName) {
+            $this->client->last_name = $lastName;
+        }
+        if ($email) {
+            $this->client->email = $email;
+        }
+        if ($password) {
+            $this->client->password = bcrypt($password);
+        }
+        if ($phone) {
+            $this->client->phone = preg_replace('#\s#', '', $phone);
+        }
+        if ($latitude) {
+            $this->client->latitude = $latitude;
+        }
+        if ($longitude) {
+            $this->client->longitude = $longitude;
+        }
+
+        $this->client->save();
+    }
+}
