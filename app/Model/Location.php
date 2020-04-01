@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Support\Model;
 
 /**
  * Class Location
@@ -21,10 +21,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property Shop shop
  */
-class Location extends Authenticatable
+class Location extends Model
 {
-    protected $dateFormat = 'U';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

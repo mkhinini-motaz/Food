@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Support\Model;
+
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -26,7 +27,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property Collection orders
  * @property Collection products
  */
-class Shop extends Authenticatable
+class Shop extends Model
 {
     const IS_APPROVED_FALSE = 0;
     const IS_APPROVED_TRUE = 1;

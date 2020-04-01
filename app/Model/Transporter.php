@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Support\Authenticatable;
+
 use Illuminate\Database\Eloquent\Collection;
 
 /**

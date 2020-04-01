@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Support;
+
+use Illuminate\Database\Eloquent\Model as BaseModel;
+
+class Model extends BaseModel
+{
+    protected $dateFormat = 'U';
+
+    /**
+     * Add the date attributes to the attributes array.
+     * Overridden to prevent casting dates when toArray is invoked, new in laravel 7
+     *
+     * @param  array  $attributes
+     * @return array
+     */
+    protected function addDateAttributesToArray(array $attributes)
+    {
+        return $attributes;
+    }
+}

@@ -2,8 +2,9 @@
 
 namespace App\Model;
 
+use App\Support\Authenticatable;
+
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 
 /**

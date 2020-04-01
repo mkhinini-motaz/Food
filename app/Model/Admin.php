@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Support\Authenticatable;
+
 use Illuminate\Database\Eloquent\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -32,8 +33,6 @@ class Admin extends Authenticatable
     const ROLE_VISITOR_ADMIN = 20;
 
     const ROLES = [ self::ROLE_SUPER_ADMIN, self::ROLE_VISITOR_ADMIN ];
-
-    protected $dateFormat = 'U';
 
     /**
      * The attributes that should be hidden for arrays.

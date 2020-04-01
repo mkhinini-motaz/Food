@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Support\Model;
+
 use Illuminate\Database\Eloquent\Collection;
 
 /**

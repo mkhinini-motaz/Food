@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Support\Authenticatable;
 
 /**
  * Class ShopUser
