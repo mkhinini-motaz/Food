@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-
 use App\Model\Shop;
 use App\Repositories\ShopRepository;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 
 class ShopController extends Controller

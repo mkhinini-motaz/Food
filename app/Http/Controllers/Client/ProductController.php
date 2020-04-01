@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Model\Shop;
+use App\Repositories\ProductRepository;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -21,8 +23,8 @@ class ProductController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
 
-        // TODO: implement
+        $products = ProductRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
 
-        return response()->json([ 'status' => 'success', 'data' => [] ], 200);
+        return response()->json([ 'status' => 'success', 'data' => $products ], 200);
     }
 }
