@@ -18,7 +18,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
     Route::get('/{shopId}', 'ShopController@show')->name('show');
 });
 
-Route::group(['middleware' => ['client']], function () {
+Route::group(['middleware' => [ 'auth:sanctum', 'accessible_by:client' ]], function () {
     Route::get('/profile', 'AuthController@profile')->name('profile');
 
     Route::post('/order', 'OrderController@create')->name('create');

@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Model\Category;
 use App\Model\Shop;
 
-use function App\Helpers\fieldsLike;
+use function App\Support\Helpers\fieldsLike;
 
 class CategoryRepository
 {

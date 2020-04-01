@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -26,6 +27,8 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Client extends Authenticatable
 {
+    use HasApiTokens;
+
     protected $dateFormat = 'U';
 
     /**

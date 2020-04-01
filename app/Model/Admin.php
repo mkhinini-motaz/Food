@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Admin
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Admin extends Authenticatable
 {
+    use HasApiTokens;
+
     const ROLE_SUPER_ADMIN = 1;
     const ROLE_ADMIN = 2;
     const ROLE_VISITOR_ADMIN = 20;
