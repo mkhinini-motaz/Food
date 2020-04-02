@@ -22,7 +22,5 @@ Route::group(['middleware' => [ 'auth:sanctum', 'accessible_by:client' ]], funct
     Route::get('/profile', 'AuthController@profile')->name('profile');
     Route::post('/profile', 'AuthController@updateProfile')->name('profile.update');
 
-    // TODO: phone number confirmation routes
-
     Route::post('/order', 'OrderController@create')->name('create');
 });
