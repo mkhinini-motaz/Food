@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -25,15 +26,26 @@ class RegisterRequest extends FormRequest
     {
 // TODO: handle facebook auth case
 
+        $phoneCode = $this->request->get('phone_code');
         return [
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'email'      => 'required|unique:clients,email',
-            'password'   => 'required|confirmed',
-            'phone'      => [ 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/' ],
-// TODO: phone confirmation
+            'first_name' => 'required|max:190',
+            'last_name'  => 'required|max:190',
+            'email'      => 'unique:clients,email|max:190',
+            'password'   => 'required|confirmed|max:190',
             'latitude'   => 'required_with:longitude|numeric|between:-90,90',
             'longitude'  => 'required_with:latitude|numeric|between:-180,180',
+            'phone_code' => 'required_with:phone|max:10',
+            'phone'      => [
+                'required',
+                'max:50',
+                'unique:clients,phone',
+                'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/',
+                function($attribute, $value, $fail) use ($phoneCode) {
+                    if (PhoneValidationRepository::isNotValid($value, $phoneCode)) {
+                        $fail('phone.code');
+                    }
+                }
+            ],
         ];
     }
 }

@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function profile(Request $request)
     {
-        return response()->json([ 'status' => 'success', 'data' => $request->user() ], 200);
+        return response()->json([ 'status' => 'success', 'data' => auth()->user() ], 200);
     }
 
     /**
@@ -61,7 +61,7 @@ class AuthController extends Controller
     {
         $firstName = $request->input('first_name');
         $lastName  = $request->input('last_name');
-        $email     = $request->input('email');
+        $email     = $request->input('email', null);
         $password  = $request->input('password');
         $phone     = $request->input('phone');
         $latitude  = $request->input('latitude', null);
