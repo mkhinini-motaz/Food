@@ -21,7 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();
-            $table->string('phone', 50)->unique()->nullable();
+            $table->string('phone', 52)->unique()->nullable();
             $table->string('password');
             $table->smallInteger('role')->default(Admin::ROLE_VISITOR_ADMIN);
 

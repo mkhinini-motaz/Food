@@ -20,7 +20,7 @@ class CreateTransportersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('password');
-            $table->string('phone', 50)->unique();
+            $table->string('phone', 52)->unique();
             $table->string('email')->unique()->nullable();
             $table->string('shift_start_time', 10);
             $table->string('shift_end_time', 10);
