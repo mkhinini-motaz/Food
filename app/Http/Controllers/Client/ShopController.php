@@ -34,6 +34,28 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function category($shopId, Request $request)
+    {
+        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
+        $shopRepository = new ShopRepository($shop);
+
+        $page = $request->input('page', null);
+        $perPage = $request->input('perPage', null);
+        $orderBy = $request->input('orderBy', 'created_at');
+        $orderDirection = $request->input('orderDirection', 'desc');
+        $search = $request->input('search', null);
+
+        $products = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
+
+        return response()->json([ 'status' => 'success', 'data' => $products ], 200);
+    }
+
+    /**
+     * @param int $shopId
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function product($shopId, Request $request)
     {
         $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);

@@ -84,4 +84,30 @@ class ShopRepository
 
         return $products->paginate($perPage, ['*'], 'page', $page);
     }
+
+    /**
+     * Paginate categories
+     *
+     * @param int $page
+     * @param int $perPage
+     * @param string|null $search
+     * @param string $orderBy
+     * @param string $orderDirection
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginateCategories($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
+    {
+        $categories = $this->shop->categories();
+
+        if (isset($search)) {
+            $categories->where(fieldsLike($search, 'name'));
+        }
+
+        if (isset($orderBy) && isset($orderDirection)) {
+            $categories->orderBy($orderBy, $orderDirection);
+        }
+
+        return $categories->paginate($perPage, ['*'], 'page', $page);
+    }
 }

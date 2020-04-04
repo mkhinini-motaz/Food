@@ -14,6 +14,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
 
     Route::group(['prefix' => '{shopId}', 'as' => 'product.'], function () {
         Route::get('/', 'ShopController@show')->name('show');
+        Route::get('/category', 'ShopController@category')->name('category');
         Route::get('/product', 'ShopController@product')->name('product');
     });
 });
