@@ -17,8 +17,8 @@ class ShopController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->input('page', null);
-        $perPage = $request->input('perPage', null);
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
@@ -39,8 +39,8 @@ class ShopController extends Controller
         $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
         $shopRepository = new ShopRepository($shop);
 
-        $page = $request->input('page', null);
-        $perPage = $request->input('perPage', null);
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
@@ -61,8 +61,8 @@ class ShopController extends Controller
         $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
         $shopRepository = new ShopRepository($shop);
 
-        $page = $request->input('page', null);
-        $perPage = $request->input('perPage', null);
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);

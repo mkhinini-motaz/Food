@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Model\Product::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
+        'name' => $faker->city,
         'description' => $faker->sentence(10, false),
         'photo' => $faker->imageUrl(),
         'price' => rand(1, 250) * 100,

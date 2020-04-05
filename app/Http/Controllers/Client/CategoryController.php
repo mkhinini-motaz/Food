@@ -18,8 +18,8 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->input('page', null);
-        $perPage = $request->input('perPage', null);
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
@@ -40,8 +40,8 @@ class CategoryController extends Controller
         $category = Category::findOrFail($categoryId, Shop::IS_APPROVED_TRUE);
         $categoryRepository = new CategoryRepository($category);
 
-        $page = $request->input('page', null);
-        $perPage = $request->input('perPage', null);
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
