@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property int id
  * @property string name
  * @property string description
+ * @property string brand
  * @property string photo
  * @property int weight
  * @property int height
