@@ -67,8 +67,9 @@ class ShopController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
         $categoryIds = $request->input('category_ids', []);
+        $productIds = $request->input('product_ids', []);
 
-        $products = $shopRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection, $categoryIds);
+        $products = $shopRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection, $categoryIds, $productIds);
 
         return response()->json([ 'status' => 'success', 'data' => $products ], 200);
     }

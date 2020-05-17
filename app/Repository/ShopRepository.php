@@ -63,15 +63,20 @@ class ShopRepository
      * @param string $orderBy
      * @param string $orderDirection
      * @param array|null $categoryIds
+     * @param array|null $productIds
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $categoryIds = null)
+    public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $categoryIds = null, $productIds = null)
     {
         $products = $this->shop->products();
 
         if (isset($search)) {
             $products->where(fieldsLike($search, 'name'));
+        }
+
+        if (isset($productIds) && is_array($productIds) && count($productIds) !== 0) {
+            $products->whereIn('products.id', $productIds);
         }
 
         if (isset($categoryIds) && is_array($categoryIds) && count($categoryIds) !== 0) {
