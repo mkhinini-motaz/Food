@@ -15,55 +15,55 @@ class CategoriesTableSeeder extends Seeder
         factory(\App\Model\Category::class)->create([
             'name' => 'Eau et Boissons',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/boisson.jpg',
+            'photo' => 'example/categorie/boisson.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Conserves',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/conserves.jpg',
+            'photo' => 'example/categorie/conserves.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Pates, riz semoule, chorba',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/pates.jpg',
+            'photo' => 'example/categorie/pates.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Boulangerie',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/boulangerie.jpg',
+            'photo' => 'example/categorie/boulangerie.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Surgelé',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/surgele.jpg',
+            'photo' => 'example/categorie/surgele.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Maison',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/maison.jpg',
+            'photo' => 'example/categorie/maison.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Hygiéne',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/hygiene.jpg',
+            'photo' => 'example/categorie/hygiene.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Petit déjeuner',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/petit dej.jpg',
+            'photo' => 'example/categorie/petit dej.jpg',
         ]);
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Sucrerie et chocolat',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'uploads/categorie/chocolat.jpg',
+            'photo' => 'example/categorie/chocolat.jpg',
         ]);
 
     }
