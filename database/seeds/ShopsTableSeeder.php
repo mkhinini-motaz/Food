@@ -10,6 +10,7 @@ class ShopsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\Shop::class, 2)->create();
+        factory(\App\Model\Shop::class)->create([ 'is_approved' => true ]);
+        factory(\App\Model\Shop::class)->create([ 'is_approved' => false ]);
     }
 }
