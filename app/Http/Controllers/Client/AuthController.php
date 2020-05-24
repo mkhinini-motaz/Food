@@ -40,12 +40,12 @@ class AuthController extends Controller
         $client = Client::where('phone', '=', $phone)->first();
 
         if (!$client || !\Hash::check($password, $client->password)) {
-            return response([ 'status' => 'error', 'messages' => ['credentials:wrong'] ], 404);
+            return response([ 'status' => 'error', 'messages' => ['credentials:wrong'] ], 403);
         }
 
-        $token = $client->createToken('client')->plainTextToken;
+        $client->access_token = $client->createToken('client')->plainTextToken;
 
-        return response()->json([ 'status' => 'success', 'access_token' => $token, 'data' => $client ], 200);
+        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
     }
 
     /**
