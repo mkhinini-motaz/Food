@@ -10,7 +10,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $description = 'Hallo, ich bin eine Beschreibung ';
+        $description = 'Hello, i am a category';
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Eau et Boissons',
@@ -66,5 +66,12 @@ class CategoriesTableSeeder extends Seeder
             'photo' => 'example/categorie/chocolat.jpg',
         ]);
 
+        if (env('APP_ENV') === 'local') {
+            factory(\App\Model\Category::class)->create([
+                'name' => 'Test pagination category',
+                'description' => str_repeat($description, rand(1, 6)),
+                'photo' => '',
+            ]);
+        }
     }
 }

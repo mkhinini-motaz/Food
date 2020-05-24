@@ -10,6 +10,11 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\Client::class, 10)->create();
+        factory(\App\Model\Client::class)->create([
+            'phone' => '+21611111111',
+            'email' => 'client@test.com',
+            'password' => bcrypt('azerty'),
+            'is_phone_confirmed' => 1,
+        ]);
     }
 }

@@ -21,6 +21,7 @@ class ProductsTableSeeder extends Seeder
         $categoryHygieneId = $categories->where('name', '=', 'Hygiéne')->first()->id;
         $categoryPetitDejId = $categories->where('name', '=', 'Petit déjeuner')->first()->id;
         $categorySucrerieId = $categories->where('name', '=', 'Sucrerie et chocolat')->first()->id;
+        $testPaginationCategoryId = $categories->where('name', '=', 'Test pagination category')->first()->id;
 
 
         factory(\App\Model\Product::class)->create([
@@ -66,9 +67,9 @@ class ProductsTableSeeder extends Seeder
             'price' => 8000,
         ]);
         factory(\App\Model\Product::class)->create([
-            'name' => 'Chocolat tartiné noisette 150Gr',
+            'name' => 'Chocolat tartiné 150Gr',
             'brand' => 'Vanoise',
-            'photo' => 'example/product/Chocolat tartiné noisette 150 Vanoise.jpg',
+            'photo' => 'example/product/Chocolat tartiné 150gr Vanoise.jpg',
             'category_id' => $categoryPetitDejId,
             'price' => 3200,
         ]);
@@ -314,14 +315,14 @@ class ProductsTableSeeder extends Seeder
             'name' => 'Thon lot de 3',
             'brand' => 'El badr',
             'photo' => 'example/product/Thon El Badr lot 3.jpg',
-            'category_id' => $categoryPatesRiZChorbaId, // TODO: find better category
+            'category_id' => $categoryConservesId,
             'price' => 13500,
         ]);
         factory(\App\Model\Product::class)->create([
             'name' => 'Thon',
             'brand' => 'Matanza',
             'photo' => 'example/product/Thon Matanza.jpg',
-            'category_id' => $categoryPatesRiZChorbaId, // TODO: find better category
+            'category_id' => $categoryConservesId,
             'price' => 4200,
         ]);
         factory(\App\Model\Product::class)->create([
@@ -380,5 +381,9 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPatesRiZChorbaId, // TODO: find better category
             'price' => 14500,
         ]);
+
+        if (env('APP_ENV') === 'local') {
+            factory(\App\Model\Product::class, 500)->create([ 'category_id' => $testPaginationCategoryId ]);
+        }
     }
 }
