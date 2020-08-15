@@ -29,8 +29,6 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Client extends Authenticatable
 {
-    use HasApiTokens;
-
     protected $dateFormat = 'U';
 
     /**

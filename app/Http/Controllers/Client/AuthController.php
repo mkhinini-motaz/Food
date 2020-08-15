@@ -30,20 +30,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'phone' => 'required',
+            'phone'    => 'required',
             'password' => 'required'
         ]);
 
-        $phone = preg_replace('#\s#', '', $request->get('phone'));
-        $password = $request->get('password');
+        $phone       = preg_replace('#\s#', '', $request->get('phone'));
+        $password    = $request->get('password');
+        $credentials = compact('phone', 'password');
 
-        $client = Client::where('phone', '=', $phone)->first();
-
-        if (!$client || !\Hash::check($password, $client->password)) {
-            return response([ 'status' => 'error', 'messages' => ['credentials:wrong'] ], 403);
+        if (! $token = auth('clients')->attempt($credentials)) {
+            return response()->json([ 'error' => 'Unauthorized' ], 401);
         }
 
-        $client->access_token = $client->createToken('client')->plainTextToken;
+        $client = auth()->user(); // TODO: do shouldUse guard globally for folder
+        $client->access_token = $token;
 
         return response()->json([ 'status' => 'success', 'data' => $client ], 200);
     }
