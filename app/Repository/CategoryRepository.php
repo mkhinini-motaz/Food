@@ -7,6 +7,8 @@ use App\Model\Shop;
 
 use function App\Support\Helpers\fieldsLike;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 class CategoryRepository
 {
     /**
@@ -27,14 +29,14 @@ class CategoryRepository
     /**
      * Paginate categories
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int         $page
+     * @param int         $perPage
      * @param string|null $search
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param int|null $isShopApproved
+     * @param string      $orderBy
+     * @param string      $orderDirection
+     * @param int|null    $isShopApproved
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public static function paginate($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $isShopApproved = null)
     {
@@ -52,17 +54,17 @@ class CategoryRepository
             $categories->orderBy($orderBy, $orderDirection);
         }
 
-        return $categories->paginate($perPage, ['*'], 'page', $page);
+        return $categories->paginate($perPage, [ '*' ], 'page', $page);
     }
 
     /**
      * Paginate category products
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int         $page
+     * @param int         $perPage
      * @param string|null $search
-     * @param string $orderBy
-     * @param string $orderDirection
+     * @param string      $orderBy
+     * @param string      $orderDirection
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -78,6 +80,6 @@ class CategoryRepository
             $products->orderBy($orderBy, $orderDirection);
         }
 
-        return $products->paginate($perPage, ['*'], 'page', $page);
+        return $products->paginate($perPage, [ '*' ], 'page', $page);
     }
 }

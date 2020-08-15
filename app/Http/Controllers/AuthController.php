@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Repositories\PhoneValidationRepository;
 use App\Support\AwsSnsClient;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function validatePhone(Request $request)
     {

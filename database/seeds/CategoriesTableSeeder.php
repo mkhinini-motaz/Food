@@ -10,7 +10,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $description = 'Hello, i am a category';
+        $description = 'Hello, i am a category. ';
 
         factory(\App\Model\Category::class)->create([
             'name' => 'Eau et Boissons',

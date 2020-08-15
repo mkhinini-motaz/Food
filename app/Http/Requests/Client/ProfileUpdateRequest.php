@@ -26,7 +26,7 @@ class ProfileUpdateRequest extends FormRequest
     {
 // TODO: handle facebook auth case
 
-        $phoneCode = $this->request->get('phone_code');
+        $phoneConfirmation = $this->request->get('phone_confirmation');
         return [
             'first_name' => 'max:190',
             'last_name'  => 'max:190',
@@ -39,8 +39,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:50',
                 'unique:clients,phone,' . auth()->user()->id,
                 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/',
-                function($attribute, $value, $fail) use ($phoneCode) {
-                    if (PhoneValidationRepository::isNotValid($value, $phoneCode)) {
+                function($attribute, $value, $fail) use ($phoneConfirmation) {
+                    if (PhoneValidationRepository::isNotValid($value, $phoneConfirmation)) {
                         $fail('phone.code');
                     }
                 }

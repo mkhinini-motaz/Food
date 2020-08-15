@@ -6,6 +6,8 @@ use App\Model\Shop;
 
 use function App\Support\Helpers\fieldsLike;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 class ShopRepository
 {
     /**
@@ -26,14 +28,14 @@ class ShopRepository
     /**
      * Paginate shops
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int         $page
+     * @param int         $perPage
      * @param string|null $search
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param int|null $isApproved
+     * @param string      $orderBy
+     * @param string      $orderDirection
+     * @param bool|null   $isApproved
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public static function paginate($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $isApproved = null)
     {
@@ -51,21 +53,21 @@ class ShopRepository
             $shops->orderBy($orderBy, $orderDirection);
         }
 
-        return $shops->paginate($perPage, ['*'], 'page', $page);
+        return $shops->paginate($perPage, [ '*' ], 'page', $page);
     }
 
     /**
      * Paginate products
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int         $page
+     * @param int         $perPage
      * @param string|null $search
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param array|null $categoryIds
-     * @param array|null $productIds
+     * @param string      $orderBy
+     * @param string      $orderDirection
+     * @param array|null  $categoryIds
+     * @param array|null  $productIds
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $categoryIds = null, $productIds = null)
     {
@@ -87,19 +89,19 @@ class ShopRepository
             $products->orderBy($orderBy, $orderDirection);
         }
 
-        return $products->paginate($perPage, ['*'], 'page', $page);
+        return $products->paginate($perPage, [ '*' ], 'page', $page);
     }
 
     /**
      * Paginate categories
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int         $page
+     * @param int         $perPage
      * @param string|null $search
-     * @param string $orderBy
-     * @param string $orderDirection
+     * @param string      $orderBy
+     * @param string      $orderDirection
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function paginateCategories($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
     {
@@ -113,6 +115,6 @@ class ShopRepository
             $categories->orderBy($orderBy, $orderDirection);
         }
 
-        return $categories->paginate($perPage, ['*'], 'page', $page);
+        return $categories->paginate($perPage, [ '*' ], 'page', $page);
     }
 }

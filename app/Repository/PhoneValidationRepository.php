@@ -14,13 +14,15 @@ class PhoneValidationRepository
      */
     public static function create($phone, $validationCode)
     {
-        \DB::table(self::TABLE_NAME)->where('phone', '=',$phone)->delete();
+        \DB::table(self::TABLE_NAME)
+            ->where('phone', '=', $phone)
+            ->delete();
 
         return \DB::table(self::TABLE_NAME)->insert([
-            'phone' => $phone,
+            'phone'           => $phone,
+            'expire_at'       => strtotime('+5 minutes'),
+            'created_at'      => time(),
             'validation_code' => $validationCode,
-            'expire_at' => strtotime('+5 minutes'),
-            'created_at' => time(),
         ]);
     }
 
@@ -33,7 +35,7 @@ class PhoneValidationRepository
     public static function isValid($phone, $validationCode)
     {
         return 1 === \DB::table(self::TABLE_NAME)
-            ->where('phone', '=',$phone)
+            ->where('phone', '=', $phone)
             ->where('validation_code', '=', $validationCode)
             ->where('expire_at', '>=', time())
             ->count();
@@ -47,8 +49,6 @@ class PhoneValidationRepository
      */
     public static function isNotValid($phone, $validationCode)
     {
-        return !self::isValid($phone, $validationCode);
+        return ! self::isValid($phone, $validationCode);
     }
-
-
 }

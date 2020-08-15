@@ -4,8 +4,6 @@ namespace App\Repositories;
 
 use App\Model\Product;
 
-use function App\Support\Helpers\fieldsLike;
-
 class ProductRepository
 {
     /**

@@ -22,11 +22,11 @@ class ClientRepository
     }
 
     /**
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $email
-     * @param string $password
-     * @param string $phone
+     * @param string      $firstName
+     * @param string      $lastName
+     * @param string      $email
+     * @param string      $password
+     * @param string      $phone
      * @param string|null $latitude
      * @param string|null $longitude
      *
@@ -36,13 +36,13 @@ class ClientRepository
     {
         $client = new Client();
 
+        $client->email      = $email;
+        $client->phone      = $phone;
+        $client->password   = bcrypt($password);
+        $client->latitude   = $latitude;
+        $client->longitude  = $longitude;
+        $client->last_name  = $lastName;
         $client->first_name = $firstName;
-        $client->last_name = $lastName;
-        $client->email = $email;
-        $client->password = bcrypt($password);
-        $client->phone = $phone;
-        $client->latitude = $latitude;
-        $client->longitude = $longitude;
 
         $client->save();
         return $client;
@@ -59,6 +59,8 @@ class ClientRepository
      */
     public function update($firstName = null, $lastName = null, $email = null, $password = null, $phone = null, $latitude = null, $longitude = null)
     {
+// TODO: handle nullable fields
+
         if (isset($firstName)) {
             $this->client->first_name = $firstName;
         }

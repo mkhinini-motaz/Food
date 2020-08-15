@@ -4,14 +4,14 @@ namespace App\Model;
 
 use App\Support\Authenticatable;
 
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Client
  * @package App\Model
  *
- * @property int id
+ * @property int    id
  * @property string first_name
  * @property string last_name
  * @property string email
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string phone
  * @property string latitude
  * @property string longitude
- * @property int last_login_at
+ * @property int    last_login_at
  *
  * @property int created_at
  * @property int updated_at
@@ -41,7 +41,7 @@ class Client extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function orders()
     {

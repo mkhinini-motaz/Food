@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
-use App\Model\Client;
 use App\Repositories\ClientRepository;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function profile(Request $request)
     {
@@ -25,7 +25,7 @@ class AuthController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(Request $request)
     {
@@ -51,17 +51,17 @@ class AuthController extends Controller
     /**
      * @param RegisterRequest $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function register(RegisterRequest $request)
     {
-        $firstName = $request->input('first_name');
-        $lastName  = $request->input('last_name');
         $email     = $request->input('email', null);
-        $password  = $request->input('password');
         $phone     = $request->input('phone');
+        $password  = $request->input('password');
+        $lastName  = $request->input('last_name');
         $latitude  = $request->input('latitude', null);
         $longitude = $request->input('longitude', null);
+        $firstName = $request->input('first_name');
 
         $client = ClientRepository::create($firstName, $lastName, $email, $password, $phone, $latitude, $longitude);
         $token = $client->createToken('client')->plainTextToken;
@@ -72,17 +72,17 @@ class AuthController extends Controller
     /**
      * @param ProfileUpdateRequest $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function updateProfile(ProfileUpdateRequest $request)
     {
-        $firstName = $request->input('first_name', null);
-        $lastName  = $request->input('last_name', null);
         $email     = $request->input('email', null);
-        $password  = $request->input('password', null);
         $phone     = $request->input('phone', null);
+        $password  = $request->input('password', null);
+        $lastName  = $request->input('last_name', null);
         $latitude  = $request->input('latitude', null);
         $longitude = $request->input('longitude', null);
+        $firstName = $request->input('first_name', null);
 
         $client = auth()->user();
         $clientRepository = new ClientRepository($client);
