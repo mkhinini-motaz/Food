@@ -21,11 +21,13 @@ class CreateProductsTable extends Migration
             $table->smallInteger('type')->comment('@see Product::TYPES');
             $table->string('brand')->nullable()->comment('manufacturer');
             $table->string('photo')->default('default image link'); // TODO: define default image
+            $table->integer('price')->comment('In tunisian mellimes');
+            $table->tinyInteger('is_visible')->default(0);
+
             $table->mediumInteger('weight')->comment('In grams');
             $table->mediumInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
             $table->mediumInteger('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
             $table->mediumInteger('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
-            $table->integer('price')->comment('In tunisian mellimes');
 
             $table->unsignedInteger('category_id');
 

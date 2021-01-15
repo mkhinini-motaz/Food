@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property int width
  * @property int length
  * @property int price
+ * @property bool is_visible
  *
  * @property string category_id
  *

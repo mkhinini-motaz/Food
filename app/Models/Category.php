@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Category
@@ -14,6 +16,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string name
  * @property string description
  * @property string photo
+ * @property bool is_visible
  *
  * @property int shop_id
  *
@@ -29,7 +32,7 @@ class Category extends Model
     protected $dateFormat = 'U';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function shop()
     {
@@ -37,7 +40,7 @@ class Category extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return HasMany
      */
     public function products()
     {

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property string brand
  * @property string photo
  * @property int price
+ * @property bool is_visible
  *
  * @property string product_item_category_id
  *

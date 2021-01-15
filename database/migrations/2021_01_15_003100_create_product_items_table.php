@@ -21,6 +21,7 @@ class CreateProductItemsTable extends Migration
             $table->string('brand')->comment('manufacturer');
             $table->string('photo')->default('default image link'); // TODO: define default image
             $table->integer('price')->comment('In tunisian mellimes');
+            $table->tinyInteger('is_visible')->default(0);
 
             $table->unsignedInteger('product_item_category_id');
 

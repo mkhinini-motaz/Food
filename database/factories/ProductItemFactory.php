@@ -12,6 +12,7 @@ $factory->define(App\Models\ProductItem::class, function (Faker $faker) {
         'photo' => \App\Models\ProductItemCategory::first()->photo,
         'price' => rand(1, 250) * 100,
         'product_item_category_id' => $productItemCategoryId,
+        'is_visible' => 1,
 
         'created_at' => time(),
         'updated_at' => time()

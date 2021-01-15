@@ -19,6 +19,7 @@ class CreateProductItemCategoriesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('photo');
+            $table->tinyInteger('is_visible')->default(0);
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

@@ -17,6 +17,7 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
         'length' => rand(1, 50),
         'height' => rand(1, 50),
         'category_id' => $categoryId,
+        'is_visible' => 1,
 
         'created_at' => time(),
         'updated_at' => time()

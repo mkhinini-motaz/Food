@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string name
  * @property string description
  * @property string photo
+ * @property bool is_visible
  *
  * @property int product_id
  *
