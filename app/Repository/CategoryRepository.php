@@ -66,11 +66,12 @@ class CategoryRepository
      * @param string      $orderBy
      * @param string      $orderDirection
      *
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
     {
-        $products = $this->category->products();
+        $products = $this->category->products()
+            ->with('productItemCategories.productItems');
 
         if (isset($search)) {
             $products->where(fieldsLike($search));

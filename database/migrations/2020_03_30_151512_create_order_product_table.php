@@ -14,6 +14,7 @@ class CreateOrderProductTable extends Migration
     public function up()
     {
         Schema::create('order_product', function (Blueprint $table) {
+            $table->increments('id');
             $table->smallInteger('count');
 
             $table->unsignedInteger('order_id');
@@ -28,8 +29,6 @@ class CreateOrderProductTable extends Migration
                 ->onDelete('restrict')
                 ->references('id')
                 ->on('products');
-
-            $table->primary([ 'order_id', 'product_id' ]);
         });
     }
 

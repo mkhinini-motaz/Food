@@ -6,6 +6,7 @@ use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
@@ -59,10 +60,18 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function productItemCategories()
+    {
+        return $this->belongsToMany(ProductItemCategory::class);
     }
 }

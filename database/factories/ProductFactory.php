@@ -7,9 +7,10 @@ $factory->define(App\Models\Product::class, function (Faker $faker) {
 
     return [
         'name' => $faker->city,
+        'type' => $faker->randomElement(\App\Models\Product::TYPES),
         'description' => $faker->sentence(10, false),
-        'brand' => $faker->sentence(3),
-        'photo' => \DB::table('categories')->where('id', $categoryId)->select('photo')->first()->photo,
+        'brand' => null,
+        'photo' => \App\Models\Category::first()->photo,
         'price' => rand(1, 250) * 100,
         'weight' => rand(1, 500) * 100,
         'width' => rand(1, 50),

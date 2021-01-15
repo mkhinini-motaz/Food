@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->smallInteger('type')->comment('@see Product::TYPES');
-            $table->string('brand')->comment('manufacturer');
+            $table->string('brand')->nullable()->comment('manufacturer');
             $table->string('photo')->default('default image link'); // TODO: define default image
             $table->mediumInteger('weight')->comment('In grams');
             $table->mediumInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products

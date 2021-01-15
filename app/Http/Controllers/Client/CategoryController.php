@@ -7,6 +7,7 @@ use App\Models\Shop;
 use App\Repositories\CategoryRepository;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,7 @@ class CategoryController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -33,7 +34,7 @@ class CategoryController extends Controller
      * @param int $categoryId
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function product($categoryId, Request $request)
     {
@@ -54,7 +55,7 @@ class CategoryController extends Controller
     /**
      * @param int $categoryId
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($categoryId)
     {
