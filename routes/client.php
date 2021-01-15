@@ -19,7 +19,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
     });
 });
 
-Route::group(['middleware' => [ 'auth:sanctum', 'accessible_by:client' ]], function () {
+Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
     Route::get('/profile', 'AuthController@profile')->name('profile');
     Route::post('/profile', 'AuthController@updateProfile')->name('profile.update');
 

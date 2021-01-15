@@ -38,4 +38,32 @@ class AuthController extends Controller
 
         return response()->json([ 'status' => 'success' ], 200);
     }
+
+
+    /**
+     * @param string  $guard
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public static function login($guard, Request $request)
+    {
+        $request->validate([
+            'phone'    => 'required',
+            'password' => 'required'
+        ]);
+
+        $phone       = preg_replace('#\s#', '', $request->get('phone'));
+        $password    = $request->get('password');
+        $credentials = compact('phone', 'password');
+
+        if (! $token = auth($guard)->attempt($credentials)) {
+            return response()->json([ 'status' => 'error', 'message' => 'Unauthorized' ], 401);
+        }
+
+        $client = auth($guard)->user(); // TODO: do shouldUse guard globally for folder
+        $client->access_token = $token;
+
+        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
+    }
 }

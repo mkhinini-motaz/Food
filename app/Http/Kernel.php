@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'accessible_by' => \App\Http\Middleware\AccessibleBy::class,
+        'authClient' => \App\Http\Middleware\AuthenticateClient::class,
     ];
 
     /**

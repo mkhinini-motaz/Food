@@ -39,6 +39,8 @@ class Authenticatable extends User implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'entity' => get_called_class(),
+        ];
     }
 }

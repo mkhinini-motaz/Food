@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard'     => 'clients',
-        'passwords' => 'clients',
+        'guard'     => 'client',
+        'passwords' => 'client',
     ],
 
     /*
@@ -36,8 +36,13 @@ return [
     */
 
     'guards' => [
-        'clients' => [
-            'provider' => 'clients',
+        'client' => [
+            'provider' => 'client',
+            'driver'   => 'jwt',
+            'hash'     => false,
+        ],
+        'shop' => [
+            'provider' => 'shop',
             'driver'   => 'jwt',
             'hash'     => false,
         ],
@@ -61,9 +66,13 @@ return [
     */
 
     'providers' => [
-        'clients' => [
-            'model'  => App\Models\Client::class,
+        'client' => [
             'driver' => 'eloquent',
+            'model'  => App\Models\Client::class,
+        ],
+        'shop' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\ShopUser::class,
         ],
     ],
 
@@ -83,8 +92,13 @@ return [
     */
 
     'passwords' => [
-        'clients' => [
-            'provider' => 'clients',
+        'client' => [
+            'provider' => 'client',
+            'table'    => 'password_resets',
+            'expire'   => 60,
+        ],
+        'shop' => [
+            'provider' => 'shop',
             'table'    => 'password_resets',
             'expire'   => 60,
         ],
