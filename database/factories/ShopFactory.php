@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\Shop::class, function (Faker $faker) {
+$factory->define(App\Models\Shop::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'logo' => $faker->imageUrl(),

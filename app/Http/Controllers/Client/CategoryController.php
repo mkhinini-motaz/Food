@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Model\Category;
-use App\Model\Shop;
+use App\Models\Category;
+use App\Models\Shop;
 use App\Repositories\CategoryRepository;
 use App\Http\Controllers\Controller;
 

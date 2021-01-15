@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\Product::class, function (Faker $faker) {
+$factory->define(App\Models\Product::class, function (Faker $faker) {
     $categoryId = rand(1, 9);
 
     return [

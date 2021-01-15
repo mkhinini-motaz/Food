@@ -10,6 +10,6 @@ class ShopPaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\ShopPayment::class, 10)->create();
+        factory(\App\Models\ShopPayment::class, 10)->create();
     }
 }

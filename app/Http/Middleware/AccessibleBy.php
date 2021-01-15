@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Model\Admin;
-use App\Model\Client;
+use App\Models\Admin;
+use App\Models\Client;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 

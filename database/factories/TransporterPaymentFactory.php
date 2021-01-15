@@ -2,9 +2,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\TransporterPayment::class, function (Faker $faker) {
+$factory->define(App\Models\TransporterPayment::class, function (Faker $faker) {
     return [
-        'transporter_id' => App\Model\Transporter::query()->first()->id,
+        'transporter_id' => App\Models\Transporter::query()->first()->id,
 
         'name' => $faker->name,
         'description' => $faker->sentence(10, false),

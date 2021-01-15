@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Model\Shop;
+use App\Models\Shop;
 use App\Repositories\ProductRepository;
 use App\Http\Controllers\Controller;
 

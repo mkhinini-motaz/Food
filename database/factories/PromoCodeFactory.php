@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\PromoCode::class, function (Faker $faker) {
+$factory->define(App\Models\PromoCode::class, function (Faker $faker) {
     return [
         'code' => $faker->postcode,
         'expires_at' => rand(time(), strtotime('+ 4 months')),

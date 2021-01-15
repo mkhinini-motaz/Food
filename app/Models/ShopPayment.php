@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use App\Support\Model;
 
 /**
- * Class Location
+ * Class ShopPayment
  * @package App\Model
  *
  * @property int id
  * @property string name
- * @property string latitude
- * @property string longitude
+ * @property string description
+ * @property integer amount
  *
  * @property int shop_id
  *
@@ -21,10 +21,12 @@ use App\Support\Model;
  *
  * @property Shop shop
  */
-class Location extends Model
+class ShopPayment extends Model
 {
+    protected $dateFormat = 'U';
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function shop()
     {

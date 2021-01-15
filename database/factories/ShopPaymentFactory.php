@@ -2,9 +2,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\ShopPayment::class, function (Faker $faker) {
+$factory->define(App\Models\ShopPayment::class, function (Faker $faker) {
     return [
-        'shop_id' => App\Model\Shop::query()->first()->id,
+        'shop_id' => App\Models\Shop::query()->first()->id,
 
         'name' => $faker->name,
         'description' => $faker->sentence(10, false),

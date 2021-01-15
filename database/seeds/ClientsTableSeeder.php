@@ -10,7 +10,7 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\Client::class)->create([
+        factory(\App\Models\Client::class)->create([
             'phone' => '+21611111111',
             'email' => 'client@test.com',
             'password' => bcrypt('azerty'),

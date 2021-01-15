@@ -2,9 +2,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Model\Category::class, function (Faker $faker) {
+$factory->define(App\Models\Category::class, function (Faker $faker) {
     return [
-        'shop_id' => App\Model\Shop::query()->first()->id,
+        'shop_id' => App\Models\Shop::query()->first()->id,
 
         'name' => $faker->word,
         'description' => $faker->sentence(12, false),

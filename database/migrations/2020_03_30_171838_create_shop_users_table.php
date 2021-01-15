@@ -1,6 +1,6 @@
 <?php
 
-use App\Model\ShopUser;
+use App\Models\ShopUser;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

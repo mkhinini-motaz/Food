@@ -1,6 +1,6 @@
 <?php
 
-use App\Model\Admin;
+use App\Models\Admin;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

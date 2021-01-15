@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Model\Product;
+use App\Models\Product;
 
 class ProductRepository
 {

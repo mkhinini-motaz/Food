@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Model\Shop;
+use App\Models\Shop;
 
 use function App\Support\Helpers\fieldsLike;
 
