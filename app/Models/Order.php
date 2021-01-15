@@ -5,19 +5,20 @@ namespace App\Models;
 use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Shop
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string logo
  * @property string phone
- * @property int pricing_category
- * @property int min_order_price
+ * @property int    min_order_price
  * @property string average_ready_minutes
- * @property bool is_approved
+ * @property bool   is_approved
  *
  * @property int client_id
  * @property int location_id
@@ -36,20 +37,20 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Order extends Model
 {
-    const STATUS_NEW = 1;
-    const STATUS_ACCEPTED_BY_SHOP = 2;
-    const STATUS_READY_BY_SHOP = 3;
+    const STATUS_NEW                     = 1;
+    const STATUS_ACCEPTED_BY_SHOP        = 2;
+    const STATUS_READY_BY_SHOP           = 3;
     const STATUS_ACCEPTED_BY_TRANSPORTER = 4;
 
     const STATUS_DELIVERED = 10;
-    const STATUS_CANCELED = 99;
+    const STATUS_CANCELED  = 99;
 
     const STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_DELIVERED, self::STATUS_CANCELED ];
 
     protected $dateFormat = 'U';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function client()
     {
@@ -57,7 +58,7 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function location()
     {
@@ -65,7 +66,7 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function promoCode()
     {
@@ -73,7 +74,7 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function transporter()
     {
@@ -81,7 +82,7 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function products()
     {

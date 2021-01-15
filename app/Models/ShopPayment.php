@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use App\Support\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class ShopPayment
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string description
- * @property integer amount
+ * @property int    amount
  *
  * @property int shop_id
  *
@@ -26,7 +27,7 @@ class ShopPayment extends Model
     protected $dateFormat = 'U';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function shop()
     {

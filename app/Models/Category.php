@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class Category
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string description
  * @property string photo
- * @property bool is_visible
+ * @property bool   is_visible
  *
  * @property int shop_id
  *

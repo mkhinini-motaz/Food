@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Support\Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class ShopUser
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string first_name
  * @property string last_name
  * @property string email
@@ -26,7 +27,7 @@ use App\Support\Authenticatable;
  */
 class ShopUser extends Authenticatable
 {
-    const ROLE_OWNER = 1;
+    const ROLE_OWNER       = 1;
     const ROLE_SHOP_KEEPER = 20;
 
     const ROLES = [ self::ROLE_OWNER, self::ROLE_SHOP_KEEPER ];
@@ -43,7 +44,7 @@ class ShopUser extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function shop()
     {

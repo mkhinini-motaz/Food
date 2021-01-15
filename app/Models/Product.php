@@ -13,34 +13,33 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * Class Product
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string description
  * @property string brand
  * @property string photo
- * @property int weight
- * @property int height
- * @property int width
- * @property int length
- * @property int price
- * @property bool is_visible
+ * @property int    weight
+ * @property int    height
+ * @property int    width
+ * @property int    length
+ * @property int    price
+ * @property bool   is_visible
  *
- * @property string category_id
+ * @property int category_id
  *
  * @property int created_at
  * @property int updated_at
  * @property int deleted_at
  *
- * @property Category category
- * @property Shop shop
+ * @property Category   category
+ * @property Shop       shop
  * @property Collection orders
  */
 class Product extends Model
 {
-    const TYPE_FIXED_MEAL        = 1;
-    const TYPE_MEAL_WITH_OPTIONS = 2;
-    const TYPE_DRINK             = 3;
-    const TYPES = [ self::TYPE_FIXED_MEAL, self::TYPE_MEAL_WITH_OPTIONS, self::TYPE_DRINK ];
+    const TYPE_FIXED        = 1;
+    const TYPE_WITH_OPTIONS = 2;
+    const TYPES = [ self::TYPE_FIXED, self::TYPE_WITH_OPTIONS ];
 
     protected $dateFormat = 'U';
 

@@ -5,18 +5,19 @@ namespace App\Models;
 use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Vehicule
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string manufacturer
  * @property string model
- * @property int cylinder
- * @property int max_supported_weight
- * @property int max_supported_volume
+ * @property int    cylinder
+ * @property int    max_supported_weight
+ * @property int    max_supported_volume
  *
  * @property int purchased_at
  * @property int created_at
@@ -30,7 +31,7 @@ class Vehicule extends Model
     protected $dateFormat = 'U';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function currentTransporters()
     {

@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Support\Authenticatable;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Transporter
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string alias
  * @property string first_name
  * @property string last_name
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property string email
  * @property string shift_start_hour
  * @property string shift_end_hour
- * @property bool is_approved
+ * @property bool   is_approved
  *
  * @property int created_at
  * @property int updated_at
@@ -42,7 +43,7 @@ class Transporter extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function orders()
     {
@@ -50,7 +51,7 @@ class Transporter extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function currentVehicules()
     {

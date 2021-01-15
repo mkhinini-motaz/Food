@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * Class Location
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string latitude
  * @property string longitude
@@ -24,7 +26,7 @@ use App\Support\Model;
 class Location extends Model
 {
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return BelongsTo
      */
     public function shop()
     {

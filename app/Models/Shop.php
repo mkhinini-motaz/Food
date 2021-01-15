@@ -5,19 +5,21 @@ namespace App\Models;
 use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * Class Shop
  * @package App\Models
  *
- * @property int id
+ * @property int    id
  * @property string name
  * @property string logo
  * @property string phone
- * @property int pricing_category
- * @property int min_order_price
+ * @property int    pricing_category
+ * @property int    min_order_price
  * @property string average_ready_minutes
- * @property bool is_approved
+ * @property bool   is_approved
  *
  * @property int created_at
  * @property int updated_at
@@ -33,10 +35,10 @@ class Shop extends Model
     const IS_APPROVED_TRUE = 1;
     const IS_APPROVED_VALUES = [ self::IS_APPROVED_FALSE, self::IS_APPROVED_TRUE ];
 
-    const PRICING_CATEGORY_VERY_LOW = 1;
-    const PRICING_CATEGORY_LOW = 2;
-    const PRICING_CATEGORY_MEDIUM = 3;
-    const PRICING_CATEGORY_HIGH = 4;
+    const PRICING_CATEGORY_VERY_LOW  = 1;
+    const PRICING_CATEGORY_LOW       = 2;
+    const PRICING_CATEGORY_MEDIUM    = 3;
+    const PRICING_CATEGORY_HIGH      = 4;
     const PRICING_CATEGORY_VERY_HIGH = 5;
 
     const PRICING_CATEGORIES = [ self::PRICING_CATEGORY_VERY_LOW, self::PRICING_CATEGORY_LOW, self::PRICING_CATEGORY_MEDIUM, self::PRICING_CATEGORY_HIGH, self::PRICING_CATEGORY_VERY_HIGH ];
@@ -44,7 +46,7 @@ class Shop extends Model
     protected $dateFormat = 'U';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return HasManyThrough
      */
     public function products()
     {
@@ -52,7 +54,7 @@ class Shop extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function orders()
     {
@@ -60,7 +62,7 @@ class Shop extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function categories()
     {
