@@ -35,6 +35,11 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  */
 class Product extends Model
 {
+    const TYPE_FIXED_MEAL        = 1;
+    const TYPE_MEAL_WITH_OPTIONS = 2;
+    const TYPE_DRINK             = 3;
+    const TYPES = [ self::TYPE_FIXED_MEAL, self::TYPE_MEAL_WITH_OPTIONS, self::TYPE_DRINK ];
+
     protected $dateFormat = 'U';
 
     /**
