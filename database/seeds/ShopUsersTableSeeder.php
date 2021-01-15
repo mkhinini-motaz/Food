@@ -10,6 +10,10 @@ class ShopUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Model\ShopUser::class, 10)->create();
+        factory(\App\Models\ShopUser::class)->create([
+            'phone' => '+21611111111',
+            'email' => 'shopuser@test.com',
+            'password' => bcrypt('azerty'),
+        ]);
     }
 }

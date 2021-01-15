@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 //        $this->mapWebRoutes();
 
         $this->mapClientRoutes();
+        $this->mapShopRoutes();
     }
 
     /**
@@ -86,6 +87,24 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['api'])
             ->namespace($this->namespace . '\Client')
             ->group(base_path('routes/client.php'));
+    }
+
+    /**
+     * Define the "shop api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapShopRoutes()
+    {
+        // TODO: global scope to exclude content of shops having is_approved === false
+
+        Route::prefix('api/shop')
+            ->as('shop.')
+            ->middleware(['api'])
+            ->namespace($this->namespace . '\Shop')
+            ->group(base_path('routes/shop.php'));
     }
 
 }

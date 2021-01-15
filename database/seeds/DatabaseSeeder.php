@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 
 //        $this->call(LocationsTableSeeder::class);
 //        $this->call(ShopPaymentsTableSeeder::class);
-//        $this->call(ShopUsersTableSeeder::class);
+        $this->call(ShopUsersTableSeeder::class);
 //        $this->call(TransporterPaymentsTableSeeder::class);
 //        $this->call(VehiculesTableSeeder::class);
     }
