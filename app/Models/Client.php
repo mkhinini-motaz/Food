@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Client
- * @package App\Model
+ * @package App\Models
  *
  * @property int    id
  * @property string first_name

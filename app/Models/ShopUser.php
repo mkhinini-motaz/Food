@@ -6,7 +6,7 @@ use App\Support\Authenticatable;
 
 /**
  * Class ShopUser
- * @package App\Model
+ * @package App\Models
  *
  * @property int id
  * @property string first_name

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Category
- * @package App\Model
+ * @package App\Models
  *
  * @property int id
  * @property string name

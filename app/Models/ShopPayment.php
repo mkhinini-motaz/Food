@@ -6,7 +6,7 @@ use App\Support\Model;
 
 /**
  * Class ShopPayment
- * @package App\Model
+ * @package App\Models
  *
  * @property int id
  * @property string name

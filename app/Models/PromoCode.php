@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class PromoCode
- * @package App\Model
+ * @package App\Models
  *
  * @property string code
  * @property int expires_at

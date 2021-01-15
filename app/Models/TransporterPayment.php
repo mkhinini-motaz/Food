@@ -6,7 +6,7 @@ use App\Support\Model;
 
 /**
  * Class TransporterPayment
- * @package App\Model
+ * @package App\Models
  *
  * @property int id
  * @property string name

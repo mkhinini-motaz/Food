@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * Class Product
- * @package App\Model
+ * @package App\Models
  *
  * @property int id
  * @property string name
@@ -36,7 +38,7 @@ class Product extends Model
     protected $dateFormat = 'U';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function category()
     {
@@ -44,7 +46,7 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return HasOneThrough
      */
     public function shop()
     {
