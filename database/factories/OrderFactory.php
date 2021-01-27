@@ -1,24 +1,44 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Order::class, function (Faker $faker) {
-    return [
+use App\Models\Order;
 
-        'message' => $faker->sentence(8),
-        'status' => $faker->numberBetween(1, 4),
-        'associated_phone' => $faker->phoneNumber,
-        'delivery_latitude' => $faker->latitude,
-        'delivery_longitude' => $faker->longitude,
-        'total_price' => rand(5000, 30000),
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'client_id' => rand(1, 5),
-        'transporter_id' => null,
-        'promo_code_id' => $faker->randomElement([null, rand(1, 6)]),
-        'location_id' => rand(1, 2),
+class OrderFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Order::class;
 
-        'to_be_delivered_at' => rand(1, 4) > 1 ? null : strtotime('+30 minutes'),
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'message'     => $this->faker->sentence(8),
+            'status'      => $this->faker->numberBetween(1, 4),
+            'total_price' => rand(5000, 30000),
+
+            'associated_phone'   => $this->faker->phoneNumber,
+            'delivery_latitude'  => $this->faker->latitude,
+            'delivery_longitude' => $this->faker->longitude,
+
+            'client_id'      => 1,
+            'transporter_id' => null,
+            'promo_code_id'  => 1,
+            'location_id'    => 1,
+
+            'to_be_delivered_at' => rand(1, 4) > 1 ? null : strtotime('+30 minutes'),
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

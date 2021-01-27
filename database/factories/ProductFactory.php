@@ -1,25 +1,46 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Product::class, function (Faker $faker) {
-    $categoryId = rand(1, 9);
+use App\Models\Category;
+use App\Models\Product;
 
-    return [
-        'name' => $faker->city,
-        'type' => $faker->randomElement(\App\Models\Product::TYPES),
-        'description' => $faker->sentence(10, false),
-        'brand' => null,
-        'photo' => \App\Models\Category::first()->photo,
-        'price' => rand(1, 250) * 100,
-        'weight' => rand(1, 500) * 100,
-        'width' => rand(1, 50),
-        'length' => rand(1, 50),
-        'height' => rand(1, 50),
-        'category_id' => $categoryId,
-        'is_visible' => 1,
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class ProductFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Product::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'   => $this->faker->city,
+            'type'   => $this->faker->randomElement(Product::TYPES),
+            'brand'  => null, // TODO: remove ?
+            'photo'  => Category::first()->photo,
+            'price'  => rand(1, 250) * 100,
+            'weight' => rand(1, 500) * 100,
+            'width'  => rand(1, 50),
+            'length' => rand(1, 50),
+            'height' => rand(1, 50),
+
+            'is_visible'  => 1,
+            'description' => $this->faker->sentence(10, false),
+
+            'category_id' => rand(1, 4),
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

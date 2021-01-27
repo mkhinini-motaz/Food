@@ -14,11 +14,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \App\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\Http\Middleware\TrustProxies::class,
+        \Fruitcake\Cors\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
     ];
 
     /**
@@ -38,8 +38,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
-            'bindings',
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
 

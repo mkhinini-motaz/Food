@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Authenticatable;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -27,6 +28,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Admin extends Authenticatable
 {
+    use HasFactory;
+
     const ROLE_SUPER_ADMIN   = 1;
     const ROLE_ADMIN         = 2;
     const ROLE_VISITOR_ADMIN = 20;

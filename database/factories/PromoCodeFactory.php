@@ -1,15 +1,36 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\PromoCode::class, function (Faker $faker) {
-    return [
-        'code' => $faker->postcode,
-        'expires_at' => rand(time(), strtotime('+ 4 months')),
-        'max_usage_count' => $faker->randomElement([null, rand(10, 50)]),
-        'admin_id' => 1,
+use App\Models\PromoCode;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class PromoCodeFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = PromoCode::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'code'            => $this->faker->postcode,
+            'expires_at'      => rand(time(), strtotime('+ 4 months')),
+            'max_usage_count' => $this->faker->randomElement([null, rand(10, 50)]),
+
+            'admin_id' => 1,
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Transporter;
+
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class TransportersTableSeeder extends Seeder
 {
@@ -10,6 +13,6 @@ class TransportersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Transporter::class, 10)->create();
+        Transporter::factory()->count(10)->create();
     }
 }

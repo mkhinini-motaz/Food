@@ -1,19 +1,41 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\TransporterPayment::class, function (Faker $faker) {
-    return [
-        'transporter_id' => App\Models\Transporter::query()->first()->id,
+use App\Models\Transporter;
+use App\Models\Vehicule;
 
-        'name' => $faker->name(),
-        'manufacturer' => $faker->name(),
-        'model' => $faker->name(),
-        'cylinder' => $faker->numberBetween(49, 1300),
-        'max_supported_weight' => rand(60, 140) * 100,
-        'max_supported_volume' => rand(60, 140) * 100,
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class VehiculeFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Vehicule::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'transporter_id' => Transporter::query()->first()->id,
+
+            'name'         => $this->faker->name(),
+            'model'        => $this->faker->name(),
+            'cylinder'     => $this->faker->numberBetween(49, 1300),
+            'manufacturer' => $this->faker->name(),
+
+            'max_supported_weight' => rand(60, 140) * 100,
+            'max_supported_volume' => rand(60, 140) * 100,
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

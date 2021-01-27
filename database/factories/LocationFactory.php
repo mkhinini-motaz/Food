@@ -1,16 +1,37 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Location::class, function (Faker $faker) {
-    return [
-        'shop_id' => App\Models\Shop::query()->first()->id,
+use App\Models\Location;
+use App\Models\Shop;
 
-        'name' => $faker->word,
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class LocationFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Location::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'shop_id' => Shop::query()->first()->id,
+
+            'name'      => $this->faker->word,
+            'latitude'  => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

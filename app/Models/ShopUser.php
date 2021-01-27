@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Support\Authenticatable;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -27,6 +29,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ShopUser extends Authenticatable
 {
+    use HasFactory;
+
     const ROLE_OWNER       = 1;
     const ROLE_SHOP_KEEPER = 20;
 

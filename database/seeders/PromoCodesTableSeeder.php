@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\PromoCode;
+
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class PromoCodesTableSeeder extends Seeder
 {
@@ -10,6 +13,6 @@ class PromoCodesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\PromoCode::class, 20)->create();
+        PromoCode::factory()->count(20)->create();
     }
 }

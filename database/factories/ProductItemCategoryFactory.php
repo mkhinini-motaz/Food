@@ -1,15 +1,35 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\ProductItemCategory::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word,
-        'description' => $faker->sentence(12, false),
-        'photo' => $faker->imageUrl(),
-        'is_visible' => 1,
+use App\Models\ProductItemCategory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class ProductItemCategoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ProductItemCategory::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'  => $this->faker->word,
+            'photo' => $this->faker->imageUrl(),
+
+            'description' => $this->faker->sentence(12, false),
+            'is_visible'  => 1,
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

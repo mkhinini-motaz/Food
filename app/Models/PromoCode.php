@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -25,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class PromoCode extends Model
 {
+    use HasFactory;
+
     protected $dateFormat = 'U';
 
     /**

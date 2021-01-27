@@ -30,7 +30,7 @@ class CreateAdminsTable extends Migration
             $table->unsignedInteger('deleted_at')->nullable();
         });
 
-        factory(Admin::class)->create([
+        Admin::factory()->create([
             'first_name' => 'Moatez',
             'last_name' => 'Mkhinini',
             'email' => 'mkhinini.motaz@gmail.com',

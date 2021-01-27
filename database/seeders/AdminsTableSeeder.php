@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class AdminsTableSeeder extends Seeder
 {
@@ -10,6 +12,6 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Admin::class, 10)->create();
+        Admin::factory()->count(10)->create();
     }
 }

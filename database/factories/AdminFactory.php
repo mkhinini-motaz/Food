@@ -1,17 +1,37 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Admin::class, function (Faker $faker) {
-    return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->email,
-        'password' => bcrypt('azerty'),
-        'role' => $faker->randomElement(App\Models\Admin::ROLES),
-        'phone' => $faker->phoneNumber,
+use App\Models\Admin;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class AdminFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Admin::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName,
+            'password'   => bcrypt('azerty'),
+            'email'      => $this->faker->email,
+            'phone'      => $this->faker->phoneNumber,
+            'role'       => $this->faker->randomElement(Admin::ROLES),
+
+            'created_at' => time(),
+            'updated_at' => time(),
+        ];
+    }
+}

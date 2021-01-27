@@ -1,16 +1,37 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\ShopPayment::class, function (Faker $faker) {
-    return [
-        'shop_id' => App\Models\Shop::query()->first()->id,
+use App\Models\Shop;
+use App\Models\ShopPayment;
 
-        'name' => $faker->name,
-        'description' => $faker->sentence(10, false),
-        'amount' => rand (5000, 100000),
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class ShopPaymentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ShopPayment::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'        => $this->faker->name,
+            'amount'      => rand (5000, 100000),
+            'description' => $this->faker->sentence(10, false),
+
+            'shop_id' => Shop::query()->first()->id,
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

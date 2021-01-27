@@ -1,20 +1,41 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Client::class, function (Faker $faker) {
-    return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->email,
-        'password' => bcrypt('azerty'),
-        'phone' => $faker->phoneNumber,
-        'is_phone_confirmed' => rand(0, 1),
-        'latitude' => $faker->latitude,
-        'longitude' => $faker->longitude,
-        'last_login_at' => null,
+use App\Models\Client;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ClientFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Client::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName,
+            'password'   => bcrypt('azerty'),
+            'email'      => $this->faker->email,
+            'phone'      => $this->faker->phoneNumber,
+            'latitude'   => $this->faker->latitude,
+            'longitude'  => $this->faker->longitude,
+
+            'last_login_at'      => null,
+            'is_phone_confirmed' => rand(0, 1),
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

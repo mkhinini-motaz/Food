@@ -1,3 +1,5 @@
 <?php
 
-Route::post('/login', 'AuthController@login')->name('login');
+use App\Http\Controllers\Shop\AuthController;
+
+Route::post('/login', [ AuthController::class, 'login' ])->name('login');

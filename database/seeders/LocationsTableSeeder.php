@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Location;
+
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class LocationsTableSeeder extends Seeder
 {
@@ -10,6 +13,6 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Location::class, 10)->create();
+        Location::factory()->count(10)->create();
     }
 }

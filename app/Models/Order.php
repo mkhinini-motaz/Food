@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -37,6 +38,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Order extends Model
 {
+    use HasFactory;
+
     const STATUS_NEW                     = 1;
     const STATUS_ACCEPTED_BY_SHOP        = 2;
     const STATUS_READY_BY_SHOP           = 3;

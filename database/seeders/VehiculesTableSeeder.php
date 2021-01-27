@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Vehicule;
+
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class VehiculesTableSeeder extends Seeder
 {
@@ -10,6 +13,6 @@ class VehiculesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Vehicule::class, 10)->create();
+        Vehicule::factory()->count(10)->create();
     }
 }

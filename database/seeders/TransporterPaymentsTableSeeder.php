@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\TransporterPayment;
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class TransporterPaymentsTableSeeder extends Seeder
 {
@@ -10,6 +12,6 @@ class TransporterPaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\TransporterPayment::class, 10)->create();
+        TransporterPayment::factory()->count(10)->create();
     }
 }

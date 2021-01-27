@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\ShopPayment;
+
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class ShopPaymentsTableSeeder extends Seeder
 {
@@ -10,6 +13,6 @@ class ShopPaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\ShopPayment::class, 10)->create();
+        ShopPayment::factory()->count(10)->create();
     }
 }

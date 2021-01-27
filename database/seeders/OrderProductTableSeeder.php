@@ -1,15 +1,15 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Product;
+namespace Database\Seeders;
 
-class OrdersTableSeeder extends Seeder
+use Illuminate\Database\Seeder;
+
+class OrderProductTableSeeder extends Seeder
 {
     /**
      * @return void
      */
     public function run()
     {
-        factory(\App\Models\Order::class, 100)->create();
     }
 }

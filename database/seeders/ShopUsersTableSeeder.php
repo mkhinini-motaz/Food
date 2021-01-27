@@ -1,7 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\ShopUser;
+
 use Illuminate\Database\Seeder;
-use App\Product;
 
 class ShopUsersTableSeeder extends Seeder
 {
@@ -10,7 +13,7 @@ class ShopUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\ShopUser::class)->create([
+        ShopUser::factory()->create([
             'phone' => '+21611111111',
             'email' => 'shopuser@test.com',
             'password' => bcrypt('azerty'),

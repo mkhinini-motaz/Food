@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -25,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Location extends Model
 {
+    use HasFactory;
+
     /**
      * @return BelongsTo
      */

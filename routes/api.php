@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/phone/validate', 'AuthController@validatePhone')->name('phone.validate');
+Route::post('/phone/validate', [ AuthController::class, 'validatePhone' ])->name('phone.validate');

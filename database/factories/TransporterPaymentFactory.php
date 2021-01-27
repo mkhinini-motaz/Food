@@ -1,16 +1,37 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\TransporterPayment::class, function (Faker $faker) {
-    return [
-        'transporter_id' => App\Models\Transporter::query()->first()->id,
+use App\Models\Transporter;
+use App\Models\TransporterPayment;
 
-        'name' => $faker->name,
-        'description' => $faker->sentence(10, false),
-        'amount' => rand (5000, 100000),
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class TransporterPaymentFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = TransporterPayment::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'        => $this->faker->name,
+            'description' => $this->faker->sentence(10, false),
+            'amount'      => rand (5000, 100000),
+
+            'transporter_id' => Transporter::query()->first()->id,
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}

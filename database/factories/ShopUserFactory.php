@@ -1,19 +1,40 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\ShopUser::class, function (Faker $faker) {
-    return [
-        'shop_id' => App\Models\Shop::query()->first()->id,
+use App\Models\Shop;
+use App\Models\ShopUser;
 
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->email,
-        'phone' => $faker->phoneNumber,
-        'password' => bcrypt('azerty'),
-        'role' => $faker->randomElement(App\Models\ShopUser::ROLES),
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-        'created_at' => time(),
-        'updated_at' => time()
-    ];
-});
+class ShopUserFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ShopUser::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'shop_id' => Shop::query()->first()->id,
+
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName,
+            'email'      => $this->faker->email,
+            'role'       => $this->faker->randomElement(ShopUser::ROLES),
+            'phone'      => $this->faker->phoneNumber,
+            'password'   => bcrypt('azerty'),
+
+            'created_at' => time(),
+            'updated_at' => time()
+        ];
+    }
+}
