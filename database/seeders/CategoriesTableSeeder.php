@@ -40,9 +40,9 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         Category::factory()->create([
-            'name' => 'Apéretif',
+            'name' => 'Entrée',
             'description' => str_repeat($description, rand(1, 6)),
-            'photo' => 'example/restaurant/category/aperetif.jpg',
+            'photo' => 'example/restaurant/category/entree.jpg',
         ]);
 
         if (env('APP_ENV') === 'local') {

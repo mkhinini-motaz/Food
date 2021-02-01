@@ -46,8 +46,10 @@ class ProductItemCategoriesTableSeeder extends Seeder
         $productItemCategoryIds[] = $productItemCategory->id;
 
         // TODO: sync with all products of type plat
-        $productEscalopePane = Product::where('name', 'Escalope pané')->first();
-        $productEscalopePane->productItemCategories()->sync($productItemCategoryIds);
+        $products = Product::where('category_id', '=', 'Plats')->get();
+        foreach ($products as $product) {
+            $product->productItemCategories()->sync($productItemCategoryIds);
+        }
 
     }
 }
