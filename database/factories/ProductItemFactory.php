@@ -24,7 +24,6 @@ class ProductItemFactory extends Factory
     {
         return [
             'name'  => $this->faker->city,
-            'brand' => $this->faker->sentence(3),
             'photo' => \App\Models\ProductItemCategory::first()->photo,
             'price' => rand(1, 250) * 100,
 

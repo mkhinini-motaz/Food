@@ -18,16 +18,15 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
             $table->string('description');
-            $table->smallInteger('type')->comment('@see Product::TYPES');
-            $table->string('brand')->nullable()->comment('manufacturer');
+            $table->unsignedSmallInteger('type')->comment('@see Product::TYPES');
             $table->string('photo')->default('default image link'); // TODO: define default image
-            $table->integer('price')->comment('In tunisian mellimes');
-            $table->tinyInteger('is_visible')->default(0);
+            $table->unsignedInteger('price')->comment('In tunisian mellimes');
+            $table->unsignedTinyInteger('is_visible')->default(0);
 
-            $table->mediumInteger('weight')->comment('In grams');
-            $table->mediumInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
-            $table->mediumInteger('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
-            $table->mediumInteger('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
+            $table->unsignedMediumInteger('weight')->comment('In grams');
+            $table->unsignedMediumInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
+            $table->unsignedMediumInteger('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
+            $table->unsignedMediumInteger('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
 
             $table->unsignedInteger('category_id');
 

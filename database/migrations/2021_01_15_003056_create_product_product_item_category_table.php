@@ -16,6 +16,8 @@ class CreateProductProductItemCategoryTable extends Migration
         Schema::create('product_product_item_category', function (Blueprint $table) {
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('product_item_category_id');
+            $table->unsignedTinyInteger('max_product_items')->default(1);
+            $table->unsignedTinyInteger('items_are_quantifiable')->default(0);
 
             $table->foreign('product_id')
                 ->onDelete('restrict')

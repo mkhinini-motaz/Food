@@ -26,7 +26,6 @@ class ProductFactory extends Factory
         return [
             'name'   => $this->faker->city,
             'type'   => $this->faker->randomElement(Product::TYPES),
-            'brand'  => null, // TODO: remove ?
             'photo'  => Category::first()->photo,
             'price'  => rand(1, 250) * 100,
             'weight' => rand(1, 500) * 100,

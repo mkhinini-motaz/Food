@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int    id
  * @property string name
  * @property string description
- * @property string brand
  * @property string photo
  * @property int    price
  * @property bool   is_visible
