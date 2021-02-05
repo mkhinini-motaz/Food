@@ -43,12 +43,14 @@ class ProductItemCategoriesTableSeeder extends Seeder
             'description' => str_repeat($description, rand(1, 6)),
             'photo' => 'example/restaurant/productItemCategory/sauce.jpg',
         ]);
-        $productItemCategoryIds[] = $productItemCategory->id;
 
         // TODO: sync with all products of type plat
-        $products = Product::where('category_id', '=', 'Plats')->get();
+        $products = Product::where('category_id', '=', 1)->get();
         foreach ($products as $product) {
             $product->productItemCategories()->sync($productItemCategoryIds);
+            $product->productItemCategories()->attach(
+                $productItemCategory->id, [ 'max_items' => 3 ]
+            );
         }
 
     }

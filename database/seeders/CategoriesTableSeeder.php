@@ -45,6 +45,12 @@ class CategoriesTableSeeder extends Seeder
             'photo' => 'example/restaurant/category/entree.jpg',
         ]);
 
+        Category::factory()->create([
+            'name' => 'Boisson',
+            'description' => str_repeat($description, rand(1, 6)),
+            'photo' => 'example/restaurant/category/boisson.jpg',
+        ]);
+
         if (env('APP_ENV') === 'local') {
             Category::factory()->create([
                 'name' => 'Test pagination category',

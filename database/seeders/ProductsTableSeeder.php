@@ -19,6 +19,7 @@ class ProductsTableSeeder extends Seeder
         $this->productsForPizza();
         $this->productsForPates();
         $this->productsForAperetif();
+        $this->productsForBoisson();
         $this->productsForTestPagination();
     }
 
@@ -385,6 +386,70 @@ class ProductsTableSeeder extends Seeder
             'name' => 'Frites',
             'photo' => 'example/restaurant/product/frites_parsley.jpg',
             'category_id' => $entreeId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 1500,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function productsForBoisson()
+    {
+        $boissonId = Category::where('name', '=', 'Boisson')->first()->id;
+
+        Product::factory()->create([
+            'name' => 'Safia 50ml',
+            'photo' => 'example/restaurant/product/safia.jpg',
+            'category_id' => $boissonId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 600,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Coca',
+            'photo' => 'example/restaurant/product/coca.jpg',
+            'category_id' => $boissonId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 1200,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Fanta',
+            'photo' => 'example/restaurant/product/fanta.jpg',
+            'category_id' => $boissonId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 1200,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Boga Lime',
+            'photo' => 'example/restaurant/product/boga_lim.jpg',
+            'category_id' => $boissonId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 1200,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Boga cidre',
+            'photo' => 'example/restaurant/product/boga_cidre.jpg',
+            'category_id' => $boissonId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 1200,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Apla',
+            'photo' => 'example/restaurant/product/apla.jpg',
+            'category_id' => $boissonId,
+            'type' => Product::TYPE_FIXED,
+            'price' => 1200,
+        ]);
+
+        Product::factory()->create([
+            'name' => 'Orangina',
+            'photo' => 'example/restaurant/product/orangina.jpg',
+            'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'price' => 1500,
         ]);
