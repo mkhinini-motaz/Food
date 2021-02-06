@@ -460,10 +460,11 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForTestPagination()
     {
-        $testPaginationCategoryId = Category::where('name', '=', 'Test pagination category')->first()->id;
-
         if (env('APP_ENV') === 'local') {
-            Product::factory()->count(500)->create([ 'category_id' => $testPaginationCategoryId ]);
+            return;
         }
+
+        $testPaginationCategoryId = Category::where('name', '=', 'Test pagination category')->first()->id;
+        Product::factory()->count(500)->create([ 'category_id' => $testPaginationCategoryId ]);
     }
 }
