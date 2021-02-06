@@ -460,7 +460,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForTestPagination()
     {
-        if (env('APP_ENV') === 'local') {
+        if (env('APP_ENV') !== 'local') {
             return;
         }
 
