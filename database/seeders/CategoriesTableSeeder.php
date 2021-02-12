@@ -26,7 +26,7 @@ class CategoriesTableSeeder extends Seeder
                 'fr' => 'Français Français Français Français',
                 'en' => 'English English English English',
                 'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'العربية العربية العربية العربية',
+                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/repas_luxe.jpg',
         ]);
@@ -42,7 +42,7 @@ class CategoriesTableSeeder extends Seeder
                 'fr' => 'Français Français Français Français',
                 'en' => 'English English English English',
                 'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'العربية العربية العربية العربية',
+                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/sandwich.jpg',
         ]);
@@ -58,7 +58,7 @@ class CategoriesTableSeeder extends Seeder
                 'fr' => 'Français Français Français Français',
                 'en' => 'English English English English',
                 'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'العربية العربية العربية العربية',
+                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/pizza.jpg',
         ]);
@@ -74,7 +74,7 @@ class CategoriesTableSeeder extends Seeder
                 'fr' => 'Français Français Français Français',
                 'en' => 'English English English English',
                 'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'العربية العربية العربية العربية',
+                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/pates.jpg',
         ]);
@@ -90,7 +90,7 @@ class CategoriesTableSeeder extends Seeder
                 'fr' => 'Français Français Français Français',
                 'en' => 'English English English English',
                 'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'العربية العربية العربية العربية',
+                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/entree.jpg',
         ]);
@@ -106,7 +106,7 @@ class CategoriesTableSeeder extends Seeder
                 'fr' => 'Français Français Français Français',
                 'en' => 'English English English English',
                 'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'العربية العربية العربية العربية',
+                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/boisson.jpg',
         ]);
@@ -123,7 +123,7 @@ class CategoriesTableSeeder extends Seeder
                     'fr' => 'Français Français Français Français',
                     'en' => 'English English English English',
                     'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                    'ar' => 'العربية العربية العربية العربية',
+                    'ar' => 'عربي عربي عربي عربي',
                 ],
                 'photo' => '',
             ]);

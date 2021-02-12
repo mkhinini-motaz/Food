@@ -24,7 +24,19 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name'   => $this->faker->city,
+            'name'  => [
+                'fr' => $this->faker->word,
+                'en' => $this->faker->word,
+                'tn' => $this->faker->word,
+                'ar' => $this->faker->word,
+            ],
+            'description' => [
+                'fr' => $this->faker->sentence(12, false),
+                'en' => $this->faker->sentence(12, false),
+                'tn' => $this->faker->sentence(12, false),
+                'ar' => $this->faker->sentence(12, false),
+            ],
+
             'type'   => $this->faker->randomElement(Product::TYPES),
             'photo'  => Category::first()->photo,
             'price'  => rand(1, 250) * 100,
@@ -34,7 +46,6 @@ class ProductFactory extends Factory
             'height' => rand(1, 50),
 
             'is_visible'  => 1,
-            'description' => $this->faker->sentence(10, false),
 
             'category_id' => rand(1, 4),
 

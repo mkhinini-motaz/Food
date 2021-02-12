@@ -26,7 +26,7 @@ class CategoryFactory extends Factory
         return [
             'shop_id' => Shop::query()->first()->id,
 
-            'name'        => [
+            'name' => [
                 'fr' => $this->faker->word,
                 'en' => $this->faker->word,
                 'tn' => $this->faker->word,
@@ -37,7 +37,7 @@ class CategoryFactory extends Factory
                 'en' => $this->faker->sentence(12, false),
                 'tn' => $this->faker->sentence(12, false),
                 'ar' => $this->faker->sentence(12, false),
-                ],
+            ],
             'photo'       => $this->faker->imageUrl(),
             'is_visible'  => 1,
 

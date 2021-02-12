@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Product
@@ -37,13 +38,15 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  */
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     const TYPE_FIXED        = 1;
     const TYPE_WITH_OPTIONS = 2;
     const TYPES = [ self::TYPE_FIXED, self::TYPE_WITH_OPTIONS ];
 
     protected $dateFormat = 'U';
+
+    public $translatable = [ 'name', 'description' ];
 
     /**
      * @return BelongsTo

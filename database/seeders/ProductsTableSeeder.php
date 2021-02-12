@@ -31,7 +31,18 @@ class ProductsTableSeeder extends Seeder
         $categoryPlatsId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Plats'")->first()->id;
 
         Product::factory()->create([
-            'name' => 'Escalope pané',
+            'name' => [
+                'fr' => 'Escalope pané',
+                'en' => 'Breaded escalope',
+                'tn' => 'Escalope pané',
+                'ar' => 'اسكالوب مخبوز',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/escalope_pane.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -39,7 +50,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Escalope grillé',
+            'name' => [
+                'fr' => 'Escalope grillé',
+                'en' => 'Grilled escalope',
+                'tn' => 'Escalope grillé',
+                'ar' => 'اسكالوب مشوي',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/escalope_grille.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -47,7 +69,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Escalope citron',
+            'name' => [
+                'fr' => 'Escalope citron',
+                'en' => 'Lemon escalope',
+                'tn' => 'Escalope citron',
+                'ar' => 'اسكالوب ليمون',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/escalope_citron.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -55,7 +88,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Escalope sauce champignon',
+            'name' => [
+                'fr' => 'Escalope sauce champignon',
+                'en' => 'Escalope with mushroom sauce',
+                'tn' => 'Escalope sauce champignon',
+                'ar' => 'اسكالوب مع صوص الفطر',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/escalope_sauce_champignon.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -63,7 +107,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Cordon bleu',
+            'name' => [
+                'fr' => 'Cordon bleu',
+                'en' => 'Cordon bleu',
+                'tn' => 'Cordon bleu',
+                'ar' => 'كوردون بلو',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/plat_cordon_bleu.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -71,7 +126,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Brochette viande',
+            'name' => [
+                'fr' => 'Brochette viande',
+                'en' => 'Meat skewer',
+                'tn' => 'Brochette viande',
+                'ar' => 'سيخ لحم',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/brochette_viande.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -79,7 +145,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Brochette escalope',
+            'name' => [
+                'fr' => 'Brochette escalope',
+                'en' => 'Escalope skewer',
+                'tn' => 'Brochette escalope',
+                'ar' => 'سيخ اسكالوب',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/brochette_escalope.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -87,7 +164,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Viande grillé',
+            'name' => [
+                'fr' => 'Viande grillé',
+                'en' => 'Grilled meat',
+                'tn' => 'Viande grillé',
+                'ar' => 'لحم مشوي',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/viande_grille.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -95,7 +183,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Grillade mix',
+            'name' => [
+                'fr' => 'Grillade mix',
+                'en' => 'Mixed grill',
+                'tn' => 'Grillade mix',
+                'ar' => 'ميكس جريل',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/grillade_mix.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -103,7 +202,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Paella',
+            'name' => [
+                'fr' => 'Paella',
+                'en' => 'Paella',
+                'tn' => 'Paella',
+                'ar' => 'بايلا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/paella.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_FIXED,
@@ -111,7 +221,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Beignet crevette',
+            'name' => [
+                'fr' => 'Beignet crevette',
+                'en' => 'Shrimp crackers',
+                'tn' => 'Beignet crevette',
+                'ar' => 'مقرمشات جمبري',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/beignet_crevette.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -119,7 +240,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Calamar doré',
+            'name' => [
+                'fr' => 'Calamar doré',
+                'en' => 'Golden squid',
+                'tn' => 'Calamar doré',
+                'ar' => 'الحبار الذهبي',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/calamar_dore.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -127,7 +259,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Symfonie fruit de mer',
+            'name' => [
+                'fr' => 'Symfonie fruit de mer',
+                'en' => 'Seafood symphony',
+                'tn' => 'Symfonie fruit de mer',
+                'ar' => 'سيمفونية المأكولات البحرية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/plat_fruit_mer.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -143,7 +286,18 @@ class ProductsTableSeeder extends Seeder
         $categorySandwichId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sandwich'")->first()->id;
 
         Product::factory()->create([
-            'name' => 'Sandwich escalope',
+            'name' => [
+                'fr' => 'Sandwich escalope',
+                'en' => 'Escalope sandwich',
+                'tn' => 'Sandwich escalope',
+                'ar' => 'ساندوتش اسكالوب',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/sandwich_escalope.png',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -151,7 +305,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Sandwich thon',
+            'name' => [
+                'fr' => 'Sandwich thon',
+                'en' => 'Tuna sandwich',
+                'tn' => 'Sandwich thon',
+                'ar' => 'ساندوتش تن',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/sandwich_thon.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -159,7 +324,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Sandwich jambon',
+            'name' => [
+                'fr' => 'Sandwich jambon',
+                'en' => 'Ham sandwich',
+                'tn' => 'Sandwich jambon',
+                'ar' => 'ساندويش جمبون',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/sandwich_jambon.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -167,7 +343,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Sandwich nugget',
+            'name' => [
+                'fr' => 'Sandwich nugget',
+                'en' => 'Nugget sandwich',
+                'tn' => 'Escalope nugget',
+                'ar' => 'شطيرة ناجت',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -175,7 +362,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Sandwich brochette',
+            'name' => [
+                'fr' => 'Sandwich brochette',
+                'en' => 'Skewer sandwich',
+                'tn' => 'Escalope brochette',
+                'ar' => 'ساندوتش سيخ',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/sandwich_brochette.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -183,7 +381,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Sandwich crevete',
+            'name' => [
+                'fr' => 'Sandwich crevette',
+                'en' => 'Shrimp sandwich',
+                'tn' => 'Sandwich crevette',
+                'ar' => 'ساندوتش جمبري',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/sandwich_crevette.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -199,7 +408,18 @@ class ProductsTableSeeder extends Seeder
         $pizzaId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza'")->first()->id;
 
         Product::factory()->create([
-            'name' => 'Pizza margherita',
+            'name' => [
+                'fr' => 'Pizza margherita',
+                'en' => 'Margherita Pizza',
+                'tn' => 'Pizza margherita',
+                'ar' => 'بيتزا مارغريتا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_margeritha.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -207,7 +427,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza thon',
+            'name' => [
+                'fr' => 'Pizza thon',
+                'en' => 'Tuna Pizza',
+                'tn' => 'Pizza thon',
+                'ar' => 'بيتزا تن',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_thon.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -215,7 +446,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza fruit de mer',
+            'name' => [
+                'fr' => 'Pizza fruit de mer',
+                'en' => 'Seafood pizza',
+                'tn' => 'Pizza fruit de mer',
+                'ar' => 'بيتزا المأكولات البحرية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -223,7 +465,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza chicken',
+            'name' => [
+                'fr' => 'Pizza chicken',
+                'en' => 'Chicken pizza',
+                'tn' => 'Pizza chicken',
+                'ar' => 'بيتزا دجاج',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_chicken.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -231,7 +484,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza 4 fromages',
+            'name' => [
+                'fr' => 'Pizza 4 fromages',
+                'en' => '4 cheese pizza',
+                'tn' => 'Pizza 4 fromages',
+                'ar' => 'بيتزا 4 أجبان',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -239,7 +503,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza pepperoni',
+            'name' => [
+                'fr' => 'Pizza pepperoni',
+                'en' => 'Pepperoni pizza',
+                'tn' => 'Pizza pepperoni',
+                'ar' => 'بيتزا بيبروني',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_pepperoni.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -247,7 +522,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza regina',
+            'name' => [
+                'fr' => 'Pizza regina',
+                'en' => 'Regina pizza',
+                'tn' => 'Pizza regina',
+                'ar' => 'بيتزا ريجينا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_regina.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -255,7 +541,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza 4 gout',
+            'name' => [
+                'fr' => 'Pizza 4 gouts',
+                'en' => '4 tastes pizza',
+                'tn' => 'Pizza 4 gouts',
+                'ar' => 'بيتزا 4 أذواق',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_4gout.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_WITH_OPTIONS,
@@ -263,7 +560,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Pizza indienne',
+            'name' => [
+                'fr' => 'Pizza indienne',
+                'en' => 'Indian pizza',
+                'tn' => 'Pizza indienne',
+                'ar' => 'بيتزا هندية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/pizza_indienne.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
@@ -279,7 +587,18 @@ class ProductsTableSeeder extends Seeder
         $patesId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pâtes'")->first()->id;
 
         Product::factory()->create([
-            'name' => 'Lasagne fruit mer',
+            'name' => [
+                'fr' => 'Lasagne fruit mer',
+                'en' => 'Seafood lasagna',
+                'tn' => 'Lasagne fruit mer',
+                'ar' => 'لازانيا المأكولات بحرية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/lasagne_fruit_mer.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -287,7 +606,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Lasagne viande hache',
+            'name' => [
+                'fr' => 'Lasagne viande haché',
+                'en' => 'Minced meat lasagna',
+                'tn' => 'Lasagne viande haché',
+                'ar' => 'لازانيا باللحم المفروم',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/lasagne_viande_hache.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -295,7 +625,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Tagliatelle fruit de mer',
+            'name' => [
+                'fr' => 'Tagliatelle fruit de mer',
+                'en' => 'Seafood tagliatelle',
+                'tn' => 'Tagliatelle fruit de mer',
+                'ar' => 'تالياتيلي المأكولات البحرية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/tagliatelle_fruit_mer.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -303,7 +644,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Tagliatelles saumon',
+            'name' => [
+                'fr' => 'Tagliatelles saumon',
+                'en' => 'Salmon tagliatelle',
+                'tn' => 'Tagliatelles saumon',
+                'ar' => 'تالياتيلي السلمون',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/tagliatelles_saumon.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -311,7 +663,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Spaghetti bolognaise',
+            'name' => [
+                'fr' => 'Spaghetti bolognaise',
+                'en' => 'Spaghetti Bolognese',
+                'tn' => 'Spaghetti bolognaise',
+                'ar' => 'سباجيتي بولونية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/spaghetti_bolognaise.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -319,7 +682,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Spaghetti fruit de mer',
+            'name' => [
+                'fr' => 'Spaghetti fruit de mer',
+                'en' => 'Seafood spaghetti',
+                'tn' => 'Spaghetti fruit de mer',
+                'ar' => 'سباجيتي المأكولات البحرية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/spaghetti_fruit_mer.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -327,7 +701,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Spaghetti fruit de mer sauce blanche',
+            'name' => [
+                'fr' => 'Spaghetti fruit de mer sauce blanche',
+                'en' => 'Seafood spaghetti with white sauce',
+                'tn' => 'Spaghetti fruit de mer sauce blanche',
+                'ar' => 'سباجيتي المأكولات البحرية مع الصلصة البيضاء',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/spaghetti_fruit_mer_sauce_blanche.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -335,7 +720,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Spaghetti saumon fumée',
+            'name' => [
+                'fr' => 'Spaghetti saumon fumé',
+                'en' => 'Smoked salmon spaghetti',
+                'tn' => 'Spaghetti saumon fumé',
+                'ar' => 'سباجيتي السلمون المدخن',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/spaghetti_saumon_fume.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -343,7 +739,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Penne saumon',
+            'name' => [
+                'fr' => 'Penne saumon',
+                'en' => 'Salmon penne',
+                'tn' => 'Penne saumon',
+                'ar' => 'سلمون بيني',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/penne_saumon.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
@@ -359,7 +766,18 @@ class ProductsTableSeeder extends Seeder
         $entreeId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Entrées'")->first()->id;
 
         Product::factory()->create([
-            'name' => 'Corn dog',
+            'name' => [
+                'fr' => 'Corn dog',
+                'en' => 'Corn dog',
+                'tn' => 'Corn dog',
+                'ar' => 'كورن دوج',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/corn_dog.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
@@ -367,7 +785,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Nuggets',
+            'name' => [
+                'fr' => 'Nuggets',
+                'en' => 'Nuggets',
+                'tn' => 'Nuggets',
+                'ar' => 'ناجت',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/nugget.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
@@ -375,7 +804,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Bric',
+            'name' => [
+                'fr' => 'Bric',
+                'en' => 'Bric',
+                'tn' => 'Bric',
+                'ar' => 'بريك',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/bric_finger.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
@@ -383,7 +823,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Frites',
+            'name' => [
+                'fr' => 'Frites',
+                'en' => 'French fries',
+                'tn' => 'Frites',
+                'ar' => 'البطاطس المقلية',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/frites_parsley.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
@@ -399,7 +850,18 @@ class ProductsTableSeeder extends Seeder
         $boissonId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Boissons'")->first()->id;
 
         Product::factory()->create([
-            'name' => 'Safia 50ml',
+            'name' => [
+                'fr' => 'Safia 50ml',
+                'en' => 'Safia 50ml',
+                'tn' => 'Safia 50ml',
+                'ar' => 'صافية 50 مل',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/safia.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
@@ -407,7 +869,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Coca',
+            'name' => [
+                'fr' => 'Coca cola',
+                'en' => 'Coca cola',
+                'tn' => 'Coca cola',
+                'ar' => 'كوكا كولا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/coca.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
@@ -415,7 +888,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Fanta',
+            'name' => [
+                'fr' => 'Fanta',
+                'en' => 'Fanta',
+                'tn' => 'Fanta',
+                'ar' => 'فانتا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/fanta.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
@@ -423,7 +907,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Boga Lime',
+            'name' => [
+                'fr' => 'Boga Lime',
+                'en' => 'Boga Lime',
+                'tn' => 'Boga Lime',
+                'ar' => 'بوقا ليمون',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/boga_lim.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
@@ -431,7 +926,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Boga cidre',
+            'name' => [
+                'fr' => 'Boga cidre',
+                'en' => 'Boga cidre',
+                'tn' => 'Boga cidre',
+                'ar' => 'بوغا سيدر',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/boga_cidre.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
@@ -439,7 +945,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Apla',
+            'name' => [
+                'fr' => 'Apla',
+                'en' => 'Apla',
+                'tn' => 'Apla',
+                'ar' => 'أبلا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/apla.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
@@ -447,7 +964,18 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::factory()->create([
-            'name' => 'Orangina',
+            'name' => [
+                'fr' => 'Orangina',
+                'en' => 'Orangina',
+                'tn' => 'Orangina',
+                'ar' => 'أورانجينا',
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français',
+                'en' => 'English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي',
+            ],
             'photo' => 'example/restaurant/product/orangina.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
