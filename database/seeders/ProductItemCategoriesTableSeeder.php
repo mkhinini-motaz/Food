@@ -14,33 +14,48 @@ class ProductItemCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $description = 'Hello, i am a product item category. ';
         $productItemCategoryIds = [];
 
         $productItemCategory = ProductItemCategory::factory()->create([
-            'name' => 'Riz',
-            'description' => str_repeat($description, rand(1, 6)),
+            'name' => [
+                'fr' => 'Riz',
+                'en' => 'Rice',
+                'tn' => 'Roz',
+                'ar' => 'أرز',
+            ],
             'photo' => 'example/restaurant/productItemCategory/rice.jpg',
         ]);
         $productItemCategoryIds[] = $productItemCategory->id;
 
         $productItemCategory = ProductItemCategory::factory()->create([
-            'name' => 'Salade',
-            'description' => str_repeat($description, rand(1, 6)),
+            'name' => [
+                'fr' => 'Salade',
+                'en' => 'Salad',
+                'tn' => 'Slata',
+                'ar' => 'سلطة',
+            ],
             'photo' => 'example/restaurant/productItemCategory/salad.jpg',
         ]);
         $productItemCategoryIds[] = $productItemCategory->id;
 
         $productItemCategory = ProductItemCategory::factory()->create([
-            'name' => 'Pomme de terre',
-            'description' => str_repeat($description, rand(1, 6)),
+            'name' => [
+                'fr' => 'Pomme de terre',
+                'en' => 'Potato',
+                'tn' => 'Batata',
+                'ar' => 'بطاطس',
+            ],
             'photo' => 'example/restaurant/productItemCategory/kartoffeln.jpg',
         ]);
         $productItemCategoryIds[] = $productItemCategory->id;
 
         $productItemCategory = ProductItemCategory::factory()->create([
-            'name' => 'Sauce',
-            'description' => str_repeat($description, rand(1, 6)),
+            'name' => [
+                'fr' => 'Sauce',
+                'en' => 'Sauce',
+                'tn' => 'Sauce',
+                'ar' => 'صلصة',
+            ],
             'photo' => 'example/restaurant/productItemCategory/sauce.jpg',
         ]);
 

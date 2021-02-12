@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Product
@@ -31,9 +32,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class ProductItem extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $dateFormat = 'U';
+
+    public $translatable = [ 'name', 'description' ];
 
     /**
      * @return BelongsTo

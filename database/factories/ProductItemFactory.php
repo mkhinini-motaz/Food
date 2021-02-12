@@ -23,11 +23,22 @@ class ProductItemFactory extends Factory
     public function definition()
     {
         return [
-            'name'  => $this->faker->city,
+            'name'  => [
+                'fr' => $this->faker->word,
+                'en' => $this->faker->word,
+                'tn' => $this->faker->word,
+                'ar' => $this->faker->word,
+            ],
+            'description' => [
+                'fr' => 'Français Français Français Français Français Français Français Français Français Français Français Français',
+                'en' => 'English English English English English English English English English English English English',
+                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi',
+                'ar' => 'عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي',
+            ],
+
             'photo' => \App\Models\ProductItemCategory::first()->photo,
             'price' => rand(1, 250) * 100,
 
-            'description' => $this->faker->sentence(10, false),
             'is_visible'  => 1,
 
             'product_item_category_id' => rand(1, 4),

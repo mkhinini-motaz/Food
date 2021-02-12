@@ -22,12 +22,6 @@ class CategoriesTableSeeder extends Seeder
                 'tn' => 'Plats',
                 'ar' => 'أطباق',
             ],
-            'description' => [
-                'fr' => 'Français Français Français Français',
-                'en' => 'English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي',
-            ],
             'photo' => 'example/restaurant/category/repas_luxe.jpg',
         ]);
 
@@ -37,12 +31,6 @@ class CategoriesTableSeeder extends Seeder
                 'en' => 'Sandwich',
                 'tn' => 'Sandwich',
                 'ar' => 'ساندويتش',
-            ],
-            'description' => [
-                'fr' => 'Français Français Français Français',
-                'en' => 'English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/sandwich.jpg',
         ]);
@@ -54,12 +42,6 @@ class CategoriesTableSeeder extends Seeder
                 'tn' => 'Pizza',
                 'ar' => 'بيتزا',
             ],
-            'description' => [
-                'fr' => 'Français Français Français Français',
-                'en' => 'English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي',
-            ],
             'photo' => 'example/restaurant/category/pizza.jpg',
         ]);
 
@@ -69,12 +51,6 @@ class CategoriesTableSeeder extends Seeder
                 'en' => 'Pasta',
                 'tn' => 'Ma9arouna',
                 'ar' => 'معكرونة',
-            ],
-            'description' => [
-                'fr' => 'Français Français Français Français',
-                'en' => 'English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/pates.jpg',
         ]);
@@ -86,12 +62,6 @@ class CategoriesTableSeeder extends Seeder
                 'tn' => 'Entrées',
                 'ar' => 'وجبات خفيفة',
             ],
-            'description' => [
-                'fr' => 'Français Français Français Français',
-                'en' => 'English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي',
-            ],
             'photo' => 'example/restaurant/category/entree.jpg',
         ]);
 
@@ -101,12 +71,6 @@ class CategoriesTableSeeder extends Seeder
                 'en' => 'Drinks',
                 'tn' => 'Boissons',
                 'ar' => 'مشروبات',
-            ],
-            'description' => [
-                'fr' => 'Français Français Français Français',
-                'en' => 'English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي',
             ],
             'photo' => 'example/restaurant/category/boisson.jpg',
         ]);
@@ -120,10 +84,10 @@ class CategoriesTableSeeder extends Seeder
                     'ar' => 'Test_pagination_category',
                 ],
                 'description' => [
-                    'fr' => 'Français Français Français Français',
-                    'en' => 'English English English English',
-                    'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi',
-                    'ar' => 'عربي عربي عربي عربي',
+                    'fr' => 'Français Français Français Français Français Français Français Français Français Français Français Français',
+                    'en' => 'English English English English English English English English English English English English',
+                    'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi',
+                    'ar' => 'عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي',
                 ],
                 'photo' => '',
             ]);

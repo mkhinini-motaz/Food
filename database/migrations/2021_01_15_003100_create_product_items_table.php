@@ -16,8 +16,8 @@ class CreateProductItemsTable extends Migration
         Schema::create('product_items', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
-            $table->string('description');
+            $table->string('name', 1000);
+            $table->string('description', 1000);
             $table->string('photo')->default('default image link'); // TODO: define default image
             $table->unsignedInteger('price')->comment('In tunisian mellimes');
             $table->unsignedTinyInteger('is_visible')->default(0);
