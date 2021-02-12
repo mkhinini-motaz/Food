@@ -28,7 +28,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForPlats()
     {
-        $categoryPlatsId = Category::where('name', '=', 'Plats')->first()->id;
+        $categoryPlatsId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Plats'")->first()->id;
 
         Product::factory()->create([
             'name' => 'Escalope pané',
@@ -140,7 +140,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForSandwich()
     {
-        $categorySandwichId = Category::where('name', '=', 'Sandwich')->first()->id;
+        $categorySandwichId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sandwich'")->first()->id;
 
         Product::factory()->create([
             'name' => 'Sandwich escalope',
@@ -196,7 +196,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForPizza()
     {
-        $pizzaId = Category::where('name', '=', 'Pizza')->first()->id;
+        $pizzaId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza'")->first()->id;
 
         Product::factory()->create([
             'name' => 'Pizza margherita',
@@ -276,7 +276,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForPates()
     {
-        $patesId = Category::where('name', '=', 'Pâtes')->first()->id;
+        $patesId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pâtes'")->first()->id;
 
         Product::factory()->create([
             'name' => 'Lasagne fruit mer',
@@ -356,7 +356,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForAperetif()
     {
-        $entreeId = Category::where('name', '=', 'Entrée')->first()->id;
+        $entreeId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Entrées'")->first()->id;
 
         Product::factory()->create([
             'name' => 'Corn dog',
@@ -396,7 +396,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function productsForBoisson()
     {
-        $boissonId = Category::where('name', '=', 'Boisson')->first()->id;
+        $boissonId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Boissons'")->first()->id;
 
         Product::factory()->create([
             'name' => 'Safia 50ml',
@@ -464,7 +464,7 @@ class ProductsTableSeeder extends Seeder
             return;
         }
 
-        $testPaginationCategoryId = Category::where('name', '=', 'Test pagination category')->first()->id;
+        $testPaginationCategoryId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Test_pagination_category'")->first()->id;
         Product::factory()->count(500)->create([ 'category_id' => $testPaginationCategoryId ]);
     }
 }

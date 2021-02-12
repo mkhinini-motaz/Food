@@ -26,10 +26,20 @@ class CategoryFactory extends Factory
         return [
             'shop_id' => Shop::query()->first()->id,
 
-            'name'        => $this->faker->word,
+            'name'        => [
+                'fr' => $this->faker->word,
+                'en' => $this->faker->word,
+                'tn' => $this->faker->word,
+                'ar' => $this->faker->word,
+            ],
+            'description' => [
+                'fr' => $this->faker->sentence(12, false),
+                'en' => $this->faker->sentence(12, false),
+                'tn' => $this->faker->sentence(12, false),
+                'ar' => $this->faker->sentence(12, false),
+                ],
             'photo'       => $this->faker->imageUrl(),
             'is_visible'  => 1,
-            'description' => $this->faker->sentence(12, false),
 
             'created_at' => time(),
             'updated_at' => time()

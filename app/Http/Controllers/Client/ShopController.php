@@ -6,6 +6,7 @@ use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -13,7 +14,7 @@ class ShopController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -32,7 +33,7 @@ class ShopController extends Controller
      * @param int $shopId
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function category($shopId, Request $request)
     {
@@ -54,7 +55,7 @@ class ShopController extends Controller
      * @param int $shopId
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function product($shopId, Request $request)
     {
@@ -77,7 +78,7 @@ class ShopController extends Controller
     /**
      * @param int $shopId
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show($shopId)
     {
