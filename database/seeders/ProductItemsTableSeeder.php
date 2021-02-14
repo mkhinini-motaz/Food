@@ -231,5 +231,4 @@ class ProductItemsTableSeeder extends Seeder
             'price' => 0,
         ]);
     }
-    }
 }
