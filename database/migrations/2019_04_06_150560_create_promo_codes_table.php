@@ -19,8 +19,10 @@ class CreatePromoCodesTable extends Migration
             $table->string('code');
             $table->integer('expires_at')->nullable();
             $table->integer('max_usage_count')->nullable();
+            $table->unsignedInteger('reduction_amount');
 
-            $table->unsignedInteger('admin_id');
+            $table->unsignedInteger('admin_id')->nullable();
+            $table->unsignedInteger('shop_id')->nullable();
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
@@ -30,6 +32,11 @@ class CreatePromoCodesTable extends Migration
                 ->onDelete('restrict')
                 ->references('id')
                 ->on('admins');
+
+            $table->foreign('shop_id')
+                ->onDelete('restrict')
+                ->references('id')
+                ->on('shops');
         });
 
         Schema::table('promo_codes', function (Blueprint $table) {

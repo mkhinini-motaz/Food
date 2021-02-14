@@ -2,6 +2,7 @@
 
 use \App\Http\Controllers\Client\AuthController;
 use \App\Http\Controllers\Client\CategoryController;
+use App\Http\Controllers\Client\PromoCodeController;
 use \App\Http\Controllers\Client\ShopController;
 use \App\Http\Controllers\Client\OrderController;
 
@@ -23,6 +24,8 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
         Route::get('/product', [ ShopController::class, 'product' ])->name('product');
     });
 });
+
+Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('show');
 
 Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');

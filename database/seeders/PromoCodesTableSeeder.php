@@ -13,6 +13,9 @@ class PromoCodesTableSeeder extends Seeder
      */
     public function run()
     {
-        PromoCode::factory()->count(20)->create();
+        PromoCode::factory()->create([ 'code' => 'code', 'shop_id' => 1 ]);
+        for ($i = 0; $i <= 100; $i++) {
+            PromoCode::factory()->create([ 'code' => 'code' . $i, 'shop_id' => 1 ]);
+        }
     }
 }

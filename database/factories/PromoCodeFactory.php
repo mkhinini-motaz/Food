@@ -23,10 +23,12 @@ class PromoCodeFactory extends Factory
     public function definition()
     {
         return [
-            'code'            => $this->faker->postcode,
-            'expires_at'      => rand(time(), strtotime('+ 4 months')),
-            'max_usage_count' => $this->faker->randomElement([null, rand(10, 50)]),
+            'code'             => $this->faker->postcode,
+            'expires_at'       => rand(time(), strtotime('+ 4 months')),
+            'max_usage_count'  => $this->faker->randomElement([ null, rand(10, 50) ]),
+            'reduction_amount' => rand(1, 20) * 1000,
 
+            'shop_id'  => 1,
             'admin_id' => 1,
 
             'created_at' => time(),
