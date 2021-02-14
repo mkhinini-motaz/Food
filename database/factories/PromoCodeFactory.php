@@ -26,7 +26,7 @@ class PromoCodeFactory extends Factory
             'code'             => $this->faker->postcode,
             'expires_at'       => rand(time(), strtotime('+ 4 months')),
             'max_usage_count'  => $this->faker->randomElement([ null, rand(10, 50) ]),
-            'reduction_amount' => rand(1, 20) * 1000,
+            'reduction_amount' => (rand(1, 10) * 10 + $this->faker->randomElement([0, 5])) * 100,
 
             'shop_id'  => 1,
             'admin_id' => 1,

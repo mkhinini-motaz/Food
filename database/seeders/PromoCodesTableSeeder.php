@@ -13,6 +13,11 @@ class PromoCodesTableSeeder extends Seeder
      */
     public function run()
     {
+        PromoCode::factory()->create([
+            'code' => 'ghostchef',
+            'reduction_amount' => 2000,
+            'shop_id' => 1,
+            ]);
         PromoCode::factory()->create([ 'code' => 'code', 'shop_id' => 1 ]);
         for ($i = 0; $i <= 100; $i++) {
             PromoCode::factory()->create([ 'code' => 'code' . $i, 'shop_id' => 1 ]);
