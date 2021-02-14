@@ -218,5 +218,18 @@ class ProductItemsTableSeeder extends Seeder
             'product_item_category_id' => $productItemCategorySauceId,
             'price' => 0,
         ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Harissa',
+                'en' => 'Harissa',
+                'tn' => 'Hrissa',
+                'ar' => 'هريسة',
+            ],
+            'photo' => 'example/restaurant/productItem/harissa.jpg',
+            'product_item_category_id' => $productItemCategorySauceId,
+            'price' => 0,
+        ]);
+    }
     }
 }

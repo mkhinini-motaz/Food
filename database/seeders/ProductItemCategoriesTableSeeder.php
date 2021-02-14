@@ -16,7 +16,7 @@ class ProductItemCategoriesTableSeeder extends Seeder
     {
         $productItemCategoryIds = [];
 
-        $productItemCategory = ProductItemCategory::factory()->create([
+        $productItemCategoryRice = ProductItemCategory::factory()->create([
             'name' => [
                 'fr' => 'Riz',
                 'en' => 'Rice',
@@ -25,9 +25,8 @@ class ProductItemCategoriesTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/productItemCategory/rice.jpg',
         ]);
-        $productItemCategoryIds[] = $productItemCategory->id;
 
-        $productItemCategory = ProductItemCategory::factory()->create([
+        $productItemCategorySalad = ProductItemCategory::factory()->create([
             'name' => [
                 'fr' => 'Salade',
                 'en' => 'Salad',
@@ -36,9 +35,8 @@ class ProductItemCategoriesTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/productItemCategory/salad.jpg',
         ]);
-        $productItemCategoryIds[] = $productItemCategory->id;
 
-        $productItemCategory = ProductItemCategory::factory()->create([
+        $productItemCategoryPotatoes = ProductItemCategory::factory()->create([
             'name' => [
                 'fr' => 'Pomme de terre',
                 'en' => 'Potato',
@@ -47,9 +45,8 @@ class ProductItemCategoriesTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/productItemCategory/kartoffeln.jpg',
         ]);
-        $productItemCategoryIds[] = $productItemCategory->id;
 
-        $productItemCategory = ProductItemCategory::factory()->create([
+        $productItemCategorySauce = ProductItemCategory::factory()->create([
             'name' => [
                 'fr' => 'Sauce',
                 'en' => 'Sauce',
@@ -59,14 +56,22 @@ class ProductItemCategoriesTableSeeder extends Seeder
             'photo' => 'example/restaurant/productItemCategory/sauce.jpg',
         ]);
 
-        // TODO: sync with all products of type plat
+        $productItemCategoryIdsForPlat = [ $productItemCategoryRice->id, $productItemCategorySalad->id, $productItemCategoryPotatoes->id ];
         $products = Product::where('category_id', '=', 1)->get();
         foreach ($products as $product) {
-            $product->productItemCategories()->sync($productItemCategoryIds);
+            $product->productItemCategories()->sync($productItemCategoryIdsForPlat);
             $product->productItemCategories()->attach(
-                $productItemCategory->id, [ 'max_items' => 3 ]
+                $productItemCategorySauce->id, [ 'max_items' => 3 ]
             );
         }
 
+        $products = Product::where('category_id', '=', 2)->get();
+        foreach ($products as $product) {
+            $product->productItemCategories()->sync([
+                $productItemCategorySalad->id => [ 'max_items' => 3, 'items_are_quantifiable' => 1 ],
+                $productItemCategorySauce->id => [ 'max_items' => 3, 'items_are_quantifiable' => 1 ],
+                $productItemCategoryPotatoes->id => [ 'max_items' => 1 ],
+            ]);
+        }
     }
 }
