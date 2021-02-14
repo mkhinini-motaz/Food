@@ -87,7 +87,7 @@ class ProductItemsTableSeeder extends Seeder
             'name' => [
                 'fr' => 'Salade choux rouge',
                 'en' => 'Red cabbage salad',
-                'tn' => 'Salade cromb a7mar',
+                'tn' => 'Salatet cromb a7mar',
                 'ar' => 'سلطة ملفوف أحمر',
             ],
             'photo' => 'example/restaurant/productItem/salad_kronb.jpg',
