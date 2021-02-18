@@ -56,21 +56,22 @@ class ProductItemCategoriesTableSeeder extends Seeder
             'photo' => 'example/restaurant/productItemCategory/sauce.jpg',
         ]);
 
-        $productItemCategoryIdsForPlat = [ $productItemCategoryRice->id, $productItemCategorySalad->id, $productItemCategoryPotatoes->id ];
         $products = Product::where('category_id', '=', 1)->get();
         foreach ($products as $product) {
-            $product->productItemCategories()->sync($productItemCategoryIdsForPlat);
-            $product->productItemCategories()->attach(
-                $productItemCategorySauce->id, [ 'max_items' => 3 ]
-            );
+            $product->productItemCategories()->sync([
+                $productItemCategoryRice->id => [ 'max_items' => 3, 'order' => 1, ],
+                $productItemCategorySalad->id => [ 'max_items' => 3, 'order' => 2, ],
+                $productItemCategoryPotatoes->id => [ 'max_items' => 3, 'order' => 3, ],
+                $productItemCategorySauce->id => [ 'max_items' => 3, 'order' => 4, ]
+            ]);
         }
 
         $products = Product::where('category_id', '=', 2)->get();
         foreach ($products as $product) {
             $product->productItemCategories()->sync([
-                $productItemCategorySalad->id => [ 'max_items' => 3, 'items_are_quantifiable' => 1 ],
-                $productItemCategorySauce->id => [ 'max_items' => 3, 'items_are_quantifiable' => 1 ],
-                $productItemCategoryPotatoes->id => [ 'max_items' => 1 ],
+                $productItemCategorySauce->id => [ 'max_items' => 3, 'order' => 1, 'items_are_quantifiable' => 1, ],
+                $productItemCategorySalad->id => [ 'max_items' => 3, 'order' => 2, 'items_are_quantifiable' => 1, ],
+                $productItemCategoryPotatoes->id => [ 'max_items' => 1, 'order' => 3, ],
             ]);
         }
     }

@@ -18,6 +18,7 @@ class CreateProductProductItemCategoryTable extends Migration
             $table->unsignedInteger('product_item_category_id');
             $table->unsignedTinyInteger('max_items')->default(1);
             $table->unsignedTinyInteger('items_are_quantifiable')->default(0);
+            $table->unsignedSmallInteger('order');
 
             $table->foreign('product_id')
                 ->onDelete('restrict')

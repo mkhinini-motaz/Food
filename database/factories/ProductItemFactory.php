@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\ProductItem;
-
+use App\Models\ProductItemCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductItemFactory extends Factory
@@ -36,7 +36,7 @@ class ProductItemFactory extends Factory
                 'ar' => 'عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي',
             ],
 
-            'photo' => \App\Models\ProductItemCategory::first()->photo,
+            'photo' => ProductItemCategory::first()->photo,
             'price' => rand(1, 250) * 100,
 
             'is_visible'  => 1,

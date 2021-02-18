@@ -704,7 +704,7 @@ class ProductsTableSeeder extends Seeder
             return;
         }
 
-        $testPaginationCategoryId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Test_pagination_category'")->first()->id;
+        $testPaginationCategoryId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'FR_Test_pagination_category'")->first()->id;
         Product::factory()->count(500)->create([ 'category_id' => $testPaginationCategoryId ]);
     }
 }

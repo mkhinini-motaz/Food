@@ -2,12 +2,6 @@
 
 namespace App\Support\Helpers;
 
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
-use Imagick;
-use ImagickException;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-
 /**
  * Query builder helper for the Like operator
  *

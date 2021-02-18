@@ -78,6 +78,7 @@ class Product extends Model
     public function productItemCategories()
     {
         return $this->belongsToMany(ProductItemCategory::class)
-            ->withPivot([ 'max_items', 'items_are_quantifiable' ]);
+            ->withPivot([ 'max_items', 'order', 'items_are_quantifiable' ])
+            ->orderBy('product_product_item_category.order');
     }
 }
