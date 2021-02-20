@@ -6,7 +6,7 @@ use App\Models\Client;
 
 class AuthenticateClient extends BaseAuthenticate
 {
-    protected $guard = 'clients';
+    protected $guard = 'client';
 
     protected $entity = Client::class;
 }

@@ -24,8 +24,6 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules()
     {
-// TODO: handle facebook auth case
-
         $phoneConfirmation = $this->request->get('phone_confirmation');
         return [
             'first_name' => 'max:190',
@@ -34,7 +32,7 @@ class ProfileUpdateRequest extends FormRequest
             'password'   => 'confirmed|max:190',
             'latitude'   => 'required_with:longitude|numeric|between:-90,90|max:50',
             'longitude'  => 'required_with:latitude|numeric|between:-180,180|max:50',
-            'phone_code' => 'required_with:phone|max:10',
+            'phone_code' => 'required_with:phone|max:10', // TODO: handle case phone not changed
             'phone'      => [
                 'max:50',
                 'unique:clients,phone,' . auth()->user()->id,
