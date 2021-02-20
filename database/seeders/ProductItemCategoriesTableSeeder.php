@@ -59,9 +59,9 @@ class ProductItemCategoriesTableSeeder extends Seeder
         $products = Product::where('category_id', '=', 1)->get();
         foreach ($products as $product) {
             $product->productItemCategories()->sync([
-                $productItemCategoryRice->id => [ 'max_items' => 3, 'order' => 1, ],
-                $productItemCategorySalad->id => [ 'max_items' => 3, 'order' => 2, ],
-                $productItemCategoryPotatoes->id => [ 'max_items' => 3, 'order' => 3, ],
+                $productItemCategoryRice->id => [ 'max_items' => 1, 'order' => 1, ],
+                $productItemCategorySalad->id => [ 'max_items' => 1, 'order' => 2, ],
+                $productItemCategoryPotatoes->id => [ 'max_items' => 1, 'order' => 3, ],
                 $productItemCategorySauce->id => [ 'max_items' => 3, 'order' => 4, ]
             ]);
         }
