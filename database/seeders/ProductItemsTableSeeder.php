@@ -54,8 +54,8 @@ class ProductItemsTableSeeder extends Seeder
         ProductItem::factory()->create([
             'name' => [
                 'fr' => 'Riz fruits sec',
-                'en' => 'Garlic rice',
-                'tn' => 'Dry fruits rice',
+                'en' => 'Dry fruits rice',
+                'tn' => 'Roz fruits sec',
                 'ar' => 'أرز فواكه جافة',
             ],
             'photo' => 'example/restaurant/productItem/rice_kajo.jpg',

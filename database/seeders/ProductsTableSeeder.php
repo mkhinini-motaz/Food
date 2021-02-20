@@ -186,6 +186,7 @@ class ProductsTableSeeder extends Seeder
             'price' => 18000,
         ]);
 
+/*
         Product::factory()->create([
             'name' => [
                 'fr' => 'Symfonie fruit de mer',
@@ -198,6 +199,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_WITH_OPTIONS,
             'price' => 26000,
         ]);
+*/
     }
 
     /**
