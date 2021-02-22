@@ -253,7 +253,7 @@ class ProductsTableSeeder extends Seeder
                 'fr' => 'Sandwich nugget',
                 'en' => 'Nugget sandwich',
                 'tn' => 'Escalope nugget',
-                'ar' => 'شطيرة ناجت',
+                'ar' => 'ساندوتش ناجت',
             ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
             'category_id' => $categorySandwichId,
