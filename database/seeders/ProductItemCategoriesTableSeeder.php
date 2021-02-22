@@ -56,23 +56,51 @@ class ProductItemCategoriesTableSeeder extends Seeder
             'photo' => 'example/restaurant/productItemCategory/sauce.jpg',
         ]);
 
+        $productItemCategorySaucePizza = ProductItemCategory::factory()->create([
+            'name' => [
+                'fr' => 'Sauce pizza',
+                'en' => 'Pizza Sauce',
+                'tn' => 'Sauce pizza',
+                'ar' => 'صلصة البيتزا',
+            ],
+            'photo' => 'example/restaurant/productItemCategory/sauce_pizza.jpg',
+        ]);
+
+        $productItemCategorySupplement = ProductItemCategory::factory()->create([
+            'name' => [
+                'fr' => 'Supplément',
+                'en' => 'Supplement',
+                'tn' => 'Supplément',
+                'ar' => 'اضافات',
+            ],
+            'photo' => 'example/restaurant/productItemCategory/supplement.jpg',
+        ]);
+
         $products = Product::where('category_id', '=', 1)->get();
         foreach ($products as $product) {
             $product->productItemCategories()->sync([
-                $productItemCategoryRice->id => [ 'max_items' => 1, 'order' => 1, ],
-                $productItemCategorySalad->id => [ 'max_items' => 1, 'order' => 2, ],
-                $productItemCategoryPotatoes->id => [ 'max_items' => 1, 'order' => 3, ],
-                $productItemCategorySauce->id => [ 'max_items' => 3, 'order' => 4, ]
+                $productItemCategoryRice->id     => [ 'order' => 1, ],
+                $productItemCategorySalad->id    => [ 'order' => 2, ],
+                $productItemCategoryPotatoes->id => [ 'order' => 3, ],
+                $productItemCategorySauce->id    => [ 'order' => 4, 'max_items' => 3, ]
             ]);
         }
 
         $products = Product::where('category_id', '=', 2)->get();
         foreach ($products as $product) {
             $product->productItemCategories()->sync([
-                $productItemCategorySauce->id => [ 'max_items' => 3, 'order' => 1, 'items_are_quantifiable' => 1, ],
-                $productItemCategorySalad->id => [ 'max_items' => 3, 'order' => 2, 'items_are_quantifiable' => 1, ],
-                $productItemCategoryPotatoes->id => [ 'max_items' => 1, 'order' => 3, ],
+                $productItemCategorySauce->id      => [ 'order' => 1, 'max_items' => 3, 'items_are_quantifiable' => 1, ],
+                $productItemCategorySalad->id      => [ 'order' => 2, 'max_items' => 3, 'items_are_quantifiable' => 1, ],
+                $productItemCategoryPotatoes->id   => [ 'order' => 3, ],
+//                $productItemCategorySupplement->id => [ 'order' => 4, 'min_items' => 0, 'max_items' => 4, 'items_are_billable' => 1, ],
+
             ]);
         }
+
+        $quatreGoutPizzaProduct = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza au choix'")->first();
+        $quatreGoutPizzaProduct->productItemCategories()->sync([
+            $productItemCategorySaucePizza->id => [ 'order' => 1 ],
+            $productItemCategorySupplement->id => [ 'order' => 2, 'min_items' => 2, 'max_items' => 4, ],
+        ]);
     }
 }

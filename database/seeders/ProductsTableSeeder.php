@@ -297,6 +297,19 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
+                'fr' => 'Pizza au choix',
+                'en' => 'Choice pizza',
+                'tn' => 'Pizza au choix',
+                'ar' => 'بيتزا بالإختيار',
+            ],
+            'photo' => 'example/restaurant/product/pizza_4gout.jpg',
+            'category_id' => $pizzaId,
+            'type' => Product::TYPE_WITH_OPTIONS,
+            'price' => 12000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
                 'fr' => 'Pizza margherita',
                 'en' => 'Margherita Pizza',
                 'tn' => 'Pizza margherita',
@@ -388,15 +401,15 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr' => 'Pizza 4 gouts',
-                'en' => '4 tastes pizza',
-                'tn' => 'Pizza 4 gouts',
-                'ar' => 'بيتزا 4 أذواق',
+                'fr' => 'Pizza jambon',
+                'en' => 'Ham pizza',
+                'tn' => 'Pizza jambon',
+                'ar' => 'بيتزا جمبون',
             ],
-            'photo' => 'example/restaurant/product/pizza_4gout.jpg',
+            'photo' => 'example/restaurant/product/pizza_jambon.jpg',
             'category_id' => $pizzaId,
-            'type' => Product::TYPE_WITH_OPTIONS,
-            'price' => 12000,
+            'type' => Product::TYPE_FIXED,
+            'price' => 10000,
         ]);
 
         Product::factory()->create([

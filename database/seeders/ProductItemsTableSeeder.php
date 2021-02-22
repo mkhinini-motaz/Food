@@ -18,6 +18,8 @@ class ProductItemsTableSeeder extends Seeder
         $this->productItemsForSalad();
         $this->productItemsForPotatos();
         $this->productItemsForSauce();
+        $this->productItemsForSaucePizza();
+        $this->productItemsForSupplement();
     }
 
     /**
@@ -229,6 +231,167 @@ class ProductItemsTableSeeder extends Seeder
             'photo' => 'example/restaurant/productItem/harissa.jpg',
             'product_item_category_id' => $productItemCategorySauceId,
             'price' => 0,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function productItemsForSaucePizza()
+    {
+
+        $productItemCategorySauceId = ProductItemCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce pizza'")->first()->id;
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Sauce tomate',
+                'en' => 'Tomato sauce',
+                'tn' => 'Sauce tomate',
+                'ar' => 'صلصة الطماطم',
+            ],
+            'photo' => 'example/restaurant/productItem/sauce_tomate.jpg',
+            'product_item_category_id' => $productItemCategorySauceId,
+            'price' => 0,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Sauce blanche',
+                'en' => 'White sauce',
+                'tn' => 'Sauce blanche',
+                'ar' => 'صلصة بيضاء',
+            ],
+            'photo' => 'example/restaurant/productItem/sauce_blanche.jpg',
+            'product_item_category_id' => $productItemCategorySauceId,
+            'price' => 0,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function productItemsForSupplement()
+    {
+        $productItemCategorySupplementId = ProductItemCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first()->id;
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Thon',
+                'en' => 'Tuna',
+                'tn' => 'Thon',
+                'ar' => 'تن',
+            ],
+            'photo' => 'example/restaurant/productItem/thon.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2000,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => '4 fromages',
+                'en' => '4 cheese',
+                'tn' => '4 fromages',
+                'ar' => '4 أجبان',
+            ],
+            'photo' => 'example/restaurant/productItem/cheese.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 3500,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Fruits de mer',
+                'en' => 'Seafood',
+                'tn' => 'Fruits de mer',
+                'ar' => 'مأكولات بحرية',
+            ],
+            'photo' => 'example/restaurant/productItem/fruits_de_mer.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 4000,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Peperoni',
+                'en' => 'Peperoni',
+                'tn' => 'Peperoni',
+                'ar' => 'بيبروني',
+            ],
+            'photo' => 'example/restaurant/productItem/peperoni.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2500,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Jambon de boeuf',
+                'en' => 'Beef ham',
+                'tn' => 'Jambon de boeuf',
+                'ar' => 'جمبون بقر',
+            ],
+            'photo' => 'example/restaurant/productItem/jambon_boeuf.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2500,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Jambon de dinde',
+                'en' => 'Turkey ham',
+                'tn' => 'Jambon de dinde',
+                'ar' => 'جمبون الديك الرومي',
+            ],
+            'photo' => 'example/restaurant/productItem/jambon_dinde.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2000,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Champignon',
+                'en' => 'Mushroom',
+                'tn' => 'Champignon',
+                'ar' => 'فطر',
+            ],
+            'photo' => 'example/restaurant/productItem/champignon.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2000,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Escalope',
+                'en' => 'Escalope',
+                'tn' => 'Escalope',
+                'ar' => 'اسكالوب',
+            ],
+            'photo' => 'example/restaurant/productItem/escalope_pizza.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2500,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Chawarma',
+                'en' => 'Chawarma',
+                'tn' => 'Chawarma',
+                'ar' => 'شاورما',
+            ],
+            'photo' => 'example/restaurant/productItem/chawarma.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2500,
+        ]);
+
+        ProductItem::factory()->create([
+            'name' => [
+                'fr' => 'Chicken',
+                'en' => 'Chicken',
+                'tn' => 'Chicken',
+                'ar' => 'دجاج',
+            ],
+            'photo' => 'example/restaurant/productItem/chicken.jpg',
+            'product_item_category_id' => $productItemCategorySupplementId,
+            'price' => 2500,
         ]);
     }
 }

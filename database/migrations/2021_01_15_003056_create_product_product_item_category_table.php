@@ -17,7 +17,9 @@ class CreateProductProductItemCategoryTable extends Migration
             $table->unsignedInteger('product_id');
             $table->unsignedInteger('product_item_category_id');
             $table->unsignedTinyInteger('max_items')->default(1);
-            $table->unsignedTinyInteger('items_are_quantifiable')->default(0);
+            $table->unsignedTinyInteger('min_items')->default(1);
+            $table->unsignedTinyInteger('items_are_quantifiable')->default(0)->comment('enable quantity select');
+            $table->unsignedTinyInteger('items_are_billable')->default(0)->comment('make every selected productItem price added to the product price');
             $table->unsignedSmallInteger('order');
 
             $table->foreign('product_id')
