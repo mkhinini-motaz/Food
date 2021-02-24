@@ -39,7 +39,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_pane.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 9000,
         ]);
 
@@ -52,7 +52,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_grille.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 8500,
         ]);
 
@@ -65,7 +65,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_citron.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 11000,
         ]);
 
@@ -78,7 +78,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_sauce_champignon.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 12500,
         ]);
 
@@ -91,7 +91,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/plat_cordon_bleu.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 12000,
         ]);
 
@@ -104,7 +104,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/brochette_viande.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 14000,
         ]);
 
@@ -117,7 +117,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/brochette_escalope.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 11500,
         ]);
 
@@ -130,7 +130,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/viande_grille.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 14000,
         ]);
 
@@ -143,7 +143,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/grillade_mix.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 18000,
         ]);
 
@@ -169,7 +169,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/beignet_crevette.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 17000,
         ]);
 
@@ -182,7 +182,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/calamar_dore.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 18000,
         ]);
 
@@ -218,7 +218,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_escalope.png',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 6000,
         ]);
 
@@ -231,7 +231,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_thon.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 5500,
         ]);
 
@@ -244,7 +244,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_jambon.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 5500,
         ]);
 
@@ -257,7 +257,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 6500,
         ]);
 
@@ -270,7 +270,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_brochette.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 6500,
         ]);
 
@@ -283,7 +283,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_crevette.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 7500,
         ]);
     }
@@ -304,7 +304,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/pizza_4gout.jpg',
             'category_id' => $pizzaId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
             'price' => 12000,
         ]);
 
