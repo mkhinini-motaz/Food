@@ -40,9 +40,9 @@ class Product extends Model
 {
     use HasFactory, HasTranslations;
 
-    const TYPE_FIXED        = 1;
-    const TYPE_WITH_OPTIONS = 2;
-    const TYPES = [ self::TYPE_FIXED, self::TYPE_WITH_OPTIONS ];
+    const TYPE_FIXED            = 1;
+    const TYPE_WITH_INGREDIENTS = 2;
+    const TYPES = [ self::TYPE_FIXED, self::TYPE_WITH_INGREDIENTS ];
 
     protected $dateFormat = 'U';
 
@@ -75,10 +75,10 @@ class Product extends Model
     /**
      * @return BelongsToMany
      */
-    public function productItemCategories()
+    public function ingredientCategories()
     {
-        return $this->belongsToMany(ProductItemCategory::class)
-            ->withPivot([ 'max_items', 'order', 'items_are_quantifiable' ])
-            ->orderBy('product_product_item_category.order');
+        return $this->belongsToMany(IngredientCategory::class)
+            ->withPivot([ 'min_ingredients', 'max_ingredients', 'order', 'ingredients_are_quantifiable', 'ingredients_are_billable' ])
+            ->orderBy('ingredient_category_product.order');
     }
 }

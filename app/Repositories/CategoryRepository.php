@@ -71,7 +71,7 @@ class CategoryRepository
     public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
     {
         $products = $this->category->products()
-            ->with('productItemCategories.productItems');
+            ->with('ingredientCategories.ingredients');
 
         if (isset($search)) {
             $products->where(fieldsLike($search));

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductItemsTable extends Migration
+class CreateIngredientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProductItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_items', function (Blueprint $table) {
+        Schema::create('ingredients', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name', 1000);
@@ -22,16 +22,16 @@ class CreateProductItemsTable extends Migration
             $table->unsignedInteger('price')->comment('In tunisian mellimes');
             $table->unsignedTinyInteger('is_visible')->default(0);
 
-            $table->unsignedInteger('product_item_category_id');
+            $table->unsignedInteger('ingredient_category_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
 
-            $table->foreign('product_item_category_id')
+            $table->foreign('ingredient_category_id')
                 ->onDelete('cascade')
                 ->references('id')
-                ->on('product_item_categories');
+                ->on('ingredient_categories');
         });
     }
 
@@ -42,6 +42,6 @@ class CreateProductItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_items');
+        Schema::dropIfExists('ingredients');
     }
 }
