@@ -2,17 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\ProductItemCategory;
+use App\Models\Ingredient;
+use App\Models\IngredientCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProductItemCategoryFactory extends Factory
+class IngredientFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ProductItemCategory::class;
+    protected $model = Ingredient::class;
 
     /**
      * Define the model's default state.
@@ -35,8 +36,12 @@ class ProductItemCategoryFactory extends Factory
                 'ar' => 'عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي',
             ],
 
-            'photo' => $this->faker->imageUrl(),
+            'photo' => IngredientCategory::first()->photo,
+            'price' => rand(1, 250) * 100,
+
             'is_visible'  => 1,
+
+            'ingredient_category_id' => rand(1, 4),
 
             'created_at' => time(),
             'updated_at' => time()

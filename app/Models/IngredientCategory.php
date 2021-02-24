@@ -6,31 +6,28 @@ use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class Product
+ * Class Category
  * @package App\Models
  *
  * @property int    id
  * @property string name
  * @property string description
  * @property string photo
- * @property int    price
  * @property bool   is_visible
- *
- * @property int product_item_category_id
  *
  * @property int created_at
  * @property int updated_at
  * @property int deleted_at
  *
- * @property ProductItemCategory productItemCategory
- * @property Collection          orders
+ * @property Collection products
+ * @property Collection ingredients
  */
-class ProductItem extends Model
+class IngredientCategory extends Model
 {
     use HasFactory, HasTranslations;
 
@@ -39,18 +36,18 @@ class ProductItem extends Model
     public $translatable = [ 'name', 'description' ];
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function productItemCategory()
+    public function products()
     {
-        return $this->belongsTo(ProductItemCategory::class);
+        return $this->belongsToMany(Product::class);
     }
 
     /**
-     * @return BelongsToMany
+     * @return HasMany
      */
-    public function orders()
+    public function ingredients()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Ingredient::class);
     }
 }
