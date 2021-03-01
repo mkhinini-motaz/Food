@@ -14,9 +14,12 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->productsForPlats();
+//        $this->productsForPlats();
         $this->productsForSandwich();
+        $this->productsForMakloub();
         $this->productsForPizza();
+        $this->productsForPizzaSauceBlanche();
+        $this->productsForBaguetteFarcie();
         $this->productsForPates();
         $this->productsForAperetif();
         $this->productsForBoisson();
@@ -40,7 +43,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_pane.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 9000,
         ]);
 
         Product::factory()->create([
@@ -53,7 +55,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_grille.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 8500,
         ]);
 
         Product::factory()->create([
@@ -66,7 +67,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_citron.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 11000,
         ]);
 
         Product::factory()->create([
@@ -79,7 +79,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_sauce_champignon.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 12500,
         ]);
 
         Product::factory()->create([
@@ -92,7 +91,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/plat_cordon_bleu.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 12000,
         ]);
 
         Product::factory()->create([
@@ -105,7 +103,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/brochette_viande.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 14000,
         ]);
 
         Product::factory()->create([
@@ -118,7 +115,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/brochette_escalope.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 11500,
         ]);
 
         Product::factory()->create([
@@ -131,7 +127,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/viande_grille.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 14000,
         ]);
 
         Product::factory()->create([
@@ -144,7 +139,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/grillade_mix.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 18000,
         ]);
 
         Product::factory()->create([
@@ -157,7 +151,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/paella.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_FIXED,
-            'price' => 16000,
         ]);
 
         Product::factory()->create([
@@ -170,7 +163,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/beignet_crevette.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 17000,
         ]);
 
         Product::factory()->create([
@@ -183,7 +175,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/calamar_dore.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 18000,
         ]);
 
 /*
@@ -197,7 +188,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/plat_fruit_mer.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_OPTIONS,
-            'price' => 26000,
         ]);
 */
     }
@@ -219,7 +209,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/sandwich_escalope.png',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 6000,
         ]);
 
         Product::factory()->create([
@@ -232,7 +221,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/sandwich_thon.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 5500,
         ]);
 
         Product::factory()->create([
@@ -245,35 +233,33 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/sandwich_jambon.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 5500,
         ]);
 
         Product::factory()->create([
             'name' => [
                 'fr' => 'Sandwich nugget',
                 'en' => 'Nugget sandwich',
-                'tn' => 'Escalope nugget',
+                'tn' => 'Sandwich nugget',
                 'ar' => 'ساندوتش ناجت',
             ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 6500,
         ]);
 
         Product::factory()->create([
             'name' => [
                 'fr' => 'Sandwich brochette',
                 'en' => 'Skewer sandwich',
-                'tn' => 'Escalope brochette',
+                'tn' => 'Sandwich brochette',
                 'ar' => 'ساندوتش سيخ',
             ],
             'photo' => 'example/restaurant/product/sandwich_brochette.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 6500,
         ]);
 
+/*
         Product::factory()->create([
             'name' => [
                 'fr' => 'Sandwich crevette',
@@ -284,7 +270,75 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/sandwich_crevette.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 7500,
+        ]);
+*/
+    }
+
+    /**
+     *
+     */
+    public function productsForMakloub()
+    {
+        $categoryMakloubId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Makloub'")->first()->id;
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Makloub escalope',
+                'en' => 'Escalope makloub',
+                'tn' => 'Ma9loub escalope',
+                'ar' => 'مقلوب اسكالوب',
+            ],
+            'photo' => 'example/restaurant/product/ma9loub_escalope.jpg',
+            'category_id' => $categoryMakloubId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Makloub thon',
+                'en' => 'Tuna makloub',
+                'tn' => 'Ma9loub thon',
+                'ar' => 'مقلوب تن',
+            ],
+            'photo' => 'example/restaurant/product/makloub_thon.jpg',
+            'category_id' => $categoryMakloubId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Makloub jambon',
+                'en' => 'Ham makloub',
+                'tn' => 'Ma9loub jambon',
+                'ar' => 'ساندويش جمبون',
+            ],
+            'photo' => 'example/restaurant/product/makloub_jambon.jpg',
+            'category_id' => $categoryMakloubId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Makloub nugget',
+                'en' => 'Nugget makloub',
+                'tn' => 'Ma9loub nugget',
+                'ar' => 'مقلوب ناجت',
+            ],
+            'photo' => 'example/restaurant/product/makloub_nugget.jpg',
+            'category_id' => $categoryMakloubId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Makloub brochette',
+                'en' => 'Skewer makloub',
+                'tn' => 'Ma9loub brochette',
+                'ar' => 'مقلوب سيخ',
+            ],
+            'photo' => 'example/restaurant/product/makloub_brochette.png',
+            'category_id' => $categoryMakloubId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
         ]);
     }
 
@@ -294,7 +348,7 @@ class ProductsTableSeeder extends Seeder
     public function productsForPizza()
     {
         $pizzaId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza'")->first()->id;
-
+/*
         Product::factory()->create([
             'name' => [
                 'fr' => 'Pizza au choix',
@@ -305,8 +359,8 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_4gout.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
-            'price' => 12000,
         ]);
+*/
 
         Product::factory()->create([
             'name' => [
@@ -318,7 +372,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_margeritha.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 8000,
         ]);
 
         Product::factory()->create([
@@ -331,7 +384,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_thon.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 9000,
         ]);
 
         Product::factory()->create([
@@ -344,7 +396,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 14500,
         ]);
 
         Product::factory()->create([
@@ -357,7 +408,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_chicken.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 12000,
         ]);
 
         Product::factory()->create([
@@ -370,9 +420,9 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 12000,
         ]);
 
+/*
         Product::factory()->create([
             'name' => [
                 'fr' => 'Pizza pepperoni',
@@ -383,8 +433,8 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_pepperoni.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 9500,
         ]);
+*/
 
         Product::factory()->create([
             'name' => [
@@ -396,7 +446,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_regina.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 10500,
         ]);
 
         Product::factory()->create([
@@ -409,7 +458,50 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/pizza_jambon.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
-            'price' => 10000,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function productsForPizzaSauceBlanche()
+    {
+        $pizzaSauceBlancheId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza sauce blanche'")->first()->id;
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Pizza fruit de mer',
+                'en' => 'Seafood pizza',
+                'tn' => 'Pizza fruit de mer',
+                'ar' => 'بيتزا المأكولات البحرية',
+            ],
+            'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
+            'category_id' => $pizzaSauceBlancheId,
+            'type' => Product::TYPE_FIXED,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Pizza 4 fromages',
+                'en' => '4 cheese pizza',
+                'tn' => 'Pizza 4 fromages',
+                'ar' => 'بيتزا 4 أجبان',
+            ],
+            'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
+            'category_id' => $pizzaSauceBlancheId,
+            'type' => Product::TYPE_FIXED,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Pizza jambon',
+                'en' => 'Ham pizza',
+                'tn' => 'Pizza jambon',
+                'ar' => 'بيتزا جمبون',
+            ],
+            'photo' => 'example/restaurant/product/pizza_jambon.jpg',
+            'category_id' => $pizzaSauceBlancheId,
+            'type' => Product::TYPE_FIXED,
         ]);
 
         Product::factory()->create([
@@ -420,11 +512,67 @@ class ProductsTableSeeder extends Seeder
                 'ar' => 'بيتزا هندية',
             ],
             'photo' => 'example/restaurant/product/pizza_indienne.jpg',
-            'category_id' => $pizzaId,
+            'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
-            'price' => 12000,
         ]);
     }
+
+    /**
+     *
+     */
+    public function productsForBaguetteFarcie()
+    {
+        $baguetteFarcieId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Baguette farcie'")->first()->id;
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Baguette farcie thon',
+                'en' => 'Tuna stuffed baguette',
+                'tn' => 'Baguette farcie thon',
+                'ar' => 'باغيت محشي تن',
+            ],
+            'photo' => 'example/restaurant/product/baguette5.jpg',
+            'category_id' => $baguetteFarcieId,
+            'type' => Product::TYPE_FIXED,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Baguette farcie 4 fromages',
+                'en' => '4 cheese stuffed baguette',
+                'tn' => 'Baguette farcie 4 fromages',
+                'ar' => 'باغيت محشي 4 أجبان',
+            ],
+            'photo' => 'example/restaurant/product/baguette3.jpg',
+            'category_id' => $baguetteFarcieId,
+            'type' => Product::TYPE_FIXED,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Baguette farcie escalope',
+                'en' => 'Escalope stuffed baguette',
+                'tn' => 'Baguette farcie',
+                'ar' => 'باغيت محشي اسكالوب',
+            ],
+            'photo' => 'example/restaurant/product/baguette2.jpg',
+            'category_id' => $baguetteFarcieId,
+            'type' => Product::TYPE_FIXED,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Baguette farcie escalope pané',
+                'en' => 'Breaded Escalope stuffed baguette',
+                'tn' => 'Baguette farcie escalope pané',
+                'ar' => 'باغيت محشي اسكالوب مخبوز',
+            ],
+            'photo' => 'example/restaurant/product/baguette4.jpg',
+            'category_id' => $baguetteFarcieId,
+            'type' => Product::TYPE_FIXED,
+        ]);
+    }
+
 
     /**
      *
@@ -443,7 +591,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/lasagne_fruit_mer.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 12500,
         ]);
 
         Product::factory()->create([
@@ -456,7 +603,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/lasagne_viande_hache.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 8500,
         ]);
 
         Product::factory()->create([
@@ -469,7 +615,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/tagliatelle_fruit_mer.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 14000,
         ]);
 
         Product::factory()->create([
@@ -482,7 +627,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/tagliatelles_saumon.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 13500,
         ]);
 
         Product::factory()->create([
@@ -495,7 +639,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/spaghetti_bolognaise.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 9000,
         ]);
 
         Product::factory()->create([
@@ -508,7 +651,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/spaghetti_fruit_mer.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 13000,
         ]);
 
         Product::factory()->create([
@@ -521,7 +663,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/spaghetti_fruit_mer_sauce_blanche.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 14000,
         ]);
 
         Product::factory()->create([
@@ -534,7 +675,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/spaghetti_saumon_fume.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 13000,
         ]);
 
         Product::factory()->create([
@@ -547,7 +687,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/penne_saumon.jpg',
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
-            'price' => 13000,
         ]);
     }
 
@@ -568,7 +707,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/corn_dog.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
-            'price' => 7000,
         ]);
 
         Product::factory()->create([
@@ -581,7 +719,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/nugget.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
-            'price' => 6000,
         ]);
 
         Product::factory()->create([
@@ -594,7 +731,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/bric_finger.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1500,
         ]);
 
         Product::factory()->create([
@@ -607,7 +743,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/frites_parsley.jpg',
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1500,
         ]);
     }
 
@@ -628,7 +763,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/safia.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 600,
         ]);
 
         Product::factory()->create([
@@ -641,7 +775,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/coca.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1200,
         ]);
 
         Product::factory()->create([
@@ -654,7 +787,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/fanta.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1200,
         ]);
 
         Product::factory()->create([
@@ -667,7 +799,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/boga_lim.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1200,
         ]);
 
         Product::factory()->create([
@@ -680,7 +811,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/boga_cidre.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1200,
         ]);
 
         Product::factory()->create([
@@ -693,7 +823,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/apla.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1200,
         ]);
 
         Product::factory()->create([
@@ -706,7 +835,6 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/orangina.jpg',
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
-            'price' => 1500,
         ]);
     }
 

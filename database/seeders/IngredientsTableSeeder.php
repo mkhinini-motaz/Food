@@ -19,7 +19,7 @@ class IngredientsTableSeeder extends Seeder
         $this->ingredientsForPotatos();
         $this->ingredientsForSauce();
         $this->ingredientsForSaucePizza();
-        $this->ingredientsForSupplement();
+//        $this->ingredientsForSupplement();
     }
 
     /**
@@ -97,6 +97,7 @@ class IngredientsTableSeeder extends Seeder
             'price' => 1200,
         ]);
 
+/*
         Ingredient::factory()->create([
             'name' => [
                 'fr' => 'Salade fruits de mer',
@@ -108,6 +109,7 @@ class IngredientsTableSeeder extends Seeder
             'ingredient_category_id' => $ingredientCategorySaladId,
             'price' => 2500,
         ]);
+*/
 
         Ingredient::factory()->create([
             'name' => [

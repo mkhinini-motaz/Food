@@ -15,7 +15,7 @@ class ShopsTableSeeder extends Seeder
         Shop::factory()->create([
             'name' => 'ghostchef',
             'logo' => 'example/restaurant/logo/ghostchef.svg',
-            'is_approved' => true,
+            'is_approved' => 1,
             'min_order_price' => 3000,
         ]);
 

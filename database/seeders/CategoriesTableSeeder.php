@@ -18,6 +18,7 @@ class CategoriesTableSeeder extends Seeder
         Category::factory()->create([
             'name' => [ 'fr' => 'Plats', 'en' => 'Dishes', 'tn' => 'Plats', 'ar' => 'أطباق', ],
             'photo' => 'example/restaurant/category/repas_luxe.jpg',
+            'is_visible' => 0,
         ]);
 
         Category::factory()->create([
@@ -26,8 +27,23 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         Category::factory()->create([
+            'name' => [ 'fr' => 'Makloub', 'en' => 'Makloub', 'tn' => 'Ma9loub', 'ar' => 'مقلوب', ],
+            'photo' => 'example/restaurant/category/ma9loub.jpg',
+        ]);
+
+        Category::factory()->create([
             'name' => [ 'fr' => 'Pizza', 'en' => 'Pizza', 'tn' => 'Pizza', 'ar' => 'بيتزا', ],
             'photo' => 'example/restaurant/category/pizza.jpg',
+        ]);
+
+        Category::factory()->create([
+            'name' => [ 'fr' => 'Pizza sauce blanche', 'en' => 'White sauce pizza', 'tn' => 'Pizza sauce blanche', 'ar' => 'بيتزا الصلصة البيضاء', ],
+            'photo' => 'example/restaurant/category/pizza_sauce_blanche.jpg',
+        ]);
+
+        Category::factory()->create([
+            'name' => [ 'fr' => 'Baguette farcie', 'en' => 'Stuffed baguette', 'tn' => 'Baguette farcie', 'ar' => 'باغيت محشي', ],
+            'photo' => 'example/restaurant/category/baguette_farcie.jpg',
         ]);
 
         Category::factory()->create([

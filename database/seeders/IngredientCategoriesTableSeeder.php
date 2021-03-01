@@ -74,8 +74,8 @@ class IngredientCategoriesTableSeeder extends Seeder
             'photo' => 'example/restaurant/ingredientCategory/supplement.jpg',
         ]);
 
-        $products = Product::where('category_id', '=', 1)->get();
-        foreach ($products as $product) {
+        $platProducts = Product::where('category_id', '=', 1)->get();
+        foreach ($platProducts as $product) {
             $product->ingredientCategories()->sync([
                 $ingredientCategoryRice->id     => [ 'order' => 1, ],
                 $ingredientCategorySalad->id    => [ 'order' => 2, ],
@@ -84,8 +84,8 @@ class IngredientCategoriesTableSeeder extends Seeder
             ]);
         }
 
-        $products = Product::where('category_id', '=', 2)->get();
-        foreach ($products as $product) {
+        $sandwichProducts = Product::where('category_id', '=', 2)->get();
+        foreach ($sandwichProducts as $product) {
             $product->ingredientCategories()->sync([
                 $ingredientCategorySauce->id      => [ 'order' => 1, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
                 $ingredientCategorySalad->id      => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
@@ -95,10 +95,22 @@ class IngredientCategoriesTableSeeder extends Seeder
             ]);
         }
 
+/*
         $quatreGoutPizzaProduct = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza au choix'")->first();
         $quatreGoutPizzaProduct->ingredientCategories()->sync([
             $ingredientCategorySaucePizza->id => [ 'order' => 1 ],
             $ingredientCategorySupplement->id => [ 'order' => 2, 'min_ingredients' => 2, 'max_ingredients' => 4, ],
         ]);
+*/
+
+        $makloubProducts = Product::where('category_id', '=', 3)->get();
+        foreach ($makloubProducts as $product) {
+            $product->ingredientCategories()->sync([
+                $ingredientCategorySauce->id      => [ 'order' => 1, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+                $ingredientCategorySalad->id      => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+                $ingredientCategoryPotatoes->id   => [ 'order' => 3, ],
+
+            ]);
+        }
     }
 }
