@@ -105,7 +105,8 @@ class ShopRepository
      */
     public function paginateCategories($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
     {
-        $categories = $this->shop->categories();
+        $categories = $this->shop->categories()
+            ->where('is_visible', '=', 1);
 
         if (isset($search)) {
             $categories->where(fieldsLike($search, 'name'));
