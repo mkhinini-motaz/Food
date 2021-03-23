@@ -57,11 +57,11 @@ class Shop extends Model
     }
 
     /**
-     * @return HasMany
+     * @return HasManyThrough
      */
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasManyThrough(Order::class, Location::class);
     }
 
     /**

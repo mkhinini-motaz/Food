@@ -24,6 +24,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int updated_at
  * @property int deleted_at
  *
+ * @property \stdClass  pivot
  * @property Collection products
  * @property Collection ingredients
  */
@@ -49,5 +50,16 @@ class IngredientCategory extends Model
     public function ingredients()
     {
         return $this->hasMany(Ingredient::class);
+    }
+
+    /**
+     * @param Ingredient $ingredient
+     * @param array      $fields
+     */
+    public function attachChoicesForIngredient(Ingredient $ingredient, $fields)
+    {
+        if ($this->pivot->ingredients_are_quantifiable) {
+            $ingredient->quantity = $fields['quantity'];
+        }
     }
 }

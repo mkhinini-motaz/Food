@@ -18,6 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int    id
  * @property string name
  * @property string description
+ * @property string type
  * @property string photo
  * @property int    weight
  * @property int    height
@@ -35,6 +36,7 @@ use Spatie\Translatable\HasTranslations;
  * @property Category   category
  * @property Shop       shop
  * @property Collection orders
+ * @property Collection ingredientCategories
  */
 class Product extends Model
 {

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Shop
@@ -21,20 +22,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string average_ready_minutes
  * @property bool   is_approved
  *
- * @property int client_id
- * @property int location_id
- * @property int promo_code_id
- * @property int transporter_id
+ * @property int         client_id
+ * @property int         location_id
+ * @property int         promo_code_id
+ * @property int         transporter_id
  *
- * @property int created_at
- * @property int updated_at
- * @property int deleted_at
+ * @property int         created_at
+ * @property int         updated_at
+ * @property int         deleted_at
  *
- * @property Client client
- * @property Location location
- * @property PromoCode promo_code
+ * @property Order       client
+ * @property Location    location
+ * @property PromoCode   promo_code
  * @property Transporter transporter
- * @property Collection products
+ * @property Collection  products
  */
 class Order extends Model
 {
@@ -57,7 +58,7 @@ class Order extends Model
      */
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Order::class);
     }
 
     /**
@@ -89,6 +90,7 @@ class Order extends Model
      */
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)
+            ->withPivot([ 'id', 'product_count' ]);
     }
 }

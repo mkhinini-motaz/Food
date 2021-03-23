@@ -34,8 +34,9 @@ class Ingredient extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $dateFormat = 'U';
+    const ORDER_CHOICES_FIELDS = [ 'quantity' ];
 
+    protected $dateFormat = 'U';
     public $translatable = [ 'name', 'description' ];
 
     /**
