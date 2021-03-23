@@ -13,6 +13,6 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        Location::factory()->count(10)->create();
+        $location = Location::factory()->create([ 'shop_id' => 1 ]);
     }
 }

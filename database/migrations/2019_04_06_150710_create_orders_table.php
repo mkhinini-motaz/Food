@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('associated_phone');
             $table->string('delivery_latitude', 52);
             $table->string('delivery_longitude', 52);
-            $table->string('additional_note');
+            $table->string('additional_note')->nullable();
 
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('location_id');

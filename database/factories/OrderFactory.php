@@ -30,6 +30,7 @@ class OrderFactory extends Factory
             'associated_phone'   => $this->faker->phoneNumber,
             'delivery_latitude'  => $this->faker->latitude,
             'delivery_longitude' => $this->faker->longitude,
+            'additional_note'    => $this->faker->paragraph,
 
             'client_id'      => 1,
             'transporter_id' => null,
