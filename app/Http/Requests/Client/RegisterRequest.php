@@ -32,8 +32,6 @@ class RegisterRequest extends FormRequest
             'last_name'  => 'required|max:190',
             'email'      => 'unique:clients,email|max:190',
             'password'   => 'required|confirmed|max:190',
-            'latitude'   => 'required_with:longitude|numeric|between:-90,90',
-            'longitude'  => 'required_with:latitude|numeric|between:-180,180',
             'phone_code' => 'required_with:phone|max:10',
             'phone'      => [
                 'required',

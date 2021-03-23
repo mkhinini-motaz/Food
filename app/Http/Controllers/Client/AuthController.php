@@ -44,11 +44,9 @@ class AuthController extends Controller
         $phone     = $request->input('phone');
         $password  = $request->input('password');
         $lastName  = $request->input('last_name');
-        $latitude  = $request->input('latitude', null);
-        $longitude = $request->input('longitude', null);
         $firstName = $request->input('first_name');
 
-        $client = ClientRepository::create($firstName, $lastName, $email, $password, $phone, $latitude, $longitude);
+        $client = ClientRepository::create($firstName, $lastName, $email, $password, $phone);
         $token = auth('client')->login($client);
 
         return response()->json([ 'status' => 'success', 'access_token' => $token, 'data' => $client ], 200);
