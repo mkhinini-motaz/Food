@@ -14,7 +14,7 @@ class CreateIngredientCategoriesTable extends Migration
     public function up()
     {
         Schema::create('ingredient_categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('name', 1000);
             $table->string('description', 1000);

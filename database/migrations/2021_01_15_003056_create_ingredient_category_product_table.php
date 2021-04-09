@@ -14,8 +14,8 @@ class CreateIngredientCategoryProductTable extends Migration
     public function up()
     {
         Schema::create('ingredient_category_product', function (Blueprint $table) {
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('ingredient_category_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('ingredient_category_id');
             $table->unsignedTinyInteger('max_ingredients')->default(1);
             $table->unsignedTinyInteger('min_ingredients')->default(1);
             $table->unsignedTinyInteger('ingredients_are_quantifiable')->default(0)->comment('enable quantity select');

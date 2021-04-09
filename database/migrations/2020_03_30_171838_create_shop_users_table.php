@@ -16,7 +16,7 @@ class CreateShopUsersTable extends Migration
     public function up()
     {
         Schema::create('shop_users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('first_name');
             $table->string('last_name');
@@ -25,7 +25,7 @@ class CreateShopUsersTable extends Migration
             $table->string('password');
             $table->smallInteger('role')->default(ShopUser::ROLE_OWNER);
 
-            $table->unsignedInteger('shop_id');
+            $table->unsignedBigInteger('shop_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

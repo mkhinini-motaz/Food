@@ -14,13 +14,13 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('name');
             $table->string('latitude', 52);
             $table->string('longitude', 52);
 
-            $table->unsignedInteger('shop_id');
+            $table->unsignedBigInteger('shop_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

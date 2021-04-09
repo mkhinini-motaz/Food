@@ -14,13 +14,13 @@ class CreateShopPaymentsTable extends Migration
     public function up()
     {
         Schema::create('shop_payments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('amount')->comment('In tunisian mellimes');
 
-            $table->unsignedInteger('shop_id');
+            $table->unsignedBigInteger('shop_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

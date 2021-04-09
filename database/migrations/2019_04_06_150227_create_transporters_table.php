@@ -14,7 +14,7 @@ class CreateTransportersTable extends Migration
     public function up()
     {
         Schema::create('transporters', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('alias')->nullable();
             $table->string('first_name');

@@ -14,7 +14,7 @@ class CreateIngredientsTable extends Migration
     public function up()
     {
         Schema::create('ingredients', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('name', 1000);
             $table->string('description', 1000);
@@ -22,7 +22,7 @@ class CreateIngredientsTable extends Migration
             $table->unsignedInteger('price')->comment('In tunisian mellimes');
             $table->unsignedTinyInteger('is_visible')->default(0);
 
-            $table->unsignedInteger('ingredient_category_id');
+            $table->unsignedBigInteger('ingredient_category_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

@@ -14,10 +14,10 @@ class CreateTransporterVehiculeTable extends Migration
     public function up()
     {
         Schema::create('transporter_vehicule', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
-            $table->unsignedInteger('transporter_id');
-            $table->unsignedInteger('vehicule_id');
+            $table->unsignedBigInteger('transporter_id');
+            $table->unsignedBigInteger('vehicule_id');
 
             $table->unsignedInteger('usage_start_at');
             $table->unsignedInteger('usage_end_at')->nullable();

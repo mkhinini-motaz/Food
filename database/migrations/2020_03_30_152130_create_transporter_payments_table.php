@@ -14,13 +14,13 @@ class CreateTransporterPaymentsTable extends Migration
     public function up()
     {
         Schema::create('transporter_payments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('amount')->comment('In tunisian mellimes');
 
-            $table->unsignedInteger('transporter_id');
+            $table->unsignedBigInteger('transporter_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

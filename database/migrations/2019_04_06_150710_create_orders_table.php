@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('message')->nullable();
             $table->tinyInteger('status')->default(1)->comment('@see \App\Model\Order::STATUSES');
@@ -26,10 +26,10 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
             $table->tinyInteger('collection_method')->comment('@see \App\Model\Order::COLLECTION_METHODS');
 
-            $table->unsignedInteger('client_id');
-            $table->unsignedInteger('location_id');
-            $table->unsignedInteger('promo_code_id')->nullable();
-            $table->unsignedInteger('transporter_id')->nullable();
+            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('promo_code_id')->nullable();
+            $table->unsignedBigInteger('transporter_id')->nullable();
 
             $table->unsignedInteger('to_be_delivered_at')->nullable()->comment('null means as soon as possible');
             $table->unsignedInteger('created_at');

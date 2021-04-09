@@ -14,7 +14,7 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
             $table->string('name', 1000);
             $table->string('description', 1000);
@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->unsignedMediumInteger('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
             $table->unsignedMediumInteger('length')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
 
-            $table->unsignedInteger('category_id');
+            $table->unsignedBigInteger('category_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
