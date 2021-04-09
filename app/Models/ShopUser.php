@@ -32,9 +32,10 @@ class ShopUser extends Authenticatable
     use HasFactory;
 
     const ROLE_OWNER       = 1;
+    const ROLE_MASTER_CHEF = 7;
     const ROLE_SHOP_KEEPER = 20;
 
-    const ROLES = [ self::ROLE_OWNER, self::ROLE_SHOP_KEEPER ];
+    const ROLES = [ self::ROLE_OWNER, self::ROLE_MASTER_CHEF, self::ROLE_SHOP_KEEPER ];
 
     protected $dateFormat = 'U';
 

@@ -27,6 +27,9 @@ class OrderFactory extends Factory
             'status'      => $this->faker->numberBetween(1, 4),
             'total_price' => rand(5000, 30000),
 
+            'source'            => $this->faker->randomElement(Order::COLLECTION_METHODS),
+            'collection_method' => $this->faker->randomElement(Order::SOURCES),
+
             'associated_phone'   => $this->faker->phoneNumber,
             'delivery_latitude'  => $this->faker->latitude,
             'delivery_longitude' => $this->faker->longitude,
