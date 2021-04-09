@@ -17,12 +17,21 @@ class CreateShopsTable extends Migration
             $table->increments('id');
 
             $table->string('name');
+            $table->tinyInteger('type');
             $table->string('logo');
             $table->string('phone');
             $table->smallInteger('pricing_category')->comment('@see App\Model\Shop::PRICING_CATEGORIES');
             $table->integer('min_order_price')->comment('In tunisian mellimes');
             $table->string('average_ready_minutes', 10)->nullable()->comment('null means immediate');
             $table->tinyInteger('is_approved')->default(0);
+
+            $table->string('ga_tracking_id', 50)->nullable()->comment('Google Analytics tracking id');
+            $table->string('primary_color', 50)->nullable();
+            $table->string('secondary_color', 50)->nullable();
+            $table->string('facebook_url', 100)->nullable();
+            $table->string('instagram_url', 100)->nullable();
+            $table->string('twitter_url', 100)->nullable();
+            $table->string('linkedin_url', 100)->nullable();
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

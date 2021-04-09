@@ -23,6 +23,8 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_latitude', 52);
             $table->string('delivery_longitude', 52);
             $table->string('additional_note')->nullable();
+            $table->tinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
+            $table->tinyInteger('collection_method')->comment('@see \App\Model\Order::COLLECTION_METHODS');
 
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('location_id');

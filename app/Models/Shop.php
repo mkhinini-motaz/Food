@@ -15,12 +15,20 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  *
  * @property int    id
  * @property string name
+ * @property int    type
  * @property string logo
  * @property string phone
  * @property int    pricing_category
  * @property int    min_order_price
  * @property string average_ready_minutes
  * @property bool   is_approved
+ * @property string ga_tracking_id
+ * @property string primary_color
+ * @property string secondary_color
+ * @property string facebook_url
+ * @property string instagram_url
+ * @property string twitter_url
+ * @property string linkedin_url
  *
  * @property int created_at
  * @property int updated_at
@@ -33,6 +41,9 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class Shop extends Model
 {
     use HasFactory;
+
+    const TYPE_RESTAURANT = 1;
+    const TYPES = [ self::TYPE_RESTAURANT ];
 
     const IS_APPROVED_FALSE = 0;
     const IS_APPROVED_TRUE = 1;
