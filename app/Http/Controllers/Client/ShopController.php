@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Resources\Collection;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
@@ -18,11 +19,11 @@ class ShopController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->input('page', 1);
-        $perPage = $request->input('perPage', 20);
-        $orderBy = $request->input('orderBy', 'created_at');
+        $page           = $request->input('page', 1);
+        $perPage        = $request->input('perPage', 20);
+        $orderBy        = $request->input('orderBy', 'created_at');
+        $search         = $request->input('search', null);
         $orderDirection = $request->input('orderDirection', 'desc');
-        $search = $request->input('search', null);
 
         $shops = ShopRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
 
@@ -46,9 +47,9 @@ class ShopController extends Controller
         $orderDirection = $request->input('orderDirection', 'desc');
         $search = $request->input('search', null);
 
-        $products = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
+        $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
 
-        return response()->json([ 'status' => 'success', 'data' => $products ], 200);
+        return response()->json([ 'status' => 'success', 'data' => new Collection($categories) ], 200);
     }
 
     /**
