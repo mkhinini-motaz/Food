@@ -10,7 +10,7 @@ class Collection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request  $request
      * @return array
      */
     public function toArray($request)
@@ -31,5 +31,10 @@ class Collection extends ResourceCollection
     protected function collects()
     {
         return 'App\Http\Resources\\' . class_basename($this->resource->first()) . 'Resource';
+    }
+
+    public static function jsonResponse($data)
+    {
+        return (new self($data))->response();
     }
 }

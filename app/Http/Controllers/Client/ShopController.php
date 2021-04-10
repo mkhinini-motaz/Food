@@ -49,7 +49,7 @@ class ShopController extends Controller
 
         $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
 
-        return response()->json([ 'status' => 'success', 'data' => new Collection($categories) ], 200);
+        return Collection::jsonResponse($categories);
     }
 
     /**
