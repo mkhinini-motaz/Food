@@ -18,10 +18,10 @@ class ProductResource extends JsonResource
         return [
             'id'          => $this->id,
             'name'        => $this->getTranslations('name'),
-            'photo'       => $this->photo,
-            'description' => $this->getTranslations('description'),
-            'price'       => $this->price,
             'type'        => $this->type,
+            'photo'       => $this->photo,
+            'price'       => $this->price,
+            'description' => $this->getTranslations('description'),
             'category_id' => $this->category_id,
             'ingredient_categories' => IngredientCategoriesResource::collection($this->whenLoaded('ingredientCategories')),
         ];

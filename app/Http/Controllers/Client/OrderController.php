@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function order()
     {

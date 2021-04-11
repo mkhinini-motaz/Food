@@ -73,7 +73,7 @@ class ShopController extends Controller
 
         $products = $shopRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection, $categoryIds, $productIds);
 
-        return response()->json([ 'status' => 'success', 'data' => $products ], 200);
+        return ResourceCollection::jsonResponse($products);
     }
 
     /**

@@ -19,8 +19,8 @@ class IngredientsResource extends JsonResource
             'id'          => $this->id,
             'name'        => $this->getTranslations('name'),
             'photo'       => $this->photo,
-            'description' => $this->getTranslations('description'),
             'price'       => $this->price,
+            'description' => $this->getTranslations('description'),
         ];
     }
 }

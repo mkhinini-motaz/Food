@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection as BaseResourceCollection;
+use Illuminate\Support\Collection;
 
 class ResourceCollection extends BaseResourceCollection
 {
@@ -35,11 +37,11 @@ class ResourceCollection extends BaseResourceCollection
     }
 
     /**
-     * @param array $data
+     * @param LengthAwarePaginator $data
      *
      * @return JsonResponse
      */
-    public static function jsonResponse($data)
+    public static function jsonResponse(LengthAwarePaginator $data)
     {
         return (new self($data))->response();
     }

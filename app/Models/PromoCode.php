@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string code
  * @property int    expires_at
  * @property int    max_usage_count
+ * @property int    reduction_amount
  *
  * @property int admin_id
  *
