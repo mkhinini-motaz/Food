@@ -31,10 +31,10 @@ class ProductFactory extends Factory
                 'ar' => $this->faker->word,
             ],
             'description' => [
-                'fr' => 'Français Français Français Français Français Français Français Français Français Français Français Français',
-                'en' => 'English English English English English English English English English English English English',
-                'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi',
-                'ar' => 'عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي',
+                'fr' => 'Description Français Description Français Description Français Description Français Description Français',
+                'en' => 'English Description English Description English Description English Description English Description',
+                'tn' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
+                'ar' => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
 
             'type'   => $this->faker->randomElement(Product::TYPES),

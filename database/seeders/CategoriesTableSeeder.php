@@ -65,10 +65,10 @@ class CategoriesTableSeeder extends Seeder
             Category::factory()->create([
                 'name' => [ 'fr' => 'FR_Test_pagination_category', 'en' => 'EN_Test_pagination_category', 'tn' => 'TN_Test_pagination_category', 'ar' => 'AR_Test_pagination_category', ],
                 'description' => [
-                    'fr' => 'Français Français Français Français Français Français Français Français Français Français Français Français',
-                    'en' => 'English English English English English English English English English English English English',
-                    'tn' => 'Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi Tounsi',
-                    'ar' => 'عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي عربي',
+                    'fr' => 'Description Français Description Français Description Français Description Français Description Français',
+                    'en' => 'English Description English Description English Description English Description English Description',
+                    'tn' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
+                    'ar' => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
                 ],
                 'photo' => '',
             ]);

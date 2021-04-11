@@ -24,7 +24,7 @@ class CreateTransportersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('shift_start_time', 10);
             $table->string('shift_end_time', 10);
-            $table->tinyInteger('is_approved')->default(0);
+            $table->unsignedTinyInteger('is_approved')->default(0);
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
