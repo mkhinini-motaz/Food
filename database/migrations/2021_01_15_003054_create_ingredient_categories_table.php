@@ -21,9 +21,16 @@ class CreateIngredientCategoriesTable extends Migration
             $table->string('photo');
             $table->unsignedTinyInteger('is_visible')->default(0);
 
+            $table->unsignedBigInteger('shop_id');
+
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
+
+            $table->foreign('shop_id')
+                ->onDelete('restrict')
+                ->references('id')
+                ->on('shops');
         });
     }
 
