@@ -22,7 +22,7 @@ class CreateClientsTable extends Migration
             $table->string('phone', 52)->unique()->nullable();
             // TODO: add Facebook id
             $table->string('password');
-            $table->tinyInteger('is_phone_confirmed')->default(0);
+            $table->unsignedTinyInteger('is_phone_confirmed')->default(0);
             $table->string('latitude', 52)->nullable();
             $table->string('longitude', 52)->nullable();
 

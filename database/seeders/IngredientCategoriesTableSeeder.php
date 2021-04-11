@@ -22,6 +22,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 'ar' => 'أرز',
             ],
             'photo' => 'example/restaurant/ingredientCategory/rice.jpg',
+            'shop_id' => 1,
         ]);
 
         $ingredientCategorySalad = IngredientCategory::factory()->create([
@@ -32,6 +33,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 'ar' => 'سلطة',
             ],
             'photo' => 'example/restaurant/ingredientCategory/salad.jpg',
+            'shop_id' => 1,
         ]);
 
         $ingredientCategoryPotatoes = IngredientCategory::factory()->create([
@@ -42,6 +44,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 'ar' => 'بطاطس',
             ],
             'photo' => 'example/restaurant/ingredientCategory/kartoffeln.jpg',
+            'shop_id' => 1,
         ]);
 
         $ingredientCategorySauce = IngredientCategory::factory()->create([
@@ -52,6 +55,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 'ar' => 'صلصة',
             ],
             'photo' => 'example/restaurant/ingredientCategory/sauce.jpg',
+            'shop_id' => 1,
         ]);
 
         $ingredientCategorySaucePizza = IngredientCategory::factory()->create([
@@ -62,6 +66,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 'ar' => 'صلصة البيتزا',
             ],
             'photo' => 'example/restaurant/ingredientCategory/sauce_pizza.jpg',
+            'shop_id' => 1,
         ]);
 
         $ingredientCategorySupplement = IngredientCategory::factory()->create([
@@ -72,6 +77,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 'ar' => 'اضافات',
             ],
             'photo' => 'example/restaurant/ingredientCategory/supplement.jpg',
+            'shop_id' => 1,
         ]);
 
         $platProducts = Product::where('category_id', '=', 1)->get();

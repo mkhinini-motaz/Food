@@ -17,14 +17,14 @@ class CreateOrdersTable extends Migration
             $table->id();
 
             $table->string('message')->nullable();
-            $table->tinyInteger('status')->default(1)->comment('@see \App\Model\Order::STATUSES');
+            $table->unsignedTinyInteger('status')->default(1)->comment('@see \App\Model\Order::STATUSES');
             $table->integer('total_price');
             $table->string('associated_phone');
             $table->string('delivery_latitude', 52);
             $table->string('delivery_longitude', 52);
             $table->string('additional_note')->nullable();
-            $table->tinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
-            $table->tinyInteger('collection_method')->comment('@see \App\Model\Order::COLLECTION_METHODS');
+            $table->unsignedTinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
+            $table->unsignedTinyInteger('collection_method')->comment('@see \App\Model\Order::COLLECTION_METHODS');
 
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('location_id');

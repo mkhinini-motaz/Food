@@ -19,7 +19,7 @@ class CreateIngredientCategoriesTable extends Migration
             $table->string('name', 1000);
             $table->string('description', 1000);
             $table->string('photo');
-            $table->tinyInteger('is_visible')->default(0);
+            $table->unsignedTinyInteger('is_visible')->default(0);
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
