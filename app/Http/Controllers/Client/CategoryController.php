@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Resources\ResourceCollection;
 use App\Models\Category;
 use App\Models\Shop;
 use App\Repositories\CategoryRepository;
@@ -12,24 +13,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function index(Request $request)
-    {
-        $page = $request->input('page', 1);
-        $perPage = $request->input('perPage', 20);
-        $orderBy = $request->input('orderBy', 'created_at');
-        $orderDirection = $request->input('orderDirection', 'desc');
-        $search = $request->input('search', null);
-
-        $categories = CategoryRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
-
-        return response()->json([ 'status' => 'success', 'data' => $categories ], 200);
-    }
-
     /**
      * @param int $categoryId
      * @param Request $request
@@ -49,7 +32,7 @@ class CategoryController extends Controller
 
         $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection);
 
-        return response()->json([ 'status' => 'success', 'data' => $products ], 200);
+        return ResourceCollection::jsonResponse($products);
     }
 
     /**

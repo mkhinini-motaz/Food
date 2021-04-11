@@ -2,15 +2,16 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection as BaseResourceCollection;
 
-class Collection extends ResourceCollection
+class ResourceCollection extends BaseResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -33,6 +34,11 @@ class Collection extends ResourceCollection
         return 'App\Http\Resources\\' . class_basename($this->resource->first()) . 'Resource';
     }
 
+    /**
+     * @param array $data
+     *
+     * @return JsonResponse
+     */
     public static function jsonResponse($data)
     {
         return (new self($data))->response();

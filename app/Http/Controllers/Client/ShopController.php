@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Resources\Collection;
+use App\Http\Resources\ResourceCollection;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
@@ -49,7 +49,7 @@ class ShopController extends Controller
 
         $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
 
-        return Collection::jsonResponse($categories);
+        return ResourceCollection::jsonResponse($categories);
     }
 
     /**
