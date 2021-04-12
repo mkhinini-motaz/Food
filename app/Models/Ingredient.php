@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -45,6 +46,14 @@ class Ingredient extends Model
     public function ingredientCategory()
     {
         return $this->belongsTo(IngredientCategory::class);
+    }
+
+    /**
+     * @return HasOneThrough
+     */
+    public function shop()
+    {
+        return $this->hasOneThrough(Shop::class, IngredientCategory::class, 'id', 'id', 'ingredient_category_id', 'shop_id');
     }
 
     /**

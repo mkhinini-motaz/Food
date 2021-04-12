@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique()->nullable(); // TODO: login with either email, phone or facebook
+            $table->string('email')->nullable(); // TODO: login with either email, phone or facebook
             $table->string('phone', 52)->unique()->nullable();
             // TODO: add Facebook id
             $table->string('password');
@@ -26,10 +26,20 @@ class CreateClientsTable extends Migration
             $table->string('latitude', 52)->nullable();
             $table->string('longitude', 52)->nullable();
 
+            $table->unsignedBigInteger('shop_id')->index();
+
             $table->unsignedInteger('last_login_at')->nullable();
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
+
+            $table->foreign('shop_id')
+                ->onDelete('cascade')
+                ->references('id')
+                ->on('shops');
+
+            $table->unique([ 'shop_id', 'phone' ]);
+            $table->unique([ 'shop_id', 'email' ]);
         });
     }
 

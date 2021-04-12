@@ -31,6 +31,8 @@ class ClientFactory extends Factory
             'latitude'   => $this->faker->latitude,
             'longitude'  => $this->faker->longitude,
 
+            'shop_id' => 1,
+
             'last_login_at'      => null,
             'is_phone_confirmed' => rand(0, 1),
 

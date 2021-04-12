@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int    min_order_price
  * @property string average_ready_minutes
  * @property bool   is_approved
+ * @property bool   signup_is_open
+ * @property string domain
  * @property string ga_tracking_id
  * @property string primary_color
  * @property string secondary_color

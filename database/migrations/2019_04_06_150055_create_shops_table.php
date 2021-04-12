@@ -24,7 +24,9 @@ class CreateShopsTable extends Migration
             $table->integer('min_order_price')->comment('In tunisian mellimes');
             $table->string('average_ready_minutes', 10)->nullable()->comment('null means immediate');
             $table->unsignedTinyInteger('is_approved')->default(0);
+            $table->unsignedTinyInteger('signup_is_open')->default(0);
 
+            $table->string('domain')->nullable();
             $table->string('ga_tracking_id', 50)->nullable()->comment('Google Analytics tracking id');
             $table->string('primary_color', 50)->nullable();
             $table->string('secondary_color', 50)->nullable();
