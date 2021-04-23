@@ -19,7 +19,8 @@ class OrdersTableSeeder extends Seeder
             'client_id'     => 1,
             'promo_code_id' => 1,
             'delivery_latitude' => '35.7327203',
-            'delivery_longitude' => '10.571216'
+            'delivery_longitude' => '10.571216',
+            'additional_note' => 'Bellahi fissa3 5ater jo3t hhh',
         ]);
 
         $order->products()->sync([
@@ -70,7 +71,8 @@ class OrdersTableSeeder extends Seeder
         $order = Order::factory()->create([
             'client_id' => 2,
             'delivery_latitude' => '35.742093',
-            'delivery_longitude' => '10.584897'
+            'delivery_longitude' => '10.584897',
+            'additional_note' => 'Pizza 4 fromages men ghir roquefort',
         ]);
 
         $order->products()->sync([
@@ -108,7 +110,8 @@ class OrdersTableSeeder extends Seeder
         $order = Order::factory()->create([
             'client_id' => 3,
             'delivery_latitude' => '35.723200',
-            'delivery_longitude' => '10.587157'
+            'delivery_longitude' => '10.587157',
+            'additional_note' => 'Chwaya bsal fi wost baguette farcie',
         ]);
 
         $order->products()->sync([

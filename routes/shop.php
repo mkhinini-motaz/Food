@@ -15,6 +15,6 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
 
 
     Route::group([ 'prefix' => 'order', 'as' => 'order.', ], function () {
-        Route::get('/current', [ OrderController::class, 'current' ])->name('index');
+        Route::get('/current', [ OrderController::class, 'current' ])->name('current');
     });
 });
