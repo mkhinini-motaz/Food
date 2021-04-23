@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('description', 1000);
             $table->string('photo');
             $table->unsignedTinyInteger('is_visible')->default(0);
+            $table->unsignedSmallInteger('order');
             $table->unsignedBigInteger('shop_id');
 
             $table->unsignedInteger('created_at');
@@ -30,6 +31,8 @@ class CreateCategoriesTable extends Migration
                 ->onDelete('cascade')
                 ->references('id')
                 ->on('shops');
+
+            $table->unique([ 'shop_id', 'order' ]);
         });
     }
 

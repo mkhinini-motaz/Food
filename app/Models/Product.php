@@ -25,6 +25,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int    width
  * @property int    length
  * @property int    price
+ * @property int    order
  * @property bool   is_visible
  *
  * @property int category_id

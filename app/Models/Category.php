@@ -19,6 +19,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string description
  * @property string photo
  * @property bool   is_visible
+ * @property int    order
  *
  * @property int shop_id
  *

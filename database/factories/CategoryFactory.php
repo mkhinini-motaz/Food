@@ -39,6 +39,7 @@ class CategoryFactory extends Factory
                 'ar' => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
             'photo'       => $this->faker->imageUrl(),
+            'order'       => rand(1, 50000) - rand(43, 99) + rand(4, 80),
             'is_visible'  => 1,
 
             'created_at' => time(),

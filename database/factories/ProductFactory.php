@@ -44,6 +44,7 @@ class ProductFactory extends Factory
             'width'  => rand(1, 50),
             'length' => rand(1, 50),
             'height' => rand(1, 50),
+            'order'  => rand(1, 50000) - rand(43, 99) + rand(99, 200),
 
             'is_visible'  => 1,
 

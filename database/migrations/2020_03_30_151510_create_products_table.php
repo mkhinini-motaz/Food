@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('photo')->default('default image link'); // TODO: define default image
             $table->unsignedInteger('price')->comment('In tunisian mellimes');
             $table->unsignedTinyInteger('is_visible')->default(0);
+            $table->unsignedSmallInteger('order');
 
             $table->unsignedMediumInteger('weight')->comment('In grams');
             $table->unsignedMediumInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
@@ -38,6 +39,8 @@ class CreateProductsTable extends Migration
                 ->onDelete('cascade')
                 ->references('id')
                 ->on('categories');
+
+            $table->unique([ 'category_id', 'order' ]);
         });
     }
 
