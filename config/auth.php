@@ -95,12 +95,12 @@ return [
         'client' => [
             'provider' => 'client',
             'table'    => 'password_resets',
-            'expire'   => 60,
+            'expire'   => 60 * 60 * 24 * 30,
         ],
         'shop' => [
             'provider' => 'shop',
             'table'    => 'password_resets',
-            'expire'   => 60,
+            'expire'   => 60 * 60 * 24 * 30,
         ],
     ],
 
