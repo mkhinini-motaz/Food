@@ -17,12 +17,12 @@ class CreatePromoCodesTable extends Migration
             $table->id();
 
             $table->string('code');
-            $table->integer('expires_at')->nullable();
+            $table->integer('expires_at')->nullable(); // TODO: consider not nullable
             $table->integer('max_usage_count')->nullable();
             $table->unsignedInteger('reduction_amount');
 
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('shop_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable()->comment('admin who created the promo code');
+            $table->unsignedBigInteger('shop_id')->comment('shop where the promo code can be used');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');

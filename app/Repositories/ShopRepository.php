@@ -137,8 +137,14 @@ class ShopRepository
      */
     public function paginateOrders($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false)
     {
+        $orderByOrder = function($query) { $query->orderBy('pivot_order'); };
         $orders = $this->shop->orders()
-            ->with('products.ingredientCategories.ingredients');
+            ->with([
+                'client',
+                'promoCode',
+                'products.ingredientCategories' => $orderByOrder,
+                'products.ingredientCategories.ingredients',
+            ]);
 
         if (isset($search)) {
             $orders->where(fieldsLike($search, 'name'));

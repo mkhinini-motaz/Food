@@ -20,6 +20,7 @@ class IngredientsResource extends JsonResource
             'name'        => $this->getTranslations('name'),
             'photo'       => $this->photo,
             'price'       => $this->price,
+            'quantity'    => $this->quantity,
             'description' => $this->getTranslations('description'),
         ];
     }

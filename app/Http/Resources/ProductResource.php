@@ -24,6 +24,9 @@ class ProductResource extends JsonResource
             'description' => $this->getTranslations('description'),
             'category_id' => $this->category_id,
             'ingredient_categories' => IngredientCategoriesResource::collection($this->whenLoaded('ingredientCategories')),
+            'product_count' => $this->whenPivotLoaded('order_product', function() {
+                return $this->pivot->product_count;
+            }),
         ];
     }
 }

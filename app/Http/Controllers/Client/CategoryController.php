@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
 use App\Models\Category;
 use App\Models\Shop;
@@ -42,8 +43,9 @@ class CategoryController extends Controller
      */
     public function show($categoryId)
     {
+        // TODO: category by shop
         $category = Category::findOrFail($categoryId, Shop::IS_APPROVED_TRUE);
 
-        return response()->json([ 'status' => 'success', 'data' => $category ], 200);
+        return response()->json([ 'status' => 'success', 'data' => $category ], 200); // TODO: ressource not working ????
     }
 }

@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Requests\Client\RegisterRequest;
-use App\Http\Requests\Client\ProfileUpdateRequest;
-use App\Repositories\ClientRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController as BaseAuthController;
 

@@ -29,6 +29,8 @@ class PromoCode extends Model
 {
     use HasFactory;
 
+    // TODO: ask, promocode.type pourcentage discount instead of money amount
+
     protected $dateFormat = 'U';
 
     /**

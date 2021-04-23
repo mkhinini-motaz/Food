@@ -27,6 +27,11 @@ abstract class BaseAuthenticate extends JWTBaseMiddleware
     protected $entity = '';
 
     /**
+     * @var string
+     */
+    protected $appendFromEntityToRequest = null;
+
+    /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
      * @param Request  $request
@@ -74,6 +79,10 @@ abstract class BaseAuthenticate extends JWTBaseMiddleware
 
         auth()->shouldUse($this->guard);
         auth()->login($entity);
+
+        if ($this->appendFromEntityToRequest) {
+            $request->attributes->add([ $this->appendFromEntityToRequest => $entity->{$this->appendFromEntityToRequest} ]);
+        }
 
         return $next($request);
     }

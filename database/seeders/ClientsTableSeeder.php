@@ -22,5 +22,25 @@ class ClientsTableSeeder extends Seeder
             'is_phone_confirmed' => 1,
             'shop_id' => 1,
         ]);
+
+        Client::factory()->create([
+            'first_name' => 'user 2',
+            'last_name' => 'user 2',
+            'phone' => '+21622222222',
+            'email' => 'client2@test.com',
+            'password' => bcrypt('azerty'),
+            'is_phone_confirmed' => 1,
+            'shop_id' => 1,
+        ]);
+
+        Client::factory()->create([
+            'first_name' => 'user 3',
+            'last_name' => 'user 3',
+            'phone' => '+21633333333',
+            'email' => 'client3@test.com',
+            'password' => bcrypt('azerty'),
+            'is_phone_confirmed' => 1,
+            'shop_id' => 1,
+        ]);
     }
 }
