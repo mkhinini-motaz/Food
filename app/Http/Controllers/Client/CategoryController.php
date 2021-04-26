@@ -22,6 +22,7 @@ class CategoryController extends Controller
      */
     public function product($categoryId, Request $request)
     {
+        // TODO: get from shop
         $category = Category::where('is_visible', '=', 1)->findOrFail($categoryId);
         $categoryRepository = new CategoryRepository($category);
 

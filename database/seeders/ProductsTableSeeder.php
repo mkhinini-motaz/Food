@@ -14,7 +14,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-//        $this->productsForPlats();
+        $this->productsForPlats();
         $this->productsForSandwich();
         $this->productsForMakloub();
         $this->productsForPizza();
@@ -43,6 +43,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_pane.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 1,
         ]);
 
         Product::factory()->create([
@@ -55,6 +56,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_grille.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 2,
         ]);
 
         Product::factory()->create([
@@ -67,6 +69,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_citron.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 3,
         ]);
 
         Product::factory()->create([
@@ -79,6 +82,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/escalope_sauce_champignon.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 4,
         ]);
 
         Product::factory()->create([
@@ -91,6 +95,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/plat_cordon_bleu.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 5,
         ]);
 
         Product::factory()->create([
@@ -103,6 +108,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/brochette_viande.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 6,
         ]);
 
         Product::factory()->create([
@@ -115,6 +121,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/brochette_escalope.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 7,
         ]);
 
         Product::factory()->create([
@@ -127,6 +134,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/viande_grille.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 8,
         ]);
 
         Product::factory()->create([
@@ -139,6 +147,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/grillade_mix.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 9,
         ]);
 
         Product::factory()->create([
@@ -151,6 +160,8 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/paella.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_FIXED,
+            'is_visible' => 0,
+            'order' => 10,
         ]);
 
         Product::factory()->create([
@@ -163,6 +174,7 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/beignet_crevette.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 11,
         ]);
 
         Product::factory()->create([
@@ -175,9 +187,10 @@ class ProductsTableSeeder extends Seeder
             'photo' => 'example/restaurant/product/calamar_dore.jpg',
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 12,
         ]);
 
-/*
+
         Product::factory()->create([
             'name' => [
                 'fr' => 'Symfonie fruit de mer',
@@ -187,9 +200,11 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/plat_fruit_mer.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'is_visible' => 0,
+            'order' => 13,
         ]);
-*/
+
     }
 
     /**

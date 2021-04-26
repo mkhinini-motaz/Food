@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
 use App\Models\Category;
 use App\Models\Shop;
@@ -14,9 +15,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-
     /**
-     * @param int $shopId
      * @param Request $request
      *
      * @return JsonResponse
@@ -33,28 +32,13 @@ class CategoryController extends Controller
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
+        $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection, false);
 
         return ResourceCollection::jsonResponse($categories);
     }
 
     /**
      * @param int     $categoryId
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function show($categoryId, Request $request)
-    {
-        /** @var Shop $shop */
-        $shop = $request->get('shop');
-        $category = $shop->categories()->findOrFail($categoryId);
-
-        return response()->json([ 'status' => 'success', 'data' => $category ], 200);
-    }
-
-    /**
-     * @param int $categoryId
      * @param Request $request
      *
      * @return JsonResponse
@@ -73,8 +57,44 @@ class CategoryController extends Controller
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection);
+        $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection, false);
 
         return ResourceCollection::jsonResponse($products);
+    }
+
+    /**
+     * @param int     $categoryId
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function makeVisible($categoryId, Request $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var Category $category */
+        $category = $shop->categories()->findOrFail($categoryId);
+        $categoryRepository = new CategoryRepository($category);
+        $categoryRepository->makeVisible();
+
+        return Resource::jsonResponse($category);
+    }
+
+    /**
+     * @param int     $categoryId
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function makeUnVisible($categoryId, Request $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var Category $category */
+        $category = $shop->categories()->findOrFail($categoryId);
+        $categoryRepository = new CategoryRepository($category);
+        $categoryRepository->makeUnVisible();
+
+        return Resource::jsonResponse($category);
     }
 }

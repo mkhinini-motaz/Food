@@ -20,4 +20,22 @@ class ProductRepository
     {
         $this->product = $product;
     }
+
+    /**
+     *
+     */
+    public function makeVisible()
+    {
+        $this->product->is_visible = true;
+        $this->product->save();
+    }
+
+    /**
+     *
+     */
+    public function makeUnVisible()
+    {
+        $this->product->is_visible = false;
+        $this->product->save();
+    }
 }

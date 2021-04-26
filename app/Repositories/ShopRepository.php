@@ -104,13 +104,17 @@ class ShopRepository
      * @param string|null $search
      * @param string      $orderBy
      * @param string      $orderDirection
+     * @param bool        $onlyVisible
      *
      * @return LengthAwarePaginator
      */
-    public function paginateCategories($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
+    public function paginateCategories($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $onlyVisible = true)
     {
-        $categories = $this->shop->categories()
-            ->where('is_visible', '=', 1);
+        $categories = $this->shop->categories();
+
+        if ($onlyVisible) {
+            $categories->where('is_visible', '=', 1);
+        }
 
         if (isset($search)) {
             $categories->where(fieldsLike($search, 'name'));

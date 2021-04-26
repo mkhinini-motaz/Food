@@ -65,13 +65,18 @@ class CategoryRepository
      * @param string|null $search
      * @param string      $orderBy
      * @param string      $orderDirection
+     * @param bool        $onlyVisible
      *
      * @return LengthAwarePaginator
      */
-    public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
+    public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $onlyVisible = true)
     {
         $products = $this->category->products()
             ->with('ingredientCategories.ingredients');
+
+        if ($onlyVisible) {
+            $products->where('is_visible', '=', 1);
+        }
 
         if (isset($search)) {
             $products->where(fieldsLike($search));
@@ -82,5 +87,23 @@ class CategoryRepository
         }
 
         return $products->paginate($perPage, [ '*' ], 'page', $page);
+    }
+
+    /**
+     *
+     */
+    public function makeVisible()
+    {
+        $this->category->is_visible = true;
+        $this->category->save();
+    }
+
+    /**
+     *
+     */
+    public function makeUnVisible()
+    {
+        $this->category->is_visible = false;
+        $this->category->save();
     }
 }
