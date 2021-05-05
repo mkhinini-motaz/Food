@@ -84,3 +84,4 @@ worker.log
 
 storage/uploads
 public/uploads
+.DS_Store
