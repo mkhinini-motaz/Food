@@ -62,6 +62,14 @@ class Shop extends Model
     protected $dateFormat = 'U';
 
     /**
+     * @return HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    /**
      * @return HasManyThrough
      */
     public function products()
@@ -78,11 +86,26 @@ class Shop extends Model
     }
 
     /**
-     * @return HasMany
+     * @param int $categoryId
+     *
+     * @return bool
      */
-    public function categories()
+    public function isLastVisibleCategory($categoryId)
     {
-        return $this->hasMany(Category::class);
+        return 0 === $this->categories()
+            ->where('id', '<>', $categoryId)
+            ->where('is_visible', '=', 0)
+            ->count();
+    }
+
+    /**
+     * @param int $categoryId
+     *
+     * @return bool
+     */
+    public function isNotLastVisibleCategory($categoryId)
+    {
+        return ! $this->isLastVisibleCategory($categoryId);
     }
 
     /**

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Resources\Resource;
-use App\Http\Resources\ResourceCollection;
-use App\Models\Category;
 use App\Models\Shop;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
@@ -27,8 +25,11 @@ class ProductController extends Controller
         $shop = $request->get('shop');
         /** @var Product $product */
         $product = $shop->products()->findOrFail($productId);
+
         $productRepository = new ProductRepository($product);
         $productRepository->makeVisible();
+
+        // TODO: activity log
 
         return Resource::jsonResponse($product);
     }
@@ -43,10 +44,13 @@ class ProductController extends Controller
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
-        /** @var Category $product */
+        /** @var Product $product */
         $product = $shop->products()->findOrFail($productId);
+
         $productRepository = new ProductRepository($product);
         $productRepository->makeUnVisible();
+
+        // TODO: activity log
 
         return Resource::jsonResponse($product);
     }

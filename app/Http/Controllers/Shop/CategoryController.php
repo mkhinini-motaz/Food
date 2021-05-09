@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Requests\Shop\Category\MakeInVisibleRequest;
+use App\Http\Requests\Shop\Category\MakeVisibleRequest;
 use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
 use App\Models\Category;
@@ -63,37 +65,43 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param int     $categoryId
-     * @param Request $request
+     * @param int                $categoryId
+     * @param MakeVisibleRequest $request
      *
      * @return JsonResponse
      */
-    public function makeVisible($categoryId, Request $request)
+    public function makeVisible($categoryId, MakeVisibleRequest $request)
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
         /** @var Category $category */
         $category = $shop->categories()->findOrFail($categoryId);
+
         $categoryRepository = new CategoryRepository($category);
         $categoryRepository->makeVisible();
+
+        // TODO: activity log
 
         return Resource::jsonResponse($category);
     }
 
     /**
-     * @param int     $categoryId
-     * @param Request $request
+     * @param int                  $categoryId
+     * @param MakeInVisibleRequest $request
      *
      * @return JsonResponse
      */
-    public function makeUnVisible($categoryId, Request $request)
+    public function makeUnVisible($categoryId, MakeInVisibleRequest $request)
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
         /** @var Category $category */
         $category = $shop->categories()->findOrFail($categoryId);
+
         $categoryRepository = new CategoryRepository($category);
         $categoryRepository->makeUnVisible();
+
+        // TODO: activity log
 
         return Resource::jsonResponse($category);
     }

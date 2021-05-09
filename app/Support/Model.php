@@ -21,4 +21,12 @@ class Model extends BaseModel
     {
         return $attributes;
     }
+
+    /**
+     * @return string
+     */
+    public static function getDbTableName()
+    {
+        return (new self)->getTable();
+    }
 }
