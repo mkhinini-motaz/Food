@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Throwable;
@@ -15,7 +16,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        UnreportableException::class,
     ];
 
     /**
@@ -33,7 +34,7 @@ class Handler extends ExceptionHandler
      *
      * @param Throwable $exception
      *
-     * @return void
+     * @return JsonResponse
      * @throws Throwable
      */
     public function report(Throwable $exception)
@@ -47,11 +48,15 @@ class Handler extends ExceptionHandler
      * @param Request   $request
      * @param Throwable $exception
      *
-     * @return Response
+     * @return JsonResponse
      * @throws Throwable
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof BaseException) {
+            return response()->json([ 'message' => $exception->getMessage() ], $exception->getCode() ?? 500);
+        }
+
         return parent::render($request, $exception);
     }
 }
