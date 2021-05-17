@@ -8,7 +8,8 @@ class AwsSnsClient
      * @param string $phone
      * @param string $message
      */
-    public static function sendMessage($phone, $message){
+    public static function sendMessage($phone, $message)
+    {
         $response = app('aws')->createClient('sns')
             ->publish([ 'PhoneNumber' => $phone, 'Message' => $message ]);
 

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Support\OrangeSmsSender;
+use App\Support\SmsSender;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(SmsSender::class, OrangeSmsSender::class);
     }
 
     /**

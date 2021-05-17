@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string latitude
  * @property string longitude
  * @property int    last_login_at
+ * @property bool   is_phone_confirmed
  *
  * @property int created_at
  * @property int updated_at

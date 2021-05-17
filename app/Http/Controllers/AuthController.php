@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\PhoneValidationRepository;
 use App\Support\AwsSnsClient;
+use App\Support\SmsSender;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -11,17 +12,14 @@ class AuthController extends Controller
 {
     /**
      * @param Request $request
+     * @param SmsSender $smsSender
      *
      * @return JsonResponse
      */
-    public function validatePhone(Request $request)
+    public function validatePhone(Request $request, SmsSender $smsSender)
     {
         $phone = $request->input('phone');
         $lang = $request->input('lang', 'fr');
-        $randomStr = '';
-        for ($i = 1; $i <= 6; $i++) {
-            $randomStr .= rand(0, 9);
-        }
 
         \Validator::validate(
             [ 'phone' => $phone, 'lang' => $lang ],
@@ -31,10 +29,12 @@ class AuthController extends Controller
             ]
         );
 
+        $randomStr = '';
+        for ($i = 1; $i <= 6; $i++) {
+            $randomStr .= rand(0, 9);
+        }
         PhoneValidationRepository::create($phone, $randomStr);
-        AwsSnsClient::sendMessage($phone, trans('phone:validation_code', [ 'code' => $randomStr ], $lang));
-
-        // TODO: handle aws error response
+        $smsSender->sendMessage($phone, trans('phone:validation_code', [ 'code' => $randomStr ], $lang));
 
         return response()->json([ 'status' => 'success' ], 200);
     }

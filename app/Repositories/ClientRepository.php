@@ -27,12 +27,13 @@ class ClientRepository
      * @param string      $email
      * @param string      $password
      * @param string      $phone
+     * @param bool        $isPhoneConfirmed
      * @param string|null $latitude
      * @param string|null $longitude
      *
      * @return Client
      */
-    public static function create($firstName, $lastName, $email, $password, $phone, $latitude = null, $longitude = null)
+    public static function create($firstName, $lastName, $email, $password, $phone, $isPhoneConfirmed = false, $latitude = null, $longitude = null)
     {
         $client = new Client();
 
@@ -43,6 +44,7 @@ class ClientRepository
         $client->longitude  = $longitude;
         $client->last_name  = $lastName;
         $client->first_name = $firstName;
+        $client->is_phone_confirmed = $isPhoneConfirmed;
 
         $client->save();
         return $client;
