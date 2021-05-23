@@ -6,7 +6,7 @@ use App\Exceptions\SmsServiceNotAvailableException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class OrangeSmsSender
+class OrangeSmsSender implements SmsSender
 {
     const AUTH_CACHE_KEY = 'orange_auth';
     /**
@@ -32,12 +32,13 @@ class OrangeSmsSender
     public function sendMessage($phone, $message) // TODO: add shop
     {
         $from = config('sms.from'); // TODO: get from shop
-        if (! \Cache::get(self::AUTH_CACHE_KEY)) {
+        $authData = \Cache::get(self::AUTH_CACHE_KEY);
+        if (! $authData || $authData['expires_at'] < time()) {
             $this->login();
+            $authData = \Cache::get(self::AUTH_CACHE_KEY);
         }
 
         $url      = 'https://api.orange.com/smsmessaging/v1/outbound/' . $from . '/requests';
-        $authData = \Cache::get(self::AUTH_CACHE_KEY);
         $apiCallConfig = [
             'headers' => [
                 'Content-Type'  => 'application/json',
