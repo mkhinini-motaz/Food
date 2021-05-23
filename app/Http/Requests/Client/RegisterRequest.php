@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Models\Client;
 use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,22 +25,25 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-// TODO: handle facebook auth case
+        $shopId = request()->route('shopId');
+        $otp    = $this->request->get('otp');
 
-        $phoneCode = $this->request->get('phone_code');
         return [
             'first_name' => 'required|max:190',
             'last_name'  => 'required|max:190',
-            'email'      => 'unique:clients,email|max:190',
             'password'   => 'required|confirmed|max:190',
-            'phone_code' => 'required_with:phone|max:10',
+            'otp'        => 'required|max:10',
             'phone'      => [
                 'required',
                 'max:50',
-                'unique:clients,phone',
                 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/',
-                function($attribute, $value, $fail) use ($phoneCode) {
-                    if (PhoneValidationRepository::isNotValid($value, $phoneCode)) {
+                function($attribute, $value, $fail) use ($shopId, $otp) {
+                    if (Client::phoneExistsForShop($shopId, $value)) {
+                        $fail('phone.unique');
+                        return;
+                    }
+
+                    if (PhoneValidationRepository::isNotValid($value, $otp)) {
                         $fail('phone.code');
                     }
                 }

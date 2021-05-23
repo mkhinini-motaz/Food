@@ -50,22 +50,24 @@ class AuthController extends Controller
     }
 
     /**
+     * @param int             $shopId
      * @param RegisterRequest $request
-     *
      * @return JsonResponse
      */
-    public function register(RegisterRequest $request)
+    public function register($shopId, RegisterRequest $request)
     {
-        $email     = $request->input('email', null);
+        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
+
         $phone     = $request->input('phone');
         $password  = $request->input('password');
         $lastName  = $request->input('last_name');
         $firstName = $request->input('first_name');
 
-        $client = ClientRepository::create($firstName, $lastName, $email, $password, $phone);
+        $client = ClientRepository::create($shop, $firstName, $lastName, null, $password, $phone, true);
         $token = auth('client')->login($client);
+        $client->access_token = $token;
 
-        return response()->json([ 'status' => 'success', 'access_token' => $token, 'data' => $client ], 200);
+        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
     }
 
     /**

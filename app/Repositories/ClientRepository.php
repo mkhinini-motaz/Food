@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Client;
+use App\Models\Shop;
 
 class ClientRepository
 {
@@ -22,6 +23,7 @@ class ClientRepository
     }
 
     /**
+     * @param Shop        $shop
      * @param string      $firstName
      * @param string      $lastName
      * @param string      $email
@@ -33,10 +35,11 @@ class ClientRepository
      *
      * @return Client
      */
-    public static function create($firstName, $lastName, $email, $password, $phone, $isPhoneConfirmed = false, $latitude = null, $longitude = null)
+    public static function create(Shop $shop, $firstName, $lastName, $email, $password, $phone, $isPhoneConfirmed = false, $latitude = null, $longitude = null)
     {
         $client = new Client();
 
+        $client->shop_id    = $shop->id;
         $client->email      = $email;
         $client->phone      = $phone;
         $client->password   = bcrypt($password);

@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string longitude
  * @property int    last_login_at
  * @property bool   is_phone_confirmed
+ * @property int    shop_id
  *
  * @property int created_at
  * @property int updated_at
@@ -50,5 +51,18 @@ class Client extends Authenticatable
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+
+    /**
+     * @param int    $shopId
+     * @param string $phone
+     *
+     * @return bool
+     */
+    public static function phoneExistsForShop($shopId, $phone)
+    {
+        return 1 <= self::where('shop_id', '=', $shopId)
+            ->where('phone', '=', $phone)
+            ->count();
     }
 }
