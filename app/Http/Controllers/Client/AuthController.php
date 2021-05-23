@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
+use App\Models\Shop;
 use App\Repositories\ClientRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController as BaseAuthController;
@@ -24,13 +25,28 @@ class AuthController extends Controller
     }
 
     /**
+     * @param int     $shopId
      * @param Request $request
-     *
      * @return JsonResponse
      */
-    public function login(Request $request)
+    public function login($shopId, Request $request)
     {
-        return BaseAuthController::login('client', $request);
+        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
+        $request->validate([ 'phone' => 'required', 'password' => 'required' ]);
+
+        $phone       = preg_replace('#\s#', '', $request->get('phone'));
+        $password    = $request->get('password');
+        $shop_id     = $shop->id;
+        $credentials = compact('phone', 'password', 'shop_id');
+
+        if (! $token = auth('client')->attempt($credentials)) {
+            return response()->json([ 'status' => 'error', 'message' => 'Unauthorized' ], 401);
+        }
+
+        $client = auth('client')->user();
+        $client->access_token = $token;
+
+        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
     }
 
     /**
