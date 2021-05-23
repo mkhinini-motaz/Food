@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,7 +33,7 @@ class Handler extends ExceptionHandler
      *
      * @param Throwable $exception
      *
-     * @return JsonResponse
+     * @return void
      * @throws Throwable
      */
     public function report(Throwable $exception)

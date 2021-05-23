@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +12,6 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::post('/phone/validate', [ AuthController::class, 'validatePhone' ])->name('phone.validate');
+Route::post('/otp/request', [ \App\Http\Controllers\AuthController::class, 'requestOtp' ] )
+    ->middleware([ 'throttle:5,3' ])
+    ->name('otp.request');

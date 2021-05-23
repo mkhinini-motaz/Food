@@ -2,41 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\SmsServiceNotAvailableException;
+use App\Http\Requests\OtpRequest;
 use App\Repositories\PhoneValidationRepository;
-use App\Support\AwsSnsClient;
 use App\Support\SmsSender;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use function App\Support\Helpers\generateOtp;
 
 class AuthController extends Controller
 {
     /**
-     * @param Request $request
+     * @param OtpRequest $request
      * @param SmsSender $smsSender
      *
      * @return JsonResponse
+     * @throws SmsServiceNotAvailableException
      */
-    public function validatePhone(Request $request, SmsSender $smsSender)
+    public function requestOtp(OtpRequest $request, SmsSender $smsSender)
     {
         $phone = $request->input('phone');
         $lang = $request->input('lang', 'fr');
-
-        \Validator::validate(
-            [ 'phone' => $phone, 'lang' => $lang ],
-            [
-                'phone' => [ 'required', 'max:50', 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/' ],
-                'lang' => 'max:2|in:en,fr,tn,ar'
-            ]
-        );
 
         $randomStr = '';
         for ($i = 1; $i <= 6; $i++) {
             $randomStr .= rand(0, 9);
         }
         PhoneValidationRepository::create($phone, $randomStr);
-        $smsSender->sendMessage($phone, trans('phone:validation_code', [ 'code' => $randomStr ], $lang));
+// TODO: uncomment
+//        $smsSender->sendMessage($phone, trans('phone:validation_code', [ 'code' => $randomStr ], $lang));
 
-        return response()->json([ 'status' => 'success' ], 200);
+        return response()->json([ 'otp' => $randomStr, 'status' => 'success' ], 200);
     }
 
 
