@@ -5,6 +5,7 @@ use \App\Http\Controllers\Client\CategoryController;
 use App\Http\Controllers\Client\PromoCodeController;
 use \App\Http\Controllers\Client\ShopController;
 use \App\Http\Controllers\Client\OrderController;
+use \App\Http\Controllers\Client\ClientController;
 
 
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
@@ -18,6 +19,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
 
     Route::group(['prefix' => '{shopId}', 'as' => 'product.'], function () {
         Route::post('/login', [ AuthController::class, 'login' ])->name('login');
+        Route::post('/phone', [ ClientController::class, 'checkPhone' ])->name('checkPhone');
         Route::post('/register', [ AuthController::class, 'register' ])->name('register');
         Route::get('/', [ ShopController::class, 'show' ])->name('show');
         Route::get('/category', [ ShopController::class, 'category' ])->name('category');
