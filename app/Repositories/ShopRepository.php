@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Client;
 use App\Models\Ingredient;
 use App\Models\IngredientCategory;
 use App\Models\Product;
@@ -213,5 +214,17 @@ class ShopRepository
                 $product->ingredientCategories->pull($ingredientCategoryKey);
             }
         }
+    }
+
+    /**
+     * @param string $inviteCode
+     *
+     * @return Client|null
+     */
+    public function findClientByInviteCode($inviteCode)
+    {
+        return $this->shop->clients()
+            ->where('invite_code', '=', $inviteCode)
+            ->first();
     }
 }
