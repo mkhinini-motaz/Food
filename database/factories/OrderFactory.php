@@ -42,7 +42,7 @@ class OrderFactory extends Factory
 
             'to_be_delivered_at' => rand(1, 4) > 1 ? null : strtotime('+30 minutes'),
             'created_at' => time(),
-            'updated_at' => time()
+            'updated_at' => time(),
         ];
     }
 }

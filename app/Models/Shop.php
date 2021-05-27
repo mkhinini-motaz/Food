@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property bool   is_approved
  * @property bool   signup_is_open
  * @property string domain
+ * @property string loyalty_action_rewards
  * @property string ga_tracking_id
  * @property string primary_color
  * @property string secondary_color
@@ -60,6 +61,7 @@ class Shop extends Model
     const PRICING_CATEGORIES = [ self::PRICING_CATEGORY_VERY_LOW, self::PRICING_CATEGORY_LOW, self::PRICING_CATEGORY_MEDIUM, self::PRICING_CATEGORY_HIGH, self::PRICING_CATEGORY_VERY_HIGH ];
 
     protected $dateFormat = 'U';
+    protected $casts = [ 'loyalty_action_rewards' => 'array', ];
 
     /**
      * @return HasMany
@@ -117,6 +119,20 @@ class Shop extends Model
     }
 
     /**
+     * @param LoyaltyAction $loyaltyAction
+     *
+     * @return int
+     */
+    public function pointsRewardedForLoyaltyAction(LoyaltyAction $loyaltyAction)
+    {
+        if (! isset($this->loyalty_action_rewards[$loyaltyAction->type])) {
+            throw new \InvalidArgumentException('Loyalty action type "' . $loyaltyAction->type . '" is not valid or is not calculated in shop ' . $this->id);
+        }
+
+        return $this->loyalty_action_rewards[$loyaltyAction->type];
+    }
+
+    /**
      * @param int $isShopApproved
      *
      * @return \Closure
@@ -126,5 +142,26 @@ class Shop extends Model
         return function ($query) use ($isShopApproved) {
             $query->where('is_approved', '=', $isShopApproved);
         };
+    }
+
+    /**
+     * @return string
+     */
+    public static function defaultLoyaltyActionRewardsValue()
+    {
+        return json_encode([
+            LoyaltyAction::TYPE_REGISTRATION                  => 50,
+            LoyaltyAction::TYPE_FRIEND_INVITE                 => 10,
+            LoyaltyAction::TYPE_FIRST_ORDER                   => 5,
+            LoyaltyAction::TYPE_PRODUCT_BOUGHT                => 1, // TODO: dynamic by product
+            LoyaltyAction::TYPE_ONLINE_ORDER_COUNT_FOR_MONTH  => 1,
+            LoyaltyAction::TYPE_ON_SITE_ORDER_COUNT_FOR_MONTH => 1,
+            LoyaltyAction::TYPE_SUBMIT_FEEDBACK               => 1,
+            LoyaltyAction::TYPE_BIRTHDAY_GIFT                 => 1,
+            LoyaltyAction::TYPE_PROMO_CODE_BOUGHT             => 1,
+            LoyaltyAction::TYPE_SHOP_REWARD                   => 1,
+            LoyaltyAction::TYPE_SEND_POINTS                   => 1,
+            LoyaltyAction::TYPE_RECEIVE_POINTS                => 1,
+        ]);
     }
 }

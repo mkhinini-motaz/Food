@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\ClientRegistered;
 use App\Listeners\Client\AttributePointsToInviterClient;
+use App\Listeners\Client\AttributePointsToRegisteredClient;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +17,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ClientRegistered::class => [
             AttributePointsToInviterClient::class,
+            AttributePointsToRegisteredClient::class,
         ],
     ];
 
@@ -27,7 +29,5 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

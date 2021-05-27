@@ -28,8 +28,6 @@ class ClientFactory extends Factory
             'password'   => bcrypt('azerty'),
             'email'      => $this->faker->email,
             'phone'      => $this->faker->phoneNumber,
-            'latitude'   => $this->faker->latitude,
-            'longitude'  => $this->faker->longitude,
 
             'shop_id' => 1,
 

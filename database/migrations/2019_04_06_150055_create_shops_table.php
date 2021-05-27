@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Shop;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -26,6 +28,7 @@ class CreateShopsTable extends Migration
             $table->unsignedTinyInteger('is_approved')->default(0);
             $table->unsignedTinyInteger('signup_is_open')->default(0);
 
+            $table->text('loyalty_action_rewards')->default(Shop::defaultLoyaltyActionRewardsValue());
             $table->string('domain')->nullable();
             $table->string('ga_tracking_id', 50)->nullable()->comment('Google Analytics tracking id');
             $table->string('primary_color', 50)->nullable();
