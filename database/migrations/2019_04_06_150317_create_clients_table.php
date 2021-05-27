@@ -23,8 +23,9 @@ class CreateClientsTable extends Migration
             // TODO: add Facebook id
             $table->string('password');
             $table->unsignedTinyInteger('is_phone_confirmed')->default(0);
-            $table->string('latitude', 52)->nullable();
-            $table->string('longitude', 52)->nullable();
+
+            $table->string('invite_code', 50)->nullable();
+            $table->mediumInteger('loyalty_points_count')->default(0);
 
             $table->unsignedBigInteger('shop_id')->index();
 

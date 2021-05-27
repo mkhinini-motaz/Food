@@ -26,16 +26,14 @@ class ClientRepository
      * @param Shop        $shop
      * @param string      $firstName
      * @param string      $lastName
-     * @param string      $email
      * @param string      $password
      * @param string      $phone
      * @param bool        $isPhoneConfirmed
-     * @param string|null $latitude
-     * @param string|null $longitude
+     * @param string      $email
      *
      * @return Client
      */
-    public static function create(Shop $shop, $firstName, $lastName, $email, $password, $phone, $isPhoneConfirmed = false, $latitude = null, $longitude = null)
+    public static function create(Shop $shop, $firstName, $lastName, $password, $phone, $isPhoneConfirmed = false,  $email = null)
     {
         $client = new Client();
 
@@ -43,8 +41,6 @@ class ClientRepository
         $client->email      = $email;
         $client->phone      = $phone;
         $client->password   = bcrypt($password);
-        $client->latitude   = $latitude;
-        $client->longitude  = $longitude;
         $client->last_name  = $lastName;
         $client->first_name = $firstName;
         $client->is_phone_confirmed = $isPhoneConfirmed;
@@ -59,10 +55,9 @@ class ClientRepository
      * @param string|null $email
      * @param string|null $password
      * @param string|null $phone
-     * @param string|null $latitude
-     * @param string|null $longitude
+     * @param bool|null   $isPhoneConfirmed
      */
-    public function update($firstName = null, $lastName = null, $email = null, $password = null, $phone = null, $latitude = null, $longitude = null)
+    public function update($firstName = null, $lastName = null, $email = null, $password = null, $phone = null, $isPhoneConfirmed = false)
     {
 // TODO: handle nullable fields
 
@@ -80,12 +75,7 @@ class ClientRepository
         }
         if (isset($phone)) {
             $this->client->phone = preg_replace('#\s#', '', $phone);
-        }
-        if (isset($latitude)) {
-            $this->client->latitude = $latitude;
-        }
-        if (isset($longitude)) {
-            $this->client->longitude = $longitude;
+            $this->client->is_phone_confirmed = $isPhoneConfirmed;
         }
 
         $this->client->save();

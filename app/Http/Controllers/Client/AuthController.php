@@ -8,7 +8,6 @@ use App\Http\Requests\Client\ProfileUpdateRequest;
 use App\Models\Shop;
 use App\Repositories\ClientRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\AuthController as BaseAuthController;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -65,7 +64,7 @@ class AuthController extends Controller
         $firstName  = $request->input('first_name');
         $inviteCode = $request->input('invite_code', null);
 
-        $client = ClientRepository::create($shop, $firstName, $lastName, null, $password, $phone, true);
+        $client = ClientRepository::create($shop, $firstName, $lastName, $password, $phone, true);
         ClientRegistered::dispatch($client, $inviteCode);
 
         $token = auth('client')->login($client);
@@ -85,13 +84,11 @@ class AuthController extends Controller
         $phone     = $request->input('phone', null);
         $password  = $request->input('password', null);
         $lastName  = $request->input('last_name', null);
-        $latitude  = $request->input('latitude', null);
-        $longitude = $request->input('longitude', null);
         $firstName = $request->input('first_name', null);
 
         $client = auth()->user();
         $clientRepository = new ClientRepository($client);
-        $clientRepository->update($firstName, $lastName, $email, $password, $phone, $latitude, $longitude);
+        $clientRepository->update($firstName, $lastName, $email, $password, $phone);
 
         return response()->json([ 'status' => 'success', 'data' => $client ], 200);
     }
