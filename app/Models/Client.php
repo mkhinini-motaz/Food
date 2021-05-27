@@ -6,6 +6,7 @@ use App\Support\Authenticatable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int updated_at
  * @property int deleted_at
  *
+ * @property Shop       shop
  * @property Collection orders
  */
 class Client extends Authenticatable
@@ -51,6 +53,14 @@ class Client extends Authenticatable
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     /**

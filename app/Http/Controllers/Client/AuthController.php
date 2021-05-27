@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\ClientRegistered;
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
 use App\Models\Shop;
@@ -58,12 +59,15 @@ class AuthController extends Controller
     {
         $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
 
-        $phone     = $request->input('phone');
-        $password  = $request->input('password');
-        $lastName  = $request->input('last_name');
-        $firstName = $request->input('first_name');
+        $phone      = $request->input('phone');
+        $password   = $request->input('password');
+        $lastName   = $request->input('last_name');
+        $firstName  = $request->input('first_name');
+        $inviteCode = $request->input('invite_code', null);
 
         $client = ClientRepository::create($shop, $firstName, $lastName, null, $password, $phone, true);
+        ClientRegistered::dispatch($client, $inviteCode);
+
         $token = auth('client')->login($client);
         $client->access_token = $token;
 

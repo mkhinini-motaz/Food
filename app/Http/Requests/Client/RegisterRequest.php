@@ -29,11 +29,12 @@ class RegisterRequest extends FormRequest
         $otp    = $this->request->get('otp');
 
         return [
-            'first_name' => 'required|max:190',
-            'last_name'  => 'required|max:190',
-            'password'   => 'required|confirmed|max:190',
-            'otp'        => 'required|max:10',
-            'phone'      => [
+            'first_name'  => 'required|max:190',
+            'last_name'   => 'required|max:190',
+            'password'    => 'required|confirmed|max:190',
+            'otp'         => 'required|max:10',
+            'invite_code' => 'max:190',
+            'phone'       => [
                 'required',
                 'max:50',
                 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/',
