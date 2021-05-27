@@ -24,12 +24,12 @@ class ClientRegistered
     /**
      * Create a new event instance.
      *
-     * @param Client $registeredClient
-     * @param string $inviteCode
+     * @param Client      $registeredClient
+     * @param string|null $inviteCode
      */
-    public function __construct(Client $registeredClient, $inviteCode)
+    public function __construct(Client $registeredClient, $inviteCode = null)
     {
         $this->registeredClient = $registeredClient;
-        $this->inviteCode = $inviteCode;
+        $this->inviteCode       = $inviteCode;
     }
 }
