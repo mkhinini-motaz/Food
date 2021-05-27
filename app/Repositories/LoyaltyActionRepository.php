@@ -37,6 +37,9 @@ class LoyaltyActionRepository
         $loyaltyAction->points_rewarded = $shop->pointsRewardedForLoyaltyAction($loyaltyAction);
 
         $loyaltyAction->save();
+
+        self::updateClientLoyaltyPointsCount($client, $loyaltyAction);
+
         return $loyaltyAction;
     }
 
@@ -61,6 +64,19 @@ class LoyaltyActionRepository
         $loyaltyAction->points_rewarded = $shop->pointsRewardedForLoyaltyAction($loyaltyAction);
 
         $loyaltyAction->save();
+
+        self::updateClientLoyaltyPointsCount($inviterClient, $loyaltyAction);
+
         return $loyaltyAction;
+    }
+
+    /**
+     * @param Client        $client
+     * @param LoyaltyAction $loyaltyAction
+     */
+    private static function updateClientLoyaltyPointsCount(Client $client, LoyaltyAction $loyaltyAction)
+    {
+        $client->loyalty_points_count += $loyaltyAction->points_rewarded;
+        $client->save();
     }
 }
