@@ -8,7 +8,7 @@ use App\Repositories\ShopRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class AttributePointsToRegisteredClient implements ShouldQueue
+class AttributePointsToRegisteredClient
 {
     /**
      * Create the event listener.

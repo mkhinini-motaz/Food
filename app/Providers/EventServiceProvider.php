@@ -16,8 +16,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         ClientRegistered::class => [
-            AttributePointsToInviterClient::class,
             AttributePointsToRegisteredClient::class,
+            AttributePointsToInviterClient::class,
         ],
     ];
 

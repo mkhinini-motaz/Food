@@ -36,6 +36,8 @@ class Client extends Authenticatable
 {
     use HasFactory;
 
+    public const INVITE_CODE_LENGTH = 10;
+
     protected $dateFormat = 'U';
 
     /**

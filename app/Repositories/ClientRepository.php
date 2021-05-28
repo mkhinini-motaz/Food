@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Client;
 use App\Models\Shop;
 
+use Illuminate\Support\Str;
+
 class ClientRepository
 {
     /**
@@ -37,12 +39,13 @@ class ClientRepository
     {
         $client = new Client();
 
-        $client->shop_id    = $shop->id;
-        $client->email      = $email;
-        $client->phone      = $phone;
-        $client->password   = bcrypt($password);
-        $client->last_name  = $lastName;
-        $client->first_name = $firstName;
+        $client->shop_id     = $shop->id;
+        $client->email       = $email;
+        $client->phone       = $phone;
+        $client->password    = bcrypt($password);
+        $client->last_name   = $lastName;
+        $client->first_name  = $firstName;
+        $client->invite_code = self::generateInviteCode($shop);
         $client->is_phone_confirmed = $isPhoneConfirmed;
 
         $client->save();
@@ -79,5 +82,22 @@ class ClientRepository
         }
 
         $this->client->save();
+    }
+
+    /**
+     * @param Shop $shop
+     *
+     * @return string
+     */
+    public static function generateInviteCode(Shop $shop)
+    {
+        do {
+            $inviteCode = Str::random(Client::INVITE_CODE_LENGTH);
+            $inviteCodeExists = 1 <= $shop->clients()
+                    ->where('invite_code', '=', $inviteCode)
+                    ->count();
+        } while ($inviteCodeExists);
+
+        return $inviteCode;
     }
 }

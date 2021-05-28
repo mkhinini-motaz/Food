@@ -39,6 +39,8 @@ class LoyaltyAction extends Model
     const TYPE_RECEIVE_POINTS = 55;
     const TYPES = [ self::TYPE_REGISTRATION, self::TYPE_FRIEND_INVITE, self::TYPE_FIRST_ORDER, self::TYPE_PRODUCT_BOUGHT, self::TYPE_ONLINE_ORDER_COUNT_FOR_MONTH, self::TYPE_ON_SITE_ORDER_COUNT_FOR_MONTH, self::TYPE_SUBMIT_FEEDBACK, self::TYPE_BIRTHDAY_GIFT, self::TYPE_PROMO_CODE_BOUGHT, self::TYPE_SHOP_REWARD, self::TYPE_SEND_POINTS, self::TYPE_RECEIVE_POINTS, ];
 
+    protected $dateFormat = 'U';
+
     /**
      * @return BelongsTo
      */
