@@ -30,10 +30,9 @@ class AuthController extends Controller
             $randomStr .= rand(0, 9);
         }
         PhoneValidationRepository::create($phone, $randomStr);
-// TODO: uncomment
-//        $smsSender->sendMessage($phone, trans('phone:validation_code', [ 'code' => $randomStr ], $lang));
+        $smsSender->sendMessage($phone, trans('phone:validation_code', [ 'code' => $randomStr ], $lang));
 
-        return response()->json([ 'otp' => $randomStr, 'status' => 'success' ], 200);
+        return response()->json([ 'status' => 'success' ], 200);
     }
 
 
