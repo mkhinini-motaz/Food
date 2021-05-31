@@ -24,6 +24,8 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
         Route::get('/', [ ShopController::class, 'show' ])->name('show');
         Route::get('/category', [ ShopController::class, 'category' ])->name('category');
         Route::get('/product', [ ShopController::class, 'product' ])->name('product');
+        Route::post('/order', [ OrderController::class, 'create' ])->name('create');
+
     });
 });
 
@@ -32,6 +34,4 @@ Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('
 Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
     Route::post('/profile', [ AuthController::class, 'updateProfile' ])->name('profile.update');
-
-    Route::post('/order', [ OrderController::class, 'create' ])->name('create');
 });
