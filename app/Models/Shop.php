@@ -96,6 +96,45 @@ class Shop extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function promoCodes()
+    {
+        return $this->hasMany(PromoCode::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function usablePromoCodes()
+    {
+        return $this->hasMany(PromoCode::class)
+            ->withCount('orders')
+            ->where('expires_at', '>', time())
+            ->where('orders_count', '<', 'max_usage_count');
+    }
+
+    /**
+     * @param int $promoCodeId
+     *
+     * @return bool
+     */
+    public function promoCodeExistsAndIsUsable($promoCodeId)
+    {
+        return 0 === $this->usablePromoCodes()->count();
+    }
+
+    /**
+     * @param int $promoCodeId
+     *
+     * @return bool
+     */
+    public function promoCodeDoesntExistsOrIsNotUsable($promoCodeId)
+    {
+        return ! $this->promoCodeExistsAndIsUsable($promoCodeId);
+    }
+
+    /**
      * @param int $categoryId
      *
      * @return bool

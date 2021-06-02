@@ -29,7 +29,7 @@ abstract class BaseAuthenticate extends JWTBaseMiddleware
     /**
      * @var string
      */
-    protected $appendFromEntityToRequest = null;
+    protected $appendFromEntityToRequest = 'shop';
 
     /**
      * Get the path the user should be redirected to when they are not authenticated.

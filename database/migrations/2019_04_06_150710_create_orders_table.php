@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->string('message')->nullable();
             $table->unsignedTinyInteger('status')->default(1)->comment('@see \App\Model\Order::STATUSES');
             $table->integer('total_price');
             $table->string('associated_phone');

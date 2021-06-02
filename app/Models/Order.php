@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @package App\Models
  *
  * @property int    id
- * @property string message
  * @property string status
  * @property string total_price
  * @property string associated_phone

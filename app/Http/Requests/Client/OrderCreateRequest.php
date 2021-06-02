@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Client;
 
 use App\Models\Client;
+use App\Models\Shop;
 use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,20 +26,30 @@ class OrderCreateRequest extends FormRequest
      */
     public function rules()
     {
+        /** @var Shop $shop */
+        $shop = request()->get('shop');
+
         return [
-            'products' => [ 'array', function($attribute, $value, $fail) {
-                foreach ($value as $index => $product) {
-                    if (
-                        ! isset($product['product_id']) ||
-                        ! isset($product['ingredients'])
-                    ) {
-                        $fail('Entry on line ' . $index . ' not valid');
-                        return;
+            'additional_note'    => [ 'max:190' ],
+            'delivery_latitude'  => [ 'max:50' ],
+            'delivery_longitude' => [ 'max:50' ],
+
+            'products'                  => [ 'array' ],
+            'products.*.product_id'     => [ 'required', 'integer' ],
+            'products.*.product_count'  => [ 'required', 'integer' ],
+            'products.*.ingredients'            => [ 'array' ],
+            'products.*.ingredients.*.id'       => [ 'required', 'integer' ],
+            'products.*.ingredients.*.quantity' => [ 'integer' ],
+            'promo_code_id' => [
+                'integer',
+                function($attribute, $value, $fail) use ($shop) {
+                    if ($shop->promoCodeDoesntExistsOrIsNotUsable($value)) {
+                        $fail('promo_code.exists');
                     }
 
-
                 }
-            }, ],
+            ],
+            // TODO: handle to_be_delivered_at case
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Support\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class PromoCode
@@ -39,5 +40,13 @@ class PromoCode extends Model
     public function admin()
     {
         return $this->belongsTo(Admin::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
