@@ -198,6 +198,7 @@ class ShopRepository
             return;
         }
 
+        /** @var IngredientCategory $ingredientCategory */
         foreach ($product->ingredientCategories as $ingredientCategoryKey => $ingredientCategory) {
             $countChosenIngredients = 0;
             foreach ($ingredientCategory->ingredients as $ingredientKey => $ingredient) {

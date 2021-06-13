@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class PromoCode
  * @package App\Models
  *
+ * @property int    id
  * @property string code
  * @property int    expires_at
  * @property int    max_usage_count
