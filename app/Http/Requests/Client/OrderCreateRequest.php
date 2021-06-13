@@ -29,17 +29,26 @@ class OrderCreateRequest extends FormRequest
         /** @var Shop $shop */
         $shop = request()->get('shop');
 
+        // TODO: max products count
+        // TODO: max products value
+
         return [
             'additional_note'    => [ 'max:190' ],
-            'delivery_latitude'  => [ 'max:50' ],
-            'delivery_longitude' => [ 'max:50' ],
+//            'delivery_latitude'  => [ 'required', 'max:50' ],
+//            'delivery_longitude' => [ 'required', 'max:50' ],
 
-            'products'                  => [ 'array' ],
+            'products'                  => [ 'required', 'array' ],
             'products.*.product_id'     => [ 'required', 'integer' ],
             'products.*.product_count'  => [ 'required', 'integer' ],
+
             'products.*.ingredients'            => [ 'array' ],
             'products.*.ingredients.*.id'       => [ 'required', 'integer' ],
-            'products.*.ingredients.*.quantity' => [ 'integer' ],
+            'products.*.ingredients.*.quantity' => [ function($attribute, $value, $fail) {
+                if (! is_numeric($value) && $value !== null) {
+                    $fail($attribute . '.integer_or_null');
+                }
+            } ],
+
             'promo_code_id' => [
                 'integer',
                 function($attribute, $value, $fail) use ($shop) {

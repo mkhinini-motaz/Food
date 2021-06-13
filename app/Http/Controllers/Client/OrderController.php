@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-
+use App\Exceptions\OrderException;
+use App\Models\Order;
+use App\Repositories\ShopOrderRepository;
 use App\Http\Requests\Client\OrderCreateRequest;
+use App\Models\Shop;
+
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -14,11 +17,23 @@ class OrderController extends Controller
      * @param OrderCreateRequest $request
      *
      * @return JsonResponse
+     * @throws OrderException
      */
-    public function order(OrderCreateRequest $request)
+    public function create(OrderCreateRequest $request)
     {
-        // TODO: implement
+        $products          = $request->input('products');
+        $promoCodeId       = $request->input('promo_code_id', null);
+        $additionalNote    = $request->input('additional_note', null);
+        $deliveryLatitude  = $request->input('delivery_latitude');
+        $deliveryLongitude = $request->input('delivery_longitude');
 
-        return response()->json([ 'status' => 'success', 'data' => [] ], 200);
+        /** @var Shop $shop */
+        $shop      = $request->get('shop');
+        $promoCode = ! $promoCodeId ? null : $shop->usablePromoCodes()->findOrFail($promoCodeId);
+
+        $shopOrderRepo = new ShopOrderRepository($shop);
+        $order = $shopOrderRepo->create(auth()->user(), Order::SOURCE_ONLINE,$products, $deliveryLatitude, $deliveryLongitude, $additionalNote, $promoCode);
+
+        return response()->json([ 'status' => 'success', 'data' => $order ], 200);
     }
 }

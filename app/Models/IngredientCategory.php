@@ -71,4 +71,18 @@ class IngredientCategory extends Model
             $ingredient->quantity = $fields['quantity'];
         }
     }
+
+    /**
+     * @return array
+     */
+    public function ingredientsValidationRules()
+    {
+        $pivot = $this->pivot;
+        return [
+            'min_ingredients'              => $pivot->min_ingredients,
+            'max_ingredients'              => $pivot->max_ingredients,
+            'ingredients_are_billable'     => $pivot->ingredients_are_billable,
+            'ingredients_are_quantifiable' => $pivot->ingredients_are_quantifiable,
+        ];
+    }
 }

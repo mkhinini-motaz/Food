@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int deleted_at
  *
  * @property Collection categories
+ * @property Collection locations
  * @property Collection orders
  * @property Collection products
  */
@@ -108,10 +110,17 @@ class Shop extends Model
      */
     public function usablePromoCodes()
     {
-        return $this->hasMany(PromoCode::class)
+        return $this->promoCodes()
             ->withCount('orders')
-            ->where('expires_at', '>', time())
-            ->where('orders_count', '<', 'max_usage_count');
+            ->where('expires_at', '>', time());
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
     }
 
     /**
@@ -121,7 +130,10 @@ class Shop extends Model
      */
     public function promoCodeExistsAndIsUsable($promoCodeId)
     {
-        return 0 === $this->usablePromoCodes()->count();
+        /** @var PromoCode $promoCode */
+        $promoCode = $this->usablePromoCodes()->find($promoCodeId);
+
+        return isset($promoCode) && $promoCode->max_usage_count > $promoCode->orders_count;
     }
 
     /**
@@ -172,6 +184,17 @@ class Shop extends Model
     }
 
     /**
+     * @param string $deliveryLatitude
+     * @param string $deliveryLongitude
+     *
+     * @return EloquentModel|Location
+     */
+    public function nearestLocation($deliveryLatitude, $deliveryLongitude)
+    {
+        return $this->locations()->first();
+    }
+
+    /**
      * @param int $isShopApproved
      *
      * @return \Closure
@@ -189,8 +212,8 @@ class Shop extends Model
     public static function defaultLoyaltyActionRewardsValue()
     {
         return json_encode([
-            LoyaltyAction::TYPE_REGISTRATION                  => 50,
-            LoyaltyAction::TYPE_FRIEND_INVITE                 => 10,
+            LoyaltyAction::TYPE_REGISTRATION                  => 10,
+            LoyaltyAction::TYPE_FRIEND_INVITE                 => 7,
             LoyaltyAction::TYPE_FIRST_ORDER                   => 5,
             LoyaltyAction::TYPE_PRODUCT_BOUGHT                => 1, // TODO: dynamic by product
             LoyaltyAction::TYPE_ONLINE_ORDER_COUNT_FOR_MONTH  => 1,
