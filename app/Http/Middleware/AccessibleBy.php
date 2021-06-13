@@ -6,10 +6,9 @@ use App\Models\Admin;
 use App\Models\Client;
 
 use Closure;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
 
-class AccessibleBy extends Middleware
+class AccessibleBy
 {
     const MODELS = [
         'admin'  => Admin::class,
