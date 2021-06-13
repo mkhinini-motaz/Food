@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -23,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('delivery_longitude', 52);
             $table->string('additional_note')->nullable();
             $table->unsignedTinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
+            $table->unsignedTinyInteger('payment_method')->default(Order::PAYMENT_METHOD_CASH)->comment('@see \App\Model\Order::PAYMENT_METHODS');
             $table->unsignedTinyInteger('collection_method')->comment('@see \App\Model\Order::COLLECTION_METHODS');
 
             $table->unsignedBigInteger('client_id');
