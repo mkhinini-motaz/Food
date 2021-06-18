@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Client;
 use App\Models\Shop;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class ClientRepository
@@ -99,5 +100,20 @@ class ClientRepository
         } while ($inviteCodeExists);
 
         return $inviteCode;
+    }
+
+    /**
+     * @param int    $page
+     * @param int    $perPage
+     * @param string $orderBy
+     * @param string $orderDirection
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginateLoyaltyActions($page = 1, $perPage = 20, $orderBy = 'created_at', $orderDirection = 'desc')
+    {
+        return $this->client->loyaltyActions()
+            ->orderBy($orderBy, $orderDirection)
+            ->paginate($perPage, [ '*' ], 'page', $page);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property Shop       shop
  * @property Collection orders
+ * @property Collection loyaltyActions
  */
 class Client extends Authenticatable
 {
@@ -64,6 +66,14 @@ class Client extends Authenticatable
     public function shop()
     {
         return $this->belongsTo(Shop::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function loyaltyActions()
+    {
+        return $this->hasMany(LoyaltyAction::class);
     }
 
     /**

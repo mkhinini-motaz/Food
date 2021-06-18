@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Events\ClientRegistered;
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
+use App\Models\Client;
 use App\Models\Shop;
 use App\Repositories\ClientRepository;
 use App\Http\Controllers\Controller;
@@ -86,6 +87,7 @@ class AuthController extends Controller
         $lastName  = $request->input('last_name', null);
         $firstName = $request->input('first_name', null);
 
+        /** @var Client $client */
         $client = auth()->user();
         $clientRepository = new ClientRepository($client);
         $clientRepository->update($firstName, $lastName, $email, $password, $phone);

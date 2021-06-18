@@ -6,7 +6,7 @@ use App\Http\Controllers\Client\PromoCodeController;
 use \App\Http\Controllers\Client\ShopController;
 use \App\Http\Controllers\Client\OrderController;
 use \App\Http\Controllers\Client\ClientController;
-
+use \App\Http\Controllers\Client\LoyaltyActionController;
 
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     Route::get('/', [ CategoryController::class, 'index' ])->name('index');
@@ -21,6 +21,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
         Route::post('/login', [ AuthController::class, 'login' ])->name('login');
         Route::post('/phone', [ ClientController::class, 'checkPhone' ])->name('checkPhone');
         Route::post('/register', [ AuthController::class, 'register' ])->name('register');
+
         Route::get('/', [ ShopController::class, 'show' ])->name('show');
         Route::get('/category', [ ShopController::class, 'category' ])->name('category');
         Route::get('/product', [ ShopController::class, 'product' ])->name('product');
@@ -33,4 +34,5 @@ Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], functio
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
     Route::post('/profile', [ AuthController::class, 'updateProfile' ])->name('profile.update');
     Route::post('/order', [ OrderController::class, 'create' ])->name('create');
+    Route::get('/loyalty-action', [ LoyaltyActionController::class, 'index' ])->name('loyalty-action');
 });
