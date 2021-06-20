@@ -32,7 +32,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId ? null : $shop->usablePromoCodes()->findOrFail($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create(auth()->user(), Order::SOURCE_ONLINE,$products, $deliveryLatitude, $deliveryLongitude, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create(auth()->user(), $products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::COLLECTION_METHOD_DELIVER, $additionalNote, $promoCode);
 
         return response()->json([ 'status' => 'success', 'data' => $order ], 200);
     }

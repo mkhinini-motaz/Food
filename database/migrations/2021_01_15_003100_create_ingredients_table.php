@@ -19,7 +19,7 @@ class CreateIngredientsTable extends Migration
             $table->string('name', 1000);
             $table->string('description', 1000);
             $table->string('photo')->default('default image link'); // TODO: define default image
-            $table->unsignedInteger('price')->comment('In tunisian mellimes');
+            $table->unsignedInteger('price')->default(0)->comment('In tunisian mellimes');
             $table->unsignedTinyInteger('is_visible')->default(0);
 
             $table->unsignedBigInteger('ingredient_category_id');

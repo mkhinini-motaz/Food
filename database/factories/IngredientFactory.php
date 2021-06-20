@@ -37,7 +37,7 @@ class IngredientFactory extends Factory
             ],
 
             'photo' => IngredientCategory::first()->photo,
-            'price' => rand(1, 250) * 100,
+            'price' => 0,
 
             'is_visible'  => 1,
 

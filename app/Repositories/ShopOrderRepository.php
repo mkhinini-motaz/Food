@@ -32,17 +32,18 @@ class ShopOrderRepository
 
     /**
      * @param Client         $client
-     * @param int            $source @see Order::SOURCES
      * @param array          $products
      * @param string         $deliveryLatitude
      * @param string         $deliveryLongitude
+     * @param int            $source @see Order::SOURCES
+     * @param int            $collectionMethod @see Order::COLLECTION_METHODS
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
      * @return Order
      * @throws OrderException
      */
-    public function create(Client $client, $source, $products, $deliveryLatitude, $deliveryLongitude, $additionalNote = null, PromoCode $promoCode = null)
+    public function create(Client $client, $products, $deliveryLatitude, $deliveryLongitude, $source, $collectionMethod, $additionalNote = null, PromoCode $promoCode = null)
     {
         $order    = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
@@ -52,11 +53,12 @@ class ShopOrderRepository
         $order->location_id        = $location->id;
         $order->additional_note    = $additionalNote;
         $order->associated_phone   = $client->phone;
-        $order->collection_method  = Order::COLLECTION_METHOD_DELIVER; // TODO: make dynamic
+        $order->collection_method  = $collectionMethod;
         $order->delivery_latitude  = $deliveryLatitude;
         $order->delivery_longitude = $deliveryLongitude;
 
         $order->total_price = $this->validateAndCalculateProductsPrice($products);
+
         if ($promoCode) {
             $order->total_price   -= $promoCode->reduction_amount;
             $order->total_price   = $order->total_price > 0 ? $order->total_price : 0;
@@ -65,6 +67,7 @@ class ShopOrderRepository
 
         $order->save();
         $this->saveProductsForOrder($order, $products);
+        $this->saveIngredientsForOrder($order, $products);
 
         return $order;
     }
@@ -72,7 +75,7 @@ class ShopOrderRepository
     /**
      * @param array $productsInput
      *
-     * @return array
+     * @return int
      * @throws OrderException
      */
     public function validateAndCalculateProductsPrice($productsInput)
@@ -87,13 +90,13 @@ class ShopOrderRepository
                 throw new OrderException('product:not_found');
             }
 
-            $ingredients = $product['ingredients'] ?? null;
-            if ($productFromDb->type !== Product::TYPE_WITH_INGREDIENTS || ! $ingredients) {
+            $ingredientsInput = $product['ingredients'] ?? null;
+            if ($productFromDb->type !== Product::TYPE_WITH_INGREDIENTS || ! $ingredientsInput) {
                 continue;
             }
 
-            $this->validateIngredientsForProducts($productFromDb, $ingredients);
-            $totalPrice += $productFromDb->price;
+            $ingredientsPrice = $this->validateAndCalculatePriceForProductIngredients($productFromDb, $ingredientsInput);
+            $totalPrice += $productFromDb->price + $ingredientsPrice;
         }
 
         return $totalPrice;
@@ -120,39 +123,54 @@ class ShopOrderRepository
 
     /**
      * @param Product $product
-     * @param array   $ingredientsInput
      *
-     * @throws OrderException
+     * @return array
      */
-    public function validateIngredientsForProducts(Product $product, $ingredientsInput)
+    public function prepareIngredientCategoriesForValidation(Product $product)
     {
         $ingredientsFromDb       = [];
+        $ingredientCategoryCheck = [];
         $ingredientCategoryRules = [];
+
         /** @var IngredientCategory $ingredientCategory */
         foreach ($product->ingredientCategories as $ingredientCategory) {
+            $ingredientCategoryCheck[$ingredientCategory->id] = [ 'ingredients_count' => 0 ];
             $ingredientCategoryRules[$ingredientCategory->id] = $ingredientCategory->ingredientsValidationRules();
             $ingredientsFromDb += $ingredientCategory->ingredients->keyBy('id')->all();
         }
-\Log::info([$ingredientsFromDb]);
-        $ingredientCategoryCheck = [];
+
+        return [ $ingredientCategoryCheck, $ingredientsFromDb, $ingredientCategoryRules ];
+    }
+
+    /**
+     * @param Product $product
+     * @param array   $ingredientsInput
+     *
+     * @return int
+     * @throws OrderException
+     */
+    public function validateAndCalculatePriceForProductIngredients(Product $product, $ingredientsInput)
+    {
+        [ $ingredientCategoryCheck, $ingredientsFromDb, $ingredientCategoryRules ] = $this->prepareIngredientCategoriesForValidation($product);
+
+        $ingredientsAddedPrice   = 0;
         foreach ($ingredientsInput as $ingredient) {
             /** @var Ingredient $ingredientFromDb */
             $ingredientFromDb     = $ingredientsFromDb[$ingredient['id']];
             $ingredientCategoryId = $ingredientFromDb->ingredient_category_id;
+
             if (! isset($ingredientFromDb)) {
                 throw new OrderException('ingredient:not_found');
             }
-
-            if (isset($ingredientCategoryCheck[$ingredientCategoryId])) {
-                $ingredientCategoryCheck[$ingredientCategoryId]['ingredients_count']++;
-            } else {
-                $ingredientCategoryCheck[$ingredientCategoryId] = [ 'ingredients_count' => 1, ];
-            }
-
             if ($ingredientCategoryCheck[$ingredientCategoryId]['ingredients_count'] > $ingredientCategoryRules[$ingredientCategoryId]['max_ingredients']) {
                 throw new OrderException('ingredient_category:max_ingredients');
             }
+
+            $ingredientsAddedPrice += $ingredientFromDb->price;
+            $ingredientCategoryCheck[$ingredientCategoryId]['ingredients_count']++;
         }
+
+        return $ingredientsAddedPrice;
     }
 
     /**
@@ -171,7 +189,14 @@ class ShopOrderRepository
         }
 
         \DB::table('order_product')->insert($productRelationshipInfos);
+    }
 
+    /**
+     * @param Order $order
+     * @param array $productsInput
+     */
+    public function saveIngredientsForOrder(Order $order, $productsInput)
+    {
         $orderProducts = $order->products()->get();
         /** @var Product $product */
         $ingredientsRelationshipInfos = [];
@@ -182,15 +207,25 @@ class ShopOrderRepository
 
             $orderProductId = $product->pivot->id;
             foreach ($productsInput[$index]['ingredients'] as $ingredient) {
-                $ingredientsRelationshipInfos[] = [
-                    'quantity'         => $ingredient['quantity'] ?? 0,
-                    'ingredient_id'    => $ingredient['id'],
-                    'order_product_id' => $orderProductId,
-                ];
+                $ingredientsRelationshipInfos[] = $this->ingredientRelationshipInfoFromInput($ingredient, $orderProductId);
             }
         }
 
         \DB::table('ingredient_order_product')->insert($ingredientsRelationshipInfos);
     }
 
+    /**
+     * @param array $ingredientInput
+     * @param int   $orderProductId
+     *
+     * @return array
+     */
+    public function ingredientRelationshipInfoFromInput($ingredientInput, $orderProductId)
+    {
+        return [
+            'quantity'         => $ingredientInput['quantity'] ?? 0,
+            'ingredient_id'    => $ingredientInput['id'],
+            'order_product_id' => $orderProductId,
+        ];
+    }
 }

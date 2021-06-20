@@ -34,6 +34,7 @@ class OrderCreateRequest extends FormRequest
 
         return [
             'additional_note'    => [ 'max:190' ],
+// TODO: location validation
 //            'delivery_latitude'  => [ 'required', 'max:50' ],
 //            'delivery_longitude' => [ 'required', 'max:50' ],
 
