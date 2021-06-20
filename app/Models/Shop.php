@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string average_ready_minutes
  * @property bool   is_approved
  * @property bool   signup_is_open
+ * @property string service_area
  * @property string domain
  * @property string loyalty_action_rewards
  * @property string ga_tracking_id
@@ -63,7 +64,10 @@ class Shop extends Model
     const PRICING_CATEGORIES = [ self::PRICING_CATEGORY_VERY_LOW, self::PRICING_CATEGORY_LOW, self::PRICING_CATEGORY_MEDIUM, self::PRICING_CATEGORY_HIGH, self::PRICING_CATEGORY_VERY_HIGH ];
 
     protected $dateFormat = 'U';
-    protected $casts = [ 'loyalty_action_rewards' => 'array', ];
+    protected $casts = [
+        'service_area'           => 'array',
+        'loyalty_action_rewards' => 'array',
+        ];
 
     /**
      * @return HasMany

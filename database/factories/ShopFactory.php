@@ -28,6 +28,7 @@ class ShopFactory extends Factory
             'logo'  => $this->faker->imageUrl(),
             'phone' => $this->faker->phoneNumber,
 
+            'service_area'          => null,
             'is_approved'           => rand(0, 1),
             'min_order_price'       => rand(20, 100) * 100,
             'pricing_category'      => rand(1, 5),
@@ -42,8 +43,6 @@ class ShopFactory extends Factory
             'twitter_url'     => null,
             'linkedin_url'    => null,
 
-            'created_at' => time(),
-            'updated_at' => time()
         ];
     }
 }
