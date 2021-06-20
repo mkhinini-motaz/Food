@@ -17,4 +17,28 @@ trait DoesntConvertDates
     {
         return $attributes;
     }
+
+    /**
+     * @return int
+     */
+    public function getCreatedAtAttribute()
+    {
+        return $this->getAttributes()['created_at'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getUpdatedAtAttribute()
+    {
+        return $this->getAttributes()['updated_at'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeletedAtAttribute()
+    {
+        return $this->getAttributes()['deleted_at'];
+    }
 }
