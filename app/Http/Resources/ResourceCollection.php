@@ -6,7 +6,6 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection as BaseResourceCollection;
-use Illuminate\Support\Collection;
 
 class ResourceCollection extends BaseResourceCollection
 {

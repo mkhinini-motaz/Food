@@ -23,6 +23,18 @@ class Model extends BaseModel
     }
 
     /**
+     * Return a timestamp as DateTime object.
+     * Overridden to prevent casting dates when getAttribute is invoked, new in laravel 7
+     *
+     * @param mixed $value
+     * @return mixed
+     */
+    protected function asDateTime($value)
+    {
+        return $value;
+    }
+
+    /**
      * @return string
      */
     public static function getDbTableName()

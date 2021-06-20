@@ -19,6 +19,7 @@ class LoyaltyActionResource extends JsonResource
             'id'              => $this->id,
             'type'            => $this->type,
             'points_rewarded' => $this->points_rewarded,
+            'created_at'      => $this->created_at,
         ];
     }
 }

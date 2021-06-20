@@ -191,7 +191,7 @@ class Shop extends Model
      */
     public function nearestLocation($deliveryLatitude, $deliveryLongitude)
     {
-        return $this->locations()->first();
+        return $this->locations()->first(); // TODO: implement
     }
 
     /**
