@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Client;
 use App\Events\ClientRegistered;
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
+use App\Http\Resources\ClientResource;
+use App\Http\Resources\Resource;
 use App\Models\Client;
 use App\Models\Shop;
 use App\Repositories\ClientRepository;
@@ -22,7 +24,7 @@ class AuthController extends Controller
      */
     public function profile(Request $request)
     {
-        return response()->json([ 'status' => 'success', 'data' => auth()->user(), ], 200);
+        return (new ClientResource(auth()->user()))->response();
     }
 
     /**
@@ -36,8 +38,8 @@ class AuthController extends Controller
         $request->validate([ 'phone' => 'required', 'password' => 'required' ]);
 
         $phone       = preg_replace('#\s#', '', $request->get('phone'));
-        $password    = $request->get('password');
         $shop_id     = $shop->id;
+        $password    = $request->get('password');
         $credentials = compact('phone', 'password', 'shop_id');
 
         if (! $token = auth('client')->attempt($credentials)) {
@@ -47,7 +49,7 @@ class AuthController extends Controller
         $client = auth('client')->user();
         $client->access_token = $token;
 
-        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
+        return (new ClientResource($client))->response();
     }
 
     /**
@@ -71,7 +73,7 @@ class AuthController extends Controller
         $token = auth('client')->login($client);
         $client->access_token = $token;
 
-        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
+        return (new ClientResource($client))->response();
     }
 
     /**
@@ -92,6 +94,6 @@ class AuthController extends Controller
         $clientRepository = new ClientRepository($client);
         $clientRepository->update($firstName, $lastName, $email, $password, $phone);
 
-        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
+        return Resource::jsonResponse($client);
     }
 }
