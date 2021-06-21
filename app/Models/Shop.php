@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use function App\Support\Helpers\pointInPolygon;
 
 /**
  * Class Shop
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string average_ready_minutes
  * @property bool   is_approved
  * @property bool   signup_is_open
- * @property string service_area
+ * @property array  service_area
  * @property string domain
  * @property string loyalty_action_rewards
  * @property string ga_tracking_id
@@ -65,8 +66,8 @@ class Shop extends Model
 
     protected $dateFormat = 'U';
     protected $casts = [
-        'service_area'           => 'array',
         'loyalty_action_rewards' => 'array',
+        'service_area'           => 'array',
         ];
 
     /**
@@ -128,6 +129,40 @@ class Shop extends Model
     }
 
     /**
+     * @param string $latitude
+     * @param string $longitude
+     *
+     * @return EloquentModel|Location
+     */
+    public function nearestLocation($latitude, $longitude)
+    {
+        return $this->locations()->first(); // TODO: implement
+    }
+
+    /**
+     * @param float $latitude
+     * @param float $longitude
+     *
+     * @return bool
+     */
+    public function locationWithinServiceArea($latitude, $longitude)
+    {
+\Log::info([ $latitude, $longitude, pointInPolygon([ $latitude, $longitude ], $this->service_area)]);
+        return pointInPolygon([ $latitude, $longitude ], $this->service_area);
+    }
+
+    /**
+     * @param float $latitude
+     * @param float $longitude
+     *
+     * @return bool
+     */
+    public function locationNotWithinServiceArea($latitude, $longitude)
+    {
+        return ! $this->locationWithinServiceArea($latitude, $longitude);
+    }
+
+    /**
      * @param int $promoCodeId
      *
      * @return bool
@@ -185,17 +220,6 @@ class Shop extends Model
         }
 
         return $this->loyalty_action_rewards[$loyaltyAction->type];
-    }
-
-    /**
-     * @param string $deliveryLatitude
-     * @param string $deliveryLongitude
-     *
-     * @return EloquentModel|Location
-     */
-    public function nearestLocation($deliveryLatitude, $deliveryLongitude)
-    {
-        return $this->locations()->first(); // TODO: implement
     }
 
     /**
