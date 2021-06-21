@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Resources\ResourceCollection;
+use App\Http\Resources\ShopResource;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
@@ -27,7 +28,19 @@ class ShopController extends Controller
 
         $shops = ShopRepository::paginate($page, $perPage, $search, $orderBy, $orderDirection, Shop::IS_APPROVED_TRUE);
 
-        return response()->json([ 'status' => 'success', 'data' => $shops ], 200);
+        return ResourceCollection::jsonResponse($shops);
+    }
+
+    /**
+     * @param int $shopId
+     *
+     * @return JsonResponse
+     */
+    public function show($shopId)
+    {
+        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
+
+        return (new ShopResource($shop))->response();
     }
 
     /**
@@ -74,17 +87,5 @@ class ShopController extends Controller
         $products = $shopRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection, $categoryIds, $productIds);
 
         return ResourceCollection::jsonResponse($products);
-    }
-
-    /**
-     * @param int $shopId
-     *
-     * @return JsonResponse
-     */
-    public function show($shopId)
-    {
-        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
-
-        return response()->json([ 'status' => 'success', 'data' => $shop ], 200);
     }
 }
