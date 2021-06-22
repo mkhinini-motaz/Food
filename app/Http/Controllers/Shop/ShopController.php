@@ -17,6 +17,7 @@ class ShopController extends Controller
      *
      * @return JsonResponse
      */
+    // TODO: turn into update shop
     public function updateServiceArea(UpdateServiceAreaRequest $request)
     {
         /** @var Shop $shop */
