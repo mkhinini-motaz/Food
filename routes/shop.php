@@ -4,10 +4,13 @@ use App\Http\Controllers\Shop\AuthController;
 use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\OrderController;
+use App\Http\Controllers\Shop\ShopController;
 
 Route::post('/login', [ AuthController::class, 'login' ])->name('login');
 
 Route::group([ 'middleware' => [ 'authShop'] ], function() {
+    Route::post('/service-area', [ ShopController::class, 'updateServiceArea' ])->name('updateServiceArea');
+
     Route::group([ 'prefix' => 'category', 'as' => 'category.', ], function () {
         Route::get('/', [ CategoryController::class, 'index' ])->name('index');
         Route::get('/{categoryId}/product', [ CategoryController::class, 'product' ])->name('product');

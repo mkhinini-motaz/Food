@@ -228,4 +228,13 @@ class ShopRepository
             ->where('invite_code', '=', $inviteCode)
             ->first();
     }
+
+    /**
+     * @param array $serviceArea
+     */
+    public function updateServiceArea($serviceArea)
+    {
+        $this->shop->service_area = $serviceArea;
+        $this->shop->save();
+    }
 }
