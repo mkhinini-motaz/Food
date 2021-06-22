@@ -36,8 +36,8 @@ class OrderCreateRequest extends FormRequest
 
         return [
             'additional_note'    => [ 'max:190' ],
-            'delivery_latitude'  => [ 'required', 'max:50' ],
-            'delivery_longitude' => [ 'required', 'max:50', function($attribute, $value, $fail) use ($deliveryLatitude, $deliveryLongitude, $shop) {
+            'delivery_latitude'  => [ 'required', 'between:-90,90' ],
+            'delivery_longitude' => [ 'required', 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $deliveryLongitude, $shop) {
                 if ($shop->locationNotWithinServiceArea($deliveryLatitude, $deliveryLongitude)) {
                     $fail('delivery_latitude.location_not_served');
                     $fail('delivery_longitude.location_not_served');

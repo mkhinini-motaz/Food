@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 class ClientRegistered
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, SerializesModels;
 
     /**
      * @var Client

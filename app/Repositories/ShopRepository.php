@@ -8,6 +8,7 @@ use App\Models\IngredientCategory;
 use App\Models\Product;
 use App\Models\Shop;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use function App\Support\Helpers\fieldsLike;
 
@@ -220,7 +221,7 @@ class ShopRepository
     /**
      * @param string $inviteCode
      *
-     * @return Client|null
+     * @return Client|Model|null
      */
     public function findClientByInviteCode($inviteCode)
     {

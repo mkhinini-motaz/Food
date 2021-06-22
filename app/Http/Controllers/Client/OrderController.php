@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Exceptions\OrderException;
 use App\Models\Order;
+use App\Models\PromoCode;
 use App\Repositories\ShopOrderRepository;
 use App\Http\Requests\Client\OrderCreateRequest;
 use App\Models\Shop;
@@ -28,7 +29,8 @@ class OrderController extends Controller
         $deliveryLongitude = $request->input('delivery_longitude');
 
         /** @var Shop $shop */
-        $shop      = $request->get('shop');
+        $shop = $request->get('shop');
+        /** @var PromoCode $promoCode */
         $promoCode = ! $promoCodeId ? null : $shop->usablePromoCodes()->findOrFail($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
