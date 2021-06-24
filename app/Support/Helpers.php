@@ -122,7 +122,7 @@ function pointInPolygon(array $point, array $polygon, int $start = 0, int $end =
  * @param $latitudeTo
  * @param $longitudeTo
  *
- * @return float|int
+ * @return int in meters
  */
 function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo) {
     if (($latitudeFrom == $latitudeTo) && ($longitudeFrom == $longitudeTo)) {
@@ -133,10 +133,11 @@ function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo) {
     $distance  = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo));
     $distance += cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
 
-    $distance  = acos($distance);
-    $distance  = rad2deg($distance);
+    $distance = acos($distance);
+    $distance = rad2deg($distance);
 
-    $distanceInMiles = $distance * 60 * 1.1515;
+    $milesToKilometersMultiplier = 1.609344;
+    $distanceInKilometers = $distance * 60 * 1.1515 * $milesToKilometersMultiplier;
 
-    return ($distanceInMiles * 1.609344);
+    return (int) ($distanceInKilometers * 1000);
 }
