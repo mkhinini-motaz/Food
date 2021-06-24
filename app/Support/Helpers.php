@@ -114,3 +114,29 @@ function pointInPolygon(array $point, array $polygon, int $start = 0, int $end =
     }
     return pointInPolygonFlat($point, $polygon, $start, $end);
 }
+
+
+/**
+ * @param $latitudeFrom
+ * @param $longitudeFrom
+ * @param $latitudeTo
+ * @param $longitudeTo
+ *
+ * @return float|int
+ */
+function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo) {
+    if (($latitudeFrom == $latitudeTo) && ($longitudeFrom == $longitudeTo)) {
+        return 0;
+    }
+
+    $theta     = $longitudeFrom - $longitudeTo;
+    $distance  = sin(deg2rad($latitudeFrom)) * sin(deg2rad($latitudeTo));
+    $distance += cos(deg2rad($latitudeFrom)) * cos(deg2rad($latitudeTo)) * cos(deg2rad($theta));
+
+    $distance  = acos($distance);
+    $distance  = rad2deg($distance);
+
+    $distanceInMiles = $distance * 60 * 1.1515;
+
+    return ($distanceInMiles * 1.609344);
+}
