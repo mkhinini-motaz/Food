@@ -40,7 +40,7 @@ class ProductController extends Controller
      *
      * @return JsonResponse
      */
-    public function makeUnVisible($productId, Request $request)
+    public function makeInvisible($productId, Request $request)
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -48,7 +48,7 @@ class ProductController extends Controller
         $product = $shop->products()->findOrFail($productId);
 
         $productRepository = new ProductRepository($product);
-        $productRepository->makeUnVisible();
+        $productRepository->makeInvisible();
 
         // TODO: activity log
 

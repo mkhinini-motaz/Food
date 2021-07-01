@@ -33,7 +33,7 @@ class ProductRepository
     /**
      *
      */
-    public function makeUnVisible()
+    public function makeInvisible()
     {
         $this->product->is_visible = false;
         $this->product->save();

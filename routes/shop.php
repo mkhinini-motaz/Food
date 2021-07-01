@@ -15,12 +15,12 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
         Route::get('/', [ CategoryController::class, 'index' ])->name('index');
         Route::get('/{categoryId}/product', [ CategoryController::class, 'product' ])->name('product');
         Route::post('/{categoryId}/show', [ CategoryController::class, 'makeVisible' ])->name('makeVisible');
-        Route::post('/{categoryId}/hide', [ CategoryController::class, 'makeUnVisible' ])->name('makeUnVisible');
+        Route::post('/{categoryId}/hide', [ CategoryController::class, 'makeInvisible' ])->name('makeInvisible');
     });
 
     Route::group([ 'prefix' => 'product', 'as' => 'product.', ], function () {
         Route::post('/{productId}/show', [ ProductController::class, 'makeVisible' ])->name('makeVisible');
-        Route::post('/{productId}/hide', [ ProductController::class, 'makeUnVisible' ])->name('makeUnVisible');
+        Route::post('/{productId}/hide', [ ProductController::class, 'makeInvisible' ])->name('makeInvisible');
     });
 
 

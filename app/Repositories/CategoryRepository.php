@@ -101,7 +101,7 @@ class CategoryRepository
     /**
      *
      */
-    public function makeUnVisible()
+    public function makeInvisible()
     {
         $this->category->is_visible = false;
         $this->category->save();
