@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Order;
+use App\Models\Shop;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,7 +19,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedTinyInteger('status')->default(1)->comment('@see \App\Model\Order::STATUSES');
+            $table->unsignedTinyInteger('status')->default(Shop::STATUS_NEW)->comment('@see \App\Model\Order::STATUSES');
             $table->integer('total_price');
             $table->string('associated_phone');
             $table->string('delivery_latitude', 52);

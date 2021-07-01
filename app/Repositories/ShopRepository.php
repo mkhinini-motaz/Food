@@ -238,4 +238,37 @@ class ShopRepository
         $this->shop->service_area = $serviceArea;
         $this->shop->save();
     }
+
+    /**
+     * Paginates the users of a site
+     *
+     * @param int|null    $page
+     * @param int|null    $perPage
+     * @param string|null $search
+     * @param string|null $orderBy
+     * @param string|null $orderDirection
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginateActivityLogs($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
+    {
+        $activityLogs = $this->shop->activityLogs()->with([ 'causer', 'subject' ]);
+
+        if ($orderBy && $orderDirection) {
+            $activityLogs->orderBy($orderBy, $orderDirection);
+        }
+
+        if ($search && is_array($search)) {
+            if (count($search) > 0) {
+                $activityLogs->where(function ($query) use ($search) {
+                    $query->whereIn('description', $search)
+                        ->orWhereIn('subject_type', $search);
+                });
+            } else {
+                $activityLogs->where('id', '=', '[]'); // receiving empty array means the search has no matching translations
+            }
+        }
+
+        return $activityLogs->paginate($perPage, [ '*' ], 'page', $page);
+    }
 }

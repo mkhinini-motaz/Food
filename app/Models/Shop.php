@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Support\LogsActivity;
 use App\Support\Model;
+
+use function App\Support\Helpers\pointInPolygon;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use function App\Support\Helpers\pointInPolygon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Shop
@@ -44,10 +47,11 @@ use function App\Support\Helpers\pointInPolygon;
  * @property Collection locations
  * @property Collection orders
  * @property Collection products
+ * @property Collection activityLogs
  */
 class Shop extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, LogsActivity;
 
     const TYPE_RESTAURANT = 1;
     const TYPES = [ self::TYPE_RESTAURANT ];
@@ -103,6 +107,15 @@ class Shop extends Model
     }
 
     /**
+     * @return HasManyThrough
+     */
+    public function activeOrders()
+    {
+        return $this->orders()
+            ->whereIn('status', Order::ASSIGNABLE_TO_TRANSPORTER_STATUSES);
+    }
+
+    /**
      * @return HasMany
      */
     public function promoCodes()
@@ -140,6 +153,14 @@ class Shop extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    /**
      * @param float $latitude
      * @param float $longitude
      *
@@ -147,7 +168,6 @@ class Shop extends Model
      */
     public function locationWithinServiceArea($latitude, $longitude)
     {
-\Log::info([ $latitude, $longitude, pointInPolygon([ $latitude, $longitude ], $this->service_area)]);
         return pointInPolygon([ $latitude, $longitude ], $this->service_area);
     }
 
@@ -253,5 +273,16 @@ class Shop extends Model
             LoyaltyAction::TYPE_SEND_POINTS                   => 1,
             LoyaltyAction::TYPE_RECEIVE_POINTS                => 1,
         ]);
+    }
+
+    /**
+     * Appends additional data to the activity log
+     *
+     * @param ActivityLog $activityLog
+     * @param string      $eventName
+     */
+    public function tapActivity(ActivityLog $activityLog, string $eventName)
+    {
+        $activityLog->shop_id = $this->shop_id;
     }
 }

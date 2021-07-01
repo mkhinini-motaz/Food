@@ -32,4 +32,12 @@ class OrderController extends Controller
 
         return ResourceCollection::jsonResponse($orders);
     }
+
+    /**
+     * @param Request $request
+     */
+    public function attachTransporter($orderId, Request $request)
+    {
+
+    }
 }
