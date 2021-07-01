@@ -29,7 +29,6 @@ class OrderCreateRequest extends FormRequest
         /** @var Shop $shop */
         $shop = request()->get('shop');
         $deliveryLatitude  = request()->input('delivery_latitude');
-        $deliveryLongitude = request()->input('delivery_longitude');
 
         // TODO: max products count
         // TODO: max products value
@@ -37,8 +36,8 @@ class OrderCreateRequest extends FormRequest
         return [
             'additional_note'    => [ 'max:190' ],
             'delivery_latitude'  => [ 'required', 'between:-90,90' ],
-            'delivery_longitude' => [ 'required', 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $deliveryLongitude, $shop) {
-                if ($shop->locationNotWithinServiceArea($deliveryLatitude, $deliveryLongitude)) {
+            'delivery_longitude' => [ 'required', 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $shop) {
+                if ($shop->locationNotWithinServiceArea($deliveryLatitude, $value)) {
                     $fail('delivery_latitude.location_not_served');
                     $fail('delivery_longitude.location_not_served');
                 }

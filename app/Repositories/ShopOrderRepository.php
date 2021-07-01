@@ -48,6 +48,7 @@ class ShopOrderRepository
         $order    = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
 
+        $order->status             = Order::STATUS_NEW;
         $order->source             = $source;
         $order->client_id          = $client->id;
         $order->location_id        = $location->id;
@@ -81,7 +82,8 @@ class ShopOrderRepository
     public function validateAndCalculateProductsPrice($productsInput)
     {
         $totalPrice = 0;
-        $productsFromDb = $this->productsFromInput($productsInput);
+        $productsFromDb = $this->productsFromInput($productsInput)
+            ->keyBy('id');
 
         foreach ($productsInput as $product) {
             /** @var Product $productFromDb */
@@ -100,46 +102,6 @@ class ShopOrderRepository
         }
 
         return $totalPrice;
-    }
-
-    /**
-     * @param array $productsInput
-     *
-     * @return Collection
-     */
-    public function productsFromInput($productsInput)
-    {
-        $productsIds   = [];
-        foreach ($productsInput as $product) {
-            $productsIds[] = $product['product_id'];
-        }
-
-        return $this->shop->products()
-            ->with('ingredientCategories.ingredients')
-            ->whereIn('products.id', $productsIds)
-            ->get()
-            ->keyBy('id');
-    }
-
-    /**
-     * @param Product $product
-     *
-     * @return array
-     */
-    public function prepareIngredientCategoriesForValidation(Product $product)
-    {
-        $ingredientsFromDb       = [];
-        $ingredientCategoryCheck = [];
-        $ingredientCategoryRules = [];
-
-        /** @var IngredientCategory $ingredientCategory */
-        foreach ($product->ingredientCategories as $ingredientCategory) {
-            $ingredientCategoryCheck[$ingredientCategory->id] = [ 'ingredients_count' => 0 ];
-            $ingredientCategoryRules[$ingredientCategory->id] = $ingredientCategory->ingredientsValidationRules();
-            $ingredientsFromDb += $ingredientCategory->ingredients->keyBy('id')->all();
-        }
-
-        return [ $ingredientCategoryCheck, $ingredientsFromDb, $ingredientCategoryRules ];
     }
 
     /**
@@ -174,10 +136,61 @@ class ShopOrderRepository
     }
 
     /**
+     * @param array $productsInput
+     *
+     * @return Collection
+     */
+    public function productsFromInput($productsInput)
+    {
+        $productsIds   = [];
+        foreach ($productsInput as $product) {
+            $productsIds[] = $product['product_id'];
+        }
+
+        return $this->shop->products()
+            ->with('ingredientCategories.ingredients')
+            ->whereIn('products.id', $productsIds)
+            ->get();
+    }
+
+    /**
+     * @param string $latitude
+     * @param string $longitude
+     *
+     * @return int
+     */
+    public function deliveryCost($latitude, $longitude)
+    {
+
+        return 2000; // TODO: implement
+    }
+
+    /**
+     * @param Product $product
+     *
+     * @return array
+     */
+    private function prepareIngredientCategoriesForValidation(Product $product)
+    {
+        $ingredientsFromDb       = [];
+        $ingredientCategoryCheck = [];
+        $ingredientCategoryRules = [];
+
+        /** @var IngredientCategory $ingredientCategory */
+        foreach ($product->ingredientCategories as $ingredientCategory) {
+            $ingredientCategoryCheck[$ingredientCategory->id] = [ 'ingredients_count' => 0 ];
+            $ingredientCategoryRules[$ingredientCategory->id] = $ingredientCategory->ingredientsValidationRules();
+            $ingredientsFromDb += $ingredientCategory->ingredients->keyBy('id')->all();
+        }
+
+        return [ $ingredientCategoryCheck, $ingredientsFromDb, $ingredientCategoryRules ];
+    }
+
+    /**
      * @param Order $order
      * @param array $productsInput
      */
-    public function saveProductsForOrder(Order $order, $productsInput)
+    private function saveProductsForOrder(Order $order, $productsInput)
     {
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
@@ -195,7 +208,7 @@ class ShopOrderRepository
      * @param Order $order
      * @param array $productsInput
      */
-    public function saveIngredientsForOrder(Order $order, $productsInput)
+    private function saveIngredientsForOrder(Order $order, $productsInput)
     {
         $orderProducts = $order->products()->get();
         /** @var Product $product */
@@ -220,7 +233,7 @@ class ShopOrderRepository
      *
      * @return array
      */
-    public function ingredientRelationshipInfoFromInput($ingredientInput, $orderProductId)
+    private function ingredientRelationshipInfoFromInput($ingredientInput, $orderProductId)
     {
         return [
             'quantity'         => $ingredientInput['quantity'] ?? 0,
