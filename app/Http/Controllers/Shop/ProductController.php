@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Resources\Resource;
+use App\Models\ActivityLog;
 use App\Models\Shop;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
@@ -29,7 +30,9 @@ class ProductController extends Controller
         $productRepository = new ProductRepository($product);
         $productRepository->makeVisible();
 
-        // TODO: activity log
+        activity()->performedOn($product)
+            ->causedBy(auth()->user())
+            ->log(ActivityLog::DESCRIPTION_PRODUCT_MAKE_VISIBLE);
 
         return Resource::jsonResponse($product);
     }
@@ -50,7 +53,9 @@ class ProductController extends Controller
         $productRepository = new ProductRepository($product);
         $productRepository->makeInvisible();
 
-        // TODO: activity log
+        activity()->performedOn($product)
+            ->causedBy(auth()->user())
+            ->log(ActivityLog::DESCRIPTION_PRODUCT_MAKE_INVISIBLE);
 
         return Resource::jsonResponse($product);
     }

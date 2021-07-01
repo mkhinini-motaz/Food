@@ -6,6 +6,7 @@ use App\Http\Requests\Shop\Category\MakeInVisibleRequest;
 use App\Http\Requests\Shop\Category\MakeVisibleRequest;
 use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
+use App\Models\ActivityLog;
 use App\Models\Category;
 use App\Models\Shop;
 use App\Repositories\CategoryRepository;
@@ -80,7 +81,9 @@ class CategoryController extends Controller
         $categoryRepository = new CategoryRepository($category);
         $categoryRepository->makeVisible();
 
-        // TODO: activity log
+        activity()->performedOn($category)
+            ->causedBy(auth()->user())
+            ->log(ActivityLog::DESCRIPTION_CATEGORY_MAKE_VISIBLE);
 
         return Resource::jsonResponse($category);
     }
@@ -91,7 +94,7 @@ class CategoryController extends Controller
      *
      * @return JsonResponse
      */
-    public function makeUnVisible($categoryId, MakeInVisibleRequest $request)
+    public function makeInvisible($categoryId, MakeInVisibleRequest $request)
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -99,9 +102,11 @@ class CategoryController extends Controller
         $category = $shop->categories()->findOrFail($categoryId);
 
         $categoryRepository = new CategoryRepository($category);
-        $categoryRepository->makeUnVisible();
+        $categoryRepository->makeInvisible();
 
-        // TODO: activity log
+        activity()->performedOn($category)
+            ->causedBy(auth()->user())
+            ->log(ActivityLog::DESCRIPTION_CATEGORY_MAKE_INVISIBLE);
 
         return Resource::jsonResponse($category);
     }

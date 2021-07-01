@@ -20,11 +20,13 @@ use Illuminate\Database\Eloquent\Builder;
  * @property int        causer_id
  * @property string     causer_type
  * @property Collection properties
- * @property int        site_id
+ * @property int        shop_id
  * @property int        created_at
  * @property int        updated_at
  *
- * @package App
+ * @property Shop shop
+ *
+ * @package App\Models
  */
 class ActivityLog extends Activity
 {
@@ -36,7 +38,10 @@ class ActivityLog extends Activity
     const DESCRIPTION_FORCE_DELETED = 'force-deleted';
 
     // WARNING: when adding a new value, consider translating in front
-    const DESCRIPTION_ = '';
+    const DESCRIPTION_PRODUCT_MAKE_VISIBLE    = 'product-make-visible';
+    const DESCRIPTION_PRODUCT_MAKE_INVISIBLE  = 'product-make-invisible';
+    const DESCRIPTION_CATEGORY_MAKE_VISIBLE   = 'category-make-visible';
+    const DESCRIPTION_CATEGORY_MAKE_INVISIBLE = 'category-make-invisible';
 
     /**
      * @return BelongsTo
