@@ -117,10 +117,10 @@ function pointInPolygon(array $point, array $polygon, int $start = 0, int $end =
 
 
 /**
- * @param $latitudeFrom
- * @param $longitudeFrom
- * @param $latitudeTo
- * @param $longitudeTo
+ * @param float $latitudeFrom
+ * @param float $longitudeFrom
+ * @param float $latitudeTo
+ * @param float $longitudeTo
  *
  * @return int in meters
  */

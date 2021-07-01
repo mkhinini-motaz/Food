@@ -22,8 +22,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedTinyInteger('status')->default(Shop::STATUS_NEW)->comment('@see \App\Model\Order::STATUSES');
             $table->integer('total_price');
             $table->string('associated_phone');
-            $table->string('delivery_latitude', 52);
-            $table->string('delivery_longitude', 52);
+            $table->decimal('delivery_latitude', 10, 6);
+            $table->decimal('delivery_longitude', 10, 6);
             $table->string('additional_note')->nullable();
             $table->unsignedTinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
             $table->unsignedTinyInteger('payment_method')->default(Order::PAYMENT_METHOD_CASH)->comment('@see \App\Model\Order::PAYMENT_METHODS');
