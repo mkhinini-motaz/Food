@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Support\FirebaseMessagingClient;
+use App\Support\MessagingClientInterface;
 use App\Support\OrangeSmsSender;
 use App\Support\SmsSender;
 
@@ -17,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(SmsSender::class, OrangeSmsSender::class);
+        $this->app->singleton(MessagingClientInterface::class, FirebaseMessagingClient::class);
+
     }
 
     /**
