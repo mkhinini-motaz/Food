@@ -126,6 +126,14 @@ class Shop extends Model
     /**
      * @return HasMany
      */
+    public function transporters()
+    {
+        return $this->hasMany(Transporter::class);
+    }
+
+    /**
+     * @return HasMany
+     */
     public function usablePromoCodes()
     {
         return $this->promoCodes()

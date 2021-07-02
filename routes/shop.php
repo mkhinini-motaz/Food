@@ -23,8 +23,10 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
         Route::post('/{productId}/hide', [ ProductController::class, 'makeInvisible' ])->name('makeInvisible');
     });
 
-
     Route::group([ 'prefix' => 'order', 'as' => 'order.', ], function () {
         Route::get('/current', [ OrderController::class, 'current' ])->name('current');
+        Route::group([ 'prefix' => '{orderId}' ], function () {
+            Route::post('/transporter', [ OrderController::class, 'attachTransporter' ])->name('attachTransporter');
+        });
     });
 });
