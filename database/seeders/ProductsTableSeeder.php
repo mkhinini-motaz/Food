@@ -44,6 +44,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 1,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -57,6 +58,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 2,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -70,6 +72,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 3,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -83,6 +86,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 4,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -96,6 +100,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 5,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -109,6 +114,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 6,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -122,6 +128,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 7,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -135,6 +142,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 8,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -148,6 +156,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 9,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -162,6 +171,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'is_visible' => 0,
             'order' => 10,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -175,6 +185,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 11,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -188,6 +199,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryPlatsId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 12,
+            'added_loyalty_points' => 0,
         ]);
 
 
@@ -203,6 +215,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'is_visible' => 0,
             'order' => 13,
+            'added_loyalty_points' => 0,
         ]);
 
     }
@@ -225,6 +238,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 1,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -238,6 +252,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 2,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -251,6 +266,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 3,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -264,6 +280,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 4,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -277,6 +294,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 5,
+            'added_loyalty_points' => 0,
         ]);
 
 /*
@@ -291,6 +309,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 6,
+            'added_loyalty_points' => 0,
      ]);
 */
     }
@@ -313,6 +332,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryMakloubId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 1,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -326,6 +346,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryMakloubId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 2,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -339,6 +360,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryMakloubId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 3,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -352,6 +374,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryMakloubId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 4,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -365,6 +388,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $categoryMakloubId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 5,
+            'added_loyalty_points' => 0,
         ]);
     }
 
@@ -386,6 +410,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_WITH_INGREDIENTS,
             'order' => 1,
+            'added_loyalty_points' => 0,
       ]);
 */
 
@@ -400,6 +425,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 1,
+            'added_loyalty_points' => 2,
         ]);
 
         Product::factory()->create([
@@ -413,6 +439,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 2,
+            'added_loyalty_points' => 3,
         ]);
 
         Product::factory()->create([
@@ -426,6 +453,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 3,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -439,6 +467,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 4,
+            'added_loyalty_points' => 3,
         ]);
 
         Product::factory()->create([
@@ -452,6 +481,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 5,
+            'added_loyalty_points' => 3,
         ]);
 
 /*
@@ -466,6 +496,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 6,
+            'added_loyalty_points' => 3,
         ]);
 */
 
@@ -480,6 +511,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 6,
+            'added_loyalty_points' => 2,
         ]);
 
         Product::factory()->create([
@@ -493,6 +525,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => 7,
+            'added_loyalty_points' => 3,
         ]);
     }
 
@@ -514,6 +547,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
             'order' => 1,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -527,6 +561,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
             'order' => 2,
+            'added_loyalty_points' => 3,
         ]);
 
         Product::factory()->create([
@@ -540,6 +575,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
             'order' => 3,
+            'added_loyalty_points' => 3,
         ]);
 
         Product::factory()->create([
@@ -553,6 +589,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
             'order' => 4,
+            'added_loyalty_points' => 3,
         ]);
     }
 
@@ -574,6 +611,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $baguetteFarcieId,
             'type' => Product::TYPE_FIXED,
             'order' => 1,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -587,6 +625,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $baguetteFarcieId,
             'type' => Product::TYPE_FIXED,
             'order' => 2,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -600,6 +639,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $baguetteFarcieId,
             'type' => Product::TYPE_FIXED,
             'order' => 3,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -613,6 +653,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $baguetteFarcieId,
             'type' => Product::TYPE_FIXED,
             'order' => 4,
+            'added_loyalty_points' => 0,
         ]);
     }
 
@@ -635,6 +676,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 1,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -648,6 +690,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 2,
+            'added_loyalty_points' => 4,
         ]);
 
         Product::factory()->create([
@@ -661,6 +704,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 3,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -674,6 +718,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 4,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -687,6 +732,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 5,
+            'added_loyalty_points' => 4,
         ]);
 
         Product::factory()->create([
@@ -700,6 +746,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 6,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -713,6 +760,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 7,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -726,6 +774,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 8,
+            'added_loyalty_points' => 5,
         ]);
 
         Product::factory()->create([
@@ -739,6 +788,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $patesId,
             'type' => Product::TYPE_FIXED,
             'order' => 9,
+            'added_loyalty_points' => 5,
         ]);
     }
 
@@ -760,6 +810,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
             'order' => 1,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -773,6 +824,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
             'order' => 2,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -786,6 +838,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
             'order' => 3,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -799,6 +852,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $entreeId,
             'type' => Product::TYPE_FIXED,
             'order' => 4,
+            'added_loyalty_points' => 0,
         ]);
     }
 
@@ -820,6 +874,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 1,
+            'added_loyalty_points' => 1,
         ]);
 
         Product::factory()->create([
@@ -833,6 +888,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 2,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -846,6 +902,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 3,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -859,6 +916,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 4,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -872,6 +930,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 5,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -885,6 +944,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 6,
+            'added_loyalty_points' => 0,
         ]);
 
         Product::factory()->create([
@@ -898,6 +958,7 @@ class ProductsTableSeeder extends Seeder
             'category_id' => $boissonId,
             'type' => Product::TYPE_FIXED,
             'order' => 7,
+            'added_loyalty_points' => 0,
         ]);
     }
 

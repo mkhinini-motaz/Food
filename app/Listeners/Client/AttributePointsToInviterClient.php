@@ -23,7 +23,7 @@ class AttributePointsToInviterClient implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  ClientRegistered  $event
+     * @param ClientRegistered $event
      * @return void
      */
     public function handle(ClientRegistered $event)

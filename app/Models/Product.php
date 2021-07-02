@@ -26,6 +26,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int    length
  * @property int    price
  * @property int    order
+ * @property int    added_loyalty_points
  * @property bool   is_visible
  *
  * @property int category_id

@@ -24,6 +24,8 @@ class CreateProductsTable extends Migration
             $table->unsignedTinyInteger('is_visible')->default(0);
             $table->unsignedSmallInteger('order');
 
+            $table->unsignedSmallInteger('added_loyalty_points')->default(0);
+
             $table->unsignedMediumInteger('weight')->comment('In grams');
             $table->unsignedMediumInteger('height')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products
             $table->unsignedMediumInteger('width')->comment('In centimeters')->nullable(); // To increase delivery fee if after a certain total volume of products

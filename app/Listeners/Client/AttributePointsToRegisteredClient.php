@@ -23,7 +23,7 @@ class AttributePointsToRegisteredClient
     /**
      * Handle the event.
      *
-     * @param  ClientRegistered  $event
+     * @param ClientRegistered $event
      * @return void
      */
     public function handle(ClientRegistered $event)
