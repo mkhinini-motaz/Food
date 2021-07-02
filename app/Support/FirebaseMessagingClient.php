@@ -40,13 +40,14 @@ class FirebaseMessagingClient implements MessagingClientInterface
     public function pushNotification($deviceToken, $type, $title, $content, $body)
     {
         $message = CloudMessage::fromArray([
-            "priority"     => "high",
+            'token'    => $deviceToken,
+            'priority' => 'high',
             'data' => [
-                'type'      => $type,
-                "title"     => $title,
-                "content"   => $content,
-                "body"      => $body,
-                "priority"  => "high",
+                'type'     => $type,
+                'title'    => $title,
+                'content'  => $content,
+                'body'     => $body,
+                'priority' => 'high',
             ],
             'android' => [
                 'ttl' => '3600s',
@@ -55,10 +56,10 @@ class FirebaseMessagingClient implements MessagingClientInterface
                 'payload' => [
                     'aps' => [
                         'alert' => [
-                            'type'      => $type,
-                            "title"     => $title,
-                            "body"      => $content,
-                            "content"   => $body,
+                            'type'    => $type,
+                            'title'   => $title,
+                            'body'    => $content,
+                            'content' => $body,
                         ]
                     ]
                 ]
@@ -66,9 +67,9 @@ class FirebaseMessagingClient implements MessagingClientInterface
         ]);
 
         try {
-            $sendReport = $this->messaging->send($message, $deviceToken);
+            $this->messaging->send($message);
         } catch (FirebaseException $e) {
-            Log::error($e->getMessage());
+            \Log::error($e->getMessage());
             return false;
         }
 
