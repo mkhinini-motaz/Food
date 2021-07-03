@@ -3,15 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Client;
-use App\Models\Ingredient;
 use App\Models\IngredientCategory;
 use App\Models\Product;
 use App\Models\Shop;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use function App\Support\Helpers\fieldsLike;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ShopRepository

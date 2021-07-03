@@ -23,7 +23,6 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'message'     => $this->faker->sentence(8),
             'status'      => $this->faker->numberBetween(1, 4),
             'total_price' => rand(5000, 30000),
 

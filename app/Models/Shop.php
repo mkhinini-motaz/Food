@@ -72,7 +72,7 @@ class Shop extends Model
     protected $casts = [
         'loyalty_action_rewards' => 'array',
         'service_area'           => 'array',
-        ];
+    ];
 
     /**
      * @return HasMany
@@ -271,7 +271,7 @@ class Shop extends Model
             LoyaltyAction::TYPE_REGISTRATION                  => 10,
             LoyaltyAction::TYPE_FRIEND_INVITE                 => 7,
             LoyaltyAction::TYPE_FIRST_ORDER                   => 5,
-            LoyaltyAction::TYPE_PRODUCT_BOUGHT                => 1, // TODO: dynamic by product
+
             LoyaltyAction::TYPE_ONLINE_ORDER_COUNT_FOR_MONTH  => 1,
             LoyaltyAction::TYPE_ON_SITE_ORDER_COUNT_FOR_MONTH => 1,
             LoyaltyAction::TYPE_SUBMIT_FEEDBACK               => 1,
