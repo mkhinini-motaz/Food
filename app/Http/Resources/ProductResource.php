@@ -26,10 +26,13 @@ class ProductResource extends JsonResource
             'price'       => $this->price,
             'description' => $this->getTranslations('description'),
             'category_id' => $this->category_id,
+            'added_loyalty_points' => $this->added_loyalty_points,
+
             'ingredient_categories' => IngredientCategoriesResource::collection($this->whenLoaded('ingredientCategories')),
             'product_count' => $this->whenPivotLoaded('order_product', function() {
                 return $this->pivot->product_count;
             }),
+
             $this->mergeWhen($canSeeIsVisible, function() {
                 return [ 'is_visible' => $this->is_visible ];
             }),
