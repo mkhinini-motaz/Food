@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'accessible_by' => \App\Http\Middleware\AccessibleBy::class,
         'authClient' => \App\Http\Middleware\AuthenticateClient::class,
         'authShop' => \App\Http\Middleware\AuthenticateShop::class,
+        'authTransporter' => \App\Http\Middleware\AuthenticateTransporter::class,
     ];
 
     /**

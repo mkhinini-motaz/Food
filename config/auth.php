@@ -46,6 +46,11 @@ return [
             'driver'   => 'jwt',
             'hash'     => false,
         ],
+        'transporter' => [
+            'provider' => 'transporter',
+            'driver'   => 'jwt',
+            'hash'     => false,
+        ],
     ],
 
     /*
@@ -74,6 +79,10 @@ return [
             'driver' => 'eloquent',
             'model'  => App\Models\ShopUser::class,
         ],
+        'transporter' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Transporter::class,
+        ],
     ],
 
     /*
@@ -99,6 +108,11 @@ return [
         ],
         'shop' => [
             'provider' => 'shop',
+            'table'    => 'password_resets',
+            'expire'   => 60 * 60 * 24 * 30,
+        ],
+        'transporter' => [
+            'provider' => 'transporter',
             'table'    => 'password_resets',
             'expire'   => 60 * 60 * 24 * 30,
         ],

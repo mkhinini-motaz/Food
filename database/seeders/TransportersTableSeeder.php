@@ -13,6 +13,14 @@ class TransportersTableSeeder extends Seeder
      */
     public function run()
     {
+        Transporter::factory()->create([
+            'first_name' => 'transporter',
+            'last_name' => 'transporter',
+            'alias' => 'transporter',
+            'phone' => '+21611111111',
+            'password' => bcrypt('azerty'),
+        ]);
+
         Transporter::factory()->count(10)->create();
     }
 }
