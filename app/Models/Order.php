@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -115,5 +116,24 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class)
             ->withPivot([ 'id', 'product_count' ]);
+    }
+
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeWithNeededRelationsForProcessing($query)
+    {
+        $orderByOrder = function($query) { $query->orderBy('pivot_order'); };
+
+        return $query->with([
+            'client',
+            'promoCode',
+            'transporter',
+            'products.ingredientCategories' => $orderByOrder,
+            'products.ingredientCategories.ingredients',
+        ]);
     }
 }

@@ -142,14 +142,8 @@ class ShopRepository
      */
     public function paginateOrders($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false)
     {
-        $orderByOrder = function($query) { $query->orderBy('pivot_order'); };
         $orders = $this->shop->orders()
-            ->with([
-                'client',
-                'promoCode',
-                'products.ingredientCategories' => $orderByOrder,
-                'products.ingredientCategories.ingredients',
-            ]);
+            ->withNeededRelationsForProcessing();
 
         if (isset($search)) {
             $orders->where(fieldsLike($search, 'name'));
@@ -162,27 +156,7 @@ class ShopRepository
         $orders = $orders->paginate($perPage, [ '*' ], 'page', $page);
 
         if ($withChoices) {
-            return self::attachChoicesToOrders($orders);
-        }
-
-        return $orders;
-    }
-
-    /**
-     * @param Collection|array|LengthAwarePaginator $orders
-     *
-     * @return Collection|array|LengthAwarePaginator
-     */
-    public static function attachChoicesToOrders($orders)
-    {
-        $ordersIds = $orders->pluck('id');
-        $choices = IngredientOrderProductRepository::ingredientChoicesForOrders($ordersIds);
-
-        foreach ($orders as $order) {
-            foreach ($order->products as $product) {
-                $productChoices = $choices[$product->pivot->id] ?? [];
-                self::attachIngredientChoicesToProduct($product, $productChoices);
-            }
+            return OrderRepository::attachChoicesToOrders($orders);
         }
 
         return $orders;
