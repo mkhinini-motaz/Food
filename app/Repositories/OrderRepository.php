@@ -37,7 +37,7 @@ class OrderRepository
         foreach ($orders as $order) {
             foreach ($order->products as $product) {
                 $productChoices = $choices[$product->pivot->id] ?? [];
-                ShopRepository::attachIngredientChoicesToProduct($product, $productChoices);
+                ProductRepository::attachIngredientChoicesToProduct($product, $productChoices);
             }
         }
 
