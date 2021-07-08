@@ -112,7 +112,7 @@ class Shop extends Model
     public function activeOrders()
     {
         return $this->orders()
-            ->whereIn('status', Order::ASSIGNABLE_TO_TRANSPORTER_STATUSES);
+            ->whereIn('status', Order::ACTIVE_TRANSPORTER_STATUSES);
     }
 
     /**

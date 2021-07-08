@@ -33,7 +33,7 @@ class OrderController extends Controller
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $orders = $transporterRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection);
+        $orders = $transporterRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection, Order::ACTIVE_TRANSPORTER_STATUSES);
 
         return ResourceCollection::jsonResponse($orders);
     }

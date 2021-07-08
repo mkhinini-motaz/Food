@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Client;
 use App\Models\IngredientCategory;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shop;
 
@@ -136,16 +137,21 @@ class ShopRepository
      * @param string $orderBy
      * @param string $orderDirection
      * @param bool   $withChoices
+     * @param array  $statuses
      *
      * @return LengthAwarePaginator
      */
-    public function paginateOrders($page = 1, $perPage = 20, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false)
+    public function paginateOrders($page = 1, $perPage = 20, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false, $statuses = [])
     {
         $orders = $this->shop->orders()
             ->withNeededRelationsForProcessing();
 
         if (isset($orderBy) && isset($orderDirection)) {
             $orders->orderBy($orderBy, $orderDirection);
+        }
+
+        if (is_array($statuses) && count($statuses) > 0) {
+            $orders->whereIn('status', $statuses);
         }
 
         $orders = $orders->paginate($perPage, [ '*' ], 'page', $page);
