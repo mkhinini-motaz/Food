@@ -35,7 +35,6 @@ class AuthController extends Controller
         return response()->json([ 'status' => 'success' ], 200);
     }
 
-
     /**
      * @param string  $guard
      * @param Request $request
@@ -57,9 +56,9 @@ class AuthController extends Controller
             return response()->json([ 'status' => 'error', 'message' => 'Unauthorized' ], 401);
         }
 
-        $client = auth($guard)->user(); // TODO: do shouldUse guard globally for folder
-        $client->access_token = $token;
+        $authUser = auth($guard)->user(); // TODO: do shouldUse guard globally for folder
+        $authUser->access_token = $token;
 
-        return response()->json([ 'status' => 'success', 'data' => $client ], 200);
+        return response()->json([ 'status' => 'success', 'data' => $authUser ], 200);
     }
 }

@@ -131,23 +131,18 @@ class ShopRepository
     /**
      * Paginate products
      *
-     * @param int         $page
-     * @param int         $perPage
-     * @param string|null $search
-     * @param string      $orderBy
-     * @param string      $orderDirection
-     * @param bool        $withChoices
+     * @param int    $page
+     * @param int    $perPage
+     * @param string $orderBy
+     * @param string $orderDirection
+     * @param bool   $withChoices
      *
      * @return LengthAwarePaginator
      */
-    public function paginateOrders($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false)
+    public function paginateOrders($page = 1, $perPage = 20, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false)
     {
         $orders = $this->shop->orders()
             ->withNeededRelationsForProcessing();
-
-        if (isset($search)) {
-            $orders->where(fieldsLike($search, 'name'));
-        }
 
         if (isset($orderBy) && isset($orderDirection)) {
             $orders->orderBy($orderBy, $orderDirection);

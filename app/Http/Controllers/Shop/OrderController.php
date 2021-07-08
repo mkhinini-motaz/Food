@@ -32,7 +32,7 @@ class OrderController extends Controller
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $orders = $shopRepository->paginateOrders($page, $perPage, null, $orderBy, $orderDirection, true);
+        $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection, true);
 
         return ResourceCollection::jsonResponse($orders);
     }

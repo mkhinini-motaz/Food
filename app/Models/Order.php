@@ -118,7 +118,6 @@ class Order extends Model
             ->withPivot([ 'id', 'product_count' ]);
     }
 
-
     /**
      * @param Builder $query
      *
@@ -134,6 +133,18 @@ class Order extends Model
             'transporter',
             'products.ingredientCategories' => $orderByOrder,
             'products.ingredientCategories.ingredients',
+        ]);
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeWithNeededRelationsForTransporting($query)
+    {
+        return $query->with([
+            'client',
         ]);
     }
 }

@@ -7,6 +7,7 @@ use App\Support\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Transporter
@@ -46,11 +47,11 @@ class Transporter extends Authenticatable
     ];
 
     /**
-     * @return BelongsToMany
+     * @return HasMany
      */
     public function orders()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     /**
