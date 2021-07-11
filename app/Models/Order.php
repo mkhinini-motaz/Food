@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Shop
@@ -42,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Order extends Model
 {
-    use HasFactory;
+    use SoftDeletes, HasFactory;
 
     const STATUS_NEW                     = 1;
     const STATUS_ACCEPTED_BY_SHOP        = 2;
