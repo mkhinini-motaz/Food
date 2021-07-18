@@ -16,12 +16,13 @@ class IngredientsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->getTranslations('name'),
-            'photo'       => $this->photo,
-            'price'       => $this->price,
-            'quantity'    => $this->quantity,
-            'description' => $this->getTranslations('description'),
+            'id'                     => $this->id,
+            'name'                   => $this->getTranslations('name'),
+            'photo'                  => $this->photo,
+            'price'                  => $this->price,
+            'quantity'               => $this->quantity,
+            'description'            => $this->getTranslations('description'),
+            'ingredient_category_id' => $this->ingredient_category_id
         ];
     }
 }

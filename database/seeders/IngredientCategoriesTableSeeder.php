@@ -96,8 +96,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 $ingredientCategorySauce->id      => [ 'order' => 1, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
                 $ingredientCategorySalad->id      => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
                 $ingredientCategoryPotatoes->id   => [ 'order' => 3, ],
-//                $ingredientCategorySupplement->id => [ 'order' => 4, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
-
+                $ingredientCategorySupplement->id => [ 'order' => 4, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
             ]);
         }
 
@@ -115,7 +114,7 @@ class IngredientCategoriesTableSeeder extends Seeder
                 $ingredientCategorySauce->id      => [ 'order' => 1, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
                 $ingredientCategorySalad->id      => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
                 $ingredientCategoryPotatoes->id   => [ 'order' => 3, ],
-
+                $ingredientCategorySupplement->id => [ 'order' => 4, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
             ]);
         }
     }

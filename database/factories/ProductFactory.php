@@ -39,7 +39,7 @@ class ProductFactory extends Factory
 
             'type'   => $this->faker->randomElement(Product::TYPES),
             'photo'  => Category::first()->photo,
-            'price'  => rand(1, 250),
+            'price'  => rand(1, 99) * 10,
             'weight' => rand(1, 500) * 100,
             'width'  => rand(1, 50),
             'length' => rand(1, 50),

@@ -60,4 +60,7 @@ class OrderController extends Controller
 
         return (new OrderResource($order));
     }
+
+    // TODO: WS mark order as started
+    // TODO: WS mark order as ready
 }

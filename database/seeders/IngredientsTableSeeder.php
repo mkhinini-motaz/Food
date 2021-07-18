@@ -19,7 +19,7 @@ class IngredientsTableSeeder extends Seeder
         $this->ingredientsForPotatos();
         $this->ingredientsForSauce();
         $this->ingredientsForSaucePizza();
-//        $this->ingredientsForSupplement();
+        $this->ingredientsForSupplement();
     }
 
     /**
@@ -82,7 +82,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/salad_concumber.jpg',
             'ingredient_category_id' => $ingredientCategorySaladId,
-            'price' => 1200,
         ]);
 
         Ingredient::factory()->create([
@@ -94,7 +93,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/salad_kronb.jpg',
             'ingredient_category_id' => $ingredientCategorySaladId,
-            'price' => 1200,
         ]);
 
 /*
@@ -107,7 +105,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/salade_fruit_de_mer.jpg',
             'ingredient_category_id' => $ingredientCategorySaladId,
-            'price' => 2500,
         ]);
 */
 
@@ -120,7 +117,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/salad_carrot.jpg',
             'ingredient_category_id' => $ingredientCategorySaladId,
-            'price' => 1200,
         ]);
 
         Ingredient::factory()->create([
@@ -132,7 +128,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/salad_beet.jpg',
             'ingredient_category_id' => $ingredientCategorySaladId,
-            'price' => 1800,
         ]);
     }
 
@@ -152,7 +147,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/frites.jpg',
             'ingredient_category_id' => $ingredientCategoryPotatosId,
-            'price' => 1000,
         ]);
 
         Ingredient::factory()->create([
@@ -164,7 +158,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/potatos.jpg',
             'ingredient_category_id' => $ingredientCategoryPotatosId,
-            'price' => 1200,
         ]);
     }
 
@@ -184,7 +177,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/mayonaise.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
 
         Ingredient::factory()->create([
@@ -196,7 +188,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/algerienne.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
 
         Ingredient::factory()->create([
@@ -208,7 +199,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/ketchup.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
 
         Ingredient::factory()->create([
@@ -220,7 +210,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/barbecue_sauce.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
 
         Ingredient::factory()->create([
@@ -232,7 +221,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/harissa.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
     }
 
@@ -253,7 +241,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/sauce_tomate.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
 
         Ingredient::factory()->create([
@@ -265,7 +252,6 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/sauce_blanche.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
-            'price' => 0,
         ]);
     }
 
@@ -274,6 +260,123 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForSupplement()
     {
+        $ingredientCategorySupplementId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first()->id;
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Bacon',
+                'en' => 'Bacon',
+                'tn' => 'Bacon',
+                'ar' => 'بايكون',
+            ],
+            'photo' => 'example/restaurant/ingredient/bacon.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Peperoni',
+                'en' => 'Peperoni',
+                'tn' => 'Peperoni',
+                'ar' => 'بيبروني',
+            ],
+            'photo' => 'example/restaurant/ingredient/peperoni.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Jambon de boeuf',
+                'en' => 'Beef ham',
+                'tn' => 'Jambon de boeuf',
+                'ar' => 'جمبون بقر',
+            ],
+            'photo' => 'example/restaurant/ingredient/jambon_boeuf.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Jambon de dinde',
+                'en' => 'Turkey ham',
+                'tn' => 'Jambon de dinde',
+                'ar' => 'جمبون الديك الرومي',
+            ],
+            'photo' => 'example/restaurant/ingredient/jambon_dinde.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Champignon',
+                'en' => 'Mushroom',
+                'tn' => 'Champignon',
+                'ar' => 'فطر',
+            ],
+            'photo' => 'example/restaurant/ingredient/champignon.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Cheddar',
+                'en' => 'Cheddar',
+                'tn' => 'Cheddar',
+                'ar' => 'شيدر',
+            ],
+            'photo' => 'example/restaurant/ingredient/cheddar.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Raclette',
+                'en' => 'Raclette',
+                'tn' => 'Raclette',
+                'ar' => 'راكليت',
+            ],
+            'photo' => 'example/restaurant/ingredient/raclette.png',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Gruyère',
+                'en' => 'Gruyere',
+                'tn' => 'Gruyère',
+                'ar' => 'غرويير',
+            ],
+            'photo' => 'example/restaurant/ingredient/gruyere.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Halloumi grillé',
+                'en' => 'Grilled halloumi',
+                'tn' => 'Halloumi mechwi',
+                'ar' => 'حلومي مشوي',
+            ],
+            'photo' => 'example/restaurant/ingredient/halloumi.jpg',
+            'ingredient_category_id' => $ingredientCategorySupplementId,
+            'price' => 200,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function ingredientsForPizzaSupplement()
+    {
+        // TODO: pizza supplement ingredientCategory doesn't exist
         $ingredientCategorySupplementId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first()->id;
 
         Ingredient::factory()->create([
