@@ -15,6 +15,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         $this->productsForPlats();
+        $this->productsForTacos();
         $this->productsForSandwich();
         $this->productsForMakloub();
         $this->productsForPizza();
@@ -24,6 +25,56 @@ class ProductsTableSeeder extends Seeder
         $this->productsForAperetif();
         $this->productsForBoisson();
         $this->productsForTestPagination();
+    }
+
+    /**
+     *
+     */
+    public function productsForTacos()
+    {
+        $categoryTacosId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos'")->first()->id;
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Tacos S 1 viande',
+                'en' => 'French tacos S 1 meat',
+                'tn' => 'Tacos S 1 viande',
+                'ar' => 'تاكوس إس لحمة واحدة',
+            ],
+            'photo' => 'example/restaurant/product/tacos_s.jpg',
+            'category_id' => $categoryTacosId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 1,
+            'added_loyalty_points' => 2,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Tacos M 2 viandes',
+                'en' => 'French tacos M 2 meats',
+                'tn' => 'Tacos M 2 viandes',
+                'ar' => 'تاكوس إم لحمتان',
+            ],
+            'photo' => 'example/restaurant/product/tacos_m.jpg',
+            'category_id' => $categoryTacosId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 2,
+            'added_loyalty_points' => 3,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr' => 'Tacos L 3 viandes',
+                'en' => 'French tacos L 3 meats',
+                'tn' => 'Tacos L 3 viandes',
+                'ar' => 'تاكوس إل ثلاث لحوم',
+            ],
+            'photo' => 'example/restaurant/product/tacos_l.jpg',
+            'category_id' => $categoryTacosId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => 3,
+            'added_loyalty_points' => 5,
+        ]);
     }
 
     /**

@@ -19,6 +19,8 @@ class IngredientsTableSeeder extends Seeder
         $this->ingredientsForPotatos();
         $this->ingredientsForSauce();
         $this->ingredientsForSaucePizza();
+        $this->ingredientsForViande();
+        $this->ingredientsForSauceFromagere();
         $this->ingredientsForSupplement();
     }
 
@@ -148,7 +150,7 @@ class IngredientsTableSeeder extends Seeder
             'photo' => 'example/restaurant/ingredient/frites.jpg',
             'ingredient_category_id' => $ingredientCategoryPotatosId,
         ]);
-
+/*
         Ingredient::factory()->create([
             'name' => [
                 'fr' => 'Potatoes',
@@ -159,6 +161,7 @@ class IngredientsTableSeeder extends Seeder
             'photo' => 'example/restaurant/ingredient/potatos.jpg',
             'ingredient_category_id' => $ingredientCategoryPotatosId,
         ]);
+*/
     }
 
     /**
@@ -252,6 +255,25 @@ class IngredientsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredient/sauce_blanche.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function ingredientsForSauceFromagere()
+    {
+        $ingredientCategorySauceFromagereId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce fromagère'")->first()->id;
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Sauce fromagère',
+                'en' => 'Cheese sauce',
+                'tn' => 'Sauce fromagère',
+                'ar' => 'صلصة الجبنة',
+            ],
+            'photo' => 'example/restaurant/ingredient/sauce_fromage.png',
+            'ingredient_category_id' => $ingredientCategorySauceFromagereId,
         ]);
     }
 
@@ -369,6 +391,92 @@ class IngredientsTableSeeder extends Seeder
             'ingredient_category_id' => $ingredientCategorySupplementId,
             'price' => 200,
         ]);
+    }
+
+    /**
+     *
+     */
+    public function ingredientsForViande()
+    {
+        $ingredientCategoryViandeId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Viande'")->first()->id;
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Chawarma',
+                'en' => 'Chawarma',
+                'tn' => 'Chawarma',
+                'ar' => 'شاورما',
+            ],
+            'photo' => 'example/restaurant/ingredient/chawarma.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Tenders',
+                'en' => 'Tenders',
+                'tn' => 'Tenders',
+                'ar' => 'تندر',
+            ],
+            'photo' => 'example/restaurant/ingredient/tender.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Escalope',
+                'en' => 'Escalope',
+                'tn' => 'Escalope',
+                'ar' => 'اسكالوب',
+            ],
+            'photo' => 'example/restaurant/ingredient/escalope_pizza.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Nuggets',
+                'en' => 'Nuggets',
+                'tn' => 'Nuggets',
+                'ar' => 'ناجت',
+            ],
+            'photo' => 'example/restaurant/ingredient/nugget.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Chicken',
+                'en' => 'Chicken',
+                'tn' => 'Chicken',
+                'ar' => 'دجاج',
+            ],
+            'photo' => 'example/restaurant/ingredient/chicken.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Thon',
+                'en' => 'Tuna',
+                'tn' => 'Thon',
+                'ar' => 'تن',
+            ],
+            'photo' => 'example/restaurant/ingredient/thon.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr' => 'Fruits de mer',
+                'en' => 'Seafood',
+                'tn' => 'Fruits de mer',
+                'ar' => 'مأكولات بحرية',
+            ],
+            'photo' => 'example/restaurant/ingredient/fruits_de_mer.jpg',
+            'ingredient_category_id' => $ingredientCategoryViandeId,
+        ]);
+
     }
 
     /**

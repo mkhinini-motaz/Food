@@ -21,58 +21,64 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         Category::factory()->create([
+            'name' => [ 'fr' => 'Tacos', 'en' => 'French tacos', 'tn' => 'Tacos', 'ar' => 'تاكوس', ],
+            'photo' => 'example/restaurant/category/tacos.jpg',
+            'order' => 2,
+        ]);
+
+        Category::factory()->create([
             'name' => [ 'fr' => 'Sandwich', 'en' => 'Sandwich', 'tn' => 'Sandwich', 'ar' => 'ساندويتش', ],
             'photo' => 'example/restaurant/category/sandwich.jpg',
-            'order' => 2,
+            'order' => 3,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Makloub', 'en' => 'Makloub', 'tn' => 'Ma9loub', 'ar' => 'مقلوب', ],
             'photo' => 'example/restaurant/category/ma9loub.jpg',
-            'order' => 3,
+            'order' => 4,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Pizza', 'en' => 'Pizza', 'tn' => 'Pizza', 'ar' => 'بيتزا', ],
             'photo' => 'example/restaurant/category/pizza.jpg',
-            'order' => 4,
+            'order' => 5,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Pizza sauce blanche', 'en' => 'White sauce pizza', 'tn' => 'Pizza sauce blanche', 'ar' => 'بيتزا الصلصة البيضاء', ],
             'photo' => 'example/restaurant/category/pizza_sauce_blanche.jpg',
-            'order' => 5,
+            'order' => 6,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Baguette farcie', 'en' => 'Stuffed baguette', 'tn' => 'Baguette farcie', 'ar' => 'باغيت محشي', ],
             'photo' => 'example/restaurant/category/baguette_farcie.jpg',
-            'order' => 6,
+            'order' => 7,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Pâtes', 'en' => 'Pasta', 'tn' => 'Ma9arouna', 'ar' => 'معكرونة', ],
             'photo' => 'example/restaurant/category/pates.jpg',
-            'order' => 7,
+            'order' => 8,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Entrées', 'en' => 'Appetizers', 'tn' => 'Entrées', 'ar' => 'وجبات خفيفة', ],
             'photo' => 'example/restaurant/category/entree.jpg',
-            'order' => 8,
+            'order' => 9,
         ]);
 
         Category::factory()->create([
             'name' => [ 'fr' => 'Boissons', 'en' => 'Drinks', 'tn' => 'Boissons', 'ar' => 'مشروبات', ],
             'photo' => 'example/restaurant/category/boisson.jpg',
-            'order' => 9,
+            'order' => 10,
         ]);
 
         if (env('APP_ENV') === 'local') {
             Category::factory()->create([
                 'name' => [ 'fr' => 'FR_Test_pagination_category', 'en' => 'EN_Test_pagination_category', 'tn' => 'TN_Test_pagination_category', 'ar' => 'AR_Test_pagination_category', ],
                 'photo' => '',
-                'order' => 10,
+                'order' => 11,
             ]);
         }
     }
