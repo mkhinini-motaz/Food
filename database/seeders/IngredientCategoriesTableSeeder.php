@@ -172,7 +172,7 @@ class IngredientCategoriesTableSeeder extends Seeder
         $tacosS->ingredientCategories()->sync([
             $ingredientCategoryViande->id => [ 'order' => 1, 'min_ingredients' => 1, 'max_ingredients' => 1, ],
             $ingredientCategoryFromagereSauce->id => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
-            $ingredientCategorySauce->id => [ 'order' => 3, 'min_ingredients' => 1, 'max_ingredients' => 3, ],
+            $ingredientCategorySauce->id => [ 'order' => 3, 'min_ingredients' => 1, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
             $ingredientCategorySupplement->id => [ 'order' => 4, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
         ]);
 
@@ -180,16 +180,18 @@ class IngredientCategoriesTableSeeder extends Seeder
 
         $tacosM->ingredientCategories()->sync([
             $ingredientCategoryViande->id => [ 'order' => 1, 'min_ingredients' => 2, 'max_ingredients' => 2, ],
-            $ingredientCategorySauce->id => [ 'order' => 2, 'min_ingredients' => 1, 'max_ingredients' => 3, ],
-            $ingredientCategorySupplement->id => [ 'order' => 3, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
+            $ingredientCategoryFromagereSauce->id => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => 3, 'min_ingredients' => 1, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySupplement->id => [ 'order' => 4, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
         ]);
 
         $tacosL = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos L 3 viandes'")->first();
 
         $tacosL->ingredientCategories()->sync([
             $ingredientCategoryViande->id => [ 'order' => 1, 'min_ingredients' => 3, 'max_ingredients' => 3, ],
-            $ingredientCategorySauce->id => [ 'order' => 2, 'min_ingredients' => 1, 'max_ingredients' => 3, ],
-            $ingredientCategorySupplement->id => [ 'order' => 3, 'min_ingredients' => 0, 'max_ingredients' => 5, 'ingredients_are_billable' => 1, ],
+            $ingredientCategoryFromagereSauce->id => [ 'order' => 2, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => 3, 'min_ingredients' => 1, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySupplement->id => [ 'order' => 4, 'min_ingredients' => 0, 'max_ingredients' => 5, 'ingredients_are_billable' => 1, ],
         ]);
     }
 
