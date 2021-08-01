@@ -25,16 +25,18 @@ class ProductFactory extends Factory
     {
         return [
             'name'  => [
-                'fr' => $this->faker->word,
-                'en' => $this->faker->word,
-                'tn' => $this->faker->word,
-                'ar' => $this->faker->word,
+                'fr'   => $this->faker->word,
+                'en'   => $this->faker->word,
+                'tnar' => $this->faker->word,
+                'tnfr' => $this->faker->word,
+                'ar'   => $this->faker->word,
             ],
             'description' => [
-                'fr' => 'Description Français Description Français Description Français Description Français Description Français',
-                'en' => 'English Description English Description English Description English Description English Description',
-                'tn' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
-                'ar' => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
+                'fr'   => 'Description Français Description Français Description Français Description Français Description Français',
+                'en'   => 'English Description English Description English Description English Description English Description',
+                'tnar' => 'وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي',
+                'tnfr' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
+                'ar'   => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
 
             'type'   => $this->faker->randomElement(Product::TYPES),

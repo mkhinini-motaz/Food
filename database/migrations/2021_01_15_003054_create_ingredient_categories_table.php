@@ -16,8 +16,8 @@ class CreateIngredientCategoriesTable extends Migration
         Schema::create('ingredient_categories', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 1000);
-            $table->string('description', 1000);
+            $table->string('name', 3000);
+            $table->string('description', 3000);
             $table->string('photo');
             $table->unsignedTinyInteger('is_visible')->default(0);
 

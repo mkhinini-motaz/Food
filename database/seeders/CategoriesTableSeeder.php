@@ -13,72 +13,140 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
+        $order = 1;
+
         Category::factory()->create([
-            'name' => [ 'fr' => 'Plats', 'en' => 'Dishes', 'tn' => 'Plats', 'ar' => 'أطباق', ],
+            'name' => [
+                'fr'   => 'Plats',
+                'en'   => 'Dishes',
+                'tnfr' => 'Plats',
+                'tnar' => 'أطباق',
+                'ar'   => 'أطباق',
+            ],
             'photo' => 'example/restaurant/category/repas_luxe.jpg',
             'is_visible' => 0,
-            'order' => 1,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Tacos', 'en' => 'French tacos', 'tn' => 'Tacos', 'ar' => 'تاكوس', ],
+            'name' => [
+                'fr'   => 'Tacos',
+                'en'   => 'French tacos',
+                'tnfr' => 'Tacos',
+                'tnar' => 'تاكوس',
+                'ar'   => 'تاكوس',
+            ],
             'photo' => 'example/restaurant/category/tacos.jpg',
-            'order' => 2,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Sandwich', 'en' => 'Sandwich', 'tn' => 'Sandwich', 'ar' => 'ساندويتش', ],
+            'name' => [
+                'fr'   => 'Sandwich',
+                'en'   => 'Sandwich',
+                'tnfr' => 'Sandwich',
+                'tnar' => 'سندويتش',
+                'ar'   => 'ساندويتش',
+            ],
             'photo' => 'example/restaurant/category/sandwich.jpg',
-            'order' => 3,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Makloub', 'en' => 'Makloub', 'tn' => 'Ma9loub', 'ar' => 'مقلوب', ],
+            'name' => [
+                'fr'   => 'Makloub',
+                'en'   => 'Makloub',
+                'tnfr' => 'Ma9loub',
+                'tnar' => 'مقلوب',
+                'ar'   => 'مقلوب',
+            ],
             'photo' => 'example/restaurant/category/ma9loub.jpg',
-            'order' => 4,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Pizza', 'en' => 'Pizza', 'tn' => 'Pizza', 'ar' => 'بيتزا', ],
+            'name' => [
+                'fr'   => 'Pizza',
+                'en'   => 'Pizza',
+                'tnfr' => 'Pizza',
+                'tnar' => 'بيتزا',
+                'ar'   => 'بيتزا',
+            ],
             'photo' => 'example/restaurant/category/pizza.jpg',
-            'order' => 5,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Pizza sauce blanche', 'en' => 'White sauce pizza', 'tn' => 'Pizza sauce blanche', 'ar' => 'بيتزا الصلصة البيضاء', ],
+            'name' => [
+                'fr'   => 'Pizza sauce blanche',
+                'en'   => 'White sauce pizza',
+                'tnfr' => 'Pizza sauce blanche',
+                'tnar' => 'بيتزا سوس بلانش',
+                'ar'   => 'بيتزا الصلصة البيضاء',
+            ],
             'photo' => 'example/restaurant/category/pizza_sauce_blanche.jpg',
-            'order' => 6,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Baguette farcie', 'en' => 'Stuffed baguette', 'tn' => 'Baguette farcie', 'ar' => 'باغيت محشي', ],
+            'name' => [
+                'fr'   => 'Baguette farcie',
+                'en'   => 'Stuffed baguette',
+                'tnfr' => 'Baguette farcie',
+                'tnar' => 'باغيت فارسي',
+                'ar'   => 'باغيت محشي',
+            ],
             'photo' => 'example/restaurant/category/baguette_farcie.jpg',
-            'order' => 7,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Pâtes', 'en' => 'Pasta', 'tn' => 'Ma9arouna', 'ar' => 'معكرونة', ],
+            'name' => [
+                'fr'   => 'Pâtes',
+                'en'   => 'Pasta',
+                'tnfr' => 'Ma9arouna',
+                'tnar' => 'مقرونة',
+                'ar'   => 'معكرونة',
+            ],
             'photo' => 'example/restaurant/category/pates.jpg',
-            'order' => 8,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Entrées', 'en' => 'Appetizers', 'tn' => 'Entrées', 'ar' => 'وجبات خفيفة', ],
+            'name' => [
+                'fr'   => 'Entrées',
+                'en'   => 'Appetizers',
+                'tnfr' => 'Entrées',
+                'tnar' => 'وجبات خفيفة',
+                'ar'   => 'وجبات خفيفة',
+            ],
             'photo' => 'example/restaurant/category/entree.jpg',
-            'order' => 9,
+            'order' => $order++,
         ]);
 
         Category::factory()->create([
-            'name' => [ 'fr' => 'Boissons', 'en' => 'Drinks', 'tn' => 'Boissons', 'ar' => 'مشروبات', ],
+            'name' => [
+                'fr'   => 'Boissons',
+                'en'   => 'Drinks',
+                'tnfr' => 'Boissons',
+                'tnar' => 'مشروبات',
+                'ar'   => 'مشروبات',
+            ],
             'photo' => 'example/restaurant/category/boisson.jpg',
-            'order' => 10,
+            'order' => $order++,
         ]);
 
         if (env('APP_ENV') === 'local') {
             Category::factory()->create([
-                'name' => [ 'fr' => 'FR_Test_pagination_category', 'en' => 'EN_Test_pagination_category', 'tn' => 'TN_Test_pagination_category', 'ar' => 'AR_Test_pagination_category', ],
+                'name' => [
+                    'fr'   => 'FR_Test_pagination_category',
+                    'en'   => 'EN_Test_pagination_category',
+                    'tnfr' => 'TNFR_Test_pagination_category',
+                    'tnar' => 'TNAR_Test_pagination_category',
+                    'ar'   => 'AR_Test_pagination_category',
+                    ],
                 'photo' => '',
-                'order' => 11,
+                'order' => $order++,
             ]);
         }
     }
