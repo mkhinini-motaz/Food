@@ -36,6 +36,13 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'تاكوس',
                 'ar'   => 'تاكوس',
             ],
+            'description' => [
+                'fr'   => 'Dégustez notre délicieux tacos avec notre pate originale',
+                'en'   => 'Enjoy our delicious french tacos with our original pastry',
+                'tnfr' => 'Tmata3 bi tacos bnin bil pate originale mta3na',
+                'tnar' => 'تمتع بتاكو البنين بالعجينة الاوريجينال متاعنا',
+                'ar'   => 'استمتع بتاكو اللذيذ بعجينتنا الأصلية',
+            ],
             'photo' => 'example/restaurant/category/tacos.jpg',
             'order' => $order++,
         ]);
@@ -72,6 +79,13 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'بيتزا',
                 'ar'   => 'بيتزا',
             ],
+            "description" => [
+                'fr'   => 'La vrai pate napolitaine avec du fromage de qualité',
+                'en'   => 'The real Neapolitan pastry with quality cheese',
+                'tnfr' => 'Pate napolitaine s7i7a ma3 fromage de qualtié',
+                'tnar' => 'بات نابوليتان صحيحة مع فورماج كاليتاي',
+                'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
+            ],
             'photo' => 'example/restaurant/category/pizza.jpg',
             'order' => $order++,
         ]);
@@ -83,6 +97,13 @@ class CategoriesTableSeeder extends Seeder
                 'tnfr' => 'Pizza sauce blanche',
                 'tnar' => 'بيتزا سوس بلانش',
                 'ar'   => 'بيتزا الصلصة البيضاء',
+            ],
+            "description" => [
+                'fr'   => 'La vrai pate napolitaine avec du fromage de qualité',
+                'en'   => 'The real Neapolitan pastry with quality cheese',
+                'tnfr' => 'Pate napolitaine s7i7a ma3 fromage de qualtié',
+                'tnar' => 'بات نابوليتان صحيحة مع فورماج كاليتاي',
+                'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
             ],
             'photo' => 'example/restaurant/category/pizza_sauce_blanche.jpg',
             'order' => $order++,

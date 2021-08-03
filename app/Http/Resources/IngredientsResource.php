@@ -19,10 +19,25 @@ class IngredientsResource extends JsonResource
             'id'                     => $this->id,
             'name'                   => $this->getTranslations('name'),
             'photo'                  => $this->photo,
-            'price'                  => $this->price,
             'quantity'               => $this->quantity,
             'description'            => $this->getTranslations('description'),
-            'ingredient_category_id' => $this->ingredient_category_id
+
+            'ingredient_category_id'  => $this->whenPivotLoaded(
+                'ingredient_ingredient_category',
+                function() { return $this->pivot->ingredient_category_id; }
+            ),
+            'order'  => $this->whenPivotLoaded(
+                'ingredient_ingredient_category',
+                function() { return $this->pivot->order; }
+            ),
+            'price'  => $this->whenPivotLoaded(
+                'ingredient_ingredient_category',
+                function() { return $this->pivot->price; }
+            ),
+            'is_by_default_selected'  => $this->whenPivotLoaded(
+                'ingredient_ingredient_category',
+                function() { return $this->pivot->is_by_default_selected; }
+            ),
         ];
     }
 }

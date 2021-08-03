@@ -34,8 +34,8 @@ class ProductFactory extends Factory
             'description' => [
                 'fr'   => 'Description Français Description Français Description Français Description Français Description Français',
                 'en'   => 'English Description English Description English Description English Description English Description',
-                'tnar' => 'وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي',
                 'tnfr' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
+                'tnar' => 'وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي',
                 'ar'   => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
 

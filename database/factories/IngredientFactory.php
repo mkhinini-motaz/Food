@@ -33,17 +33,15 @@ class IngredientFactory extends Factory
             'description' => [
                 'fr'   => 'Description Français Description Français Description Français Description Français Description Français',
                 'en'   => 'English Description English Description English Description English Description English Description',
-                'tnar' => 'وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي',
                 'tnfr' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
+                'tnar' => 'وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي',
                 'ar'   => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
 
             'photo' => IngredientCategory::first()->photo,
-            'price' => 0,
+            'shop_id' => 1,
 
             'is_visible'  => 1,
-
-            'ingredient_category_id' => rand(1, 4),
 
             'created_at' => time(),
             'updated_at' => time()

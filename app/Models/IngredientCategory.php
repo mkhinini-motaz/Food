@@ -46,11 +46,13 @@ class IngredientCategory extends Model
     }
 
     /**
-     * @return HasMany
+     * @return BelongsToMany
      */
     public function ingredients()
     {
-        return $this->hasMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)
+            ->withPivot([ 'is_by_default_selected', 'price', 'order', ])
+            ->orderBy('ingredient_ingredient_category.order');
     }
 
     /**

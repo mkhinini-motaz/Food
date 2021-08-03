@@ -19,19 +19,18 @@ class CreateIngredientsTable extends Migration
             $table->string('name', 3000);
             $table->string('description', 3000);
             $table->string('photo')->default('default image link'); // TODO: define default image
-            $table->unsignedInteger('price')->default(0)->comment('In tunisian mellimes');
             $table->unsignedTinyInteger('is_visible')->default(0);
 
-            $table->unsignedBigInteger('ingredient_category_id');
+            $table->unsignedBigInteger('shop_id');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
 
-            $table->foreign('ingredient_category_id')
+            $table->foreign('shop_id')
                 ->onDelete('cascade')
                 ->references('id')
-                ->on('ingredient_categories');
+                ->on('shops');
         });
     }
 

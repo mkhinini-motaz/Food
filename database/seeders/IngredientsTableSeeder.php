@@ -29,9 +29,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForRice()
     {
-        $ingredientCategoryRiceId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Riz'")->first()->id;
+        $ingredientCategoryRice = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Riz'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientRizJaune = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Riz jaune',
                 'en'   => 'Yellow rice',
@@ -40,24 +40,20 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'ارز أصفر',
             ],
             'photo' => 'example/restaurant/ingredient/yellow_rice.jpg',
-            'ingredient_category_id' => $ingredientCategoryRiceId,
-            'price' => 1300,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientRizAil = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Riz à l\'ail',
                 'en'   => 'Garlic rice',
-                'tnfr'   => 'Roz bi thom',
+                'tnfr' => 'Roz bi thom',
                 'tnar' => 'روز بالثوم',
                 'ar'   => 'أرز بالثوم',
             ],
             'photo' => 'example/restaurant/ingredient/rice_garlic_persley.jpg',
-            'ingredient_category_id' => $ingredientCategoryRiceId,
-            'price' => 1600,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientRizFruitsSec = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Riz fruits sec',
                 'en'   => 'Dry fruits rice',
@@ -66,8 +62,13 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'أرز فواكه جافة',
             ],
             'photo' => 'example/restaurant/ingredient/rice_kajo.jpg',
-            'ingredient_category_id' => $ingredientCategoryRiceId,
-            'price' => 2000,
+        ]);
+
+        $order = 1;
+        $ingredientCategoryRice->ingredients()->sync([
+            $ingredientRizJaune->id     => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientRizAil->id       => [ 'order' => $order++, ],
+            $ingredientRizFruitsSec->id => [ 'order' => $order++, ],
         ]);
     }
 
@@ -76,9 +77,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForSaladOld()
     {
-        $ingredientCategorySaladId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first()->id;
+        $ingredientCategorySalad = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientSaladeConcombre = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Salade concombre',
                 'en'   => 'Cucumber salad',
@@ -87,10 +88,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سلطة خيار',
             ],
             'photo' => 'example/restaurant/ingredient/salad_concumber.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientSaladeChouxRouge = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Salade choux rouge',
                 'en'   => 'Red cabbage salad',
@@ -99,11 +99,10 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سلطة ملفوف أحمر',
             ],
             'photo' => 'example/restaurant/ingredient/salad_kronb.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
 /*
-        Ingredient::factory()->create([
+        $ingredientSaSaladeFruitsDeMer = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Salade fruits de mer',
                 'en'   => 'Seafood salad',
@@ -112,11 +111,10 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سلطة غلال البحر',
             ],
             'photo' => 'example/restaurant/ingredient/salade_fruit_de_mer.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 */
 
-        Ingredient::factory()->create([
+        $ingredientSaladeCarotte = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Salade carotte',
                 'en'   => 'Carrot salad',
@@ -125,10 +123,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سلطة الجزر',
             ],
             'photo' => 'example/restaurant/ingredient/salad_carrot.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientSaladeBetterave = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Salade betterave',
                 'en'   => 'Beet salad',
@@ -137,7 +134,15 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سلطة البنجر',
             ],
             'photo' => 'example/restaurant/ingredient/salad_beet.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        $order = 1;
+        $ingredientCategorySalad->ingredients()->sync([
+            $ingredientSaladeConcombre     => [ 'order' => $order++ ],
+            $ingredientSaladeChouxRouge    => [ 'order' => $order++ ],
+//            $ingredientSaSaladeFruitsDeMer => [ 'order' => $order++ ],
+            $ingredientSaladeCarotte       => [ 'order' => $order++ ],
+            $ingredientSaladeBetterave     => [ 'order' => $order++ ],
         ]);
     }
 
@@ -146,9 +151,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForSalad()
     {
-        $ingredientCategorySaladId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first()->id;
+        $ingredientCategorySalad = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientLaitue = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Laitue',
                 'en'   => 'Cucumber salad',
@@ -157,10 +162,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'خس',
             ],
             'photo' => 'example/restaurant/ingredient/laitue.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientTomate = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Tomate',
                 'en'   => 'Tomato',
@@ -169,10 +173,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'طماطم',
             ],
             'photo' => 'example/restaurant/ingredient/tomate.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientOignon = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Oignon',
                 'en'   => 'Onion',
@@ -181,10 +184,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'بصل',
             ],
             'photo' => 'example/restaurant/ingredient/onion.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientOignonSaute = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Oignon sauté',
                 'en'   => 'Sauteed onion',
@@ -193,10 +195,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'بصل سوتيه',
             ],
             'photo' => 'example/restaurant/ingredient/onionsaute.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientCarotte = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Corotte',
                 'en'   => 'Corot',
@@ -205,10 +206,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'جزر',
             ],
             'photo' => 'example/restaurant/ingredient/carotte.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientChouxRouge = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Choux rouge',
                 'en'   => 'Red cabbage',
@@ -217,7 +217,16 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'ملفوف أحمر',
             ],
             'photo' => 'example/restaurant/ingredient/chouxrouge.jpg',
-            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        $order = 1;
+        $ingredientCategorySalad->ingredients()->sync([
+            $ingredientLaitue->id      => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientTomate->id      => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientOignon->id      => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientOignonSaute->id => [ 'order' => $order++, ],
+            $ingredientCarotte->id     => [ 'order' => $order++, ],
+            $ingredientChouxRouge->id  => [ 'order' => $order++, ],
         ]);
     }
 
@@ -226,9 +235,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForPotatos()
     {
-        $ingredientCategoryPotatosId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first()->id;
+        $ingredientCategoryPotatos = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientFrites = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Frites',
                 'en'   => 'French fries',
@@ -237,10 +246,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'البطاطس المقلية',
             ],
             'photo' => 'example/restaurant/ingredient/frites.jpg',
-            'ingredient_category_id' => $ingredientCategoryPotatosId,
         ]);
 /*
-        Ingredient::factory()->create([
+        $ingredientPotatoes = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Potatoes',
                 'en'   => 'Potatoes',
@@ -249,9 +257,14 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'بطاطس',
             ],
             'photo' => 'example/restaurant/ingredient/potatos.jpg',
-            'ingredient_category_id' => $ingredientCategoryPotatosId,
         ]);
 */
+
+        $order = 1;
+        $ingredientCategoryPotatos->ingredients()->sync([
+            $ingredientFrites->id      => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+//            $ingredientPotatoes->id      => [ 'order' => $order++, ],
+        ]);
     }
 
     /**
@@ -259,9 +272,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForSauce()
     {
-        $ingredientCategorySauceId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first()->id;
+        $ingredientCategorySauce = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientHarissa = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Harissa',
                 'en'   => 'Harissa',
@@ -270,10 +283,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'هريسة',
             ],
             'photo' => 'example/restaurant/ingredient/harissa.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientMayonnaise = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Mayonnaise',
                 'en'   => 'Mayonnaise',
@@ -282,10 +294,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'مايونيز',
             ],
             'photo' => 'example/restaurant/ingredient/mayonaise.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientSauceAlgerienne = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Sauce algérienne',
                 'en'   => 'Algerian sauce',
@@ -294,10 +305,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سوس جزائرية',
             ],
             'photo' => 'example/restaurant/ingredient/algerienne.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientKetchup = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Ketchup',
                 'en'   => 'Ketchup',
@@ -306,10 +316,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'كاتشب',
             ],
             'photo' => 'example/restaurant/ingredient/ketchup.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientSauceBarbecue = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Sauce barbecue',
                 'en'   => 'Barbecue sauce',
@@ -318,10 +327,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سوس باربكيو',
             ],
             'photo' => 'example/restaurant/ingredient/barbecue_sauce.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientSauceHoumous = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Sauce houmous',
                 'en'   => 'Houmous sauce',
@@ -330,7 +338,16 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'صوص الحمص',
             ],
             'photo' => 'example/restaurant/ingredient/saucehommos.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
+        ]);
+
+        $order = 1;
+        $ingredientCategorySauce->ingredients()->sync([
+            $ingredientHarissa->id         => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientMayonnaise->id      => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientSauceAlgerienne->id => [ 'order' => $order++ ],
+            $ingredientKetchup->id         => [ 'order' => $order++ ],
+            $ingredientSauceBarbecue->id   => [ 'order' => $order++ ],
+            $ingredientSauceHoumous->id    => [ 'order' => $order++ ],
         ]);
     }
 
@@ -340,9 +357,9 @@ class IngredientsTableSeeder extends Seeder
     public function ingredientsForSaucePizza()
     {
 
-        $ingredientCategorySauceId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce pizza'")->first()->id;
+        $ingredientCategorySauce = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce pizza'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientSauceTomate = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Sauce tomate',
                 'en'   => 'Tomato sauce',
@@ -351,10 +368,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'صلصة الطماطم',
             ],
             'photo' => 'example/restaurant/ingredient/sauce_tomate.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientSauceBlanche = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Sauce blanche',
                 'en'   => 'White sauce',
@@ -363,7 +379,12 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'صلصة بيضاء',
             ],
             'photo' => 'example/restaurant/ingredient/sauce_blanche.jpg',
-            'ingredient_category_id' => $ingredientCategorySauceId,
+        ]);
+
+        $order = 1;
+        $ingredientCategorySauce->ingredients()->sync([
+            $ingredientSauceTomate->id  => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
+            $ingredientSauceBlanche->id => [ 'order' => $order++, ],
         ]);
     }
 
@@ -372,9 +393,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForSauceFromagere()
     {
-        $ingredientCategorySauceFromagereId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce fromagère'")->first()->id;
+        $ingredientCategorySauceFromagere = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce fromagère'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientSauceFromagere = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Sauce fromagère',
                 'en'   => 'Cheese sauce',
@@ -383,7 +404,11 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'صلصة الجبنة',
             ],
             'photo' => 'example/restaurant/ingredient/sauce_fromage.png',
-            'ingredient_category_id' => $ingredientCategorySauceFromagereId,
+        ]);
+
+        $order = 1;
+        $ingredientCategorySauceFromagere->ingredients()->sync([
+            $ingredientSauceFromagere->id => [ 'order' => $order++, 'is_by_default_selected' => 1 ],
         ]);
     }
 
@@ -392,9 +417,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForSupplement()
     {
-        $ingredientCategorySupplementId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first()->id;
+        $ingredientCategorySupplement = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientBacon = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Bacon',
                 'en'   => 'Bacon',
@@ -403,11 +428,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'بايكون',
             ],
             'photo' => 'example/restaurant/ingredient/bacon.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientPeperoni = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Peperoni',
                 'en'   => 'Peperoni',
@@ -416,11 +439,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'بيبروني',
             ],
             'photo' => 'example/restaurant/ingredient/peperoni.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientJambonBoeuf = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Jambon de boeuf',
                 'en'   => 'Beef ham',
@@ -429,11 +450,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'جمبون بقر',
             ],
             'photo' => 'example/restaurant/ingredient/jambon_boeuf.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientJambonDinde = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Jambon de dinde',
                 'en'   => 'Turkey ham',
@@ -442,11 +461,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'جمبون الديك الرومي',
             ],
             'photo' => 'example/restaurant/ingredient/jambon_dinde.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientChampignon = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Champignon',
                 'en'   => 'Mushroom',
@@ -455,11 +472,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'فطر',
             ],
             'photo' => 'example/restaurant/ingredient/champignon.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientCheddar = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Cheddar',
                 'en'   => 'Cheddar',
@@ -468,11 +483,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'شيدر',
             ],
             'photo' => 'example/restaurant/ingredient/cheddar.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientRaclette = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Raclette',
                 'en'   => 'Raclette',
@@ -481,11 +494,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'راكليت',
             ],
             'photo' => 'example/restaurant/ingredient/raclette.png',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientGruyere = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Gruyère',
                 'en'   => 'Gruyere',
@@ -494,11 +505,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'غرويير',
             ],
             'photo' => 'example/restaurant/ingredient/gruyere.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientHalloumiGrille = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Halloumi grillé',
                 'en'   => 'Grilled halloumi',
@@ -507,8 +516,19 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'حلومي مشوي',
             ],
             'photo' => 'example/restaurant/ingredient/halloumi.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 200,
+        ]);
+
+        $order = 1;
+        $ingredientCategorySupplement->ingredients()->sync([
+            $ingredientBacon->id          => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientPeperoni->id       => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientJambonBoeuf->id    => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientJambonDinde->id    => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientChampignon->id     => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientCheddar->id        => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientRaclette->id       => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientGruyere->id        => [ 'order' => $order++, 'price' => 200, ],
+            $ingredientHalloumiGrille->id => [ 'order' => $order++, 'price' => 200, ],
         ]);
     }
 
@@ -517,9 +537,9 @@ class IngredientsTableSeeder extends Seeder
      */
     public function ingredientsForViande()
     {
-        $ingredientCategoryViandeId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Viande'")->first()->id;
+        $ingredientCategoryViande = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Viande'")->first();
 
-        Ingredient::factory()->create([
+        $ingredientChawarma = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Chawarma',
                 'en'   => 'Chawarma',
@@ -528,10 +548,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'شاورما',
             ],
             'photo' => 'example/restaurant/ingredient/chawarma.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientTenders = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Tenders',
                 'en'   => 'Tenders',
@@ -540,10 +559,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'تندر',
             ],
             'photo' => 'example/restaurant/ingredient/tender.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientEscalope = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Escalope',
                 'en'   => 'Escalope',
@@ -552,10 +570,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'اسكالوب',
             ],
             'photo' => 'example/restaurant/ingredient/escalope_pizza.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientNuggets = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Nuggets',
                 'en'   => 'Nuggets',
@@ -564,10 +581,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'ناجت',
             ],
             'photo' => 'example/restaurant/ingredient/nugget.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientChicken = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Chicken',
                 'en'   => 'Chicken',
@@ -576,10 +592,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'دجاج',
             ],
             'photo' => 'example/restaurant/ingredient/chicken.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientThon = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Thon',
                 'en'   => 'Tuna',
@@ -588,10 +603,9 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'تن',
             ],
             'photo' => 'example/restaurant/ingredient/thon.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
-        Ingredient::factory()->create([
+        $ingredientFruitsDeMer = Ingredient::factory()->create([
             'name' => [
                 'fr'   => 'Fruits de mer',
                 'en'   => 'Seafood',
@@ -600,9 +614,18 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'غلال البحر',
             ],
             'photo' => 'example/restaurant/ingredient/fruits_de_mer.jpg',
-            'ingredient_category_id' => $ingredientCategoryViandeId,
         ]);
 
+        $order = 1;
+        $ingredientCategoryViande->ingredients()->sync([
+            $ingredientChawarma->id    => [ 'order' => $order++ ],
+            $ingredientTenders->id     => [ 'order' => $order++ ],
+            $ingredientEscalope->id    => [ 'order' => $order++ ],
+            $ingredientNuggets->id     => [ 'order' => $order++ ],
+            $ingredientChicken->id     => [ 'order' => $order++ ],
+            $ingredientThon->id        => [ 'order' => $order++ ],
+            $ingredientFruitsDeMer->id => [ 'order' => $order++ ],
+        ]);
     }
 
     /**
@@ -611,22 +634,9 @@ class IngredientsTableSeeder extends Seeder
     public function ingredientsForPizzaSupplement()
     {
         // TODO: pizza supplement ingredientCategory doesn't exist
-        $ingredientCategorySupplementId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first()->id;
+        $ingredientCategorySupplement = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
 
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Thon',
-                'en'   => 'Tuna',
-                'tnfr' => 'Thon',
-                'tnar' => 'تن',
-                'ar'   => 'تن',
-            ],
-            'photo' => 'example/restaurant/ingredient/thon.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2000,
-        ]);
-
-        Ingredient::factory()->create([
+        $ingredientfromages = Ingredient::factory()->create([
             'name' => [
                 'fr'   => '4 fromages',
                 'en'   => '4 cheese',
@@ -635,112 +645,30 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => '4 أجبان',
             ],
             'photo' => 'example/restaurant/ingredient/cheese.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 3500,
         ]);
 
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Fruits de mer',
-                'en'   => 'Seafood',
-                'tnfr' => 'Fruits de mer',
-                'tnar' => 'غلال البحر',
-                'ar'   => 'غلال البحر',
-            ],
-            'photo' => 'example/restaurant/ingredient/fruits_de_mer.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 4000,
-        ]);
+        $ingredientFruitsDeMer = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Fruits de mer'")->first();
+        $ingredientPeperoni = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Peperoni'")->first();
+        $ingredientJambonBoeuf = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Jambon de boeuf'")->first();
+        $ingredientJambonDinde = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Jambon de dinde'")->first();
+        $ingredientChampignon = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Champignon'")->first();
+        $ingredientThon = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Thon'")->first();
+        $ingredientEscalope = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Escalope'")->first();
+        $ingredientChawarma = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Chawarma'")->first();
+        $ingredientChicken = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Chicken'")->first();
 
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Peperoni',
-                'en'   => 'Peperoni',
-                'tnfr' => 'Peperoni',
-                'tnar' => 'بيبروني',
-                'ar'   => 'بيبروني',
-            ],
-            'photo' => 'example/restaurant/ingredient/peperoni.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2500,
-        ]);
-
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Jambon de boeuf',
-                'en'   => 'Beef ham',
-                'tnfr' => 'Jambon de boeuf',
-                'tnar' => 'جمبون بقري',
-                'ar'   => 'جمبون بقر',
-            ],
-            'photo' => 'example/restaurant/ingredient/jambon_boeuf.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2500,
-        ]);
-
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Jambon de dinde',
-                'en'   => 'Turkey ham',
-                'tnfr' => 'Jambon dinde',
-                'tnar' => 'جمبون دندون',
-                'ar'   => 'جمبون الديك الرومي',
-            ],
-            'photo' => 'example/restaurant/ingredient/jambon_dinde.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2000,
-        ]);
-
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Champignon',
-                'en'   => 'Mushroom',
-                'tnfr' => 'Champignon',
-                'tnar' => 'فطر',
-                'ar'   => 'فطر',
-            ],
-            'photo' => 'example/restaurant/ingredient/champignon.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2000,
-        ]);
-
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Escalope',
-                'en'   => 'Escalope',
-                'tnfr' => 'Escalope',
-                'tnar' => 'اسكالوب',
-                'ar'   => 'اسكالوب',
-            ],
-            'photo' => 'example/restaurant/ingredient/escalope_pizza.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2500,
-        ]);
-
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Chawarma',
-                'en'   => 'Chawarma',
-                'tnfr' => 'Chawarma',
-                'tnar' => 'شاورما',
-                'ar'   => 'شاورما',
-            ],
-            'photo' => 'example/restaurant/ingredient/chawarma.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2500,
-        ]);
-
-        Ingredient::factory()->create([
-            'name' => [
-                'fr'   => 'Chicken',
-                'en'   => 'Chicken',
-                'tnfr' => 'Chicken',
-                'tnar' => 'دجاج',
-                'ar'   => 'دجاج',
-            ],
-            'photo' => 'example/restaurant/ingredient/chicken.jpg',
-            'ingredient_category_id' => $ingredientCategorySupplementId,
-            'price' => 2500,
+        $order = 1;
+        $ingredientCategorySupplement->ingredients()->sync([
+            $ingredientThon->id        => [ 'order' => $order++, 'price' => 2000, ],
+            $ingredientfromages->id    => [ 'order' => $order++, 'price' => 3500, ],
+            $ingredientFruitsDeMer->id => [ 'order' => $order++, 'price' => 4000, ],
+            $ingredientPeperoni->id    => [ 'order' => $order++, 'price' => 2500, ],
+            $ingredientJambonBoeuf->id => [ 'order' => $order++, 'price' => 2500, ],
+            $ingredientJambonDinde->id => [ 'order' => $order++, 'price' => 2000, ],
+            $ingredientChampignon->id  => [ 'order' => $order++, 'price' => 2000, ],
+            $ingredientEscalope->id    => [ 'order' => $order++, 'price' => 2500, ],
+            $ingredientChawarma->id    => [ 'order' => $order++, 'price' => 2500, ],
+            $ingredientChicken->id     => [ 'order' => $order++, 'price' => 2500, ],
         ]);
     }
 }
