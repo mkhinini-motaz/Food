@@ -74,7 +74,7 @@ class IngredientsTableSeeder extends Seeder
     /**
      *
      */
-    public function ingredientsForSalad()
+    public function ingredientsForSaladOld()
     {
         $ingredientCategorySaladId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first()->id;
 
@@ -137,6 +137,86 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سلطة البنجر',
             ],
             'photo' => 'example/restaurant/ingredient/salad_beet.jpg',
+            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function ingredientsForSalad()
+    {
+        $ingredientCategorySaladId = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first()->id;
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Laitue',
+                'en'   => 'Cucumber salad',
+                'tnfr' => 'Laitue',
+                'tnar' => 'خس',
+                'ar'   => 'خس',
+            ],
+            'photo' => 'example/restaurant/ingredient/laitue.jpg',
+            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Tomate',
+                'en'   => 'Tomato',
+                'tnfr' => 'Tmatem',
+                'tnar' => 'طماطم',
+                'ar'   => 'طماطم',
+            ],
+            'photo' => 'example/restaurant/ingredient/tomate.jpg',
+            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Oignon',
+                'en'   => 'Onion',
+                'tnfr' => 'Bsal',
+                'tnar' => 'بصل',
+                'ar'   => 'بصل',
+            ],
+            'photo' => 'example/restaurant/ingredient/onion.jpg',
+            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Oignon sauté',
+                'en'   => 'Sauteed onion',
+                'tnfr' => 'Bsal sauté',
+                'tnar' => 'بصل سوتيه',
+                'ar'   => 'بصل سوتيه',
+            ],
+            'photo' => 'example/restaurant/ingredient/onionsaute.jpg',
+            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Corotte',
+                'en'   => 'Corot',
+                'tnfr' => 'Sfennaria',
+                'tnar' => 'سفنارية',
+                'ar'   => 'جزر',
+            ],
+            'photo' => 'example/restaurant/ingredient/carotte.jpg',
+            'ingredient_category_id' => $ingredientCategorySaladId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Choux rouge',
+                'en'   => 'Red cabbage',
+                'tnfr' => 'Cromb a7mar',
+                'tnar' => 'كرمب أحمر',
+                'ar'   => 'ملفوف أحمر',
+            ],
+            'photo' => 'example/restaurant/ingredient/chouxrouge.jpg',
             'ingredient_category_id' => $ingredientCategorySaladId,
         ]);
     }
@@ -238,6 +318,18 @@ class IngredientsTableSeeder extends Seeder
                 'ar'   => 'سوس باربكيو',
             ],
             'photo' => 'example/restaurant/ingredient/barbecue_sauce.jpg',
+            'ingredient_category_id' => $ingredientCategorySauceId,
+        ]);
+
+        Ingredient::factory()->create([
+            'name' => [
+                'fr'   => 'Sauce houmous',
+                'en'   => 'Houmous sauce',
+                'tnfr' => 'Sauce 7oms',
+                'tnar' => 'سوس حمص',
+                'ar'   => 'صوص الحمص',
+            ],
+            'photo' => 'example/restaurant/ingredient/saucehommos.jpg',
             'ingredient_category_id' => $ingredientCategorySauceId,
         ]);
     }

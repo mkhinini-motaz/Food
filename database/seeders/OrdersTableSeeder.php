@@ -31,8 +31,9 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $products = $order->products()->get();
-        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade concombre'")->first()->id;
-        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade choux rouge'")->first()->id;
+        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
+        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
+        $ingredientSalad3Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon sauté'")->first()->id;
         $ingredientHarissaId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
         $ingredientMayonnaiseId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
         $ingredientFritesId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
@@ -50,6 +51,11 @@ class OrdersTableSeeder extends Seeder
             ]);
             \DB::table('ingredient_order_product')->insert([
                 'ingredient_id'    => $ingredientSalad2Id,
+                'order_product_id' => $relationId,
+                'quantity' => 3,
+            ]);
+            \DB::table('ingredient_order_product')->insert([
+                'ingredient_id'    => $ingredientSalad3Id,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
@@ -83,7 +89,9 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $products = $order->products()->get();
-        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade carotte'")->first()->id;
+        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
+        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
+        $ingredientSalad3Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
         $ingredientHarissaId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
         $ingredientFritesId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
@@ -95,6 +103,16 @@ class OrdersTableSeeder extends Seeder
             $relationId = $product->pivot->id;
             \DB::table('ingredient_order_product')->insert([
                 'ingredient_id'    => $ingredientSalad1Id,
+                'order_product_id' => $relationId,
+                'quantity' => 1,
+            ]);
+            \DB::table('ingredient_order_product')->insert([
+                'ingredient_id'    => $ingredientSalad2Id,
+                'order_product_id' => $relationId,
+                'quantity' => 1,
+            ]);
+            \DB::table('ingredient_order_product')->insert([
+                'ingredient_id'    => $ingredientSalad3Id,
                 'order_product_id' => $relationId,
                 'quantity' => 1,
             ]);
@@ -125,8 +143,9 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $products = $order->products()->get();
-        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade concombre'")->first()->id;
-        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade choux rouge'")->first()->id;
+        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
+        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
+        $ingredientSalad3Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
         $ingredientHarissaId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
         $ingredientMayonnaiseId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
         $ingredientFritesId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
@@ -144,6 +163,11 @@ class OrdersTableSeeder extends Seeder
             ]);
             \DB::table('ingredient_order_product')->insert([
                 'ingredient_id'    => $ingredientSalad2Id,
+                'order_product_id' => $relationId,
+                'quantity' => 3,
+            ]);
+            \DB::table('ingredient_order_product')->insert([
+                'ingredient_id'    => $ingredientSalad3Id,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
