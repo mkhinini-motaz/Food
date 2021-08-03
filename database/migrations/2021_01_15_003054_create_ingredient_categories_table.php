@@ -28,7 +28,7 @@ class CreateIngredientCategoriesTable extends Migration
             $table->unsignedInteger('deleted_at')->nullable();
 
             $table->foreign('shop_id')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->references('id')
                 ->on('shops');
         });

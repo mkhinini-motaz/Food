@@ -25,6 +25,7 @@ class CreateActivityLogTable extends Migration
             $table->index('log_name');
 
             $table->foreign('shop_id')
+                ->onDelete('cascade')
                 ->references('id')
                 ->on('shops');
         });

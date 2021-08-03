@@ -34,7 +34,7 @@ class CreatePromoCodesTable extends Migration
                 ->on('admins');
 
             $table->foreign('shop_id')
-                ->onDelete('restrict')
+                ->onDelete('cascade')
                 ->references('id')
                 ->on('shops');
         });
