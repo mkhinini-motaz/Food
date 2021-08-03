@@ -147,6 +147,9 @@ class IngredientCategoriesTableSeeder extends Seeder
         }
     }
 
+    /**
+     *
+     */
     public function sandwichCategoryAttach()
     {
         $order = 1;
@@ -160,7 +163,7 @@ class IngredientCategoriesTableSeeder extends Seeder
         foreach ($sandwichProducts as $product) {
             $product->ingredientCategories()->sync([
                 $ingredientCategorySauce->id      => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
-                $ingredientCategorySalad->id      => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+                $ingredientCategorySalad->id      => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_quantifiable' => 1, ],
                 $ingredientCategoryPotatoes->id   => [ 'order' => $order++, ],
                 $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
             ]);
@@ -183,7 +186,7 @@ class IngredientCategoriesTableSeeder extends Seeder
         $tacosS->ingredientCategories()->sync([
             $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 1, ],
             $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
-            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
             $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
         ]);
 
@@ -193,7 +196,7 @@ class IngredientCategoriesTableSeeder extends Seeder
         $tacosM->ingredientCategories()->sync([
             $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 2, 'max_ingredients' => 2, ],
             $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
-            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
             $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
         ]);
 
@@ -203,7 +206,7 @@ class IngredientCategoriesTableSeeder extends Seeder
         $tacosL->ingredientCategories()->sync([
             $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 3, 'max_ingredients' => 3, ],
             $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
-            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
             $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 5, 'ingredients_are_billable' => 1, ],
         ]);
     }
