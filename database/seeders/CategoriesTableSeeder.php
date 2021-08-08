@@ -157,6 +157,7 @@ class CategoriesTableSeeder extends Seeder
             'order' => $order++,
         ]);
 
+/*
         if (env('APP_ENV') === 'local') {
             Category::factory()->create([
                 'name' => [
@@ -170,5 +171,6 @@ class CategoriesTableSeeder extends Seeder
                 'order' => $order++,
             ]);
         }
+*/
     }
 }

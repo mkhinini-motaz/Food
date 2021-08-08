@@ -16,9 +16,10 @@ class ShopResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'           => $this->id,
-            'name'         => $this->name,
-            'service_area' => $this->service_area,
+            'id'                    => $this->id,
+            'name'                  => $this->name,
+            'service_area'          => $this->service_area,
+            'promo_code_shop_items' => $this->promo_code_shop_items,
         ];
     }
 }

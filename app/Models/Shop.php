@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use App\Support\LogsActivity;
 use App\Support\Model;
 
@@ -70,7 +71,8 @@ class Shop extends Model
 
     protected $dateFormat = 'U';
     protected $casts = [
-        'loyalty_action_rewards' => 'array',
+        'loyalty_action_rewards' => Json::class,
+        'promo_code_shop_items'  => Json::class,
         'service_area'           => 'array',
     ];
 
@@ -280,6 +282,19 @@ class Shop extends Model
             LoyaltyAction::TYPE_SHOP_REWARD                   => 1,
             LoyaltyAction::TYPE_SEND_POINTS                   => 1,
             LoyaltyAction::TYPE_RECEIVE_POINTS                => 1,
+        ]);
+    }
+
+    /**
+     * @return string { 'points' => 'money' }
+     */
+    public static function defaultPromoCodeShopItemsValue()
+    {
+        return json_encode([
+            50  => 2500,
+            100 => 5000,
+            190 => 10000,
+            360 => 20000,
         ]);
     }
 

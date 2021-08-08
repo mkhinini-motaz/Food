@@ -24,7 +24,7 @@ class ProductsTableSeeder extends Seeder
         $this->productsForPates();
         $this->productsForAperetif();
         $this->productsForBoisson();
-        $this->productsForTestPagination();
+//        $this->productsForTestPagination();
     }
 
     /**

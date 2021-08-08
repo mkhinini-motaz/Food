@@ -27,9 +27,10 @@ class CreateShopsTable extends Migration
             $table->string('average_ready_minutes', 10)->nullable()->comment('null means immediate');
             $table->unsignedTinyInteger('is_approved')->default(0);
             $table->unsignedTinyInteger('signup_is_open')->default(0);
-            $table->text('service_area')->nullable()->comment('array of arrays, [ [lat, lng], ...]');
+            $table->text('service_area')->nullable()->comment('array of arrays, [ [lat, lng], ...]'); // TODO serviceAreas table
 
             $table->text('loyalty_action_rewards')->default(Shop::defaultLoyaltyActionRewardsValue());
+            $table->text('promo_code_shop_items')->default(Shop::defaultPromoCodeShopItemsValue());
             $table->string('domain')->nullable();
             $table->string('ga_tracking_id', 50)->nullable()->comment('Google Analytics tracking id');
             $table->string('primary_color', 50)->nullable();
