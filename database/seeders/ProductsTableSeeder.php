@@ -15,6 +15,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         $this->productsForPlats();
+        $this->productsForBox();
         $this->productsForTacos();
         $this->productsForSandwich();
         $this->productsForMakloub();
@@ -25,6 +26,100 @@ class ProductsTableSeeder extends Seeder
         $this->productsForAperetif();
         $this->productsForBoisson();
 //        $this->productsForTestPagination();
+    }
+
+    public function productsForBox()
+    {
+        $order = 1;
+        $categoryBoxId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box'")->first()->id;
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Box simple',
+                'en'   => 'Simple box',
+                'tnfr' => 'Box simple',
+                'tnar' => 'بوكس سيمبل',
+                'ar'   => 'بوكس سيمبل',
+            ],
+            'description' => [
+                'fr'   => 'Tacos 1 viande au choix, salade, pain, 2 jambons, salami, cheddar et frites',
+                'en'   => '1 meat tacos of your choice, salad, bread, 2 hams, salami, cheddar and fries',
+                'tnfr' => 'Tacos 1 viande au choix, slata, 5obz, 2 jambons, salami, cheddar w frites',
+                'tnar' => 'تاكو 1 لحم من اختيارك، سلاطة، خبز، 2 جمبون، سلامي، شيدر و فريت',
+                'ar'   => 'تاكو 1 لحم من اختيارك، سلطة، خبز، 2 جمبون، سلامي، جبن شيدر و بطاطس مقلية',
+            ],
+            'photo' => 'example/restaurant/product/box_simple.png',
+            'category_id' => $categoryBoxId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => $order++,
+            'added_loyalty_points' => 3,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Box brochette',
+                'en'   => 'Skewer box',
+                'tnfr' => 'Box brochette',
+                'tnar' => 'بوكس بروشات',
+                'ar'   => 'بوكس سيخ',
+            ],
+            'description' => [
+                'fr'   => 'Tacos 1 viande au choix, brochette, escalope panné, 2 jambons, salami, cheddar et frites',
+                'en'   => '1 meat tacos of your choice, skewer, breaded escalope, 2 hams, salami, cheddar and french fries',
+                'tnfr' => 'Tacos 1 viande au choix, brochette, escalope panné, 2 jambons, salami, cheddar w frites',
+                'tnar' => 'تاكو 1 لحم من اختيارك، بروشات، اسكالوب باني، 2 جمبون، سلامي، شيدر و فريت',
+                'ar'   => 'تاكو 1 لحم من اختيارك، سيخ، اسكالوب مخبوز، 2 جمبون، سلامي، جبن شيدر و بطاطس مقلية',
+            ],
+            'photo' => 'example/restaurant/product/box_brochette.png',
+            'category_id' => $categoryBoxId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => $order++,
+            'added_loyalty_points' => 5,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Box mixte',
+                'en'   => 'Mixed box',
+                'tnfr' => 'Box mixte',
+                'tnar' => 'بوكس ميكست',
+                'ar'   => 'بوكس ميكس',
+            ],
+            'description' => [
+                'fr'   => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, 2 jambons, salami, cheddar et frites',
+                'en'   => '1 meat tacos of your choice, chawarma, escalope, breaded escalope, 2 hams, salami, cheddar and french fries',
+                'tnfr' => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, 2 jambons, salami, cheddar w frites',
+                'tnar' => 'تاكو 1 لحم من اختيارك، شاورما، اسكالوب، اسكالوب باني، 2 جمبون، سلامي، شيدر و فريت',
+                'ar'   => 'تاكو 1 لحم من اختيارك، شاورما، اسكالوب، اسكالوب مخبوز، 2 جمبون، سلامي، جبن شيدر و بطاطس مقلية',
+            ],
+            'photo' => 'example/restaurant/product/box_mixt.png',
+            'category_id' => $categoryBoxId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => $order++,
+            'added_loyalty_points' => 5,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Box ghost',
+                'en'   => 'Ghost box',
+                'tnfr' => 'Box ghost',
+                'tnar' => 'بوكس ڨوست',
+                'ar'   => 'بوكس ڨوست',
+            ],
+            'description' => [
+                'fr'   => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, salade, pain, 2 jambons, salami, cheddar et frites',
+                'en'   => '1 meat tacos of your choice, chawarma, escalope, breaded escalope, salad, bread, 2 hams, salami, cheddar and french fries',
+                'tnfr' => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, slata, 5obz, 2 jambons, salami, cheddar w frites',
+                'tnar' => 'تاكو 1 لحم من اختيارك، شاورما، اسكالوب، اسكالوب باني، سلاطة، خبز، 2 جمبون، سلامي، شيدر و فريت',
+                'ar'   => 'تاكو 1 لحم من اختيارك، شاورما، اسكالوب، اسكالوب مخبوز، سلطة، خبز، 2 جمبون، سلامي، جبن شيدر و بطاطس مقلية',
+            ],
+            'photo' => 'example/restaurant/product/box_ghost.png',
+            'category_id' => $categoryBoxId,
+            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'order' => $order++,
+            'added_loyalty_points' => 8,
+        ]);
     }
 
     /**
@@ -47,8 +142,8 @@ class ProductsTableSeeder extends Seeder
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
                 'en'   => '1 meat of your choice, sauces of your choice, fries and our cheese sauce',
                 'tnfr' => '1 viande au choix, sauces au choix, frites w sauce fromagère mta3na',
-                'tnar' => 'لحمة من اختيارك ، سوسات من اختيارك، فريت سوس فرماج متاعنا',
-                'ar'   => 'لحمة من اختيارك ، صوصات من اختيارك، بطاطا مقلية وصلصة الجبن الخاصة بنا',
+                'tnar' => 'لحمة من اختيارك ، سوسات من اختيارك، فريت و سوس فرماج متاعنا',
+                'ar'   => 'لحمة من اختيارك ، صوصات من اختيارك، بطاطا مقلية و صلصة الجبن الخاصة بنا',
             ],
             'photo' => 'example/restaurant/product/tacos_s.jpg',
             'category_id' => $categoryTacosId,
@@ -232,10 +327,10 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Grillade mix',
+                'fr'   => 'Grillade mixte',
                 'en'   => 'Mixed grill',
-                'tnfr' => 'Grillade mix',
-                'tnar' => 'جرياد ميكس',
+                'tnfr' => 'Grillade mixte',
+                'tnar' => 'جرياد ميكست',
                 'ar'   => 'ميكس جريل',
             ],
             'photo' => 'example/restaurant/product/grillade_mix.jpg',

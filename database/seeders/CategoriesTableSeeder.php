@@ -30,6 +30,19 @@ class CategoriesTableSeeder extends Seeder
 
         Category::factory()->create([
             'name' => [
+                'fr'   => 'Box',
+                'en'   => 'Box',
+                'tnfr' => 'Box',
+                'tnar' => 'بوكس',
+                'ar'   => 'بوكس',
+            ],
+            'photo' => 'example/restaurant/category/boxes.jpg',
+            'is_visible' => 1,
+            'order' => $order++,
+        ]);
+
+        Category::factory()->create([
+            'name' => [
                 'fr'   => 'Tacos',
                 'en'   => 'French tacos',
                 'tnfr' => 'Tacos',

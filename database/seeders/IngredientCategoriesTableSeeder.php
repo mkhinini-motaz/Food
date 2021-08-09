@@ -16,6 +16,7 @@ class IngredientCategoriesTableSeeder extends Seeder
     {
         $this->create();
 
+        $this->boxCategoryAttach();
         $this->platCategoryAttach();
         $this->sandwichCategoryAttach();
         $this->tacosCategoryAttach();
@@ -122,6 +123,54 @@ class IngredientCategoriesTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/ingredientCategory/supplement.jpg',
             'shop_id' => 1,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function boxCategoryAttach()
+    {
+        $order = 1;
+        $ingredientCategoryViande = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Viande'")->first();
+        $ingredientCategoryFromagereSauce = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce fromagère'")->first();
+        $ingredientCategorySauce = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
+        $ingredientCategorySupplement = IngredientCategory::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
+
+        $boxSimple = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box simple'")->first();
+
+        $boxSimple->ingredientCategories()->sync([
+            $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 1, ],
+            $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
+        ]);
+
+        $boxBrochette = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box brochette'")->first();
+
+        $boxBrochette->ingredientCategories()->sync([
+            $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 1, ],
+            $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
+        ]);
+
+        $boxMixt = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box Mixte'")->first();
+
+        $boxMixt->ingredientCategories()->sync([
+            $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 1, ],
+            $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
+        ]);
+
+        $boxGhost = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box ghost'")->first();
+
+        $boxGhost->ingredientCategories()->sync([
+            $ingredientCategoryViande->id => [ 'order' => $order++, 'min_ingredients' => 1, 'max_ingredients' => 1, ],
+            $ingredientCategoryFromagereSauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 1, ],
+            $ingredientCategorySauce->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 3, 'ingredients_are_quantifiable' => 1, ],
+            $ingredientCategorySupplement->id => [ 'order' => $order++, 'min_ingredients' => 0, 'max_ingredients' => 4, 'ingredients_are_billable' => 1, ],
         ]);
     }
 
