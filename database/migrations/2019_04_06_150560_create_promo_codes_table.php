@@ -21,17 +21,13 @@ class CreatePromoCodesTable extends Migration
             $table->integer('max_usage_count')->nullable();
             $table->unsignedInteger('reduction_amount');
 
-            $table->unsignedBigInteger('admin_id')->nullable()->comment('admin who created the promo code');
+            $table->unsignedBigInteger('creator_id')->nullable();
+            $table->string('creator_type')->nullable();
             $table->unsignedBigInteger('shop_id')->comment('shop where the promo code can be used');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
-
-            $table->foreign('admin_id')
-                ->onDelete('restrict')
-                ->references('id')
-                ->on('admins');
 
             $table->foreign('shop_id')
                 ->onDelete('cascade')
@@ -46,6 +42,15 @@ class CreatePromoCodesTable extends Migration
                 CHECK (
                   CAST(expires_at <> NULL AS UNSIGNED) +
                   CAST(max_usage_count <> NULL AS UNSIGNED) > 1
+                );'
+            );
+
+            DB::statement(
+            'ALTER TABLE promo_codes
+                ADD CONSTRAINT chk_creator_columns_integrity
+                CHECK (
+                  CAST(creator_id <> NULL AS UNSIGNED) =
+                  CAST(creator_type <> NULL AS UNSIGNED)
                 );'
             );
         });

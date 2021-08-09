@@ -25,7 +25,6 @@ class CreateClientsTable extends Migration
             $table->unsignedTinyInteger('is_phone_confirmed')->default(0);
 
             $table->string('invite_code', 50)->nullable();
-            $table->mediumInteger('loyalty_points_count')->default(0);
 
             $table->unsignedBigInteger('shop_id')->index();
 
@@ -33,14 +32,6 @@ class CreateClientsTable extends Migration
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
-
-            $table->foreign('shop_id')
-                ->onDelete('cascade')
-                ->references('id')
-                ->on('shops');
-
-            $table->unique([ 'shop_id', 'phone' ]);
-            $table->unique([ 'shop_id', 'email' ]);
         });
     }
 

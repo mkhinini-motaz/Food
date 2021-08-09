@@ -38,9 +38,9 @@ class PromoCode extends Model
     /**
      * @return BelongsTo
      */
-    public function admin()
+    public function creator()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->morphTo();
     }
 
     /**

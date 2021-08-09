@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Authenticatable;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -61,11 +62,12 @@ class Client extends Authenticatable
     }
 
     /**
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function shop()
+    public function shops()
     {
-        return $this->belongsTo(Shop::class);
+        return $this->belongsToMany(Shop::class)
+            ->withPivot([ 'loyalty_points_count' ]);
     }
 
     /**
@@ -74,6 +76,14 @@ class Client extends Authenticatable
     public function loyaltyActions()
     {
         return $this->hasMany(LoyaltyAction::class);
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function promoCodes()
+    {
+        return $this->morphMany(PromoCode::class, 'creator');
     }
 
     /**

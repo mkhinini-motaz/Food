@@ -50,6 +50,8 @@ class ClientRepository
         $client->is_phone_confirmed = $isPhoneConfirmed;
 
         $client->save();
+        self::init($client);
+
         return $client;
     }
 
@@ -115,5 +117,14 @@ class ClientRepository
         return $this->client->loyaltyActions()
             ->orderBy($orderBy, $orderDirection)
             ->paginate($perPage, [ '*' ], 'page', $page);
+    }
+
+    /**
+     * @param Client $client
+     */
+    public static function init(Client $client)
+    {
+        $shopIds = Shop::query()->pluck('id');
+        $client->shops()->sync($shopIds);
     }
 }

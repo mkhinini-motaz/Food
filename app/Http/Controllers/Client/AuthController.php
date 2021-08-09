@@ -24,6 +24,7 @@ class AuthController extends Controller
      */
     public function profile(Request $request)
     {
+        auth()->user()->load([ 'shops', 'promoCodes' ]);
         return (new ClientResource(auth()->user()))->response();
     }
 
@@ -47,6 +48,7 @@ class AuthController extends Controller
         }
 
         $client = auth('client')->user();
+        $client->load([ 'shops', 'promoCodes' ]);
         $client->access_token = $token;
 
         return (new ClientResource($client))->response();
@@ -68,6 +70,7 @@ class AuthController extends Controller
         $inviteCode = $request->input('invite_code', null);
 
         $client = ClientRepository::create($shop, $firstName, $lastName, $password, $phone, true);
+        $client->load([ 'shops', 'promoCodes' ]);
         ClientRegistered::dispatch($client, $inviteCode);
 
         $token = auth('client')->login($client);

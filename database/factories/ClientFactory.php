@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Shop;
 use App\Models\Client;
 
+use App\Repositories\ClientRepository;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -31,13 +33,23 @@ class ClientFactory extends Factory
             'email'       => $this->faker->email,
             'phone'       => $this->faker->phoneNumber,
 
-            'shop_id' => 1,
-
             'last_login_at'      => null,
             'is_phone_confirmed' => rand(0, 1),
 
             'created_at' => time(),
             'updated_at' => time()
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Client $client) {
+            ClientRepository::init($client);
+        });
     }
 }

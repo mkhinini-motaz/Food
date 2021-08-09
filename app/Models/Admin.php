@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Authenticatable;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -46,10 +47,10 @@ class Admin extends Authenticatable
     ];
 
     /**
-     * @return HasMany
+     * @return MorphMany
      */
     public function promoCodes()
     {
-        return $this->hasMany(PromoCode::class)->get();
+        return $this->morphMany(PromoCode::class, 'creator');
     }
 }
