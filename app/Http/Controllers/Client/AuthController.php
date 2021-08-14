@@ -33,15 +33,13 @@ class AuthController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function login($shopId, Request $request)
+    public function login(Request $request)
     {
-        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
         $request->validate([ 'phone' => 'required', 'password' => 'required' ]);
 
         $phone       = preg_replace('#\s#', '', $request->get('phone'));
-        $shop_id     = $shop->id;
         $password    = $request->get('password');
-        $credentials = compact('phone', 'password', 'shop_id');
+        $credentials = compact('phone', 'password');
 
         if (! $token = auth('client')->attempt($credentials)) {
             return response()->json([ 'status' => 'error', 'message' => 'Unauthorized' ], 401);

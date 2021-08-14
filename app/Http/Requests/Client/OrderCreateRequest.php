@@ -27,7 +27,8 @@ class OrderCreateRequest extends FormRequest
     public function rules()
     {
         /** @var Shop $shop */
-        $shop = request()->get('shop');
+        $shop = Shop::isApproved()->findOrFail(request()->route('shopId'));
+        $this->request->set('shop', $shop);
         $deliveryLatitude  = request()->input('delivery_latitude');
 
         // TODO: max products count
