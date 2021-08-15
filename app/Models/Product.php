@@ -39,15 +39,15 @@ use Spatie\Translatable\HasTranslations;
  * @property Category   category
  * @property Shop       shop
  * @property Collection orders
- * @property Collection ingredientCategories
+ * @property Collection optionGroups
  */
 class Product extends Model
 {
     use SoftDeletes, HasFactory, HasTranslations;
 
-    const TYPE_FIXED            = 1;
-    const TYPE_WITH_INGREDIENTS = 2;
-    const TYPES = [ self::TYPE_FIXED, self::TYPE_WITH_INGREDIENTS ];
+    const TYPE_FIXED        = 1;
+    const TYPE_WITH_OPTIONS = 2;
+    const TYPES             = [ self::TYPE_FIXED, self::TYPE_WITH_OPTIONS, ];
 
     protected $dateFormat = 'U';
 
@@ -80,10 +80,10 @@ class Product extends Model
     /**
      * @return BelongsToMany
      */
-    public function ingredientCategories()
+    public function optionGroups()
     {
-        return $this->belongsToMany(IngredientCategory::class)
-            ->withPivot([ 'min_ingredients', 'max_ingredients', 'order', 'ingredients_are_quantifiable', 'ingredients_are_billable' ])
-            ->orderBy('ingredient_category_product.order');
+        return $this->belongsToMany(OptionGroup::class)
+            ->withPivot([ 'min_options', 'max_options', 'order', 'options_are_quantifiable', 'options_are_billable' ])
+            ->orderBy('option_group_product.order');
     }
 }

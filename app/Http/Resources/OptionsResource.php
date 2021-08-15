@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IngredientsResource extends JsonResource
+class OptionsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,21 +22,21 @@ class IngredientsResource extends JsonResource
             'quantity'               => $this->quantity,
             'description'            => $this->getTranslations('description'),
 
-            'ingredient_category_id'  => $this->whenPivotLoaded(
-                'ingredient_ingredient_category',
-                function() { return $this->pivot->ingredient_category_id; }
+            'option_group_id'  => $this->whenPivotLoaded(
+                'option_option_group',
+                function() { return $this->pivot->option_group_id; }
             ),
             'order'  => $this->whenPivotLoaded(
-                'ingredient_ingredient_category',
+                'option_option_group',
                 function() { return $this->pivot->order; }
             ),
             'price'  => $this->whenPivotLoaded(
-                'ingredient_ingredient_category',
+                'option_option_group',
                 function() { return $this->pivot->price; }
             ),
-            'is_by_default_selected'  => $this->whenPivotLoaded(
-                'ingredient_ingredient_category',
-                function() { return $this->pivot->is_by_default_selected; }
+            'is_selected_by_default'  => $this->whenPivotLoaded(
+                'option_option_group',
+                function() { return $this->pivot->is_selected_by_default; }
             ),
         ];
     }

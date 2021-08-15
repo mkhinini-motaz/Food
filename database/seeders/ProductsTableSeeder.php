@@ -50,7 +50,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_simple.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 3,
         ]);
@@ -72,7 +72,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_brochette.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 5,
         ]);
@@ -94,7 +94,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_mixt.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 5,
         ]);
@@ -116,7 +116,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_ghost.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 8,
         ]);
@@ -147,7 +147,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/tacos_s.jpg',
             'category_id' => $categoryTacosId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 2,
         ]);
@@ -169,7 +169,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/tacos_m.jpg',
             'category_id' => $categoryTacosId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 3,
         ]);
@@ -191,7 +191,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/tacos_l.jpg',
             'category_id' => $categoryTacosId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 5,
         ]);
@@ -215,7 +215,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_pane.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -230,7 +230,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_grille.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -245,7 +245,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_citron.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -260,7 +260,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/escalope_sauce_champignon.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -275,7 +275,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/plat_cordon_bleu.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -290,7 +290,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/brochette_viande.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -305,7 +305,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/brochette_escalope.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -320,7 +320,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/viande_grille.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -335,7 +335,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/grillade_mix.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -366,7 +366,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/beignet_crevette.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -381,7 +381,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/calamar_dore.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -397,7 +397,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/plat_fruit_mer.jpg',
             'category_id' => $categoryPlatsId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'is_visible' => 0,
             'order' => $order++,
             'added_loyalty_points' => 0,
@@ -422,7 +422,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_escalope.png',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -437,7 +437,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_thon.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -452,7 +452,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_jambon.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -467,7 +467,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -482,7 +482,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_brochette.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -498,7 +498,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/sandwich_crevette.jpg',
             'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
      ]);
@@ -523,7 +523,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/ma9loub_escalope.jpg',
             'category_id' => $categoryMakloubId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -538,7 +538,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/makloub_thon.jpg',
             'category_id' => $categoryMakloubId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -553,7 +553,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/makloub_jambon.jpg',
             'category_id' => $categoryMakloubId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -568,7 +568,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/makloub_nugget.jpg',
             'category_id' => $categoryMakloubId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -583,7 +583,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/makloub_brochette.png',
             'category_id' => $categoryMakloubId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
         ]);
@@ -607,7 +607,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/pizza_4gout.jpg',
             'category_id' => $pizzaId,
-            'type' => Product::TYPE_WITH_INGREDIENTS,
+            'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
             'added_loyalty_points' => 0,
       ]);

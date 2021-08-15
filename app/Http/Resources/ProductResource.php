@@ -28,7 +28,7 @@ class ProductResource extends JsonResource
             'category_id' => $this->category_id,
             'added_loyalty_points' => $this->added_loyalty_points,
 
-            'ingredient_categories' => IngredientCategoriesResource::collection($this->whenLoaded('ingredientCategories')),
+            'option_groups' => OptionGroupsResource::collection($this->whenLoaded('optionGroups')),
             'product_count' => $this->whenPivotLoaded('order_product', function() {
                 return $this->pivot->product_count;
             }),

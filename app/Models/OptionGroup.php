@@ -27,9 +27,9 @@ use Spatie\Translatable\HasTranslations;
  *
  * @property \stdClass  pivot
  * @property Collection products
- * @property Collection ingredients
+ * @property Collection options
  */
-class IngredientCategory extends Model
+class OptionGroup extends Model
 {
     use HasFactory, HasTranslations;
 
@@ -48,11 +48,11 @@ class IngredientCategory extends Model
     /**
      * @return BelongsToMany
      */
-    public function ingredients()
+    public function options()
     {
-        return $this->belongsToMany(Ingredient::class)
-            ->withPivot([ 'is_by_default_selected', 'price', 'order', ])
-            ->orderBy('ingredient_ingredient_category.order');
+        return $this->belongsToMany(Option::class)
+            ->withPivot([ 'is_selected_by_default', 'price', 'order', ])
+            ->orderBy('option_option_group.order');
     }
 
     /**
@@ -64,27 +64,27 @@ class IngredientCategory extends Model
     }
 
     /**
-     * @param Ingredient $ingredient
-     * @param array      $fields
+     * @param Option $option
+     * @param array  $fields
      */
-    public function attachChoicesForIngredient(Ingredient $ingredient, $fields)
+    public function attachChoicesForOption(Option $option, $fields)
     {
-        if ($this->pivot->ingredients_are_quantifiable) {
-            $ingredient->quantity = $fields['quantity'];
+        if ($this->pivot->options_are_quantifiable) {
+            $option->quantity = $fields['quantity'];
         }
     }
 
     /**
      * @return array
      */
-    public function ingredientsValidationRules()
+    public function optionsValidationRules()
     {
         $pivot = $this->pivot;
         return [
-            'min_ingredients'              => $pivot->min_ingredients,
-            'max_ingredients'              => $pivot->max_ingredients,
-            'ingredients_are_billable'     => $pivot->ingredients_are_billable,
-            'ingredients_are_quantifiable' => $pivot->ingredients_are_quantifiable,
+            'min_options'              => $pivot->min_options,
+            'max_options'              => $pivot->max_options,
+            'options_are_billable'     => $pivot->options_are_billable,
+            'options_are_quantifiable' => $pivot->options_are_quantifiable,
         ];
     }
 }

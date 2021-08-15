@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIngredientCategoriesTable extends Migration
+class CreateOptionGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateIngredientCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ingredient_categories', function (Blueprint $table) {
+        Schema::create('option_groups', function (Blueprint $table) {
             $table->id();
 
             $table->string('name', 3000);
@@ -41,6 +41,6 @@ class CreateIngredientCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingredient_categories');
+        Schema::dropIfExists('option_groups');
     }
 }

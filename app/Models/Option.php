@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Spatie\Translatable\HasTranslations;
 
 /**
- * Class Ingredient
+ * Class Option
  * @package App\Models
  *
  * @property int    id
@@ -22,16 +22,16 @@ use Spatie\Translatable\HasTranslations;
  * @property int    price
  * @property bool   is_visible
  *
- * @property int ingredient_category_id
+ * @property int option_group_id
  *
  * @property int created_at
  * @property int updated_at
  * @property int deleted_at
  *
- * @property IngredientCategory ingredientCategory
- * @property Collection         orders
+ * @property Shop       shop
+ * @property Collection orders
  */
-class Ingredient extends Model
+class Option extends Model
 {
     use HasFactory, HasTranslations;
 
@@ -41,19 +41,11 @@ class Ingredient extends Model
     public $translatable = [ 'name', 'description' ];
 
     /**
-     * @return BelongsTo
-     */
-    public function ingredientCategory()
-    {
-        return $this->belongsTo(IngredientCategory::class);
-    }
-
-    /**
      * @return HasOneThrough
      */
     public function shop()
     {
-        return $this->hasOneThrough(Shop::class, IngredientCategory::class, 'id', 'id', 'ingredient_category_id', 'shop_id');
+        return $this->hasOneThrough(Shop::class, OptionGroup::class, 'id', 'id', 'option_group_id', 'shop_id');
     }
 
     /**

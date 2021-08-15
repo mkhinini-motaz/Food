@@ -32,12 +32,12 @@ class OrderRepository
     public static function attachChoicesToOrders($orders)
     {
         $ordersIds = $orders->pluck('id');
-        $choices = IngredientOrderProductRepository::ingredientChoicesForOrders($ordersIds);
+        $choices = OptionOrderProductRepository::optionChoicesForOrders($ordersIds);
 
         foreach ($orders as $order) {
             foreach ($order->products as $product) {
                 $productChoices = $choices[$product->pivot->id] ?? [];
-                ProductRepository::attachIngredientChoicesToProduct($product, $productChoices);
+                ProductRepository::attachOptionChoicesToProduct($product, $productChoices);
             }
         }
 

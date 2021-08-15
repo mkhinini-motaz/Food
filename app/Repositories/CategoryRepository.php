@@ -72,7 +72,7 @@ class CategoryRepository
     public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $onlyVisible = true)
     {
         $products = $this->category->products()
-            ->with('ingredientCategories.ingredients');
+            ->with('optionGroups.options');
 
         if ($onlyVisible) {
             $products->where('is_visible', '=', 1);

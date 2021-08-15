@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 use App\Exceptions\OrderException;
 use App\Models\Client;
-use App\Models\Ingredient;
-use App\Models\IngredientCategory;
+use App\Models\Option;
+use App\Models\OptionGroup;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\PromoCode;
@@ -68,7 +68,7 @@ class ShopOrderRepository
 
         $order->save();
         $this->saveProductsForOrder($order, $products);
-        $this->saveIngredientsForOrder($order, $products);
+        $this->saveOptionsForOrder($order, $products);
 
         return $order;
     }
@@ -92,13 +92,13 @@ class ShopOrderRepository
                 throw new OrderException('product:not_found');
             }
 
-            $ingredientsInput = $product['ingredients'] ?? null;
-            if ($productFromDb->type !== Product::TYPE_WITH_INGREDIENTS || ! $ingredientsInput) {
+            $optionsInput = $product['options'] ?? null;
+            if ($productFromDb->type !== Product::TYPE_WITH_OPTIONS || ! $optionsInput) {
                 continue;
             }
 
-            $ingredientsPrice = $this->validateAndCalculatePriceForProductIngredients($productFromDb, $ingredientsInput);
-            $totalPrice += $productFromDb->price + $ingredientsPrice;
+            $optionsPrice = $this->validateAndCalculatePriceForProductOptions($productFromDb, $optionsInput);
+            $totalPrice += $productFromDb->price + $optionsPrice;
         }
 
         return $totalPrice;
@@ -106,33 +106,33 @@ class ShopOrderRepository
 
     /**
      * @param Product $product
-     * @param array   $ingredientsInput
+     * @param array   $optionsInput
      *
      * @return int
      * @throws OrderException
      */
-    public function validateAndCalculatePriceForProductIngredients(Product $product, $ingredientsInput)
+    public function validateAndCalculatePriceForProductOptions(Product $product, $optionsInput)
     {
-        [ $ingredientCategoryCheck, $ingredientsFromDb, $ingredientCategoryRules ] = $this->prepareIngredientCategoriesForValidation($product);
+        [ $optionGroupCheck, $optionsFromDb, $optionGroupRules ] = $this->prepareOptionGroupsForValidation($product);
 
-        $ingredientsAddedPrice   = 0;
-        foreach ($ingredientsInput as $ingredient) {
-            /** @var Ingredient $ingredientFromDb */
-            $ingredientFromDb     = $ingredientsFromDb[$ingredient['id']];
-            $ingredientCategoryId = $ingredientFromDb->ingredient_category_id;
+        $optionsAddedPrice   = 0;
+        foreach ($optionsInput as $option) {
+            /** @var Option $optionFromDb */
+            $optionFromDb = $optionsFromDb[$option['id']];
+            $optionGroupId    = $optionFromDb->option_group_id;
 
-            if (! isset($ingredientFromDb)) {
-                throw new OrderException('ingredient:not_found');
+            if (! isset($optionFromDb)) {
+                throw new OrderException('option:not_found');
             }
-            if ($ingredientCategoryCheck[$ingredientCategoryId]['ingredients_count'] > $ingredientCategoryRules[$ingredientCategoryId]['max_ingredients']) {
-                throw new OrderException('ingredient_category:max_ingredients');
+            if ($optionGroupCheck[$optionGroupId]['options_count'] > $optionGroupRules[$optionGroupId]['max_options']) {
+                throw new OrderException('option_group:max_options');
             }
 
-            $ingredientsAddedPrice += $ingredientFromDb->price;
-            $ingredientCategoryCheck[$ingredientCategoryId]['ingredients_count']++;
+            $optionsAddedPrice += $optionFromDb->price;
+            $optionGroupCheck[$optionGroupId]['options_count']++;
         }
 
-        return $ingredientsAddedPrice;
+        return $optionsAddedPrice;
     }
 
     /**
@@ -148,7 +148,7 @@ class ShopOrderRepository
         }
 
         return $this->shop->products()
-            ->with('ingredientCategories.ingredients')
+            ->with('optionGroups.options')
             ->whereIn('products.id', $productsIds)
             ->get();
     }
@@ -161,29 +161,28 @@ class ShopOrderRepository
      */
     public function deliveryCost($latitude, $longitude)
     {
-
         return 2000; // TODO: implement
     }
 
     /**
      * @param Product $product
      *
-     * @return array
+     * @return array [ 0 => $optionGroupCheck, 1 => $optionsFromDb, 2 => $optionGroupRules ]
      */
-    private function prepareIngredientCategoriesForValidation(Product $product)
+    private function prepareOptionGroupsForValidation(Product $product)
     {
-        $ingredientsFromDb       = [];
-        $ingredientCategoryCheck = [];
-        $ingredientCategoryRules = [];
+        $optionsFromDb    = [];
+        $optionGroupCheck = [];
+        $optionGroupRules = [];
 
-        /** @var IngredientCategory $ingredientCategory */
-        foreach ($product->ingredientCategories as $ingredientCategory) {
-            $ingredientCategoryCheck[$ingredientCategory->id] = [ 'ingredients_count' => 0 ];
-            $ingredientCategoryRules[$ingredientCategory->id] = $ingredientCategory->ingredientsValidationRules();
-            $ingredientsFromDb += $ingredientCategory->ingredients->keyBy('id')->all();
+        /** @var OptionGroup $optionGroup */
+        foreach ($product->optionGroups as $optionGroup) {
+            $optionGroupCheck[$optionGroup->id] = [ 'options_count' => 0 ];
+            $optionGroupRules[$optionGroup->id] = $optionGroup->optionsValidationRules();
+            $optionsFromDb += $optionGroup->options->keyBy('id')->all();
         }
 
-        return [ $ingredientCategoryCheck, $ingredientsFromDb, $ingredientCategoryRules ];
+        return [ $optionGroupCheck, $optionsFromDb, $optionGroupRules ];
     }
 
     /**
@@ -208,36 +207,36 @@ class ShopOrderRepository
      * @param Order $order
      * @param array $productsInput
      */
-    private function saveIngredientsForOrder(Order $order, $productsInput)
+    private function saveOptionsForOrder(Order $order, $productsInput)
     {
         $orderProducts = $order->products()->get();
         /** @var Product $product */
-        $ingredientsRelationshipInfos = [];
+        $optionsRelationshipInfos = [];
         foreach ($orderProducts as $index => $product) {
-            if ($product->type !== Product::TYPE_WITH_INGREDIENTS || ! $productsInput[$index]['ingredients']) {
+            if ($product->type !== Product::TYPE_WITH_OPTIONS || ! $productsInput[$index]['options']) {
                 continue;
             }
 
             $orderProductId = $product->pivot->id;
-            foreach ($productsInput[$index]['ingredients'] as $ingredient) {
-                $ingredientsRelationshipInfos[] = $this->ingredientRelationshipInfoFromInput($ingredient, $orderProductId);
+            foreach ($productsInput[$index]['options'] as $option) {
+                $optionsRelationshipInfos[] = $this->optionRelationshipInfoFromInput($option, $orderProductId);
             }
         }
 
-        \DB::table('ingredient_order_product')->insert($ingredientsRelationshipInfos);
+        \DB::table('option_order_product')->insert($optionsRelationshipInfos);
     }
 
     /**
-     * @param array $ingredientInput
+     * @param array $optionInput
      * @param int   $orderProductId
      *
      * @return array
      */
-    private function ingredientRelationshipInfoFromInput($ingredientInput, $orderProductId)
+    private function optionRelationshipInfoFromInput($optionInput, $orderProductId)
     {
         return [
-            'quantity'         => $ingredientInput['quantity'] ?? 0,
-            'ingredient_id'    => $ingredientInput['id'],
+            'quantity'         => $optionInput['quantity'] ?? 0,
+            'option_id'    => $optionInput['id'],
             'order_product_id' => $orderProductId,
         ];
     }

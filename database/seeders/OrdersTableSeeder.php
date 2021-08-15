@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Ingredient;
+use App\Models\Option;
 use App\Models\Order;
 
 use App\Models\Product;
@@ -31,46 +31,46 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $products = $order->products()->get();
-        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
-        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
-        $ingredientSalad3Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon sauté'")->first()->id;
-        $ingredientHarissaId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
-        $ingredientMayonnaiseId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
-        $ingredientFritesId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
+        $optionSalad1Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
+        $optionSalad2Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
+        $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon sauté'")->first()->id;
+        $optionHarissaId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
+        $optionMayonnaiseId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
+        $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
         foreach ($products as $product) {
-            if ($product->type !== Product::TYPE_WITH_INGREDIENTS) {
+            if ($product->type !== Product::TYPE_WITH_OPTIONS) {
                 continue;
             }
 
             $relationId = $product->pivot->id;
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad1Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad1Id,
                 'order_product_id' => $relationId,
                 'quantity' => 1,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad2Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad2Id,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad3Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad3Id,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientHarissaId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionHarissaId,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientMayonnaiseId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionMayonnaiseId,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientFritesId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionFritesId,
                 'order_product_id' => $relationId,
             ]);
         }
@@ -89,40 +89,40 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $products = $order->products()->get();
-        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
-        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
-        $ingredientSalad3Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
-        $ingredientHarissaId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
-        $ingredientFritesId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
+        $optionSalad1Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
+        $optionSalad2Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
+        $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
+        $optionHarissaId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
+        $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
         foreach ($products as $product) {
-            if ($product->type !== Product::TYPE_WITH_INGREDIENTS) {
+            if ($product->type !== Product::TYPE_WITH_OPTIONS) {
                 continue;
             }
 
             $relationId = $product->pivot->id;
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad1Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad1Id,
                 'order_product_id' => $relationId,
                 'quantity' => 1,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad2Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad2Id,
                 'order_product_id' => $relationId,
                 'quantity' => 1,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad3Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad3Id,
                 'order_product_id' => $relationId,
                 'quantity' => 1,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientHarissaId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionHarissaId,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientFritesId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionFritesId,
                 'order_product_id' => $relationId,
             ]);
         }
@@ -143,46 +143,46 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         $products = $order->products()->get();
-        $ingredientSalad1Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
-        $ingredientSalad2Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
-        $ingredientSalad3Id = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
-        $ingredientHarissaId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
-        $ingredientMayonnaiseId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
-        $ingredientFritesId = Ingredient::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
+        $optionSalad1Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
+        $optionSalad2Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
+        $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
+        $optionHarissaId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
+        $optionMayonnaiseId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
+        $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
         foreach ($products as $product) {
-            if ($product->type !== Product::TYPE_WITH_INGREDIENTS) {
+            if ($product->type !== Product::TYPE_WITH_OPTIONS) {
                 continue;
             }
 
             $relationId = $product->pivot->id;
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad1Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad1Id,
                 'order_product_id' => $relationId,
                 'quantity' => 1,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad2Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad2Id,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientSalad3Id,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionSalad3Id,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientHarissaId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionHarissaId,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientMayonnaiseId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionMayonnaiseId,
                 'order_product_id' => $relationId,
                 'quantity' => 3,
             ]);
-            \DB::table('ingredient_order_product')->insert([
-                'ingredient_id'    => $ingredientFritesId,
+            \DB::table('option_order_product')->insert([
+                'option_id'    => $optionFritesId,
                 'order_product_id' => $relationId,
             ]);
         }

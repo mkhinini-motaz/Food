@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Client;
-use App\Models\IngredientCategory;
+use App\Models\OptionGroup;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shop;

@@ -48,9 +48,9 @@ class OrderCreateRequest extends FormRequest
             'products.*.product_id'     => [ 'required', 'integer' ],
             'products.*.product_count'  => [ 'required', 'integer' ],
 
-            'products.*.ingredients'            => [ 'array' ],
-            'products.*.ingredients.*.id'       => [ 'required', 'integer' ],
-            'products.*.ingredients.*.quantity' => [ function($attribute, $value, $fail) {
+            'products.*.options'            => [ 'array' ],
+            'products.*.options.*.id'       => [ 'required', 'integer' ],
+            'products.*.options.*.quantity' => [ function($attribute, $value, $fail) {
                 if (! is_numeric($value) && $value !== null) {
                     $fail($attribute . '.integer_or_null');
                 }

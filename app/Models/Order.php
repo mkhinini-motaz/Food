@@ -134,8 +134,8 @@ class Order extends Model
             'client',
             'promoCode',
             'transporter',
-            'products.ingredientCategories' => $orderByOrder,
-            'products.ingredientCategories.ingredients',
+            'products.optionGroups' => $orderByOrder,
+            'products.optionGroups.options',
         ]);
     }
 

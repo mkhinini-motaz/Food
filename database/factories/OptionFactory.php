@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Ingredient;
-use App\Models\IngredientCategory;
+use App\Models\Option;
+use App\Models\OptionGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class IngredientFactory extends Factory
+class OptionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Ingredient::class;
+    protected $model = Option::class;
 
     /**
      * Define the model's default state.
@@ -38,7 +38,7 @@ class IngredientFactory extends Factory
                 'ar'   => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
 
-            'photo' => IngredientCategory::first()->photo,
+            'photo' => OptionGroup::first()->photo,
             'shop_id' => 1,
 
             'is_visible'  => 1,

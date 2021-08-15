@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\IngredientCategory;
+use App\Models\OptionGroup;
 use App\Models\Product;
 
 class ProductRepository
@@ -24,30 +24,30 @@ class ProductRepository
 
     /**
      * @param Product $product
-     * @param array $productChoices from the returned value of IngredientOrderProductRepository::ingredientChoicesForOrders
+     * @param array $productChoices from the returned value of OptionOrderProductRepository::optionChoicesForOrders
      *                              take index order_product_id($product->pivot->id)
      */
-    public static function attachIngredientChoicesToProduct(Product $product, $productChoices)
+    public static function attachOptionChoicesToProduct(Product $product, $productChoices)
     {
-        if ($product->type !== Product::TYPE_WITH_INGREDIENTS) {
+        if ($product->type !== Product::TYPE_WITH_OPTIONS) {
             return;
         }
 
-        /** @var IngredientCategory $ingredientCategory */
-        foreach ($product->ingredientCategories as $ingredientCategoryKey => $ingredientCategory) {
-            $countChosenIngredients = 0;
-            foreach ($ingredientCategory->ingredients as $ingredientKey => $ingredient) {
-                if (! isset($productChoices[$ingredient->id])) {
-                    $ingredientCategory->ingredients->pull($ingredientKey);
+        /** @var OptionGroup $optionGroup */
+        foreach ($product->optionGroups as $optionGroupKey => $optionGroup) {
+            $countChosenOptions = 0;
+            foreach ($optionGroup->options as $optionKey => $option) {
+                if (! isset($productChoices[$option->id])) {
+                    $optionGroup->options->pull($optionKey);
                     continue;
                 }
 
-                $ingredientCategory->attachChoicesForIngredient($ingredient, $productChoices[$ingredient->id]);
-                $countChosenIngredients++;
+                $optionGroup->attachChoicesForOption($option, $productChoices[$option->id]);
+                $countChosenOptions++;
             }
 
-            if (0 === $countChosenIngredients) {
-                $product->ingredientCategories->pull($ingredientCategoryKey);
+            if (0 === $countChosenOptions) {
+                $product->optionGroups->pull($optionGroupKey);
             }
         }
     }
