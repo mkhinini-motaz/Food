@@ -25,7 +25,6 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
 
         Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
             Route::post('/order', [ OrderController::class, 'create' ])->name('create');
-            Route::get('/loyalty-action', [ LoyaltyActionController::class, 'index' ])->name('loyalty-action');
         });
     });
 });
@@ -37,6 +36,7 @@ Route::post('/register', [ AuthController::class, 'register' ])->name('register'
 Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('show');
 
 Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
+    Route::get('/loyalty-action', [ LoyaltyActionController::class, 'index' ])->name('loyalty-action');
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
     Route::post('/profile', [ AuthController::class, 'updateProfile' ])->name('profile.update');
 });
