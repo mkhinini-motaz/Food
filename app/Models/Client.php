@@ -87,15 +87,13 @@ class Client extends Authenticatable
     }
 
     /**
-     * @param int    $shopId
      * @param string $phone
      *
      * @return bool
      */
-    public static function phoneExistsForShop($shopId, $phone)
+    public static function phoneExists($phone)
     {
-        return 1 <= self::where('shop_id', '=', $shopId)
-            ->where('phone', '=', $phone)
+        return 1 <= self::where('phone', '=', $phone)
             ->count();
     }
 }

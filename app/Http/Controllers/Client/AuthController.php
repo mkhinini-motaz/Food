@@ -53,21 +53,18 @@ class AuthController extends Controller
     }
 
     /**
-     * @param int             $shopId
      * @param RegisterRequest $request
      * @return JsonResponse
      */
-    public function register($shopId, RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
-        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
-
         $phone      = $request->input('phone');
         $password   = $request->input('password');
         $lastName   = $request->input('last_name');
         $firstName  = $request->input('first_name');
         $inviteCode = $request->input('invite_code', null);
 
-        $client = ClientRepository::create($shop, $firstName, $lastName, $password, $phone, true);
+        $client = ClientRepository::create($firstName, $lastName, $password, $phone, true);
         $client->load([ 'shops', 'promoCodes' ]);
         ClientRegistered::dispatch($client, $inviteCode);
 

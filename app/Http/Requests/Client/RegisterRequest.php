@@ -25,8 +25,7 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        $shopId = request()->route('shopId');
-        $otp    = $this->request->get('otp');
+        $otp = $this->request->get('otp');
 
         return [
             'first_name'  => 'required|max:190',
@@ -38,8 +37,8 @@ class RegisterRequest extends FormRequest
                 'required',
                 'max:50',
                 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/',
-                function($attribute, $value, $fail) use ($shopId, $otp) {
-                    if (Client::phoneExistsForShop($shopId, $value)) {
+                function($attribute, $value, $fail) use ($otp) {
+                    if (Client::phoneExists($value)) {
                         $fail('phone.unique');
                         return;
                     }

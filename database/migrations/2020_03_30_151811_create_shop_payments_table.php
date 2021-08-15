@@ -18,7 +18,7 @@ class CreateShopPaymentsTable extends Migration
 
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('amount')->comment('In tunisian mellimes');
+            $table->integer('amount');
 
             $table->unsignedBigInteger('shop_id');
 

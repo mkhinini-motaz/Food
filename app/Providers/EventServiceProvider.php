@@ -17,7 +17,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ClientRegistered::class => [
             AttributePointsToRegisteredClient::class,
-            AttributePointsToInviterClient::class, // TODO: remove, user must make his first order to reward the inviter
+//            AttributePointsToInviterClient::class, // TODO: user must make his first order to reward the inviter
         ],
     ];
 

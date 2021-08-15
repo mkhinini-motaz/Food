@@ -23,7 +23,7 @@ class CreateShopsTable extends Migration
             $table->string('logo');
             $table->string('phone');
             $table->smallInteger('pricing_category')->comment('@see App\Model\Shop::PRICING_CATEGORIES');
-            $table->integer('min_order_price')->comment('In tunisian mellimes');
+            $table->integer('min_order_price');
             $table->string('average_ready_minutes', 10)->nullable()->comment('null means immediate');
             $table->unsignedTinyInteger('is_approved')->default(0);
             $table->unsignedTinyInteger('signup_is_open')->default(0);

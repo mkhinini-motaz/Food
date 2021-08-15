@@ -26,7 +26,6 @@ class ClientRepository
     }
 
     /**
-     * @param Shop        $shop
      * @param string      $firstName
      * @param string      $lastName
      * @param string      $password
@@ -36,17 +35,16 @@ class ClientRepository
      *
      * @return Client
      */
-    public static function create(Shop $shop, $firstName, $lastName, $password, $phone, $isPhoneConfirmed = false,  $email = null)
+    public static function create($firstName, $lastName, $password, $phone, $isPhoneConfirmed = false,  $email = null)
     {
         $client = new Client();
 
-        $client->shop_id     = $shop->id;
         $client->email       = $email;
         $client->phone       = $phone;
         $client->password    = bcrypt($password);
         $client->last_name   = $lastName;
         $client->first_name  = $firstName;
-        $client->invite_code = self::generateInviteCode($shop);
+        $client->invite_code = self::generateInviteCode();
         $client->is_phone_confirmed = $isPhoneConfirmed;
 
         $client->save();
@@ -88,16 +86,13 @@ class ClientRepository
     }
 
     /**
-     * @param Shop $shop
-     *
      * @return string
      */
-    public static function generateInviteCode(Shop $shop)
+    private static function generateInviteCode()
     {
         do {
             $inviteCode = Str::random(Client::INVITE_CODE_LENGTH);
-            $inviteCodeExists = 1 <= $shop->clients()
-                    ->where('invite_code', '=', $inviteCode)
+            $inviteCodeExists = 1 <= Client::where('invite_code', '=', $inviteCode)
                     ->count();
         } while ($inviteCodeExists);
 

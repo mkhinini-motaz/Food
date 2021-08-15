@@ -164,18 +164,6 @@ class ShopRepository
     }
 
     /**
-     * @param string $inviteCode
-     *
-     * @return Client|Model|null
-     */
-    public function findClientByInviteCode($inviteCode)
-    {
-        return $this->shop->clients()
-            ->where('invite_code', '=', $inviteCode)
-            ->first();
-    }
-
-    /**
      * @param array $serviceArea
      */
     public function updateServiceArea($serviceArea)

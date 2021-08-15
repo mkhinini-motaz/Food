@@ -14,15 +14,14 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     /**
-     * @param int     $shopId
      * @param Request $request
      *
      * @return JsonResponse
      */
-    public function checkPhone($shopId, Request $request)
+    public function checkPhone(Request $request)
     {
         $phone = $request->input('phone');
 
-        return response()->json([ 'status' => 'success', 'data' => Client::phoneExistsForShop($shopId, $phone) ], 200);
+        return response()->json([ 'status' => 'success', 'data' => Client::phoneExists($phone) ], 200);
     }
 }

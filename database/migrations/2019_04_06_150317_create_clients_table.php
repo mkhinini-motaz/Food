@@ -18,15 +18,13 @@ class CreateClientsTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->nullable(); // TODO: login with either email, phone or facebook
+            $table->string('email')->unique()->nullable(); // TODO: login with either email, phone or facebook
             $table->string('phone', 52)->unique()->nullable();
             // TODO: add Facebook id
             $table->string('password');
             $table->unsignedTinyInteger('is_phone_confirmed')->default(0);
-
             $table->string('invite_code', 50)->nullable();
-
-            $table->unsignedBigInteger('shop_id')->index();
+            $table->mediumInteger('loyalty_points_count')->default(0);
 
             $table->unsignedInteger('last_login_at')->nullable();
             $table->unsignedInteger('created_at');

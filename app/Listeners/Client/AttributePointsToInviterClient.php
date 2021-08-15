@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Client;
 
+use App\Models\Client;
 use App\Events\ClientRegistered;
 use App\Repositories\LoyaltyActionRepository;
 use App\Repositories\ShopRepository;
@@ -31,8 +32,7 @@ class AttributePointsToInviterClient implements ShouldQueue
         $registeredClient = $event->registeredClient;
         $inviteCode       = $event->inviteCode;
 
-        $shopRepository = new ShopRepository($registeredClient->shop);
-        $inviterClient  = $shopRepository->findClientByInviteCode($inviteCode);
+        $inviterClient  = Client::where('invite_code', '=', $inviteCode)->first();
 
         if ($inviterClient) {
             LoyaltyActionRepository::createTypeFriendInvite($inviterClient, $registeredClient);

@@ -265,6 +265,14 @@ class Shop extends Model
     }
 
     /**
+     * @param $query
+     */
+    public static function scopeIsApproved($query)
+    {
+        $query->where('is_approved', '=', self::IS_APPROVED_TRUE);
+    }
+
+    /**
      * @return string
      */
     public static function defaultLoyaltyActionRewardsValue()
