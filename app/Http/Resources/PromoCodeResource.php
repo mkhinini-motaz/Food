@@ -18,6 +18,8 @@ class PromoCodeResource extends JsonResource
         return [
             'code'             => $this->code,
             'reduction_amount' => $this->reduction_amount,
+            'expires_at'       => $this->expires_at,
+            'created_at'       => $this->created_at,
         ];
     }
 }

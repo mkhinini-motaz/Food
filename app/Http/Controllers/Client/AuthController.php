@@ -24,12 +24,15 @@ class AuthController extends Controller
      */
     public function profile(Request $request)
     {
-        auth()->user()->load([ 'shops', 'promoCodes' ]);
-        return (new ClientResource(auth()->user()))->response();
+        /** @var Client $authClient */
+        $authClient = auth()->user();
+        $authClient->load([ 'promoCodes' ]);
+        $authClient->loadShops();
+
+        return (new ClientResource($authClient))->response();
     }
 
     /**
-     * @param int     $shopId
      * @param Request $request
      * @return JsonResponse
      */
@@ -45,8 +48,10 @@ class AuthController extends Controller
             return response()->json([ 'status' => 'error', 'message' => 'Unauthorized' ], 401);
         }
 
+        /** @var Client $client */
         $client = auth('client')->user();
-        $client->load([ 'shops', 'promoCodes' ]);
+        $client->load([ 'promoCodes' ]);
+        $client->loadShops();
         $client->access_token = $token;
 
         return (new ClientResource($client))->response();
@@ -65,7 +70,8 @@ class AuthController extends Controller
         $inviteCode = $request->input('invite_code', null);
 
         $client = ClientRepository::create($firstName, $lastName, $password, $phone, true);
-        $client->load([ 'shops', 'promoCodes' ]);
+        $client->load([ 'promoCodes' ]);
+        $client->loadShops();
         ClientRegistered::dispatch($client, $inviteCode);
 
         $token = auth('client')->login($client);

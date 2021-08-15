@@ -25,8 +25,11 @@ class ClientResource extends JsonResource
             'last_login_at'        => $this->last_login_at,
             'loyalty_points_count' => $this->loyalty_points_count,
 
-            'shops'      => ShopResource::collection($this->whenLoaded('shops')),
             'promoCodes' => PromoCodeResource::collection($this->whenLoaded('promoCodes')),
+
+            $this->mergeWhen($this->shops, function() {
+                return [ 'shops' => $this->shops ];
+            }),
 
             $this->mergeWhen($this->access_token, function() {
                 return [ 'access_token' => $this->access_token ];

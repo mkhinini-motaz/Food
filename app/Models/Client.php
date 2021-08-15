@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int updated_at
  * @property int deleted_at
  *
- * @property Shop       shop
  * @property Collection orders
  * @property Collection loyaltyActions
  */
@@ -62,15 +61,6 @@ class Client extends Authenticatable
     }
 
     /**
-     * @return BelongsToMany
-     */
-    public function shops()
-    {
-        return $this->belongsToMany(Shop::class)
-            ->withPivot([ 'loyalty_points_count' ]);
-    }
-
-    /**
      * @return HasMany
      */
     public function loyaltyActions()
@@ -84,6 +74,14 @@ class Client extends Authenticatable
     public function promoCodes()
     {
         return $this->morphMany(PromoCode::class, 'creator');
+    }
+
+    /**
+     *
+     */
+    public function loadShops()
+    {
+        $this->shops = Shop::isApproved()->get();
     }
 
     /**

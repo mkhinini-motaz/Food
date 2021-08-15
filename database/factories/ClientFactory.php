@@ -40,16 +40,4 @@ class ClientFactory extends Factory
             'updated_at' => time()
         ];
     }
-
-    /**
-     * Configure the model factory.
-     *
-     * @return $this
-     */
-    public function configure()
-    {
-        return $this->afterCreating(function (Client $client) {
-            ClientRepository::init($client);
-        });
-    }
 }
