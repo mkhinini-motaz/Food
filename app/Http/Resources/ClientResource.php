@@ -28,7 +28,7 @@ class ClientResource extends JsonResource
             'promoCodes' => PromoCodeResource::collection($this->whenLoaded('promoCodes')),
 
             $this->mergeWhen($this->shops, function() {
-                return [ 'shops' => $this->shops ];
+                return [ 'shops' => ShopResource::collection($this->shops) ];
             }),
             $this->mergeWhen($this->promoCodeValues, function() {
                 return [ 'promoCodeValues' => PromoCodeShopItemResource::collection($this->promoCodeValues) ];
