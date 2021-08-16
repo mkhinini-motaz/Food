@@ -4,6 +4,7 @@ namespace App\Http\Requests\Client;
 
 use App\Models\Client;
 use App\Models\Shop;
+use App\Models\PromoCode;
 use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,7 +29,7 @@ class OrderCreateRequest extends FormRequest
     {
         /** @var Shop $shop */
         $shop = Shop::isApproved()->findOrFail(request()->route('shopId'));
-        $this->request->set('shop', $shop);
+        $this->attributes->set('shop', $shop);
         $deliveryLatitude  = request()->input('delivery_latitude');
 
         // TODO: max products count
@@ -59,7 +60,7 @@ class OrderCreateRequest extends FormRequest
             'promo_code_id' => [
                 'integer',
                 function($attribute, $value, $fail) use ($shop) {
-                    if ($shop->promoCodeDoesntExistsOrIsNotUsable($value)) {
+                    if (PromoCode::promoCodeDoesntExistsOrIsNotUsable($value)) {
                         $fail('promo_code.exists');
                     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Http\Resources\Resource;
 use App\Http\Controllers\Controller;
 use App\Exceptions\OrderException;
 use App\Models\Order;
@@ -38,6 +39,6 @@ class OrderController extends Controller
 
         // TODO: event order created
 
-        return response()->json([ 'status' => 'success', 'data' => $order ], 200);
+        return Resource::jsonResponse($order);
     }
 }

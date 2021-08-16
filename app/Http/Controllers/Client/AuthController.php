@@ -27,7 +27,7 @@ class AuthController extends Controller
         /** @var Client $authClient */
         $authClient = auth()->user();
         $authClient->load([ 'promoCodes' ]);
-        $authClient->loadShops();
+        $authClient->loadPlatformInfo();
 
         return (new ClientResource($authClient))->response();
     }
@@ -51,7 +51,7 @@ class AuthController extends Controller
         /** @var Client $client */
         $client = auth('client')->user();
         $client->load([ 'promoCodes' ]);
-        $client->loadShops();
+        $client->loadPlatformInfo();
         $client->access_token = $token;
 
         return (new ClientResource($client))->response();
@@ -71,7 +71,7 @@ class AuthController extends Controller
 
         $client = ClientRepository::create($firstName, $lastName, $password, $phone, true);
         $client->load([ 'promoCodes' ]);
-        $client->loadShops();
+        $client->loadPlatformInfo();
         ClientRegistered::dispatch($client, $inviteCode);
 
         $token = auth('client')->login($client);
