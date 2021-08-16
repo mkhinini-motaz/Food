@@ -114,12 +114,11 @@ class ShopOrderRepository
     public function validateAndCalculatePriceForProductOptions(Product $product, $optionsInput)
     {
         [ $optionGroupCheck, $optionsFromDb, $optionGroupRules ] = $this->prepareOptionGroupsForValidation($product);
-
         $optionsAddedPrice   = 0;
         foreach ($optionsInput as $option) {
             /** @var Option $optionFromDb */
-            $optionFromDb = $optionsFromDb[$option['id']];
-            $optionGroupId    = $optionFromDb->option_group_id;
+            $optionFromDb  = $optionsFromDb[$option['id']];
+            $optionGroupId = $optionFromDb->pivot->option_group_id;
 
             if (! isset($optionFromDb)) {
                 throw new OrderException('option:not_found');
