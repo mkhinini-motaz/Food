@@ -110,6 +110,7 @@ class ClientRepository
 
         $promoCode->code             = PromoCode::generateCode();
         $promoCode->creator_id       = $this->client->id;
+        $promoCode->expires_at       = strtotime('00:00 +' . PromoCode::DEFAULT_EXPIRE_AFTER_FOR_CLIENT);
         $promoCode->creator_type     = Client::class;
         $promoCode->reduction_amount = $promoCodeShopItem->reduction_amount;
 

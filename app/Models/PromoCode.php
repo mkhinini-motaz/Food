@@ -32,8 +32,10 @@ class PromoCode extends Model
 {
     use HasFactory;
 
-    const DEFAULT_LENGTH = 10;
-    // TODO: ask, promocode.type pourcentage discount instead of money amount
+    // TODO: types ??
+
+    const DEFAULT_LENGTH                  = 10;
+    const DEFAULT_EXPIRE_AFTER_FOR_CLIENT = '2 months';
 
     protected $dateFormat = 'U';
 
