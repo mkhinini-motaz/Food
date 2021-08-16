@@ -20,6 +20,7 @@ class ClientsTableSeeder extends Seeder
             'email' => 'client@test.com',
             'password' => bcrypt('azerty'),
             'is_phone_confirmed' => 1,
+            'loyalty_points_count' => 10000,
         ]);
 
         Client::factory()->create([
