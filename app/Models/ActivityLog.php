@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use function App\Support\Helpers\firstNameLastNameLike;
-
+use Closure;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class ActivityLog
@@ -32,6 +30,7 @@ class ActivityLog extends Activity
 {
     protected $dateFormat = 'U';
 
+    const DESCRIPTION_SHOW          = 'show';
     const DESCRIPTION_CREATED       = 'created';
     const DESCRIPTION_UPDATED       = 'updated';
     const DESCRIPTION_DELETED       = 'deleted';
@@ -40,6 +39,7 @@ class ActivityLog extends Activity
     // WARNING: when adding a new value, consider translating in front
     const DESCRIPTION_PRODUCT_MAKE_VISIBLE    = 'product-make-visible';
     const DESCRIPTION_PRODUCT_MAKE_INVISIBLE  = 'product-make-invisible';
+
     const DESCRIPTION_CATEGORY_MAKE_VISIBLE   = 'category-make-visible';
     const DESCRIPTION_CATEGORY_MAKE_INVISIBLE = 'category-make-invisible';
 
@@ -49,5 +49,17 @@ class ActivityLog extends Activity
     public function shop()
     {
         return $this->belongsTo(Shop::class);
+    }
+
+    /**
+     * @param $shopId
+     *
+     * @return Closure
+     */
+    public static function tapShopId($shopId)
+    {
+        return function(ActivityLog $activityLog) use ($shopId) {
+            $activityLog->shop_id = $shopId;
+        };
     }
 }

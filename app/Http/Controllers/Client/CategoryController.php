@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Resources\Resource;
-use App\Http\Resources\ResourceCollection;
+use App\Models\ActivityLog;
 use App\Models\Category;
 use App\Models\Shop;
+use App\Http\Resources\ResourceCollection;
 use App\Repositories\CategoryRepository;
 use App\Http\Controllers\Controller;
 
@@ -23,16 +23,22 @@ class CategoryController extends Controller
     public function product($categoryId, Request $request)
     {
         // TODO: get from shop
+        /** @var Category $category */
         $category = Category::where('is_visible', '=', 1)->findOrFail($categoryId);
         $categoryRepository = new CategoryRepository($category);
 
-        $page = $request->input('page', 1);
+        $page    = $request->input('page', 1);
+        $search  = $request->input('search', null);
         $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
-        $search = $request->input('search', null);
 
         $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection);
+
+        activity()->performedOn($category)
+            ->causedBy(auth()->user())
+            ->tap(ActivityLog::tapShopId($category->shop_id))
+            ->log(ActivityLog::DESCRIPTION_SHOW);
 
         return ResourceCollection::jsonResponse($products);
     }
