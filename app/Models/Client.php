@@ -79,9 +79,10 @@ class Client extends Authenticatable
     /**
      *
      */
-    public function loadShops()
+    public function loadPlatformInfo()
     {
         $this->shops = Shop::isApproved()->get();
+        $this->promoCodeValues = PromoCodeShopItem::where('currency', '=', 'TND')->get();
     }
 
     /**
