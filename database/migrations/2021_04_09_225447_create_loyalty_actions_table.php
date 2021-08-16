@@ -18,7 +18,7 @@ class CreateLoyaltyActionsTable extends Migration
 
             $table->unsignedTinyInteger('type');
             $table->mediumInteger('points_rewarded');
-            $table->text('meta')->nullable();
+            $table->text('meta')->default('{}');
 
             $table->unsignedBigInteger('client_id')->comment('The client receiving the points');
             $table->unsignedBigInteger('shop_id')->nullable();

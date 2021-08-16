@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Client;
 use App\Models\LoyaltyAction;
+use App\Models\PromoCodeShopItem;
 
 class LoyaltyActionRepository
 {
@@ -56,6 +57,28 @@ class LoyaltyActionRepository
         $loyaltyAction->save();
 
         self::updateClientLoyaltyPointsCount($inviterClient, $loyaltyAction);
+
+        return $loyaltyAction;
+    }
+
+    /**
+     * @param Client            $client
+     * @param PromoCodeShopItem $promoCodeShopItem
+     *
+     * @return LoyaltyAction
+     */
+    public static function createTypePromoCodeBought(Client $client, PromoCodeShopItem $promoCodeShopItem)
+    {
+
+        $loyaltyAction = new LoyaltyAction();
+
+        $loyaltyAction->type            = LoyaltyAction::TYPE_FRIEND_INVITE;
+        $loyaltyAction->client_id       = $client->id;
+        $loyaltyAction->points_rewarded = -$promoCodeShopItem->points;
+
+        $loyaltyAction->save();
+
+        self::updateClientLoyaltyPointsCount($client, $loyaltyAction);
 
         return $loyaltyAction;
     }

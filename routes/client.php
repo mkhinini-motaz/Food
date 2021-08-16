@@ -39,4 +39,6 @@ Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], functio
     Route::get('/loyalty-action', [ LoyaltyActionController::class, 'index' ])->name('loyalty-action');
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
     Route::post('/profile', [ AuthController::class, 'updateProfile' ])->name('profile.update');
+
+    Route::post('/promo-code', [ PromoCodeController::class, 'create' ])->name('promo-code.create');
 });

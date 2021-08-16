@@ -98,4 +98,24 @@ class ClientRepository
             ->orderBy($orderBy, $orderDirection)
             ->paginate($perPage, [ '*' ], 'page', $page);
     }
+
+    /**
+     * @param PromoCodeShopItem $promoCodeShopItem
+     *
+     * @return PromoCode
+     */
+    public function createPromoCode(PromoCodeShopItem $promoCodeShopItem)
+    {
+        $promoCode = new PromoCode();
+
+        $promoCode->code             = PromoCode::generateCode();
+        $promoCode->creator_id       = $this->client->id;
+        $promoCode->creator_type     = Client::class;
+        $promoCode->reduction_amount = $promoCodeShopItem->reduction_amount;
+
+        $promoCode->save();
+
+        LoyaltyActionRepository::createTypePromoCodeBought($this->client, $promoCodeShopItem);
+        return $promoCode;
+    }
 }

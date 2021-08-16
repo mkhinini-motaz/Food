@@ -23,16 +23,10 @@ class CreatePromoCodesTable extends Migration
 
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->string('creator_type')->nullable();
-            $table->unsignedBigInteger('shop_id')->comment('shop where the promo code can be used');
 
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
-
-            $table->foreign('shop_id')
-                ->onDelete('cascade')
-                ->references('id')
-                ->on('shops');
         });
 
         Schema::table('promo_codes', function (Blueprint $table) {
