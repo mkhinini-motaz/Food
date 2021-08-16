@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property bool   signup_is_open
  * @property array  service_area
  * @property string domain
- * @property string loyalty_action_rewards
+ * @property array  loyalty_action_rewards
  * @property string ga_tracking_id
  * @property string primary_color
  * @property string secondary_color
@@ -72,7 +72,6 @@ class Shop extends Model
     protected $dateFormat = 'U';
     protected $casts = [
         'loyalty_action_rewards' => Json::class,
-        'promo_code_shop_items'  => Json::class,
         'service_area'           => 'array',
     ];
 
@@ -136,16 +135,6 @@ class Shop extends Model
     /**
      * @return HasMany
      */
-    public function usablePromoCodes()
-    {
-        return $this->promoCodes()
-            ->withCount('orders')
-            ->where('expires_at', '>', time());
-    }
-
-    /**
-     * @return HasMany
-     */
     public function locations()
     {
         return $this->hasMany(Location::class);
@@ -190,29 +179,6 @@ class Shop extends Model
     public function locationNotWithinServiceArea($latitude, $longitude)
     {
         return ! $this->locationWithinServiceArea($latitude, $longitude);
-    }
-
-    /**
-     * @param int $promoCodeId
-     *
-     * @return bool
-     */
-    public function promoCodeExistsAndIsUsable($promoCodeId)
-    {
-        /** @var PromoCode $promoCode */
-        $promoCode = $this->usablePromoCodes()->find($promoCodeId);
-
-        return isset($promoCode) && $promoCode->max_usage_count > $promoCode->orders_count;
-    }
-
-    /**
-     * @param int $promoCodeId
-     *
-     * @return bool
-     */
-    public function promoCodeDoesntExistsOrIsNotUsable($promoCodeId)
-    {
-        return ! $this->promoCodeExistsAndIsUsable($promoCodeId);
     }
 
     /**

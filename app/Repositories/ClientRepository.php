@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Client;
-use App\Models\Shop;
 
+use App\Models\PromoCode;
+use App\Models\PromoCodeShopItem;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 
 class ClientRepository
 {
@@ -44,7 +44,7 @@ class ClientRepository
         $client->password    = bcrypt($password);
         $client->last_name   = $lastName;
         $client->first_name  = $firstName;
-        $client->invite_code = self::generateInviteCode();
+        $client->invite_code = Client::generateInviteCode();
         $client->is_phone_confirmed = $isPhoneConfirmed;
 
         $client->save();
@@ -82,20 +82,6 @@ class ClientRepository
         }
 
         $this->client->save();
-    }
-
-    /**
-     * @return string
-     */
-    private static function generateInviteCode()
-    {
-        do {
-            $inviteCode = Str::random(Client::INVITE_CODE_LENGTH);
-            $inviteCodeExists = 1 <= Client::where('invite_code', '=', $inviteCode)
-                    ->count();
-        } while ($inviteCodeExists);
-
-        return $inviteCode;
     }
 
     /**

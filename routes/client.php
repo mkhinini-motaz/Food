@@ -33,7 +33,7 @@ Route::post('/login', [ AuthController::class, 'login' ])->name('login');
 Route::post('/phone', [ ClientController::class, 'checkPhone' ])->name('checkPhone');
 Route::post('/register', [ AuthController::class, 'register' ])->name('register');
 
-Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('show');
+Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('promo-code.show');
 
 Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
     Route::get('/loyalty-action', [ LoyaltyActionController::class, 'index' ])->name('loyalty-action');

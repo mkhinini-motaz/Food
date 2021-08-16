@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\Json;
 use App\Support\Model;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int    type
  * @property int    points_rewarded
  * @property int    client_id
- * @property string meta
+ * @property array  meta
  *
  * @property int created_at
  * @property int updated_at
@@ -45,15 +46,19 @@ class LoyaltyAction extends Model
         LoyaltyAction::TYPE_REGISTRATION                  => 10,
         LoyaltyAction::TYPE_FRIEND_INVITE                 => 7,
         LoyaltyAction::TYPE_FIRST_ORDER                   => 5,
+        LoyaltyAction::TYPE_PROMO_CODE_BOUGHT             => 2,
 
         LoyaltyAction::TYPE_ONLINE_ORDER_COUNT_FOR_MONTH  => 1,
         LoyaltyAction::TYPE_ON_SITE_ORDER_COUNT_FOR_MONTH => 1,
         LoyaltyAction::TYPE_SUBMIT_FEEDBACK               => 1,
         LoyaltyAction::TYPE_BIRTHDAY_GIFT                 => 1,
-        LoyaltyAction::TYPE_PROMO_CODE_BOUGHT             => 1,
         LoyaltyAction::TYPE_SHOP_REWARD                   => 1,
         LoyaltyAction::TYPE_SEND_POINTS                   => 1,
         LoyaltyAction::TYPE_RECEIVE_POINTS                => 1,
+    ];
+
+    protected $casts = [
+        'meta' => Json::class,
     ];
 
     /**

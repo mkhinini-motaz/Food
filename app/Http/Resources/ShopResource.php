@@ -19,12 +19,6 @@ class ShopResource extends JsonResource
             'id'                    => $this->id,
             'name'                  => $this->name,
             'service_area'          => $this->service_area,
-            'promo_code_shop_items' => $this->promo_code_shop_items,
-
-            'loyalty_points_count'  => $this->whenPivotLoaded(
-                'client_shop',
-                function() { return $this->pivot->loyalty_points_count; }
-            ),
         ];
     }
 }

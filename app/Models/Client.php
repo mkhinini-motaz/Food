@@ -4,10 +4,10 @@ namespace App\Models;
 
 use App\Support\Authenticatable;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -73,7 +73,8 @@ class Client extends Authenticatable
      */
     public function promoCodes()
     {
-        return $this->morphMany(PromoCode::class, 'creator');
+        return $this->morphMany(PromoCode::class, 'creator')
+            ->orderByDesc('created_at');
     }
 
     /**
@@ -94,5 +95,19 @@ class Client extends Authenticatable
     {
         return 1 <= self::where('phone', '=', $phone)
             ->count();
+    }
+
+    /**
+     * @return string
+     */
+    public static function generateInviteCode()
+    {
+        do {
+            $inviteCode       = Str::random(Client::INVITE_CODE_LENGTH);
+            $inviteCodeExists = 1 <= Client::where('invite_code', '=', $inviteCode)
+                    ->count();
+        } while ($inviteCodeExists);
+
+        return $inviteCode;
     }
 }
