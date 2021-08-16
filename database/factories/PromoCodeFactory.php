@@ -28,8 +28,6 @@ class PromoCodeFactory extends Factory
             'max_usage_count'  => $this->faker->randomElement([ null, rand(10, 50) ]),
             'reduction_amount' => (rand(1, 10) * 10 + $this->faker->randomElement([0, 5])) * 100,
 
-            'shop_id'  => 1,
-
             'created_at' => time(),
             'updated_at' => time()
         ];

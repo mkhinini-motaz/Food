@@ -30,7 +30,6 @@ class CreateShopsTable extends Migration
             $table->text('service_area')->nullable()->comment('array of arrays, [ [lat, lng], ...]'); // TODO serviceAreas table
 
             $table->text('loyalty_action_rewards')->default(Shop::defaultLoyaltyActionRewardsValue());
-            $table->text('promo_code_shop_items')->default(Shop::defaultPromoCodeShopItemsValue());
             $table->string('domain')->nullable();
             $table->string('ga_tracking_id', 50)->nullable()->comment('Google Analytics tracking id');
             $table->string('primary_color', 50)->nullable();
