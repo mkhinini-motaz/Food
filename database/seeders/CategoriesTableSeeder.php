@@ -36,6 +36,13 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'بوكس',
                 'ar'   => 'بوكس',
             ],
+            'description' => [
+                'fr'   => 'Découvrez notre specialité, les box personalisés',
+                'en'   => 'Discover our specialty, customized boxes',
+                'tnfr' => 'Ektachef specialité mta3na, les box perso',
+                'tnar' => 'إكتشف اختصاصنا، بوكس برسو',
+                'ar'   => 'إكتشف اختصاصنا، بوكس برسو',
+            ],
             'photo' => 'example/restaurant/category/boxes.jpg',
             'is_visible' => 1,
             'order' => $order++,
@@ -106,7 +113,7 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'بيتزا',
                 'ar'   => 'بيتزا',
             ],
-            "description" => [
+            'description' => [
                 'fr'   => 'La vrai pate napolitaine avec du fromage de qualité',
                 'en'   => 'The real Neapolitan pastry with quality cheese',
                 'tnfr' => 'Pate napolitaine s7i7a ma3 fromage de qualtié',
@@ -125,7 +132,7 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'بيتزا سوس بلانش',
                 'ar'   => 'بيتزا الصلصة البيضاء',
             ],
-            "description" => [
+            'description' => [
                 'fr'   => 'La vrai pate napolitaine avec du fromage de qualité',
                 'en'   => 'The real Neapolitan pastry with quality cheese',
                 'tnfr' => 'Pate napolitaine s7i7a ma3 fromage de qualtié',
@@ -144,7 +151,7 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'باغيت فارسي',
                 'ar'   => 'باغيت محشي',
             ],
-            "description" => [
+            'description' => [
                 'fr'   => 'La vrai pate napolitaine avec du fromage de qualité',
                 'en'   => 'The real Neapolitan pastry with quality cheese',
                 'tnfr' => 'Pate napolitaine s7i7a ma3 fromage de qualtié',

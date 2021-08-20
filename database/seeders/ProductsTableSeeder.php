@@ -101,11 +101,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Box ghost',
+                'fr'   => 'Ghost box',
                 'en'   => 'Ghost box',
-                'tnfr' => 'Box ghost',
-                'tnar' => 'بوكس ڨوست',
-                'ar'   => 'بوكس ڨوست',
+                'tnfr' => 'Ghost box',
+                'tnar' => 'ڨوست بوكس',
+                'ar'   => 'ڨوست بوكس',
             ],
             'description' => [
                 'fr'   => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, salade, pain, 2 jambons, salami, cheddar et frites',

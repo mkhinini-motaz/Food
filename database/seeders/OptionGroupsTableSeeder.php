@@ -164,7 +164,7 @@ class OptionGroupsTableSeeder extends Seeder
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
         ]);
 
-        $boxGhost = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box ghost'")->first();
+        $boxGhost = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Ghost box'")->first();
 
         $boxGhost->optionGroups()->sync([
             $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
