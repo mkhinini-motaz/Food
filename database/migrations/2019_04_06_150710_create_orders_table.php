@@ -32,6 +32,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('location_id');
             $table->unsignedBigInteger('promo_code_id')->nullable();
             $table->unsignedBigInteger('transporter_id')->nullable();
+            $table->unsignedBigInteger('shop_transporter_id')->nullable();
 
             $table->unsignedInteger('to_be_delivered_at')->nullable()->comment('null means as soon as possible');
             $table->unsignedInteger('created_at');
@@ -58,9 +59,26 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->on('transporters');
 
+            $table->foreign('shop_transporter_id')
+                ->onDelete('restrict')
+                ->references('id')
+                ->on('shop_users');
+
             $table->index('client_id');
             $table->index('location_id');
             $table->index('transporter_id');
+            $table->index('shop_transporter_id');
+        });
+
+        Schema::table('orders', function (Blueprint $table) {
+            DB::statement(
+                'ALTER TABLE orders
+                ADD CONSTRAINT chk_order_delivered_by_one_type_of_transporter
+                CHECK (
+                  CAST(transporter_id IS NULL AS UNSIGNED) +
+                  CAST(shop_transporter_id IS NULL AS UNSIGNED) = 1
+                );'
+            );
         });
     }
 

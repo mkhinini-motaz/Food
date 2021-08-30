@@ -15,8 +15,18 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->order1();
+        $this->order2();
+        $this->order3();
+    }
+
+    /**
+     *
+     */
+    public function order1()
+    {
         $order = Order::factory()->create([
-            'transporter_id'     => 1,
+            'shop_transporter_id' => 2,
             'client_id'     => 1,
             'promo_code_id' => 1,
             'delivery_latitude' => 35.7327203,
@@ -74,9 +84,15 @@ class OrdersTableSeeder extends Seeder
                 'order_product_id' => $relationId,
             ]);
         }
+    }
 
+    /**
+     *
+     */
+    public function order2()
+    {
         $order = Order::factory()->create([
-            'transporter_id' => 1,
+            'shop_transporter_id' => 3,
             'client_id' => 2,
             'delivery_latitude' => 35.742093,
             'delivery_longitude' => 10.584897,
@@ -126,9 +142,15 @@ class OrdersTableSeeder extends Seeder
                 'order_product_id' => $relationId,
             ]);
         }
+    }
 
+    /**
+     *
+     */
+    public function order3()
+    {
         $order = Order::factory()->create([
-            'transporter_id' => 1,
+            'shop_transporter_id' => 2,
             'client_id' => 3,
             'delivery_latitude' => 35.723200,
             'delivery_longitude' => 10.587157,

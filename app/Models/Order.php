@@ -113,6 +113,14 @@ class Order extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function shopTransporter()
+    {
+        return $this->belongsTo(ShopUser::class, 'shop_transporter_id');
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function products()
