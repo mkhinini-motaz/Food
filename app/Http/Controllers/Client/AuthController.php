@@ -26,6 +26,10 @@ class AuthController extends Controller
     {
         /** @var Client $authClient */
         $authClient = auth()->user();
+        if (! $authClient) {
+            $authClient = new Client();
+        }
+
         $authClient->load([ 'promoCodes' ]);
         $authClient->loadPlatformInfo();
 

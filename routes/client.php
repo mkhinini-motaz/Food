@@ -35,9 +35,10 @@ Route::post('/register', [ AuthController::class, 'register' ])->name('register'
 
 Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('promo-code.show');
 
+Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
+
 Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
     Route::get('/loyalty-action', [ LoyaltyActionController::class, 'index' ])->name('loyalty-action');
-    Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
     Route::post('/profile', [ AuthController::class, 'updateProfile' ])->name('profile.update');
 
     Route::post('/promo-code', [ PromoCodeController::class, 'create' ])->name('promo-code.create');
