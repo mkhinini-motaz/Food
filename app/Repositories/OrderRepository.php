@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Order;
+use App\Models\ShopUser;
 use App\Models\Transporter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -45,11 +46,11 @@ class OrderRepository
     }
 
     /**
-     * @param Transporter $transporter
+     * @param ShopUser $shopTransporter
      */
-    public function attachTransporter(Transporter $transporter)
+    public function attachShopTransporter(ShopUser $shopTransporter)
     {
-        $this->order->transporter_id = $transporter->id;
+        $this->order->shop_transporter_id = $shopTransporter->id;
         $this->order->save();
     }
 }

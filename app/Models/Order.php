@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\Model;
+use App\Support\LogsActivity;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Shop
+ * Class Order
  * @package App\Models
  *
  * @property int    id
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int location_id
  * @property int promo_code_id
  * @property int transporter_id
+ * @property int shop_transporter_id
  *
  * @property int created_at
  * @property int updated_at
@@ -39,11 +41,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Location    location
  * @property PromoCode   promo_code
  * @property Transporter transporter
+ * @property ShopUser    shopTransporter
  * @property Collection  products
  */
 class Order extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, LogsActivity;
 
     const STATUS_NEW                     = 1;
     const STATUS_ACCEPTED_BY_SHOP        = 2;
@@ -76,7 +79,6 @@ class Order extends Model
     const COLLECTION_METHOD_DELIVER = 2;
 
     const COLLECTION_METHODS = [ self::COLLECTION_METHOD_PICK_UP, self::COLLECTION_METHOD_DELIVER, ];
-
 
     protected $dateFormat = 'U';
 
@@ -142,6 +144,7 @@ class Order extends Model
             'client',
             'promoCode',
             'transporter',
+            'shopTransporter',
             'products.optionGroups' => $orderByOrder,
             'products.optionGroups.options',
         ]);
@@ -156,6 +159,17 @@ class Order extends Model
     {
         return $query->with([
             'client',
+            'products',
         ]);
+    }
+    /**
+     * Appends additional data to the activity log
+     *
+     * @param ActivityLog $activityLog
+     * @param string      $eventName
+     */
+    public function tapActivity(ActivityLog $activityLog, string $eventName)
+    {
+        $activityLog->shop_id = $this->location->shop_id;
     }
 }

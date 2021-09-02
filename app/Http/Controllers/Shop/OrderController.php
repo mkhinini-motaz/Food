@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Models\ShopUser;
 use App\Http\Controllers\Controller;
 
 use App\Http\Resources\OrderResource;
@@ -51,12 +52,12 @@ class OrderController extends Controller
         /** @var Order $order */
         $order = $shop->activeOrders()->findOrFail($orderId);
 
-        $transporterId = $request->input('transporter_id');
-        /** @var Transporter $transporter */
-        $transporter = $shop->transporters()->findOrFail($transporterId);
+        $shopTransporterId = $request->input('transporter_id');
+        /** @var ShopUser $shopTransporter */
+        $shopTransporter = $shop->shopTransporters()->findOrFail($shopTransporterId);
 
         $orderRepo = new OrderRepository($order);
-        $orderRepo->attachTransporter($transporter);
+        $orderRepo->attachShopTransporter($shopTransporter);
 
         return (new OrderResource($order));
     }
