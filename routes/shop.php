@@ -5,6 +5,7 @@ use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\OrderController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Shop\ShopUserController;
 
 Route::post('/login', [ AuthController::class, 'login' ])->name('login');
 
@@ -28,5 +29,9 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
         Route::group([ 'prefix' => '{orderId}' ], function () {
             Route::post('/transporter', [ OrderController::class, 'attachTransporter' ])->name('attachTransporter');
         });
+    });
+
+    Route::group([ 'prefix' => 'shop-user', 'as' => 'shop_user.', ], function () {
+        Route::get('/transporter', [ ShopUserController::class, 'transporter' ])->name('transporter');
     });
 });

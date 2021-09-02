@@ -25,6 +25,8 @@ class OrderResource extends JsonResource
             'additional_note'    => $this->additional_note,
             'source'             => $this->source,
             'collection_method'  => $this->collection_method,
+
+            'shop_transporter'   => new ShopUserResource($this->whenLoaded('shop_transporter')),
             'promo_code'         => new PromoCodeResource($this->whenLoaded('promo_code')),
             'client'             => new ClientResource($this->whenLoaded('client')),
             'products'           => ProductResource::collection($this->whenLoaded('products')),

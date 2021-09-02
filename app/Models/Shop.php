@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int deleted_at
  *
  * @property Collection categories
+ * @property Collection shopTransporters
  * @property Collection locations
  * @property Collection orders
  * @property Collection products
@@ -55,6 +56,9 @@ class Shop extends Model
     use HasFactory, SoftDeletes, LogsActivity;
 
     const TYPE_RESTAURANT = 1;
+    // TODO: grocery
+    // TODO: hardware
+    // TODO: services
     const TYPES = [ self::TYPE_RESTAURANT ];
 
     const IS_APPROVED_FALSE = 0;
@@ -127,9 +131,10 @@ class Shop extends Model
     /**
      * @return HasMany
      */
-    public function transporters()
+    public function shopTransporters()
     {
-        return $this->hasMany(Transporter::class);
+        return $this->hasMany(ShopUser::class)
+            ->whereIn('role', ShopUser::ROLES_CAN_TRANSPORT);
     }
 
     /**

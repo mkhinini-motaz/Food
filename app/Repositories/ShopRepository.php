@@ -13,6 +13,7 @@ use function App\Support\Helpers\fieldsLike;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use function App\Support\Helpers\firstNameLastNameLike;
 
 class ShopRepository
 {
@@ -164,17 +165,6 @@ class ShopRepository
     }
 
     /**
-     * @param array $serviceArea
-     */
-    public function updateServiceArea($serviceArea)
-    {
-        $this->shop->service_area = $serviceArea;
-        $this->shop->save();
-    }
-
-    /**
-     * Paginates the users of a site
-     *
      * @param int|null    $page
      * @param int|null    $perPage
      * @param string|null $search
@@ -203,5 +193,39 @@ class ShopRepository
         }
 
         return $activityLogs->paginate($perPage, [ '*' ], 'page', $page);
+    }
+
+    /**
+     * @param int|null    $page
+     * @param int|null    $perPage
+     * @param string|null $search
+     * @param string|null $orderBy
+     * @param string|null $orderDirection
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginateTransporters($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc')
+    {
+        $shopTransporters = $this->shop->shopTransporters()
+            ->withCount('activeOrders');
+
+        if ($orderBy && $orderDirection) {
+            $shopTransporters->orderBy($orderBy, $orderDirection);
+        }
+
+        if ($search) {
+            $shopTransporters->where(firstNameLastNameLike($search));
+        }
+
+        return $shopTransporters->paginate($perPage, [ '*' ], 'page', $page);
+    }
+
+    /**
+     * @param array $serviceArea
+     */
+    public function updateServiceArea($serviceArea)
+    {
+        $this->shop->service_area = $serviceArea;
+        $this->shop->save();
     }
 }

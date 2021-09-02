@@ -24,6 +24,25 @@ function fieldsLike($term, ...$fields)
 }
 
 /**
+ * Query builder helper for first name and last name search with the Like operator
+ *
+ * Return value can be used as follow :
+ *     \Illuminate\Database\Query\Builder::where(firstNameLastNameLike(...))
+ *     \Illuminate\Database\Eloquent\Model::with(['relationName' => firstNameLastNameLike(...)])
+ *
+ * @param string $term
+ *
+ * @return \Closure
+ */
+function firstNameLastNameLike($term)
+{
+    return function ($query) use ($term) {
+        $query->whereRaw("CONCAT(last_name, ' ', first_name) LIKE '%$term%'")
+              ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE '%$term%'");
+    };
+}
+
+/**
  * Check if a point is within polygon
  * @example pointInPolygon([31.111, 10.111], [35.7331,10.5589, 35.7346,10.54816, 35.73618,10.53051, 35.7345,10.5306, ...])
  *
