@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Category
@@ -66,5 +67,31 @@ class Category extends Model
             return Category::whereHas('shop', Shop::withIsApprovedEquals($isShopApproved))->findOrFail($categoryId);
         }
         return parent::findOrFail($categoryId);
+    }
+
+
+    /**
+     * @param Builder $query
+     * @param bool    $onlyVisible
+     * @param string  $orderBy
+     * @param string  $orderDirection
+     *
+     * @return Builder
+     */
+    public function scopeWithProducts($query, $onlyVisible, $orderBy, $orderDirection)
+    {
+        return $query->with(
+            'products',
+            function($subQuery) use ($onlyVisible, $orderBy, $orderDirection) {
+                $subQuery->with('optionGroups.options');
+                if ($onlyVisible) {
+                    $subQuery->where('is_visible', '=', 1);
+                }
+
+                if (isset($orderBy) && isset($orderDirection)) {
+                    $subQuery->orderBy($orderBy, $orderDirection);
+                }
+            }
+        );
     }
 }
