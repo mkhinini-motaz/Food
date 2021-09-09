@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models
  *
  * @property int    id
- * @property string status
+ * @property int    status
  * @property string total_price
  * @property string associated_phone
  * @property string delivery_latitude
@@ -50,16 +50,18 @@ class Order extends Model
 
     const STATUS_NEW                     = 1;
     const STATUS_ACCEPTED_BY_SHOP        = 2;
-    const STATUS_READY_BY_SHOP           = 3;
-    const STATUS_ACCEPTED_BY_TRANSPORTER = 4;
-    const STATUS_PICKED_BY_TRANSPORTER   = 5;
+    const STATUS_PROCESSING_BY_SHOP      = 3;
+    const STATUS_READY_BY_SHOP           = 4;
+    const STATUS_REFUSED_BY_SHOP         = 5;
+    const STATUS_ACCEPTED_BY_TRANSPORTER = 10;
+    const STATUS_PICKED_BY_TRANSPORTER   = 11;
+    const STATUS_DELIVERED               = 20;
+    const STATUS_CANCELED                = 21;
+    const STATUS_CLIENT_NOT_FOUND        = 22;
 
-    const STATUS_DELIVERED = 10;
-    const STATUS_CANCELED  = 99;
+    const STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_PROCESSING_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_REFUSED_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_PICKED_BY_TRANSPORTER, self::STATUS_DELIVERED, self::STATUS_CANCELED, self::STATUS_CLIENT_NOT_FOUND, ];
 
-    const STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_PICKED_BY_TRANSPORTER, self::STATUS_DELIVERED, self::STATUS_CANCELED, ];
-
-    const ACTIVE_SHOP_STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER ];
+    const ACTIVE_SHOP_STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_PROCESSING_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, ];
 
     const ACTIVE_TRANSPORTER_STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_PICKED_BY_TRANSPORTER, ];
 

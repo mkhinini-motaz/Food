@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Models\ShopUser;
-use App\Http\Controllers\Controller;
-
-use App\Http\Resources\OrderResource;
-use App\Http\Resources\ResourceCollection;
 use App\Models\Order;
 use App\Models\Shop;
-use App\Models\Transporter;
+use App\Models\ShopUser;
+use App\Http\Resources\OrderResource;
+use App\Http\Resources\ResourceCollection;
 use App\Repositories\OrderRepository;
 use App\Repositories\ShopRepository;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Shop\Order\OrderStatusUpdateRequest;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -33,7 +33,7 @@ class OrderController extends Controller
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection, true, Order::ACTIVE_SHOP_STATUSES);
+        $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection, true);
 
         return ResourceCollection::jsonResponse($orders);
     }
@@ -50,7 +50,7 @@ class OrderController extends Controller
         $shop = $request->get('shop');
 
         /** @var Order $order */
-        $order = $shop->activeOrders()->findOrFail($orderId);
+        $order = $shop->orders()->findOrFail($orderId);
 
         $shopTransporterId = $request->input('transporter_id');
         /** @var ShopUser $shopTransporter */
@@ -62,6 +62,25 @@ class OrderController extends Controller
         return (new OrderResource($order));
     }
 
-    // TODO: WS mark order as started
-    // TODO: WS mark order as ready
+
+    /**
+     * @param int                      $orderId
+     * @param OrderStatusUpdateRequest $request
+     *
+     * @return OrderResource
+     */
+    public function updateStatus($orderId, OrderStatusUpdateRequest $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+
+        /** @var Order $order */
+        $order = $shop->orders()->findOrFail($orderId);
+
+        $status = $request->input('status');
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->updateStatus($status);
+
+        return (new OrderResource($order));
+    }
 }

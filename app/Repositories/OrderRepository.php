@@ -53,4 +53,13 @@ class OrderRepository
         $this->order->shop_transporter_id = $shopTransporter->id;
         $this->order->save();
     }
+
+    /**
+     * @param $status
+     */
+    public function updateStatus($status)
+    {
+        $this->order->status = $status;
+        $this->order->save();
+    }
 }

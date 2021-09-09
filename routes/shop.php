@@ -28,6 +28,7 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
         Route::get('/current', [ OrderController::class, 'current' ])->name('current');
         Route::group([ 'prefix' => '{orderId}' ], function () {
             Route::post('/transporter', [ OrderController::class, 'attachTransporter' ])->name('attachTransporter');
+            Route::post('/status', [ OrderController::class, 'updateStatus' ])->name('updateStatus');
         });
     });
 
