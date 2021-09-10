@@ -75,8 +75,8 @@ class CreateOrdersTable extends Migration
                 'ALTER TABLE orders
                 ADD CONSTRAINT chk_order_delivered_by_one_type_of_transporter
                 CHECK (
-                  CAST(transporter_id IS NULL AS UNSIGNED) +
-                  CAST(shop_transporter_id IS NULL AS UNSIGNED) = 1
+                  CAST(transporter_id IS NOT NULL AS UNSIGNED) +
+                  CAST(shop_transporter_id IS NOT NULL AS UNSIGNED) in (0, 1)
                 );'
             );
         });

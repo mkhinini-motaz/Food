@@ -20,15 +20,17 @@ class ProductResource extends JsonResource
         $canSeeIsVisible = auth()->user() instanceof ShopUser;
         return [
             'id'          => $this->id,
-            'name'        => $this->getTranslations('name'),
             'type'        => $this->type,
             'photo'       => $this->photo,
             'price'       => $this->price,
-            'description' => $this->getTranslations('description'),
             'category_id' => $this->category_id,
             'added_loyalty_points' => $this->added_loyalty_points,
 
+            'description' => $this->getTranslations('description'),
+            'name'        => $this->getTranslations('name'),
+
             'option_groups' => OptionGroupsResource::collection($this->whenLoaded('optionGroups')),
+
             'product_count' => $this->whenPivotLoaded('order_product', function() {
                 return $this->pivot->product_count;
             }),

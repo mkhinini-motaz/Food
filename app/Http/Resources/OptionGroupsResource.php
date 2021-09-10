@@ -17,23 +17,24 @@ class OptionGroupsResource extends JsonResource
     {
         return [
             'id'          => $this->id,
-            'name'        => $this->getTranslations('name'),
-            'description' => $this->getTranslations('description'),
             'photo'       => $this->photo,
 
-            'options_are_billable'  => $this->whenPivotLoaded(
+            'name'        => $this->getTranslations('name'),
+            'description' => $this->getTranslations('description'),
+
+            'options_are_billable' => $this->whenPivotLoaded(
                 'option_group_product',
                 function() { return $this->pivot->options_are_billable; }
             ),
-            'options_are_quantifiable'  => $this->whenPivotLoaded(
+            'options_are_quantifiable' => $this->whenPivotLoaded(
                 'option_group_product',
                 function() { return $this->pivot->options_are_quantifiable; }
             ),
-            'max_options'   => $this->whenPivotLoaded(
+            'max_options' => $this->whenPivotLoaded(
                 'option_group_product',
                 function() { return $this->pivot->max_options; }
             ),
-            'min_options'   => $this->whenPivotLoaded(
+            'min_options' => $this->whenPivotLoaded(
                 'option_group_product',
                 function() { return $this->pivot->min_options; }
             ),

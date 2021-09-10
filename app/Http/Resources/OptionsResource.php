@@ -17,9 +17,10 @@ class OptionsResource extends JsonResource
     {
         return [
             'id'                     => $this->id,
-            'name'                   => $this->getTranslations('name'),
             'photo'                  => $this->photo,
             'quantity'               => $this->quantity,
+
+            'name'                   => $this->getTranslations('name'),
             'description'            => $this->getTranslations('description'),
 
             'option_group_id'  => $this->whenPivotLoaded(

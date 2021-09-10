@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\ClientRegistered;
+use App\Models\Client;
+use App\Repositories\ClientRepository;
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\Resource;
-use App\Models\Client;
-use App\Models\Shop;
-use App\Repositories\ClientRepository;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
