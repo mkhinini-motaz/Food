@@ -32,6 +32,7 @@ class OrdersTableSeeder extends Seeder
             'delivery_latitude' => 35.7327203,
             'delivery_longitude' => 10.571216,
             'additional_note' => 'Bellahi fissa3 5ater jo3t hhh',
+            'created_at' => time() + 40,
         ]);
 
         $order->products()->sync([
@@ -97,6 +98,7 @@ class OrdersTableSeeder extends Seeder
             'delivery_latitude' => 35.742093,
             'delivery_longitude' => 10.584897,
             'additional_note' => 'Pizza 4 fromages men ghir roquefort',
+            'created_at' => time() + 20,
         ]);
 
         $order->products()->sync([
@@ -155,6 +157,7 @@ class OrdersTableSeeder extends Seeder
             'delivery_latitude' => 35.723200,
             'delivery_longitude' => 10.587157,
             'additional_note' => 'Chwaya bsal fi wost baguette farcie',
+            'created_at' => time() - 10,
         ]);
 
         $order->products()->sync([
