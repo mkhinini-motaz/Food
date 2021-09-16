@@ -16,7 +16,6 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name', 3000);
-            $table->string('description', 3000);
             $table->string('photo')->default('default image link'); // TODO: define default image
 
             $table->unsignedInteger('created_at');

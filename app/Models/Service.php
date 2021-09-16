@@ -14,7 +14,7 @@ class Service extends Model
 
     protected $dateFormat = 'U';
 
-    public $translatable = [ 'name', 'description' ];
+    public $translatable = [ 'name' ];
 
     /**
      * @return HasMany
