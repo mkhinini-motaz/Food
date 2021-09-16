@@ -39,9 +39,16 @@ class CreateShopsTable extends Migration
             $table->string('twitter_url', 100)->nullable();
             $table->string('linkedin_url', 100)->nullable();
 
+            $table->unsignedBigInteger('service_id');
+
             $table->unsignedInteger('created_at');
             $table->unsignedInteger('updated_at');
             $table->unsignedInteger('deleted_at')->nullable();
+
+            $table->foreign('service_id')
+                ->onDelete('cascade')
+                ->references('id')
+                ->on('services');
         });
     }
 

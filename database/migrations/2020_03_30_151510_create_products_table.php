@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('description', 3000);
             $table->unsignedSmallInteger('type')->comment('@see Product::TYPES');
             $table->string('photo')->default('default image link'); // TODO: define default image
+            $table->string('brand')->nullable()->comment('manufacturer');
             $table->unsignedInteger('price');
             $table->unsignedTinyInteger('is_visible')->default(0);
             $table->unsignedSmallInteger('order');

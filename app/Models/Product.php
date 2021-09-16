@@ -20,6 +20,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string name
  * @property string description
  * @property string type
+ * @property string brand
  * @property string photo
  * @property int    weight
  * @property int    height

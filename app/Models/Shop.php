@@ -6,6 +6,7 @@ use App\Casts\Json;
 use App\Support\LogsActivity;
 use App\Support\Model;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use function App\Support\Helpers\pointInPolygon;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -78,6 +79,14 @@ class Shop extends Model
         'loyalty_action_rewards' => Json::class,
         'service_area'           => 'array',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 
     /**
      * @return HasMany
