@@ -160,3 +160,52 @@ function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo) {
 
     return (int) ($distanceInKilometers * 1000);
 }
+
+/**
+ * @param array $startPoint [ lat, lng ]
+ * @param array $destinationsInput [ [ lat, lng ], ... ]
+ *
+ * @return array [ [ lat, lng ], ... ] $destinationsInput ordered to form the best route
+ */
+function bestRoute($startPoint, $destinationsInput)
+{
+    $route        = [];
+    $origin       = $startPoint;
+    $totalCost    = 0;
+    $destinations = array_values($destinationsInput);
+
+    while (count($destinations) > 0) {
+        [ $origin, $index, $cost ] = closestDestination($origin, $destinations);
+
+        unset($destinations[$index]);
+        $route[]    = $origin;
+        $totalCost += $cost;
+    }
+
+    return $route;
+}
+
+/**
+ * @param array $origin [ lat, lng ]
+ * @param array $destinations [ [ lat, lng ], ... ]
+ *
+ * @return array [ $closestDestination, $closestDestinationIndex, $closestDistance ]
+ */
+function closestDestination($origin, $destinations)
+{
+    $closestDistance         = 1000000000;
+    $closestDestination      = [];
+    $closestDestinationIndex = -1;
+
+    foreach ($destinations as $index => $destination) {
+        $distance = distance($origin[0], $origin[1], $destination[0], $destination[1]);
+
+        if ($closestDistance > $distance) {
+            $closestDistance         = $distance;
+            $closestDestination      = $destination;
+            $closestDestinationIndex = $index;
+        }
+    }
+
+    return [ $closestDestination, $closestDestinationIndex, $closestDistance ];
+}

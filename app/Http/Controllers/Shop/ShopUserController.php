@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 
 use App\Http\Resources\OrderResource;
+use App\Repositories\ShopUserRepository;
 use App\Http\Resources\ResourceCollection;
 use App\Models\Order;
 use App\Models\Shop;
@@ -16,6 +17,23 @@ use Illuminate\Http\Request;
 
 class ShopUserController extends Controller
 {
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function currentOrders(Request $request)
+    {
+        /** @var Shop $shop */
+        $shopUser = auth()->user();
+        $shopUserRepository = new ShopUserRepository($shopUser);
+
+        $orders = $shopUserRepository->assignedOrders();
+        $shopUser->load('shop');
+
+        return ResourceCollection::jsonResponse($orders);
+    }
+
     /**
      * @param Request $request
      *

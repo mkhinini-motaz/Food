@@ -34,5 +34,6 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
 
     Route::group([ 'prefix' => 'shop-user', 'as' => 'shop_user.', ], function () {
         Route::get('/transporter', [ ShopUserController::class, 'transporter' ])->name('transporter');
+        Route::get('/order/current', [ ShopUserController::class, 'currentOrders' ])->name('currentOrders');
     });
 });
