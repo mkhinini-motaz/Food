@@ -25,101 +25,10 @@ class ProductsTableSeederForGrocery extends Seeder
         $categorySurgeleId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Surgelé'")->first()->id;
         $categoryMaisonId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Maison'")->first()->id;
         $categoryHygieneId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Hygiéne'")->first()->id;
-        $categoryPetitDejId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Petit déjeuner'")->first()->id;
         $categorySucrerieId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sucrerie et chocolat'")->first()->id;
 
 
-        Product::factory()->create([
-            'name' => [
-                'fr'   => '5mira',
-                'en'   => '5mira',
-                'tnfr' => '5mira',
-                'tnar' => '5mira',
-                'ar'   => '5mira',
-            ],
-            'brand' => 'La patisiere',
-            'photo' => 'example/grocery/product/5mira_La_patisiere.jpg',
-            'category_id' => $categoryBoulangerieId,
-            'price' => 1500,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => '5mira 5 piéces',
-                'en'   => '5mira 5 piéces',
-                'tnfr' => '5mira 5 piéces',
-                'tnar' => '5mira 5 piéces',
-                'ar'   => '5mira 5 piéces',
-            ],
-            'brand' => 'Venoise',
-            'photo' => 'example/grocery/product/5mira_Venoise.jpg',
-            'category_id' => $categoryBoulangerieId,
-            'price' => 200,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Lait 1L',
-                'en'   => 'Mil 1L',
-                'tnfr' => '7lib 1L',
-                'tnar' => '7lib 1L',
-                'ar'   => '7lib 1L',
-            ],
-            'brand' => 'Vitalé',
-            'photo' => 'example/grocery/product/7lib_1L_Vitale.jpg',
-            'category_id' => $categoryBoulangerieId,
-            'price' => 1200,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Chocolat tartiné noisette 1K',
-                'en'   => 'Chocolat tartiné noisette 1K',
-                'tnfr' => 'Chocolat tartiné noisette 1K',
-                'tnar' => 'Chocolat tartiné noisette 1K',
-                'ar'   => 'Chocolat tartiné noisette 1K',
-            ],
-            'brand' => 'Said',
-            'photo' => 'example/grocery/product/Chocolat_tartine_noisette_1K_Said.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 9500,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Chocolat tartiné noisette 500Gr',
-                'en'   => 'Chocolat tartiné noisette 500Gr',
-                'tnfr' => 'Chocolat tartiné noisette 500Gr',
-                'tnar' => 'Chocolat tartiné noisette 500Gr',
-                'ar'   => 'Chocolat tartiné noisette 500Gr',
-            ],
-            'brand' => 'Said',
-            'photo' => 'example/grocery/product/Chocolat_tartine_noisette_500gr_Said.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 5500,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Chocolat tartiné 1K',
-                'en'   => 'Chocolat tartiné 1K',
-                'tnfr' => 'Chocolat tartiné 1K',
-                'tnar' => 'Chocolat tartiné 1K',
-                'ar'   => 'Chocolat tartiné 1K',
-            ],
-            'brand' => 'Said',
-            'photo' => 'example/grocery/product/Chocolat_tartine_1K_Said.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 8000,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Chocolat tartiné 150Gr',
-                'en'   => 'Chocolat tartiné 150Gr',
-                'tnfr' => 'Chocolat tartiné 150Gr',
-                'tnar' => 'Chocolat tartiné 150Gr',
-                'ar'   => 'Chocolat tartiné 150Gr',
-            ],
-            'brand' => 'Vanoise',
-            'photo' => 'example/grocery/product/Chocolat_tartine_150gr_Vanoise.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 3200,
-        ]);
+
         Product::factory()->create([
             'name' => [
                 'fr'   => 'Cookies chocolat',
@@ -161,16 +70,16 @@ class ProductsTableSeederForGrocery extends Seeder
         ]);
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Danette chocolat',
-                'en'   => 'Danette chocolat',
-                'tnfr' => 'Danette chocolat',
-                'tnar' => 'Danette chocolat',
-                'ar'   => 'Danette chocolat',
+                'fr'   => 'Fitox',
+                'en'   => 'Fitox',
+                'tnfr' => 'Fitox',
+                'tnar' => 'Fitox',
+                'ar'   => 'Fitox',
             ],
-            'brand' => 'Délice',
-            'photo' => 'example/grocery/product/Danette_chocolat_Delice.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 600,
+            'brand' => 'Choc',
+            'photo' => 'example/grocery/product/Fitox_Choc.jpg',
+            'category_id' => $categoryMaisonId,
+            'price' => 4500,
         ]);
         Product::factory()->create([
             'name' => [
@@ -184,19 +93,6 @@ class ProductsTableSeederForGrocery extends Seeder
             'photo' => 'example/grocery/product/Farine_Les_epis_de_carthage.jpg',
             'category_id' => $categoryBoulangerieId,
             'price' => 800,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Fitox',
-                'en'   => 'Fitox',
-                'tnfr' => 'Fitox',
-                'tnar' => 'Fitox',
-                'ar'   => 'Fitox',
-            ],
-            'brand' => 'Choc',
-            'photo' => 'example/grocery/product/Fitox_Choc.jpg',
-            'category_id' => $categoryMaisonId,
-            'price' => 4500,
         ]);
         Product::factory()->create([
             'name' => [
@@ -223,19 +119,6 @@ class ProductsTableSeederForGrocery extends Seeder
             'photo' => 'example/grocery/product/Fromage_le_cuistot_150Gr_President.jpg',
             'category_id' => $categoryBoulangerieId,
             'price' => 2250,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'D-Croc Tiramesu 110Gr',
-                'en'   => 'D-Croc Tiramesu 110Gr',
-                'tnfr' => 'D-Croc Tiramesu 110Gr',
-                'tnar' => 'D-Croc Tiramesu 110Gr',
-                'ar'   => 'D-Croc Tiramesu 110Gr',
-            ],
-            'brand' => 'Kif',
-            'photo' => 'example/grocery/product/Gaufrette_D-Croc_Tiramesu_110Gr_Kif.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 1300,
         ]);
         Product::factory()->create([
             'name' => [
@@ -288,19 +171,6 @@ class ProductsTableSeederForGrocery extends Seeder
             'photo' => 'example/grocery/product/Javel_4.75L_Judy.jpg',
             'category_id' => $categoryHygieneId,
             'price' => 10000,
-        ]);
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Lait 1L',
-                'en'   => 'Lait 1L',
-                'tnfr' => 'Lait 1L',
-                'tnar' => 'Lait 1L',
-                'ar'   => 'Lait 1L',
-            ],
-            'brand' => 'Délice',
-            'photo' => 'example/grocery/product/Lait_1L_Delice.jpg',
-            'category_id' => $categoryPetitDejId,
-            'price' => 1350,
         ]);
         Product::factory()->create([
             'name' => [
@@ -627,6 +497,128 @@ class ProductsTableSeederForGrocery extends Seeder
             'category_id' => $categoryPatesRiZChorbaId, // TODO: find better category
             'price' => 3300,
         ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Zit 3L',
+                'en'   => 'Zit 3L',
+                'tnfr' => 'Zit 3L',
+                'tnar' => 'Zit 3L',
+                'ar'   => 'Zit 3L',
+            ],
+            'brand' => 'Nejma',
+            'photo' => 'example/grocery/product/Zit_3L_Nejma.jpg',
+            'category_id' => $categoryPatesRiZChorbaId, // TODO: find better category
+            'price' => 14500,
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function productsForPetitDej()
+    {
+        $categoryPetitDejId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Petit déjeuner'")->first()->id;
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Lait 1L',
+                'en'   => 'Lait 1L',
+                'tnfr' => 'Lait 1L',
+                'tnar' => 'Lait 1L',
+                'ar'   => 'Lait 1L',
+            ],
+            'brand' => 'Délice',
+            'photo' => 'example/grocery/product/Lait_1L_Delice.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 1350,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'D-Croc Tiramesu 110Gr',
+                'en'   => 'D-Croc Tiramesu 110Gr',
+                'tnfr' => 'D-Croc Tiramesu 110Gr',
+                'tnar' => 'D-Croc Tiramesu 110Gr',
+                'ar'   => 'D-Croc Tiramesu 110Gr',
+            ],
+            'brand' => 'Kif',
+            'photo' => 'example/grocery/product/Gaufrette_D-Croc_Tiramesu_110Gr_Kif.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 1300,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Danette chocolat',
+                'en'   => 'Danette chocolat',
+                'tnfr' => 'Danette chocolat',
+                'tnar' => 'Danette chocolat',
+                'ar'   => 'Danette chocolat',
+            ],
+            'brand' => 'Délice',
+            'photo' => 'example/grocery/product/Danette_chocolat_Delice.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 600,
+        ]);
+
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Chocolat tartiné noisette 1K',
+                'en'   => 'Chocolat tartiné noisette 1K',
+                'tnfr' => 'Chocolat tartiné noisette 1K',
+                'tnar' => 'Chocolat tartiné noisette 1K',
+                'ar'   => 'Chocolat tartiné noisette 1K',
+            ],
+            'brand' => 'Said',
+            'photo' => 'example/grocery/product/Chocolat_tartine_noisette_1K_Said.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 9500,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Chocolat tartiné noisette 500Gr',
+                'en'   => 'Chocolat tartiné noisette 500Gr',
+                'tnfr' => 'Chocolat tartiné noisette 500Gr',
+                'tnar' => 'Chocolat tartiné noisette 500Gr',
+                'ar'   => 'Chocolat tartiné noisette 500Gr',
+            ],
+            'brand' => 'Said',
+            'photo' => 'example/grocery/product/Chocolat_tartine_noisette_500gr_Said.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 5500,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Chocolat tartiné 1K',
+                'en'   => 'Chocolat tartiné 1K',
+                'tnfr' => 'Chocolat tartiné 1K',
+                'tnar' => 'Chocolat tartiné 1K',
+                'ar'   => 'Chocolat tartiné 1K',
+            ],
+            'brand' => 'Said',
+            'photo' => 'example/grocery/product/Chocolat_tartine_1K_Said.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 8000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Chocolat tartiné 150Gr',
+                'en'   => 'Chocolat tartiné 150Gr',
+                'tnfr' => 'Chocolat tartiné 150Gr',
+                'tnar' => 'Chocolat tartiné 150Gr',
+                'ar'   => 'Chocolat tartiné 150Gr',
+            ],
+            'brand' => 'Vanoise',
+            'photo' => 'example/grocery/product/Chocolat_tartine_150gr_Vanoise.jpg',
+            'category_id' => $categoryPetitDejId,
+            'price' => 3200,
+        ]);
+
         Product::factory()->create([
             'name' => [
                 'fr'   => 'Zebda 100gr',
@@ -640,6 +632,7 @@ class ProductsTableSeederForGrocery extends Seeder
             'category_id' => $categoryPetitDejId,
             'price' => 2050,
         ]);
+
         Product::factory()->create([
             'name' => [
                 'fr'   => 'Zebda 100gr',
@@ -653,6 +646,7 @@ class ProductsTableSeederForGrocery extends Seeder
             'category_id' => $categoryPetitDejId,
             'price' => 1500,
         ]);
+
         Product::factory()->create([
             'name' => [
                 'fr'   => 'Zebda 200gr',
@@ -666,6 +660,7 @@ class ProductsTableSeederForGrocery extends Seeder
             'category_id' => $categoryPetitDejId,
             'price' => 2300,
         ]);
+
         Product::factory()->create([
             'name' => [
                 'fr'   => 'Zebda 500gr',
@@ -679,18 +674,53 @@ class ProductsTableSeederForGrocery extends Seeder
             'category_id' => $categoryPetitDejId,
             'price' => 3200,
         ]);
+    }
+
+    /**
+     *
+     */
+    public function productsForBoulangerie()
+    {
+
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Zit 3L',
-                'en'   => 'Zit 3L',
-                'tnfr' => 'Zit 3L',
-                'tnar' => 'Zit 3L',
-                'ar'   => 'Zit 3L',
+                'fr'   => '5mira',
+                'en'   => '5mira',
+                'tnfr' => '5mira',
+                'tnar' => '5mira',
+                'ar'   => '5mira',
             ],
-            'brand' => 'Nejma',
-            'photo' => 'example/grocery/product/Zit_3L_Nejma.jpg',
-            'category_id' => $categoryPatesRiZChorbaId, // TODO: find better category
-            'price' => 14500,
+            'brand' => 'La patisiere',
+            'photo' => 'example/grocery/product/5mira_La_patisiere.jpg',
+            'category_id' => $categoryBoulangerieId,
+            'price' => 1500,
+        ]);
+        Product::factory()->create([
+            'name' => [
+                'fr'   => '5mira 5 piéces',
+                'en'   => '5mira 5 piéces',
+                'tnfr' => '5mira 5 piéces',
+                'tnar' => '5mira 5 piéces',
+                'ar'   => '5mira 5 piéces',
+            ],
+            'brand' => 'Venoise',
+            'photo' => 'example/grocery/product/5mira_Venoise.jpg',
+            'category_id' => $categoryBoulangerieId,
+            'price' => 200,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Lait 1L',
+                'en'   => 'Mil 1L',
+                'tnfr' => '7lib 1L',
+                'tnar' => '7lib 1L',
+                'ar'   => '7lib 1L',
+            ],
+            'brand' => 'Vitalé',
+            'photo' => 'example/grocery/product/7lib_1L_Vitale.jpg',
+            'category_id' => $categoryBoulangerieId,
+            'price' => 1200,
         ]);
     }
 }
