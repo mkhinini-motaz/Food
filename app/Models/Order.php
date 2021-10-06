@@ -84,6 +84,11 @@ class Order extends Model
 
     protected $dateFormat = 'U';
 
+    protected $casts = [
+        'delivery_latitude'  => 'float',
+        'delivery_longitude' => 'float',
+    ];
+
     /**
      * @return BelongsTo
      */
