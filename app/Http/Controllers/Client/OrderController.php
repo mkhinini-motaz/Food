@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\OrderCreated;
 use App\Http\Resources\Resource;
-use App\Http\Controllers\Controller;
-use App\Exceptions\OrderException;
 use App\Models\Order;
+use App\Models\Shop;
 use App\Models\PromoCode;
+use App\Exceptions\OrderException;
+use App\Http\Controllers\Controller;
 use App\Repositories\ShopOrderRepository;
 use App\Http\Requests\Client\OrderCreateRequest;
-use App\Models\Shop;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -37,7 +39,7 @@ class OrderController extends Controller
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->create(auth()->user(), $products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::COLLECTION_METHOD_DELIVER, $additionalNote, $promoCode);
 
-        // TODO: event order created
+        OrderCreated::dispatch($order->id);
 
         return Resource::jsonResponse($order);
     }

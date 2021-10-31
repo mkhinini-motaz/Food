@@ -199,6 +199,7 @@ class ShopOrderRepository
             ];
         }
 
+        // TODO: use $order-> attach or sync
         \DB::table('order_product')->insert($productRelationshipInfos);
     }
 
@@ -208,11 +209,14 @@ class ShopOrderRepository
      */
     private function saveOptionsForOrder(Order $order, $productsInput)
     {
-        $orderProducts = $order->products()->get();
         /** @var Product $product */
+        $orderProducts = $order->products()
+            ->where('type', '=', Product::TYPE_WITH_OPTIONS)
+            ->get();
+
         $optionsRelationshipInfos = [];
         foreach ($orderProducts as $index => $product) {
-            if ($product->type !== Product::TYPE_WITH_OPTIONS || ! $productsInput[$index]['options']) {
+            if (! $productsInput[$index]['options']) {
                 continue;
             }
 
@@ -222,6 +226,7 @@ class ShopOrderRepository
             }
         }
 
+        // TODO: concider seperate class
         \DB::table('option_order_product')->insert($optionsRelationshipInfos);
     }
 
@@ -235,7 +240,7 @@ class ShopOrderRepository
     {
         return [
             'quantity'         => $optionInput['quantity'] ?? 0,
-            'option_id'    => $optionInput['id'],
+            'option_id'        => $optionInput['id'],
             'order_product_id' => $orderProductId,
         ];
     }

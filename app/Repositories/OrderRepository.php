@@ -62,4 +62,21 @@ class OrderRepository
         $this->order->status = $status;
         $this->order->save();
     }
+
+    /**
+     * @return array
+     */
+    public function productsShopIds()
+    {
+        $products = $this->order->products()
+            ->with('shop')
+            ->get();
+
+        $shopIds = [];
+        foreach ($products as $product) {
+            $shopIds[$product->shop->id] = 1;
+        }
+
+        return array_keys($shopIds);
+    }
 }
