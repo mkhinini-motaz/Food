@@ -4,9 +4,8 @@ namespace App\Providers;
 
 use App\Events\ClientRegistered;
 use App\Events\OrderCreated;
-use App\Listeners\Client\AttributePointsToInviterClient;
 use App\Listeners\Client\AttributePointsToRegisteredClient;
-use App\Listeners\Client\NotifyForNewOrder;
+use App\Listeners\Shop\NotifyForNewOrder;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
