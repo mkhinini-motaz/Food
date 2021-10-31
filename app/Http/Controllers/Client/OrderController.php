@@ -41,4 +41,24 @@ class OrderController extends Controller
 
         return Resource::jsonResponse($order);
     }
+
+    /**
+     * @param int     $shopId
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function deliveryCost($shopId, Request $request)
+    {
+        /** @var Shop $shop */
+        $shop          = Shop::findOrFail($shopId);
+        $shopOrderRepo = new ShopOrderRepository($shop);
+
+        $latitude  = $request->input('latitude');
+        $longitude = $request->input('longitude');
+
+        $deliveryCost = $shopOrderRepo->deliveryCost($latitude, $longitude);
+
+        return response()->json([ 'data' => $deliveryCost ], 200);
+    }
 }
