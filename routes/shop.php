@@ -8,6 +8,7 @@ use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\ShopUserController;
 
 Route::post('/login', [ AuthController::class, 'login' ])->name('login');
+Route::post('/profile', [ AuthController::class, 'profile' ])->name('profile');
 
 Route::group([ 'middleware' => [ 'authShop'] ], function() {
     Route::post('/service-area', [ ShopController::class, 'updateServiceArea' ])->name('updateServiceArea');

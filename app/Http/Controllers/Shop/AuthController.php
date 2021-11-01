@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Resources\Resource;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController as BaseAuthController;
 
@@ -11,13 +12,11 @@ use Illuminate\Http\JsonResponse;
 class AuthController extends Controller
 {
     /**
-     * @param Request $request
-     *
      * @return JsonResponse
      */
-    public function profile(Request $request)
+    public function profile()
     {
-        return response()->json([ 'status' => 'success', 'data' => auth()->user(), ], 200);
+        return Resource::jsonResponse(auth()->user());
     }
 
     /**
