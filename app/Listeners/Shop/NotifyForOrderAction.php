@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Shop;
 
-use App\Events\OrderCreated;
+use App\Events\OrderAction;
 use App\Models\Order;
 use App\Repositories\OrderRepository;
 
@@ -24,10 +24,11 @@ class NotifyForOrderAction implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param OrderCreated $event
+     * @param OrderAction $event
+     *
      * @return void
      */
-    public function handle(OrderCreated $event)
+    public function handle(OrderAction $event)
     {
         $orderId = $event->orderId;
         /** @var Order $order */

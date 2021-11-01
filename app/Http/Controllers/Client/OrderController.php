@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Events\OrderCreated;
+use App\Events\OrderAction;
 use App\Http\Resources\Resource;
 use App\Models\Order;
 use App\Models\Shop;
@@ -39,7 +39,7 @@ class OrderController extends Controller
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->create(auth()->user(), $products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::COLLECTION_METHOD_DELIVER, $additionalNote, $promoCode);
 
-        OrderCreated::dispatch($order->id);
+        OrderAction::dispatch($order->id);
 
         return Resource::jsonResponse($order);
     }

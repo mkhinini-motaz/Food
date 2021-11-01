@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Events\OrderAction;
 use App\Models\Order;
 use App\Models\Shop;
 use App\Models\ShopUser;
@@ -59,6 +60,8 @@ class OrderController extends Controller
         $orderRepo = new OrderRepository($order);
         $orderRepo->attachShopTransporter($shopTransporter);
 
+        OrderAction::dispatch($order->id);
+
         return (new OrderResource($order));
     }
 
@@ -80,6 +83,8 @@ class OrderController extends Controller
         $status = $request->input('status');
         $orderRepo = new OrderRepository($order);
         $orderRepo->updateStatus($status);
+
+        OrderAction::dispatch($order->id);
 
         return (new OrderResource($order));
     }
