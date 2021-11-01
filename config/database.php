@@ -119,7 +119,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'predis'),
-            'prefix' => '', // TODO: implement
+            'prefix' => 'ghost_',
         ],
 
         'default' => [

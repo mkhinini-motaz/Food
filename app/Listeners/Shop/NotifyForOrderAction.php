@@ -40,7 +40,10 @@ class NotifyForOrderAction implements ShouldQueue
         foreach ($shopIds as $shopId) {
             $redis->publish(
                 'shop_' . $shopId . '.order_update',
-                json_encode([ 'orderId' => $orderId ])
+                json_encode([
+                    'orderId'           => $orderId,
+                    'shopTransporterId' => $order->shop_transporter_id,
+                ])
             );
         }
     }
