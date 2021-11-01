@@ -64,6 +64,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'استمتع بتاكوس اللذيذ بعجينتنا الأصلية',
             ],
             'photo' => 'example/restaurant/category/tacos.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 
@@ -83,6 +84,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'مكونات طازجة في خبز لذيذ و خفيف',
             ],
             'photo' => 'example/restaurant/category/sandwich.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 
@@ -102,6 +104,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'مقلوب لا مثيل له',
             ],
             'photo' => 'example/restaurant/category/ma9loub.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 
@@ -121,6 +124,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
             ],
             'photo' => 'example/restaurant/category/pizza.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 
@@ -140,6 +144,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
             ],
             'photo' => 'example/restaurant/category/pizza_sauce_blanche.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 
@@ -159,6 +164,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
             ],
             'photo' => 'example/restaurant/category/baguette_farcie.jpg',
+            'is_visible' => 0,
             'order' => $order++,
         ]);
 
@@ -171,6 +177,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'معكرونة',
             ],
             'photo' => 'example/restaurant/category/pates.jpg',
+            'is_visible' => 0,
             'order' => $order++,
         ]);
 
@@ -183,6 +190,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'وجبات خفيفة',
             ],
             'photo' => 'example/restaurant/category/entree.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 
@@ -195,6 +203,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'مشروبات',
             ],
             'photo' => 'example/restaurant/category/boisson.jpg',
+            'is_visible' => 1,
             'order' => $order++,
         ]);
 

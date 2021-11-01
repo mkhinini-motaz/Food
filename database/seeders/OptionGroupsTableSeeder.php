@@ -16,7 +16,7 @@ class OptionGroupsTableSeeder extends Seeder
     {
         $this->create();
 
-        $this->boxOptionGroupAttach();
+//        $this->boxOptionGroupAttach();
         $this->platOptionGroupAttach();
         $this->sandwichOptionGroupAttach();
         $this->tacosOptionGroupAttach();

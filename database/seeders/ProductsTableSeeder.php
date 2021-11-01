@@ -50,7 +50,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_simple.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
         ]);
@@ -72,7 +72,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_brochette.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 5,
         ]);
@@ -94,7 +94,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_mixt.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 5,
         ]);
@@ -116,7 +116,7 @@ class ProductsTableSeeder extends Seeder
             ],
             'photo' => 'example/restaurant/product/box_ghost.png',
             'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_WITH_OPTIONS,
+            'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 8,
         ]);
