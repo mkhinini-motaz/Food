@@ -85,3 +85,6 @@ worker.log
 storage/uploads
 public/uploads
 .DS_Store
+
+# Redis dump
+dump.rdb

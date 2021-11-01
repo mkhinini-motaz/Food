@@ -26,6 +26,8 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
         Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
             Route::post('/order', [ OrderController::class, 'create' ])->name('create');
         });
+
+        Route::post('/delivery-cost', [ OrderController::class, 'deliveryCost' ])->name('deliveryCost');
     });
 });
 
