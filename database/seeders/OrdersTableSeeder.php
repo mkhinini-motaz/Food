@@ -26,7 +26,7 @@ class OrdersTableSeeder extends Seeder
     public function order1()
     {
         $order = Order::factory()->create([
-            'shop_transporter_id' => 2,
+            'shop_transporter_id' => 1,
             'client_id'     => 1,
             'promo_code_id' => 1,
             'delivery_latitude' => 35.7327203,
@@ -93,7 +93,7 @@ class OrdersTableSeeder extends Seeder
     public function order2()
     {
         $order = Order::factory()->create([
-            'shop_transporter_id' => 3,
+            'shop_transporter_id' => 1,
             'client_id' => 2,
             'delivery_latitude' => 35.742093,
             'delivery_longitude' => 10.584897,
