@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Events\ClientRegistered;
 use App\Events\OrderCreated;
 use App\Listeners\Client\AttributePointsToRegisteredClient;
-use App\Listeners\Shop\NotifyForNewOrder;
+use App\Listeners\Shop\NotifyForOrderAction;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
 //            AttributePointsToInviterClient::class, // TODO: user must make his first order to reward the inviter
         ],
         OrderCreated::class => [
-            NotifyForNewOrder::class,
+            NotifyForOrderAction::class,
         ],
     ];
 

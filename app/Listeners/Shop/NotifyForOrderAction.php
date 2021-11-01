@@ -9,7 +9,7 @@ use App\Repositories\OrderRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Redis;
 
-class NotifyForNewOrder implements ShouldQueue
+class NotifyForOrderAction implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -39,7 +39,7 @@ class NotifyForNewOrder implements ShouldQueue
         $redis = Redis::connection();
         foreach ($shopIds as $shopId) {
             $redis->publish(
-                'shop_' . $shopId . '.order_created',
+                'shop_' . $shopId . '.order_update',
                 json_encode([ 'orderId' => $orderId ])
             );
         }
