@@ -190,7 +190,7 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'وجبات خفيفة',
             ],
             'photo' => 'example/restaurant/category/entree.jpg',
-            'is_visible' => 1,
+            'is_visible' => 0,
             'order' => $order++,
         ]);
 
