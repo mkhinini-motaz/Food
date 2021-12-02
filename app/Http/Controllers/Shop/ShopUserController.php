@@ -29,7 +29,7 @@ class ShopUserController extends Controller
         $orders = $shopUserRepository->assignedOrders();
         $shopUser->load('shop');
 
-        return ResourceCollection::jsonResponse(new LengthAwarePaginator($orders, $orders->count(), 500));
+        return ResourceCollection::jsonResponse($orders);
     }
 
     /**

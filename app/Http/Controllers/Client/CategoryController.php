@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Shop;
 use App\Http\Resources\ResourceCollection;
 use App\Repositories\CategoryRepository;
+use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\JsonResponse;
@@ -54,5 +55,21 @@ class CategoryController extends Controller
         $category = Category::findOrFail($categoryId, Shop::IS_APPROVED_TRUE);
 
         return response()->json([ 'status' => 'success', 'data' => $category ], 200); // TODO: ressource not working ????
+    }
+
+    /**
+     * @param int $shopId
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function menu($shopId, Request $request)
+    {
+        $shop = Shop::where('is_approved', '=', Shop::IS_APPROVED_TRUE)->findOrFail($shopId);
+        $shopRepository = new ShopRepository($shop);
+
+        $categories = $shopRepository->paginateCategories(1, 30, null, 'order', 'asc');
+
+        return ResourceCollection::jsonResponse($categories);
     }
 }

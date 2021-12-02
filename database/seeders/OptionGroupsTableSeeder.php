@@ -207,7 +207,7 @@ class OptionGroupsTableSeeder extends Seeder
         $optionGroupSalad = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
         $optionGroupPotatoes = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first();
 
-        $sandwichProducts = Product::where('category_id', '=', 3)->get();
+        $sandwichProducts = Product::where('category_id', '=', 4)->get();
 
         foreach ($sandwichProducts as $product) {
             $product->optionGroups()->sync([
@@ -271,7 +271,7 @@ class OptionGroupsTableSeeder extends Seeder
         $optionGroupSalad = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
         $optionGroupPotatoes = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first();
 
-        $makloubProducts = Product::where('category_id', '=', 4)->get();
+        $makloubProducts = Product::where('category_id', '=', 5)->get();
 
         foreach ($makloubProducts as $product) {
             $product->optionGroups()->sync([

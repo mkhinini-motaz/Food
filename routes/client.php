@@ -18,6 +18,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
     Route::get('/', [ ShopController::class, 'index' ])->name('index');
 
     Route::group(['prefix' => '{shopId}', 'as' => 'product.'], function () {
+        Route::get('/menu', [ CategoryController::class, 'menu' ])->name('menu');
 
         Route::get('/', [ ShopController::class, 'show' ])->name('show');
         Route::get('/category', [ ShopController::class, 'category' ])->name('category');

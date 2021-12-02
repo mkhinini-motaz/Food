@@ -51,7 +51,8 @@ class ShopUserRepository
 
         $orders = $this->shopUser->activeOrders()
             ->withNeededRelationsForTransporting()
-            ->orderByRaw('FIELD(id,' . implode(',', $sortedOrdersIds) . ')');
+            ->orderByRaw('FIELD(id,' . implode(',', $sortedOrdersIds) . ')')
+            ->paginate();
 
         return $orders;
     }
