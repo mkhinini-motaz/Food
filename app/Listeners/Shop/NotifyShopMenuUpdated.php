@@ -33,6 +33,6 @@ class NotifyShopMenuUpdated implements ShouldQueue
         /** @var Shop $shop */
 
         $redis = Redis::connection();
-        $redis->publish('shop_' . $shopId . '.menu_update', []);
+        $redis->publish('shop_' . $shopId . '.menu_update', json_encode([]));
     }
 }
