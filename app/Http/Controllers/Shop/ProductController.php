@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Events\ShopMenuUpdated;
 use App\Http\Resources\Resource;
 use App\Models\ActivityLog;
 use App\Models\Shop;
@@ -34,6 +35,8 @@ class ProductController extends Controller
             ->causedBy(auth()->user())
             ->log(ActivityLog::DESCRIPTION_PRODUCT_MAKE_VISIBLE);
 
+        ShopMenuUpdated::dispatch($shop->id);
+
         return Resource::jsonResponse($product);
     }
 
@@ -56,6 +59,8 @@ class ProductController extends Controller
         activity()->performedOn($product)
             ->causedBy(auth()->user())
             ->log(ActivityLog::DESCRIPTION_PRODUCT_MAKE_INVISIBLE);
+
+        ShopMenuUpdated::dispatch($shop->id);
 
         return Resource::jsonResponse($product);
     }

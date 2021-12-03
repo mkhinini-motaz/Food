@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ShopMenuUpdated;
 use App\Events\ClientRegistered;
 use App\Events\OrderAction;
+use App\Listeners\Shop\NotifyShopMenuUpdated;
 use App\Listeners\Client\AttributePointsToRegisteredClient;
 use App\Listeners\Shop\NotifyForOrderAction;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderAction::class => [
             NotifyForOrderAction::class,
+        ],
+        ShopMenuUpdated::class => [
+            NotifyShopMenuUpdated::class,
         ],
     ];
 

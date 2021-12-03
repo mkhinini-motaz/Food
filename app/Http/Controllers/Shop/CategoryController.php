@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Events\ShopMenuUpdated;
 use App\Http\Requests\Shop\Category\MakeInVisibleRequest;
 use App\Http\Requests\Shop\Category\MakeVisibleRequest;
 use App\Http\Resources\Resource;
@@ -85,6 +86,8 @@ class CategoryController extends Controller
             ->causedBy(auth()->user())
             ->log(ActivityLog::DESCRIPTION_CATEGORY_MAKE_VISIBLE);
 
+        ShopMenuUpdated::dispatch($shop->id);
+
         return Resource::jsonResponse($category);
     }
 
@@ -107,6 +110,8 @@ class CategoryController extends Controller
         activity()->performedOn($category)
             ->causedBy(auth()->user())
             ->log(ActivityLog::DESCRIPTION_CATEGORY_MAKE_INVISIBLE);
+
+        ShopMenuUpdated::dispatch($shop->id);
 
         return Resource::jsonResponse($category);
     }
