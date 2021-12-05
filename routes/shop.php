@@ -37,4 +37,8 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
         Route::get('/transporter', [ ShopUserController::class, 'transporter' ])->name('transporter');
         Route::get('/order/current', [ ShopUserController::class, 'currentOrders' ])->name('currentOrders');
     });
+
+    Route::group([ 'prefix' => 'menu', 'as' => 'menu.', ], function () {
+        Route::post('/lang', [ ShopController::class, 'updateMenuLang' ])->name('lang.update');
+    });
 });

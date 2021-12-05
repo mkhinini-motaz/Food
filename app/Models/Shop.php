@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property array  service_area
  * @property string domain
  * @property array  loyalty_action_rewards
+ * @property string menu_displayed_lang
  * @property string ga_tracking_id
  * @property string primary_color
  * @property string secondary_color

@@ -233,4 +233,13 @@ class ShopRepository
         $this->shop->service_area = $serviceArea;
         $this->shop->save();
     }
+
+    /**
+     * @param string $menuDisplayedLang
+     */
+    public function updateMenuDisplayedLang($menuDisplayedLang)
+    {
+        $this->shop->menu_displayed_lang = $menuDisplayedLang;
+        $this->shop->save();
+    }
 }

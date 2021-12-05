@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Events\ShopMenuLangUpdated;
+use App\Http\Requests\Shop\Shop\UpdateMenuLangRequest;
 use App\Http\Requests\Shop\Shop\UpdateServiceAreaRequest;
 use App\Http\Resources\Resource;
 use App\Models\Shop;
@@ -28,6 +30,25 @@ class ShopController extends Controller
         $shopRepository->updateServiceArea($serviceArea);
 
         // TODO: activity log
+
+        return Resource::jsonResponse($shop);
+    }
+
+    /**
+     * @param UpdateMenuLangRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updateMenuLang(UpdateMenuLangRequest $request)
+    {
+        $menuDisplayedLang = $request->input('menu_displayed_lang');
+
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        $shopRepository = new ShopRepository($shop);
+        $shopRepository->updateMenuDisplayedLang($menuDisplayedLang);
+
+        ShopMenuLangUpdated::dispatch($shop->id);
 
         return Resource::jsonResponse($shop);
     }

@@ -22,6 +22,7 @@ class ShopUserResource extends JsonResource
             'phone'      => $this->phone,
             'email'      => $this->email,
             'role'       => $this->role,
+            'shop'       => new ShopResource($this->whenLoaded('shop')),
 
             $this->mergeWhen(isset($this->active_orders_count), function() {
                 return [ 'active_orders_count' => $this->active_orders_count ];

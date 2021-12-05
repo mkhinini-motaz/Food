@@ -25,6 +25,7 @@ class CreateShopsTable extends Migration
             $table->smallInteger('pricing_category')->comment('@see App\Model\Shop::PRICING_CATEGORIES');
             $table->integer('min_order_price');
             $table->string('average_ready_minutes', 10)->nullable()->comment('null means immediate');
+            $table->string('menu_displayed_lang', 5)->default('fr');
             $table->unsignedTinyInteger('is_approved')->default(0);
             $table->unsignedTinyInteger('signup_is_open')->default(0);
             $table->text('service_area')->nullable()->comment('array of arrays, [ [lat, lng], ...]'); // TODO serviceAreas table

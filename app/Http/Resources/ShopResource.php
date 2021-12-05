@@ -22,6 +22,7 @@ class ShopResource extends JsonResource
 
             'description'           => $this->service->getTranslations('name'),
             'photo'                 => $this->service->photo,
+            'menu_displayed_lang'   => $this->menu_displayed_lang,
         ];
     }
 }

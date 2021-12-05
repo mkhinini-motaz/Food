@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\ShopMenuLangUpdated;
 use App\Events\ShopMenuUpdated;
 use App\Events\ClientRegistered;
 use App\Events\OrderAction;
+use App\Listeners\Shop\NotifyShopMenuLangUpdated;
 use App\Listeners\Shop\NotifyShopMenuUpdated;
 use App\Listeners\Client\AttributePointsToRegisteredClient;
 use App\Listeners\Shop\NotifyForOrderAction;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ShopMenuUpdated::class => [
             NotifyShopMenuUpdated::class,
+        ],
+        ShopMenuLangUpdated::class => [
+            NotifyShopMenuLangUpdated::class,
         ],
     ];
 
