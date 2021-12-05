@@ -2,8 +2,8 @@
 
 namespace App\Listeners\Shop;
 
+use App\Events\ShopMenuLangUpdated;
 use App\Models\Shop;
-use App\Events\ShopMenuUpdated;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Redis;
@@ -23,11 +23,11 @@ class NotifyShopMenuLangUpdated implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param ShopMenuUpdated $event
+     * @param ShopMenuLangUpdated $event
      *
      * @return void
      */
-    public function handle(ShopMenuUpdated $event)
+    public function handle(ShopMenuLangUpdated $event)
     {
         $shopId = $event->shopId;
         /** @var Shop $shop */
