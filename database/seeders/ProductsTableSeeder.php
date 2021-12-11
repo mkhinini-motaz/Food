@@ -35,11 +35,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Box simple',
-                'en'   => 'Simple box',
-                'tnfr' => 'Box simple',
-                'tnar' => 'بوكس سيمبل',
-                'ar'   => 'بوكس سيمبل',
+                'fr'   => 'Simple',
+                'en'   => 'Simple',
+                'tnfr' => 'Simple',
+                'tnar' => 'سيمبل',
+                'ar'   => 'سيمبل',
             ],
             'description' => [
                 'fr'   => 'Tacos 1 viande au choix, salade, pain, 2 jambons, salami, cheddar et frites',
@@ -57,11 +57,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Box brochette',
-                'en'   => 'Skewer box',
-                'tnfr' => 'Box brochette',
-                'tnar' => 'بوكس بروشات',
-                'ar'   => 'بوكس سيخ',
+                'fr'   => 'Brochette',
+                'en'   => 'Skewer',
+                'tnfr' => 'Brochette',
+                'tnar' => 'بروشات',
+                'ar'   => 'سيخ',
             ],
             'description' => [
                 'fr'   => 'Tacos 1 viande au choix, brochette, escalope panné, 2 jambons, salami, cheddar et frites',
@@ -79,11 +79,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Box mixte',
-                'en'   => 'Mixed box',
-                'tnfr' => 'Box mixte',
-                'tnar' => 'بوكس ميكست',
-                'ar'   => 'بوكس ميكس',
+                'fr'   => 'Mixte',
+                'en'   => 'Mixed',
+                'tnfr' => 'Mixte',
+                'tnar' => 'ميكست',
+                'ar'   => 'ميكس',
             ],
             'description' => [
                 'fr'   => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, 2 jambons, salami, cheddar et frites',
@@ -101,11 +101,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Ghost box',
-                'en'   => 'Ghost box',
-                'tnfr' => 'Ghost box',
-                'tnar' => 'ڨوست بوكس',
-                'ar'   => 'ڨوست بوكس',
+                'fr'   => 'Ghost',
+                'en'   => 'Ghost',
+                'tnfr' => 'Ghost',
+                'tnar' => 'ڨوست',
+                'ar'   => 'ڨوست',
             ],
             'description' => [
                 'fr'   => 'Tacos 1 viande au choix, chawarma, escalope, escalope panné, salade, pain, 2 jambons, salami, cheddar et frites',
@@ -599,11 +599,11 @@ class ProductsTableSeeder extends Seeder
 /*
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza au choix',
-                'en'   => 'Choice pizza',
-                'tnfr' => 'Pizza au choix',
-                'tnar' => 'بيتزا بالإختيار',
-                'ar'   => 'بيتزا بالإختيار',
+                'fr'   => 'Au choix',
+                'en'   => 'By choice',
+                'tnfr' => 'Au choix',
+                'tnar' => 'بالإختيار',
+                'ar'   => 'بالإختيار',
             ],
             'photo' => 'example/restaurant/product/pizza_4gout.jpg',
             'category_id' => $pizzaId,
@@ -615,11 +615,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza margherita',
-                'en'   => 'Margherita Pizza',
-                'tnfr' => 'Pizza margherita',
-                'tnar' => 'بيتزا مارغريتا',
-                'ar'   => 'بيتزا مارغريتا',
+                'fr'   => 'Margherita',
+                'en'   => 'Margherita',
+                'tnfr' => 'Margherita',
+                'tnar' => 'مارغريتا',
+                'ar'   => 'مارغريتا',
             ],
             'photo' => 'example/restaurant/product/pizza_margeritha.jpg',
             'category_id' => $pizzaId,
@@ -630,11 +630,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza thon',
-                'en'   => 'Tuna Pizza',
-                'tnfr' => 'Pizza thon',
-                'tnar' => 'بيتزا تن',
-                'ar'   => 'بيتزا تن',
+                'fr'   => 'Thon',
+                'en'   => 'Tuna',
+                'tnfr' => 'Thon',
+                'tnar' => 'تن',
+                'ar'   => 'تن',
             ],
             'photo' => 'example/restaurant/product/pizza_thon.jpg',
             'category_id' => $pizzaId,
@@ -645,11 +645,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza fruit de mer',
-                'en'   => 'Seafood pizza',
-                'tnfr' => 'Pizza fruit de mer',
-                'tnar' => 'بيتزا غلال البحر',
-                'ar'   => 'بيتزا غلال البحر',
+                'fr'   => 'Fruits de mer',
+                'en'   => 'Seafood',
+                'tnfr' => 'Fruits de mer',
+                'tnar' => 'غلال البحر',
+                'ar'   => 'غلال البحر',
             ],
             'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
             'category_id' => $pizzaId,
@@ -660,11 +660,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza chicken',
-                'en'   => 'Chicken pizza',
-                'tnfr' => 'Pizza chicken',
-                'tnar' => 'بيتزا دجاج',
-                'ar'   => 'بيتزا دجاج',
+                'fr'   => 'Chicken',
+                'en'   => 'Chicken',
+                'tnfr' => 'Chicken',
+                'tnar' => 'دجاج',
+                'ar'   => 'دجاج',
             ],
             'photo' => 'example/restaurant/product/pizza_chicken.jpg',
             'category_id' => $pizzaId,
@@ -675,11 +675,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza 4 fromages',
-                'en'   => '4 cheese pizza',
-                'tnfr' => 'Pizza 4 fromages',
-                'tnar' => 'بيتزا 4 فرماج',
-                'ar'   => 'بيتزا 4 أجبان',
+                'fr'   => '4 fromages',
+                'en'   => '4 cheese',
+                'tnfr' => '4 fromages',
+                'tnar' => '4 فرماج',
+                'ar'   => '4 أجبان',
             ],
             'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
             'category_id' => $pizzaId,
@@ -691,11 +691,11 @@ class ProductsTableSeeder extends Seeder
 /*
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza pepperoni',
-                'en'   => 'Pepperoni pizza',
-                'tnfr' => 'Pizza pepperoni',
-                'tnar' => 'بيتزا بيبروني',
-                'ar'   => 'بيتزا بيبروني',
+                'fr'   => 'Pepperoni',
+                'en'   => 'Pepperoni',
+                'tnfr' => 'Pepperoni',
+                'tnar' => 'بيبروني',
+                'ar'   => 'بيبروني',
             ],
             'photo' => 'example/restaurant/product/pizza_pepperoni.jpg',
             'category_id' => $pizzaId,
@@ -707,11 +707,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza regina',
-                'en'   => 'Regina pizza',
-                'tnfr' => 'Pizza regina',
-                'tnar' => 'بيتزا ريجينا',
-                'ar'   => 'بيتزا ريجينا',
+                'fr'   => 'Regina',
+                'en'   => 'Regina',
+                'tnfr' => 'Regina',
+                'tnar' => 'ريجينا',
+                'ar'   => 'ريجينا',
             ],
             'photo' => 'example/restaurant/product/pizza_regina.jpg',
             'category_id' => $pizzaId,
@@ -722,11 +722,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza jambon',
-                'en'   => 'Ham pizza',
-                'tnfr' => 'Pizza jambon',
-                'tnar' => 'بيتزا جمبون',
-                'ar'   => 'بيتزا جمبون',
+                'fr'   => 'Jambon',
+                'en'   => 'Ham',
+                'tnfr' => 'Jambon',
+                'tnar' => 'جمبون',
+                'ar'   => 'جمبون',
             ],
             'photo' => 'example/restaurant/product/pizza_jambon.jpg',
             'category_id' => $pizzaId,
@@ -746,11 +746,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza fruit de mer',
-                'en'   => 'Seafood pizza',
-                'tnfr' => 'Pizza fruit de mer',
-                'tnar' => 'بيتزا غلال البحر',
-                'ar'   => 'بيتزا غلال البحر',
+                'fr'   => 'Fruits de mer',
+                'en'   => 'Seafood',
+                'tnfr' => 'Fruits de mer',
+                'tnar' => 'غلال البحر',
+                'ar'   => 'غلال البحر',
             ],
             'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
             'category_id' => $pizzaSauceBlancheId,
@@ -761,11 +761,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza 4 fromages',
-                'en'   => '4 cheese pizza',
-                'tnfr' => 'Pizza 4 fromages',
-                'tnar' => 'بيتزا 4 فرماج',
-                'ar'   => 'بيتزا 4 أجبان',
+                'fr'   => '4 fromages',
+                'en'   => '4 cheese',
+                'tnfr' => '4 fromages',
+                'tnar' => '4 فرماج',
+                'ar'   => '4 أجبان',
             ],
             'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
             'category_id' => $pizzaSauceBlancheId,
@@ -776,11 +776,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza jambon',
-                'en'   => 'Ham pizza',
-                'tnfr' => 'Pizza jambon',
-                'tnar' => 'بيتزا جمبون',
-                'ar'   => 'بيتزا جمبون',
+                'fr'   => 'Jambon',
+                'en'   => 'Ham',
+                'tnfr' => 'Jambon',
+                'tnar' => 'جمبون',
+                'ar'   => 'جمبون',
             ],
             'photo' => 'example/restaurant/product/pizza_jambon.jpg',
             'category_id' => $pizzaSauceBlancheId,
@@ -791,11 +791,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Pizza indienne',
-                'en'   => 'Indian pizza',
-                'tnfr' => 'Pizza indienne',
-                'tnar' => 'بيتزا هندية',
-                'ar'   => 'بيتزا هندية',
+                'fr'   => 'Indienne',
+                'en'   => 'Indian',
+                'tnfr' => 'Indienne',
+                'tnar' => 'هندية',
+                'ar'   => 'هندية',
             ],
             'photo' => 'example/restaurant/product/pizza_indienne.jpg',
             'category_id' => $pizzaSauceBlancheId,
