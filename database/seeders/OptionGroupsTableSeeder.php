@@ -230,7 +230,7 @@ class OptionGroupsTableSeeder extends Seeder
         $optionGroupSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
         $optionGroupSupplement = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
 
-        $tacosS = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos S 1 viande'")->first();
+        $tacosS = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'S 1 viande'")->first();
 
         $tacosS->optionGroups()->sync([
             $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
@@ -239,7 +239,7 @@ class OptionGroupsTableSeeder extends Seeder
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
         ]);
 
-        $tacosM = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos M 2 viandes'")->first();
+        $tacosM = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'M 2 viandes'")->first();
 
         $order = 1;
         $tacosM->optionGroups()->sync([
@@ -249,7 +249,7 @@ class OptionGroupsTableSeeder extends Seeder
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
         ]);
 
-        $tacosL = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos L 3 viandes'")->first();
+        $tacosL = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'L 3 viandes'")->first();
 
         $order = 1;
         $tacosL->optionGroups()->sync([
