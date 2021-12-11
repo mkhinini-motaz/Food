@@ -342,12 +342,12 @@ class OptionsTableSeeder extends Seeder
 
         $order = 1;
         $optionGroupSauce->options()->sync([
-            $optionHarissa->id         => [ 'order' => $order++, 'is_selected_by_default' => 1 ],
+            $optionHarissa->id         => [ 'order' => $order++, 'is_selected_by_default' => 1, ],
             $optionMayonnaise->id      => [ 'order' => $order++, 'is_selected_by_default' => 1 ],
-            $optionSauceAlgerienne->id => [ 'order' => $order++ ],
-            $optionKetchup->id         => [ 'order' => $order++ ],
-            $optionSauceBarbecue->id   => [ 'order' => $order++ ],
-            $optionSauceHoumous->id    => [ 'order' => $order++ ],
+            $optionSauceAlgerienne->id => [ 'order' => $order++, ],
+            $optionKetchup->id         => [ 'order' => $order++, ],
+            $optionSauceBarbecue->id   => [ 'order' => $order++, ],
+            $optionSauceHoumous->id    => [ 'order' => $order++, 'price' => 200, ],
         ]);
     }
 
