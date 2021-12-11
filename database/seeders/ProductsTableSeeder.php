@@ -414,9 +414,9 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'escalope',
+                'fr'   => 'Escalope',
                 'en'   => 'Escalope',
-                'tnfr' => 'escalope',
+                'tnfr' => 'Escalope',
                 'tnar' => 'اسكالوب',
                 'ar'   => 'اسكالوب',
             ],
@@ -429,9 +429,9 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'thon',
+                'fr'   => 'Thon',
                 'en'   => 'Tuna',
-                'tnfr' => 'thon',
+                'tnfr' => 'Thon',
                 'tnar' => 'تن',
                 'ar'   => 'تن',
             ],
@@ -444,9 +444,9 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'jambon',
+                'fr'   => 'Jambon',
                 'en'   => 'Ham',
-                'tnfr' => 'jambon',
+                'tnfr' => 'Jambon',
                 'tnar' => 'جمبون',
                 'ar'   => 'ساندويش جمبون',
             ],
@@ -459,9 +459,9 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'nugget',
+                'fr'   => 'Nugget',
                 'en'   => 'Nugget',
-                'tnfr' => 'nugget',
+                'tnfr' => 'Nugget',
                 'tnar' => 'ناجت',
                 'ar'   => 'ناجت',
             ],
@@ -474,9 +474,9 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'brochette',
+                'fr'   => 'Brochette',
                 'en'   => 'Skewer',
-                'tnfr' => 'brochette',
+                'tnfr' => 'Brochette',
                 'tnar' => 'بروشات',
                 'ar'   => 'سيخ',
             ],
@@ -530,7 +530,7 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'thon',
+                'fr'   => 'Thon',
                 'en'   => 'Tuna',
                 'tnar' => 'تن',
                 'tnfr' => 'Thon',
