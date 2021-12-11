@@ -298,11 +298,11 @@ class OptionsTableSeeder extends Seeder
 
         $optionSauceAlgerienne = Option::factory()->create([
             'name' => [
-                'fr'   => 'Sauce algérienne',
-                'en'   => 'Algerian sauce',
-                'tnfr' => 'Sauce algérienne',
-                'tnar' => 'سوس ألجريان',
-                'ar'   => 'صوص جزائرية',
+                'fr'   => 'Algérienne',
+                'en'   => 'Algerian',
+                'tnfr' => 'Algérienne',
+                'tnar' => 'ألجريان',
+                'ar'   => 'جزائرية',
             ],
             'photo' => 'example/restaurant/option/algerienne.jpg',
         ]);
@@ -320,22 +320,22 @@ class OptionsTableSeeder extends Seeder
 
         $optionSauceBarbecue = Option::factory()->create([
             'name' => [
-                'fr'   => 'Sauce barbecue',
-                'en'   => 'Barbecue sauce',
-                'tnfr' => 'Sauce barbecue',
-                'tnar' => 'سوس باربكيو',
-                'ar'   => 'صوص باربكيو',
+                'fr'   => 'Barbecue',
+                'en'   => 'Barbecue',
+                'tnfr' => 'Barbecue',
+                'tnar' => 'باربكيو',
+                'ar'   => 'باربكيو',
             ],
             'photo' => 'example/restaurant/option/barbecue_sauce.jpg',
         ]);
 
         $optionSauceHoumous = Option::factory()->create([
             'name' => [
-                'fr'   => 'Sauce houmous',
-                'en'   => 'Houmous sauce',
-                'tnfr' => 'Sauce 7oms',
-                'tnar' => 'سوس حمص',
-                'ar'   => 'صوص الحمص',
+                'fr'   => 'Houmous',
+                'en'   => 'Houmous',
+                'tnfr' => '7oms',
+                'tnar' => 'حمص',
+                'ar'   => 'حمص',
             ],
             'photo' => 'example/restaurant/option/saucehommos.jpg',
         ]);

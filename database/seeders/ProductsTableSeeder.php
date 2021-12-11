@@ -132,11 +132,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Tacos S 1 viande',
-                'en'   => 'French tacos S 1 meat',
-                'tnfr' => 'Tacos S 1 viande',
-                'tnar' => 'تاكوس إس لحمة وحدة',
-                'ar'   => 'تاكوس إس لحمة واحدة',
+                'fr'   => 'S 1 viande',
+                'en'   => 'S 1 meat',
+                'tnfr' => 'S 1 viande',
+                'tnar' => 'إس لحمة وحدة',
+                'ar'   => 'إس لحمة واحدة',
             ],
             'description' => [
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
@@ -154,11 +154,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Tacos M 2 viandes',
-                'en'   => 'French tacos M 2 meats',
-                'tnfr' => 'Tacos M 2 viandes',
-                'tnar' => 'تاكوس إم لحمتين',
-                'ar'   => 'تاكوس إم لحمتان',
+                'fr'   => 'M 2 viandes',
+                'en'   => 'M 2 meats',
+                'tnfr' => 'M 2 viandes',
+                'tnar' => 'إم لحمتين',
+                'ar'   => 'إم لحمتان',
             ],
             'description' => [
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
@@ -176,11 +176,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Tacos L 3 viandes',
-                'en'   => 'French tacos L 3 meats',
-                'tnfr' => 'Tacos L 3 viandes',
-                'tnar' => 'تاكوس إل ثلاث لحمات',
-                'ar'   => 'تاكوس إل ثلاث لحوم',
+                'fr'   => 'L 3 viandes',
+                'en'   => 'L 3 meats',
+                'tnfr' => 'L 3 viandes',
+                'tnar' => 'إل ثلاث لحمات',
+                'ar'   => 'إل ثلاث لحوم',
             ],
             'description' => [
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
@@ -414,11 +414,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Sandwich escalope',
-                'en'   => 'Escalope sandwich',
-                'tnfr' => 'Sandwich escalope',
-                'tnar' => 'سندويتش اسكالوب',
-                'ar'   => 'ساندوتش اسكالوب',
+                'fr'   => 'escalope',
+                'en'   => 'Escalope',
+                'tnfr' => 'escalope',
+                'tnar' => 'اسكالوب',
+                'ar'   => 'اسكالوب',
             ],
             'photo' => 'example/restaurant/product/sandwich_escalope.png',
             'category_id' => $categorySandwichId,
@@ -429,11 +429,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Sandwich thon',
-                'en'   => 'Tuna sandwich',
-                'tnfr' => 'Sandwich thon',
-                'tnar' => 'سندويتش تن',
-                'ar'   => 'ساندوتش تن',
+                'fr'   => 'thon',
+                'en'   => 'Tuna',
+                'tnfr' => 'thon',
+                'tnar' => 'تن',
+                'ar'   => 'تن',
             ],
             'photo' => 'example/restaurant/product/sandwich_thon.jpg',
             'category_id' => $categorySandwichId,
@@ -444,10 +444,10 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Sandwich jambon',
-                'en'   => 'Ham sandwich',
-                'tnfr' => 'Sandwich jambon',
-                'tnar' => 'سندويتش جمبون',
+                'fr'   => 'jambon',
+                'en'   => 'Ham',
+                'tnfr' => 'jambon',
+                'tnar' => 'جمبون',
                 'ar'   => 'ساندويش جمبون',
             ],
             'photo' => 'example/restaurant/product/sandwich_jambon.jpg',
@@ -459,11 +459,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Sandwich nugget',
-                'en'   => 'Nugget sandwich',
-                'tnfr' => 'Sandwich nugget',
-                'tnar' => 'سندويتش ناجت',
-                'ar'   => 'ساندوتش ناجت',
+                'fr'   => 'nugget',
+                'en'   => 'Nugget',
+                'tnfr' => 'nugget',
+                'tnar' => 'ناجت',
+                'ar'   => 'ناجت',
             ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
             'category_id' => $categorySandwichId,
@@ -474,11 +474,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Sandwich brochette',
-                'en'   => 'Skewer sandwich',
-                'tnfr' => 'Sandwich brochette',
-                'tnar' => 'سندويتش بروشات',
-                'ar'   => 'ساندوتش سيخ',
+                'fr'   => 'brochette',
+                'en'   => 'Skewer',
+                'tnfr' => 'brochette',
+                'tnar' => 'بروشات',
+                'ar'   => 'سيخ',
             ],
             'photo' => 'example/restaurant/product/sandwich_brochette.jpg',
             'category_id' => $categorySandwichId,
@@ -490,11 +490,11 @@ class ProductsTableSeeder extends Seeder
 /*
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Sandwich crevette',
-                'en'   => 'Shrimp sandwich',
-                'tnfr' => 'Sandwich crevette',
-                'tnar' => 'سندويتش كروفت',
-                'ar'   => 'ساندوتش جمبري',
+                'fr'   => 'crevette',
+                'en'   => 'Shrimp',
+                'tnfr' => 'crevette',
+                'tnar' => 'كروفات',
+                'ar'   => 'جمبري',
             ],
             'photo' => 'example/restaurant/product/sandwich_crevette.jpg',
             'category_id' => $categorySandwichId,
@@ -515,11 +515,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Makloub escalope',
-                'en'   => 'Escalope makloub',
-                'tnfr' => 'Ma9loub escalope',
-                'tnar' => 'مقلوب اسكالوب',
-                'ar'   => 'مقلوب اسكالوب',
+                'fr'   => 'Escalope',
+                'en'   => 'Escalope',
+                'tnfr' => 'Escalope',
+                'tnar' => 'اسكالوب',
+                'ar'   => 'اسكالوب',
             ],
             'photo' => 'example/restaurant/product/ma9loub_escalope.jpg',
             'category_id' => $categoryMakloubId,
@@ -530,11 +530,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Makloub thon',
-                'en'   => 'Tuna makloub',
-                'tnar' => 'مقلوب تن',
-                'tnfr' => 'Ma9loub thon',
-                'ar'   => 'مقلوب تن',
+                'fr'   => 'thon',
+                'en'   => 'Tuna',
+                'tnar' => 'تن',
+                'tnfr' => 'Thon',
+                'ar'   => 'تن',
             ],
             'photo' => 'example/restaurant/product/makloub_thon.jpg',
             'category_id' => $categoryMakloubId,
@@ -545,11 +545,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Makloub jambon',
-                'en'   => 'Ham makloub',
-                'tnfr' => 'Ma9loub jambon',
-                'tnar' => 'مقلوب جمبون',
-                'ar'   => 'مقلوب جمبون',
+                'fr'   => 'Jambon',
+                'en'   => 'Ham',
+                'tnfr' => 'Jambon',
+                'tnar' => 'جمبون',
+                'ar'   => 'جمبون',
             ],
             'photo' => 'example/restaurant/product/makloub_jambon.jpg',
             'category_id' => $categoryMakloubId,
@@ -560,11 +560,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Makloub nugget',
-                'en'   => 'Nugget makloub',
-                'tnfr' => 'Ma9loub nugget',
-                'tnar' => 'مقلوب ناجت',
-                'ar'   => 'مقلوب ناجت',
+                'fr'   => 'Nugget',
+                'en'   => 'Nugget',
+                'tnfr' => 'Nugget',
+                'tnar' => 'ناجت',
+                'ar'   => 'ناجت',
             ],
             'photo' => 'example/restaurant/product/makloub_nugget.jpg',
             'category_id' => $categoryMakloubId,
@@ -575,11 +575,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Makloub brochette',
-                'en'   => 'Skewer makloub',
-                'tnfr' => 'Ma9loub brochette',
-                'tnar' => 'مقلوب بروشات',
-                'ar'   => 'مقلوب سيخ',
+                'fr'   => 'Brochette',
+                'en'   => 'Skewer',
+                'tnfr' => 'Brochette',
+                'tnar' => 'بروشات',
+                'ar'   => 'سيخ',
             ],
             'photo' => 'example/restaurant/product/makloub_brochette.png',
             'category_id' => $categoryMakloubId,
