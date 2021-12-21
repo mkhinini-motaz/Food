@@ -448,7 +448,7 @@ class ProductsTableSeeder extends Seeder
                 'en'   => 'Ham',
                 'tnfr' => 'Jambon',
                 'tnar' => 'جمبون',
-                'ar'   => 'ساندويش جمبون',
+                'ar'   => 'جمبون',
             ],
             'photo' => 'example/restaurant/product/sandwich_jambon.jpg',
             'category_id' => $categorySandwichId,

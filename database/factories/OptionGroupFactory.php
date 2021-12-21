@@ -30,9 +30,9 @@ class OptionGroupFactory extends Factory
                 'ar'   => $this->faker->word,
             ],
             'description' => [
-                'fr'   => 'Description Français Description Français Description Français Description Français Description Français',
-                'en'   => 'English Description English Description English Description English Description English Description',
-                'tnfr' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
+                'fr'   => 'Description Français Description Français Description Français Description Français',
+                'en'   => 'English Description English Description English Description English Description',
+                'tnfr' => 'Description Tounsi Description Tounsi Description Tounsi Description Tounsi',
                 'tnar' => 'وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي وصف تونسي',
                 'ar'   => 'وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي وصف عربي',
             ],
