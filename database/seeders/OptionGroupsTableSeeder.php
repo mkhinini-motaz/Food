@@ -211,7 +211,7 @@ class OptionGroupsTableSeeder extends Seeder
 
         foreach ($sandwichProducts as $product) {
             $product->optionGroups()->sync([
-                $optionGroupSauce->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
+                $optionGroupSauce->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1, ],
                 $optionGroupSalad->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_quantifiable' => 1, ],
                 $optionGroupPotatoes->id   => [ 'order' => $order++, ],
                 $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
@@ -230,32 +230,32 @@ class OptionGroupsTableSeeder extends Seeder
         $optionGroupSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
         $optionGroupSupplement = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
 
-        $tacosS = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos S 1 viande'")->first();
+        $tacosS = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'S 1 viande'")->first();
 
         $tacosS->optionGroups()->sync([
             $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
             $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
+            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1, ],
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
         ]);
 
-        $tacosM = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos M 2 viandes'")->first();
+        $tacosM = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'M 2 viandes'")->first();
 
         $order = 1;
         $tacosM->optionGroups()->sync([
             $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 2, 'max_options' => 2, ],
-            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
+            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, 'options_are_billable' => 1, ],
             $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
         ]);
 
-        $tacosL = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tacos L 3 viandes'")->first();
+        $tacosL = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'L 3 viandes'")->first();
 
         $order = 1;
         $tacosL->optionGroups()->sync([
             $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 3, 'max_options' => 3, ],
             $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
+            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1, ],
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 5, 'options_are_billable' => 1, ],
         ]);
     }
@@ -275,7 +275,7 @@ class OptionGroupsTableSeeder extends Seeder
 
         foreach ($makloubProducts as $product) {
             $product->optionGroups()->sync([
-                $optionGroupSauce->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
+                $optionGroupSauce->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1, ],
                 $optionGroupSalad->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
                 $optionGroupPotatoes->id   => [ 'order' => $order++, ],
                 $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
