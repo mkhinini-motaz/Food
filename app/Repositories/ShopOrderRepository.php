@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\PromoCode;
 use App\Models\Shop;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 
 class ShopOrderRepository
@@ -35,7 +36,7 @@ class ShopOrderRepository
      * @param array          $products
      * @param string         $deliveryLatitude
      * @param string         $deliveryLongitude
-     * @param int            $source @see Order::SOURCES
+     * @param int            $source           @see Order::SOURCES
      * @param int            $collectionMethod @see Order::COLLECTION_METHODS
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
@@ -45,6 +46,7 @@ class ShopOrderRepository
      */
     public function create(Client $client, $products, $deliveryLatitude, $deliveryLongitude, $source, $collectionMethod, $additionalNote = null, PromoCode $promoCode = null)
     {
+
         $order    = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
 
@@ -65,10 +67,17 @@ class ShopOrderRepository
             $order->total_price   = $order->total_price > 0 ? $order->total_price : 0;
             $order->promo_code_id = $promoCode->id;
         }
-
-        $order->save();
-        $this->saveProductsForOrder($order, $products);
-        $this->saveOptionsForOrder($order, $products);
+        try {
+            DB::beginTransaction();
+            $order->saveOrFail();
+            $this->saveProductsForOrder($order, $products);
+            $this->saveOptionsForOrder($order, $products);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+            throw new OrderException('order:save:fail');
+        }
 
         return $order;
     }
@@ -81,24 +90,24 @@ class ShopOrderRepository
      */
     public function validateAndCalculateProductsPrice($productsInput)
     {
-        $totalPrice = 0;
+        $totalPrice     = 0;
         $productsFromDb = $this->productsFromInput($productsInput)
-            ->keyBy('id');
+                               ->keyBy('id');
 
         foreach ($productsInput as $product) {
             /** @var Product $productFromDb */
-            $productFromDb = $productsFromDb->get($product['product_id']);
+            $productFromDb = $productsFromDb->get($product[ 'product_id' ]);
             if (! $productFromDb) {
                 throw new OrderException('product:not_found');
             }
 
-            $optionsInput = $product['options'] ?? null;
+            $optionsInput = $product[ 'options' ] ?? null;
             if ($productFromDb->type !== Product::TYPE_WITH_OPTIONS || ! $optionsInput) {
                 continue;
             }
 
             $optionsPrice = $this->validateAndCalculatePriceForProductOptions($productFromDb, $optionsInput);
-            $totalPrice += $productFromDb->price + $optionsPrice;
+            $totalPrice   += $productFromDb->price + $optionsPrice;
         }
 
         return $totalPrice;
@@ -113,22 +122,22 @@ class ShopOrderRepository
      */
     public function validateAndCalculatePriceForProductOptions(Product $product, $optionsInput)
     {
-        [ $optionGroupCheck, $optionsFromDb, $optionGroupRules ] = $this->prepareOptionGroupsForValidation($product);
-        $optionsAddedPrice   = 0;
+        [$optionGroupCheck, $optionsFromDb, $optionGroupRules] = $this->prepareOptionGroupsForValidation($product);
+        $optionsAddedPrice = 0;
         foreach ($optionsInput as $option) {
             /** @var Option $optionFromDb */
-            $optionFromDb  = $optionsFromDb[$option['id']];
+            $optionFromDb  = $optionsFromDb[ $option[ 'id' ] ];
             $optionGroupId = $optionFromDb->pivot->option_group_id;
 
             if (! isset($optionFromDb)) {
                 throw new OrderException('option:not_found');
             }
-            if ($optionGroupCheck[$optionGroupId]['options_count'] > $optionGroupRules[$optionGroupId]['max_options']) {
+            if ($optionGroupCheck[ $optionGroupId ][ 'options_count' ] > $optionGroupRules[ $optionGroupId ][ 'max_options' ]) {
                 throw new OrderException('option_group:max_options');
             }
 
             $optionsAddedPrice += $optionFromDb->price;
-            $optionGroupCheck[$optionGroupId]['options_count']++;
+            $optionGroupCheck[ $optionGroupId ][ 'options_count' ]++;
         }
 
         return $optionsAddedPrice;
@@ -141,15 +150,15 @@ class ShopOrderRepository
      */
     public function productsFromInput($productsInput)
     {
-        $productsIds   = [];
+        $productsIds = [];
         foreach ($productsInput as $product) {
-            $productsIds[] = $product['product_id'];
+            $productsIds[] = $product[ 'product_id' ];
         }
 
         return $this->shop->products()
-            ->with('optionGroups.options')
-            ->whereIn('products.id', $productsIds)
-            ->get();
+                          ->with('optionGroups.options')
+                          ->whereIn('products.id', $productsIds)
+                          ->get();
     }
 
     /**
@@ -176,12 +185,12 @@ class ShopOrderRepository
 
         /** @var OptionGroup $optionGroup */
         foreach ($product->optionGroups as $optionGroup) {
-            $optionGroupCheck[$optionGroup->id] = [ 'options_count' => 0 ];
-            $optionGroupRules[$optionGroup->id] = $optionGroup->optionsValidationRules();
-            $optionsFromDb += $optionGroup->options->keyBy('id')->all();
+            $optionGroupCheck[ $optionGroup->id ] = ['options_count' => 0];
+            $optionGroupRules[ $optionGroup->id ] = $optionGroup->optionsValidationRules();
+            $optionsFromDb                        += $optionGroup->options->keyBy('id')->all();
         }
 
-        return [ $optionGroupCheck, $optionsFromDb, $optionGroupRules ];
+        return [$optionGroupCheck, $optionsFromDb, $optionGroupRules];
     }
 
     /**
@@ -193,9 +202,9 @@ class ShopOrderRepository
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
             $productRelationshipInfos[] = [
-                'order_id'      => $order->id,
-                'product_id'    => $product['product_id'],
-                'product_count' => $product['product_count'],
+                'order_id' => $order->id,
+                'product_id' => $product[ 'product_id' ],
+                'product_count' => $product[ 'product_count' ],
             ];
         }
 
@@ -211,17 +220,17 @@ class ShopOrderRepository
     {
         /** @var Product $product */
         $orderProducts = $order->products()
-            ->where('type', '=', Product::TYPE_WITH_OPTIONS)
-            ->get();
+                               ->where('type', '=', Product::TYPE_WITH_OPTIONS)
+                               ->get();
 
         $optionsRelationshipInfos = [];
         foreach ($orderProducts as $index => $product) {
-            if (! $productsInput[$index]['options']) {
+            if (! $productsInput[ $index ][ 'options' ]) {
                 continue;
             }
 
             $orderProductId = $product->pivot->id;
-            foreach ($productsInput[$index]['options'] as $option) {
+            foreach ($productsInput[ $index ][ 'options' ] as $option) {
                 $optionsRelationshipInfos[] = $this->optionRelationshipInfoFromInput($option, $orderProductId);
             }
         }
@@ -239,8 +248,8 @@ class ShopOrderRepository
     private function optionRelationshipInfoFromInput($optionInput, $orderProductId)
     {
         return [
-            'quantity'         => $optionInput['quantity'] ?? 0,
-            'option_id'        => $optionInput['id'],
+            'quantity' => $optionInput[ 'quantity' ] ?? 0,
+            'option_id' => $optionInput[ 'id' ],
             'order_product_id' => $orderProductId,
         ];
     }

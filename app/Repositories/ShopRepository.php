@@ -231,7 +231,7 @@ class ShopRepository
     public function updateServiceArea($serviceArea)
     {
         $this->shop->service_area = $serviceArea;
-        $this->shop->save();
+        $this->shop->saveOrFail();
     }
 
     /**
@@ -240,6 +240,6 @@ class ShopRepository
     public function updateMenuDisplayedLang($menuDisplayedLang)
     {
         $this->shop->menu_displayed_lang = $menuDisplayedLang;
-        $this->shop->save();
+        $this->shop->saveOrFail();
     }
 }

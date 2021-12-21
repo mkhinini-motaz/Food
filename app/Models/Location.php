@@ -28,11 +28,6 @@ class Location extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'latitude'  => 'float',
-        'longitude' => 'float',
-    ];
-
     /**
      * @return BelongsTo
      */

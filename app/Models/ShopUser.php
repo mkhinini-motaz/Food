@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int updated_at
  * @property int deleted_at
  *
- * @property Shop shop
+ * @property-read  Shop shop
  */
 class ShopUser extends Authenticatable
 {

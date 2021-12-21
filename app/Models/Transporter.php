@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string email
  * @property string shift_start_hour
  * @property string shift_end_hour
+ *                                //TODO remove start & end
+ * @property bool   is_available
  * @property bool   is_approved
  *
  * @property int created_at

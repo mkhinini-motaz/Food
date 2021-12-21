@@ -22,11 +22,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string email
  * @property string password
  * @property string phone
- * @property int    last_login_at
+ * @property int|null last_login_at
  * @property bool   is_phone_confirmed
  * @property int    loyalty_points_count
  * @property string invite_code
- * @property int    shop_id
  *
  * @property int created_at
  * @property int updated_at

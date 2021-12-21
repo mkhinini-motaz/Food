@@ -6,6 +6,7 @@ use App\Support\Model;
 
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,12 +29,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int updated_at
  * @property int deleted_at
  *
- * @property Collection shop
- * @property Collection products
+ * @property-read Shop      shop
+ * @property-read Product[] products
  */
 class Category extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory, HasTranslations, SoftDeletes;
 
     protected $dateFormat = 'U';
 
@@ -68,7 +69,6 @@ class Category extends Model
         }
         return parent::findOrFail($categoryId);
     }
-
 
     /**
      * @param Builder $query
