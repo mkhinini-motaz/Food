@@ -626,6 +626,23 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 2,
+            'price' => 9000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Napolitaine',
+                'en'   => 'Napolitan',
+                'tnfr' => 'Napolitaine',
+                'tnar' => 'نابوليتان',
+                'ar'   => 'نابوليتان',
+            ],
+            'photo' => 'example/restaurant/product/pizza_margeritha.jpg',
+            'category_id' => $pizzaId,
+            'type' => Product::TYPE_FIXED,
+            'order' => $order++,
+            'added_loyalty_points' => 2,
+            'price' => 12000,
         ]);
 
         Product::factory()->create([
@@ -641,36 +658,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
-        ]);
-
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Fruits de mer',
-                'en'   => 'Seafood',
-                'tnfr' => 'Fruits de mer',
-                'tnar' => 'غلال البحر',
-                'ar'   => 'غلال البحر',
-            ],
-            'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
-            'category_id' => $pizzaId,
-            'type' => Product::TYPE_FIXED,
-            'order' => $order++,
-            'added_loyalty_points' => 5,
-        ]);
-
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Chicken',
-                'en'   => 'Chicken',
-                'tnfr' => 'Chicken',
-                'tnar' => 'دجاج',
-                'ar'   => 'دجاج',
-            ],
-            'photo' => 'example/restaurant/product/pizza_chicken.jpg',
-            'category_id' => $pizzaId,
-            'type' => Product::TYPE_FIXED,
-            'order' => $order++,
-            'added_loyalty_points' => 3,
+            'price' => 12000,
         ]);
 
         Product::factory()->create([
@@ -686,9 +674,9 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
+            'price' => 13000,
         ]);
 
-/*
         Product::factory()->create([
             'name' => [
                 'fr'   => 'Pepperoni',
@@ -702,37 +690,71 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
+            'price' => 12000,
         ]);
-*/
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Regina',
-                'en'   => 'Regina',
-                'tnfr' => 'Regina',
-                'tnar' => 'ريجينا',
-                'ar'   => 'ريجينا',
+                'fr'   => 'Capricciosa',
+                'en'   => 'Capricciosa',
+                'tnfr' => 'Capricciosa',
+                'tnar' => 'كبريسيوزا',
+                'ar'   => 'كبريسيوزا',
             ],
             'photo' => 'example/restaurant/product/pizza_regina.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 2,
+            'price' => 12000,
         ]);
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Jambon',
-                'en'   => 'Ham',
-                'tnfr' => 'Jambon',
-                'tnar' => 'جمبون',
-                'ar'   => 'جمبون',
+                'fr'   => 'Végétariéne',
+                'en'   => 'Vegetary',
+                'tnfr' => 'Végétariéne',
+                'tnar' => 'نباتية',
+                'ar'   => 'نباتية',
             ],
             'photo' => 'example/restaurant/product/pizza_jambon.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
+            'price' => 11000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Viande',
+                'en'   => 'Meat',
+                'tnfr' => 'Viande',
+                'tnar' => 'لحم',
+                'ar'   => 'لحم',
+            ],
+            'photo' => 'example/restaurant/product/pizza_chicken.jpg',
+            'category_id' => $pizzaId,
+            'type' => Product::TYPE_FIXED,
+            'order' => $order++,
+            'added_loyalty_points' => 3,
+            'price' => 13000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => 'Ghost',
+                'en'   => 'Ghost',
+                'tnfr' => 'Ghost',
+                'tnar' => 'جوست',
+                'ar'   => 'جوست',
+            ],
+            'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
+            'category_id' => $pizzaId,
+            'type' => Product::TYPE_FIXED,
+            'order' => $order++,
+            'added_loyalty_points' => 5,
+            'price' => 15000,
         ]);
     }
 
@@ -743,21 +765,6 @@ class ProductsTableSeeder extends Seeder
     {
         $order = 1;
         $pizzaSauceBlancheId = Category::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pizza sauce blanche'")->first()->id;
-
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Fruits de mer',
-                'en'   => 'Seafood',
-                'tnfr' => 'Fruits de mer',
-                'tnar' => 'غلال البحر',
-                'ar'   => 'غلال البحر',
-            ],
-            'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
-            'category_id' => $pizzaSauceBlancheId,
-            'type' => Product::TYPE_FIXED,
-            'order' => $order++,
-            'added_loyalty_points' => 5,
-        ]);
 
         Product::factory()->create([
             'name' => [
@@ -772,37 +779,41 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
+            'price' => 13000,
         ]);
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Jambon',
-                'en'   => 'Ham',
-                'tnfr' => 'Jambon',
-                'tnar' => 'جمبون',
-                'ar'   => 'جمبون',
+                'fr'   => 'Capricciosa',
+                'en'   => 'Capricciosa',
+                'tnfr' => 'Capricciosa',
+                'tnar' => 'كبريسيوزا',
+                'ar'   => 'كبريسيوزا',
             ],
-            'photo' => 'example/restaurant/product/pizza_jambon.jpg',
+            'photo' => 'example/restaurant/product/pizza_regina.jpg',
             'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
-            'added_loyalty_points' => 3,
+            'added_loyalty_points' => 2,
+            'price' => 12000,
         ]);
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Indienne',
-                'en'   => 'Indian',
-                'tnfr' => 'Indienne',
-                'tnar' => 'هندية',
-                'ar'   => 'هندية',
+                'fr'   => 'Ghost',
+                'en'   => 'Ghost',
+                'tnfr' => 'Ghost',
+                'tnar' => 'جوست',
+                'ar'   => 'جوست',
             ],
-            'photo' => 'example/restaurant/product/pizza_indienne.jpg',
+            'photo' => 'example/restaurant/product/pizza_fruit_mer.jpg',
             'category_id' => $pizzaSauceBlancheId,
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
-            'added_loyalty_points' => 3,
+            'added_loyalty_points' => 5,
+            'price' => 15000,
         ]);
+
     }
 
     /**
