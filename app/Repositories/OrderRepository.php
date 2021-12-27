@@ -32,14 +32,19 @@ class OrderRepository
      */
     public static function attachChoicesToOrders($orders)
     {
+// TODO: make food-shop project use choices and remove this function
         $ordersIds = $orders->pluck('id');
-        $choices = OptionOrderProductRepository::optionChoicesForOrders($ordersIds);
+        $choiceOptionRelationData = OptionOrderProductRepository::optionChoicesForOrders($ordersIds);
 
-        foreach ($orders as $order) {
-            foreach ($order->products as $product) {
-                $productChoices = $choices[$product->pivot->id] ?? [];
-                ProductRepository::attachOptionChoicesToProduct($product, $productChoices);
+        foreach ($orders as &$order) {
+            $products = [];
+            foreach ($order->choices as $choice) {
+                $product = $choice->product;
+                $productChoicesRelationData = $choiceOptionRelationData[$choice->id] ?? [];
+                ProductRepository::attachOptionChoicesToProduct($product, $choice, $productChoicesRelationData);
+                $products[] = $product;
             }
+            $order->products = $products;
         }
 
         return $orders;

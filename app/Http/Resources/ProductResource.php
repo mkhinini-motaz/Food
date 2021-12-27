@@ -31,9 +31,7 @@ class ProductResource extends JsonResource
 
             'option_groups' => OptionGroupsResource::collection($this->whenLoaded('optionGroups')),
 
-            'product_count' => $this->whenPivotLoaded('order_product', function() {
-                return $this->pivot->product_count;
-            }),
+            'product_count' => $this->when($this->product_count, $this->product_count),
 
             $this->mergeWhen($canSeeIsVisible, function() {
                 return [ 'is_visible' => $this->is_visible ];

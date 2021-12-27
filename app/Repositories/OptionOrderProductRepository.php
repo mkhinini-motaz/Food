@@ -15,43 +15,44 @@ class OptionOrderProductRepository
      */
     public static function optionChoicesForOrders($orderIds)
     {
-        $choices = \DB::table('option_order_product')
-            ->join('order_product', 'option_order_product.order_product_id', '=', 'order_product.id')
+        $choiceOptionRelationData = \DB::table('choice_option')
+            ->join('choices', 'choice_option.choice_id', '=', 'choices.id')
             ->whereIn('order_id', $orderIds)
             ->get();
-
-        return self::groupOptionChoicesByProduct($choices);
+        return self::groupOptionChoicesByProduct($choiceOptionRelationData);
     }
 
     /**
-     * @param array|Collection $choices
+     * @param array|Collection $choiceOptionRelationData
      *
      * @return array
      */
-    public static function groupOptionChoicesByProduct($choices)
+    public static function groupOptionChoicesByProduct($choiceOptionRelationData)
     {
         $result = [];
-        foreach ($choices as $choice) {
-            if (isset($result[$choice->order_product_id])) {
-                $result[$choice->order_product_id][$choice->option_id] = self::dataForChoice($choice);
+        foreach ($choiceOptionRelationData as $choiceRelation) {
+            $choiceId = $choiceRelation->choice_id;
+            $optionId = $choiceRelation->option_id;
+            if (isset($result[$choiceId])) {
+                $result[$choiceId][$optionId] = self::dataForChoice($choiceRelation);
                 continue;
             }
-            $result[$choice->order_product_id] = [ $choice->option_id => self::dataForChoice($choice) ];
+            $result[$choiceId] = [ $optionId => self::dataForChoice($choiceRelation) ];
         }
 
         return $result;
     }
 
     /**
-     * @param array $choice
+     * @param array $choiceRelation
      *
      * @return array
      */
-    public static function dataForChoice($choice)
+    public static function dataForChoice($choiceRelation)
     {
         $result = [];
         foreach (Option::ORDER_CHOICES_FIELDS as $field) {
-            $result[$field] = $choice->$field;
+            $result[$field] = $choiceRelation->$field;
         }
         return $result;
     }

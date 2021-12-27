@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Choice;
 use App\Models\OptionGroup;
 use App\Models\Product;
 
@@ -24,11 +25,13 @@ class ProductRepository
 
     /**
      * @param Product $product
-     * @param array $productChoices from the returned value of OptionOrderProductRepository::optionChoicesForOrders
+     * @param Choice  $choice
+     * @param array   $productChoices from the returned value of OptionOrderProductRepository::optionChoicesForOrders
      *                              take index order_product_id($product->pivot->id)
      */
-    public static function attachOptionChoicesToProduct(Product $product, $productChoices)
+    public static function attachOptionChoicesToProduct(Product $product, Choice $choice, $productChoices)
     {
+        $product->product_count = $choice->product_count;
         if ($product->type !== Product::TYPE_WITH_OPTIONS) {
             return;
         }

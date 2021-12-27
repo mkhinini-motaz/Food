@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderProductTable extends Migration
+class CreateChoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateOrderProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_product', function (Blueprint $table) {
+        Schema::create('choices', function (Blueprint $table) {
             $table->id();
             $table->unsignedSmallInteger('product_count');
 
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
+
+            $table->unsignedInteger('created_at');
+            $table->unsignedInteger('updated_at');
 
             $table->foreign('order_id')
                 ->onDelete('restrict')

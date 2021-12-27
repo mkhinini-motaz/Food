@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Choice;
 use App\Models\Option;
 use App\Models\Order;
 
@@ -25,6 +26,7 @@ class OrdersTableSeeder extends Seeder
      */
     public function order1()
     {
+        /** @var Order $order */
         $order = Order::factory()->create([
             'shop_transporter_id' => 1,
             'client_id'     => 1,
@@ -35,13 +37,35 @@ class OrdersTableSeeder extends Seeder
             'created_at' => time() + 40,
         ]);
 
-        $order->products()->sync([
-            1 => [ 'product_count' => 1, ],
-            2 => [ 'product_count' => 3, ],
-            3 => [ 'product_count' => 1, ],
+        \DB::table('choices')->insert([
+            [
+                'product_id'    => 1,
+                'order_id'      => $order->id,
+                'product_count' => 1,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 2,
+                'order_id'      => $order->id,
+                'product_count' => 3,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 3,
+                'order_id'      => $order->id,
+                'product_count' => 1,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
         ]);
+        $choices = $order->choices()
+            ->whereHas('product', function ($query) {
+                $query->where('type', '=', Product::TYPE_WITH_OPTIONS);
+            })
+            ->get();
 
-        $products = $order->products()->get();
         $optionSalad1Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
         $optionSalad2Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
         $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon sauté'")->first()->id;
@@ -49,40 +73,39 @@ class OrdersTableSeeder extends Seeder
         $optionMayonnaiseId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
         $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
-        foreach ($products as $product) {
-            if ($product->type !== Product::TYPE_WITH_OPTIONS) {
-                continue;
-            }
-
-            $relationId = $product->pivot->id;
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad1Id,
-                'order_product_id' => $relationId,
-                'quantity' => 1,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad2Id,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad3Id,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionHarissaId,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionMayonnaiseId,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionFritesId,
-                'order_product_id' => $relationId,
+        foreach ($choices as $choice) {
+            $choiceId = $choice->id;
+            \DB::table('choice_option')->insert([
+                [
+                    'option_id' => $optionSalad1Id,
+                    'choice_id' => $choiceId,
+                    'quantity'  => 1,
+                ],
+                [
+                    'option_id' => $optionSalad2Id,
+                    'choice_id' => $choiceId,
+                    'quantity'  => 3,
+                ],
+                [
+                    'option_id' => $optionSalad3Id,
+                    'choice_id' => $choiceId,
+                    'quantity'  => 3,
+                ],
+                [
+                    'option_id' => $optionHarissaId,
+                    'choice_id' => $choiceId,
+                    'quantity'  => 3,
+                ],
+                [
+                    'option_id' => $optionMayonnaiseId,
+                    'choice_id' => $choiceId,
+                    'quantity'  => 3,
+                ],
+                [
+                    'option_id' => $optionFritesId,
+                    'choice_id' => $choiceId,
+                    'quantity'  => null,
+                ]
             ]);
         }
     }
@@ -92,6 +115,7 @@ class OrdersTableSeeder extends Seeder
      */
     public function order2()
     {
+        /** @var Order $order */
         $order = Order::factory()->create([
             'shop_transporter_id' => 1,
             'client_id' => 2,
@@ -101,47 +125,62 @@ class OrdersTableSeeder extends Seeder
             'created_at' => time() + 20,
         ]);
 
-        $order->products()->sync([
-            5 => [ 'product_count' => 1, ],
-            15 => [ 'product_count' => 2, ],
+        \DB::table('choices')->insert([
+            [
+                'product_id'    => 5,
+                'order_id'      => $order->id,
+                'product_count' => 1,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 15,
+                'order_id'      => $order->id,
+                'product_count' => 2,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
         ]);
+        $choices = $order->choices()
+            ->whereHas('product', function ($query) {
+                $query->where('type', '=', Product::TYPE_WITH_OPTIONS);
+            })
+            ->get();
 
-        $products = $order->products()->get();
         $optionSalad1Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
         $optionSalad2Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
         $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
         $optionHarissaId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
         $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
-        foreach ($products as $product) {
-            if ($product->type !== Product::TYPE_WITH_OPTIONS) {
-                continue;
-            }
-
-            $relationId = $product->pivot->id;
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad1Id,
-                'order_product_id' => $relationId,
-                'quantity' => 1,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad2Id,
-                'order_product_id' => $relationId,
-                'quantity' => 1,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad3Id,
-                'order_product_id' => $relationId,
-                'quantity' => 1,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionHarissaId,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionFritesId,
-                'order_product_id' => $relationId,
+        foreach ($choices as $choice) {
+            $choiceId = $choice->id;
+            \DB::table('choice_option')->insert([
+                [
+                    'option_id'    => $optionSalad1Id,
+                    'choice_id' => $choiceId,
+                    'quantity' => 1,
+                ],
+                [
+                    'option_id'    => $optionSalad2Id,
+                    'choice_id' => $choiceId,
+                    'quantity' => 1,
+                ],
+                [
+                    'option_id'    => $optionSalad3Id,
+                    'choice_id' => $choiceId,
+                    'quantity' => 1,
+                ],
+                [
+                    'option_id'    => $optionHarissaId,
+                    'choice_id' => $choiceId,
+                    'quantity' => 3,
+                ],
+                [
+                    'option_id'    => $optionFritesId,
+                    'choice_id' => $choiceId,
+                    'quantity'  => null,
+                ],
             ]);
         }
     }
@@ -160,14 +199,49 @@ class OrdersTableSeeder extends Seeder
             'created_at' => time() - 10,
         ]);
 
-        $order->products()->sync([
-            7  => [ 'product_count' => 2, ],
-            25 => [ 'product_count' => 1, ],
-            29 => [ 'product_count' => 1, ],
-            40 => [ 'product_count' => 5, ],
+        \DB::table('choices')->insert([
+            [
+                'product_id'    => 7,
+                'order_id'      => $order->id,
+                'product_count' => 2,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 25,
+                'order_id'      => $order->id,
+                'product_count' => 1,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 15,
+                'order_id'      => $order->id,
+                'product_count' => 2,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 29,
+                'order_id'      => $order->id,
+                'product_count' => 1,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
+            [
+                'product_id'    => 40,
+                'order_id'      => $order->id,
+                'product_count' => 5,
+                'created_at'    => time(),
+                'updated_at'    => time(),
+            ],
         ]);
+        $choices = $order->choices()
+            ->whereHas('product', function ($query) {
+                $query->where('type', '=', Product::TYPE_WITH_OPTIONS);
+            })
+            ->get();
 
-        $products = $order->products()->get();
         $optionSalad1Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Laitue'")->first()->id;
         $optionSalad2Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Oignon'")->first()->id;
         $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
@@ -175,40 +249,39 @@ class OrdersTableSeeder extends Seeder
         $optionMayonnaiseId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
         $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
 
-        foreach ($products as $product) {
-            if ($product->type !== Product::TYPE_WITH_OPTIONS) {
-                continue;
-            }
-
-            $relationId = $product->pivot->id;
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad1Id,
-                'order_product_id' => $relationId,
-                'quantity' => 1,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad2Id,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionSalad3Id,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionHarissaId,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionMayonnaiseId,
-                'order_product_id' => $relationId,
-                'quantity' => 3,
-            ]);
-            \DB::table('option_order_product')->insert([
-                'option_id'    => $optionFritesId,
-                'order_product_id' => $relationId,
+        foreach ($choices as $choice) {
+            $choiceId = $choice->id;
+            \DB::table('choice_option')->insert([
+                [
+                    'option_id'    => $optionSalad1Id,
+                    'choice_id' => $choiceId,
+                    'quantity' => 1,
+                ],
+                [
+                    'option_id'    => $optionSalad2Id,
+                    'choice_id' => $choiceId,
+                    'quantity' => 3,
+                ],
+                [
+                    'option_id'    => $optionSalad3Id,
+                    'choice_id' => $choiceId,
+                    'quantity' => 3,
+                ],
+                [
+                    'option_id'    => $optionHarissaId,
+                    'choice_id' => $choiceId,
+                    'quantity' => 3,
+                ],
+                [
+                    'option_id'    => $optionMayonnaiseId,
+                    'choice_id' => $choiceId,
+                    'quantity' => 3,
+                ],
+                [
+                    'option_id'    => $optionFritesId,
+                    'choice_id' => $choiceId,
+                    'quantity'  => null,
+                ]
             ]);
         }
     }

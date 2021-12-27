@@ -30,7 +30,7 @@ class OrderResource extends JsonResource
             'shop_transporter'   => new ShopUserResource($this->whenLoaded('shopTransporter')),
             'promo_code'         => new PromoCodeResource($this->whenLoaded('promoCode')),
             'client'             => new ClientResource($this->whenLoaded('client')),
-            'products'           => ProductResource::collection($this->whenLoaded('products')),
+            'products'           => $this->when($this->products, ProductResource::collection($this->products)),
         ];
     }
 }

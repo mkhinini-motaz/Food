@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Exceptions\OrderException;
+use App\Models\Choice;
 use App\Models\Client;
 use App\Models\Option;
 use App\Models\OptionGroup;
@@ -46,36 +47,36 @@ class ShopOrderRepository
      */
     public function create(Client $client, $products, $deliveryLatitude, $deliveryLongitude, $source, $collectionMethod, $additionalNote = null, PromoCode $promoCode = null)
     {
-
-        $order    = new Order();
+        $order = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
 
-        $order->status             = Order::STATUS_NEW;
-        $order->source             = $source;
-        $order->client_id          = $client->id;
-        $order->location_id        = $location->id;
-        $order->additional_note    = $additionalNote;
-        $order->associated_phone   = $client->phone;
-        $order->collection_method  = $collectionMethod;
-        $order->delivery_latitude  = $deliveryLatitude;
+        $order->status = Order::STATUS_NEW;
+        $order->source = $source;
+        $order->client_id = $client->id;
+        $order->location_id = $location->id;
+        $order->additional_note = $additionalNote;
+        $order->associated_phone = $client->phone;
+        $order->collection_method = $collectionMethod;
+        $order->delivery_latitude = $deliveryLatitude;
         $order->delivery_longitude = $deliveryLongitude;
 
         $order->total_price = $this->validateAndCalculateProductsPrice($products);
 
         if ($promoCode) {
-            $order->total_price   -= $promoCode->reduction_amount;
-            $order->total_price   = $order->total_price > 0 ? $order->total_price : 0;
+            $order->total_price -= $promoCode->reduction_amount;
+            $order->total_price = $order->total_price > 0 ? $order->total_price : 0;
             $order->promo_code_id = $promoCode->id;
         }
+
         try {
             DB::beginTransaction();
             $order->saveOrFail();
-            $this->saveProductsForOrder($order, $products);
+            $this->saveChoicesForOrder($order, $products);
             $this->saveOptionsForOrder($order, $products);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::info($e->getMessage());
+            \Log::error($e->getTraceAsString());
             throw new OrderException('order:save:fail');
         }
 
@@ -90,24 +91,24 @@ class ShopOrderRepository
      */
     public function validateAndCalculateProductsPrice($productsInput)
     {
-        $totalPrice     = 0;
+        $totalPrice = 0;
         $productsFromDb = $this->productsFromInput($productsInput)
-                               ->keyBy('id');
+            ->keyBy('id');
 
         foreach ($productsInput as $product) {
             /** @var Product $productFromDb */
-            $productFromDb = $productsFromDb->get($product[ 'product_id' ]);
+            $productFromDb = $productsFromDb->get($product['product_id']);
             if (! $productFromDb) {
                 throw new OrderException('product:not_found');
             }
 
-            $optionsInput = $product[ 'options' ] ?? null;
+            $optionsInput = $product['options'] ?? null;
             if ($productFromDb->type !== Product::TYPE_WITH_OPTIONS || ! $optionsInput) {
                 continue;
             }
 
             $optionsPrice = $this->validateAndCalculatePriceForProductOptions($productFromDb, $optionsInput);
-            $totalPrice   += $productFromDb->price + $optionsPrice;
+            $totalPrice += $productFromDb->price + $optionsPrice;
         }
 
         return $totalPrice;
@@ -126,18 +127,18 @@ class ShopOrderRepository
         $optionsAddedPrice = 0;
         foreach ($optionsInput as $option) {
             /** @var Option $optionFromDb */
-            $optionFromDb  = $optionsFromDb[ $option[ 'id' ] ];
+            $optionFromDb = $optionsFromDb[$option['id']];
             $optionGroupId = $optionFromDb->pivot->option_group_id;
 
             if (! isset($optionFromDb)) {
                 throw new OrderException('option:not_found');
             }
-            if ($optionGroupCheck[ $optionGroupId ][ 'options_count' ] > $optionGroupRules[ $optionGroupId ][ 'max_options' ]) {
+            if ($optionGroupCheck[$optionGroupId]['options_count'] > $optionGroupRules[$optionGroupId]['max_options']) {
                 throw new OrderException('option_group:max_options');
             }
 
             $optionsAddedPrice += $optionFromDb->price;
-            $optionGroupCheck[ $optionGroupId ][ 'options_count' ]++;
+            $optionGroupCheck[$optionGroupId]['options_count']++;
         }
 
         return $optionsAddedPrice;
@@ -152,13 +153,13 @@ class ShopOrderRepository
     {
         $productsIds = [];
         foreach ($productsInput as $product) {
-            $productsIds[] = $product[ 'product_id' ];
+            $productsIds[] = $product['product_id'];
         }
 
         return $this->shop->products()
-                          ->with('optionGroups.options')
-                          ->whereIn('products.id', $productsIds)
-                          ->get();
+            ->with('optionGroups.options')
+            ->whereIn('products.id', $productsIds)
+            ->get();
     }
 
     /**
@@ -179,15 +180,15 @@ class ShopOrderRepository
      */
     private function prepareOptionGroupsForValidation(Product $product)
     {
-        $optionsFromDb    = [];
+        $optionsFromDb = [];
         $optionGroupCheck = [];
         $optionGroupRules = [];
 
         /** @var OptionGroup $optionGroup */
         foreach ($product->optionGroups as $optionGroup) {
-            $optionGroupCheck[ $optionGroup->id ] = ['options_count' => 0];
-            $optionGroupRules[ $optionGroup->id ] = $optionGroup->optionsValidationRules();
-            $optionsFromDb                        += $optionGroup->options->keyBy('id')->all();
+            $optionGroupCheck[$optionGroup->id] = ['options_count' => 0];
+            $optionGroupRules[$optionGroup->id] = $optionGroup->optionsValidationRules();
+            $optionsFromDb += $optionGroup->options->keyBy('id')->all();
         }
 
         return [$optionGroupCheck, $optionsFromDb, $optionGroupRules];
@@ -197,19 +198,20 @@ class ShopOrderRepository
      * @param Order $order
      * @param array $productsInput
      */
-    private function saveProductsForOrder(Order $order, $productsInput)
+    private function saveChoicesForOrder(Order $order, $productsInput)
     {
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
             $productRelationshipInfos[] = [
-                'order_id' => $order->id,
-                'product_id' => $product[ 'product_id' ],
-                'product_count' => $product[ 'product_count' ],
+                'order_id'      => $order->id,
+                'product_id'    => $product['product_id'],
+                'product_count' => $product['product_count'],
+                'created_at'    => time(),
+                'updated_at'    => time(),
             ];
         }
 
-        // TODO: use $order-> attach or sync
-        \DB::table('order_product')->insert($productRelationshipInfos);
+        \DB::table('choices')->insert($productRelationshipInfos);
     }
 
     /**
@@ -218,39 +220,25 @@ class ShopOrderRepository
      */
     private function saveOptionsForOrder(Order $order, $productsInput)
     {
-        /** @var Product $product */
-        $orderProducts = $order->products()
-                               ->where('type', '=', Product::TYPE_WITH_OPTIONS)
-                               ->get();
+        /** @var Choice[] $choices */
+        $choices = $order->choices()->get();
 
         $optionsRelationshipInfos = [];
-        foreach ($orderProducts as $index => $product) {
-            if (! $productsInput[ $index ][ 'options' ]) {
+        foreach ($choices as $index => $choice) {
+            if (! isset($productsInput[$index]['options'])) {
                 continue;
             }
 
-            $orderProductId = $product->pivot->id;
-            foreach ($productsInput[ $index ][ 'options' ] as $option) {
-                $optionsRelationshipInfos[] = $this->optionRelationshipInfoFromInput($option, $orderProductId);
+            $choiceId = $choice->id;
+            foreach ($productsInput[$index]['options'] as $option) {
+                $optionsRelationshipInfos[$option['id']] = [
+                    'choice_id' => $choiceId,
+                    'option_id' => $option['id'],
+                    'quantity'  => $option['quantity'] ?? 0,
+                ];
             }
         }
 
-        // TODO: concider seperate class
-        \DB::table('option_order_product')->insert($optionsRelationshipInfos);
-    }
-
-    /**
-     * @param array $optionInput
-     * @param int   $orderProductId
-     *
-     * @return array
-     */
-    private function optionRelationshipInfoFromInput($optionInput, $orderProductId)
-    {
-        return [
-            'quantity' => $optionInput[ 'quantity' ] ?? 0,
-            'option_id' => $optionInput[ 'id' ],
-            'order_product_id' => $orderProductId,
-        ];
+        \DB::table('choice_option')->insert($optionsRelationshipInfos);
     }
 }
