@@ -132,11 +132,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'S 1 viande',
-                'en'   => 'S 1 meat',
-                'tnfr' => 'S 1 viande',
-                'tnar' => 'إس لحمة وحدة',
-                'ar'   => 'إس لحمة واحدة',
+                'fr'   => 'Small 1 viande',
+                'en'   => 'Small 1 meat',
+                'tnfr' => 'Ssmall 1 viande',
+                'tnar' => 'صغير لحمة وحدة',
+                'ar'   => 'صغير لحمة واحدة',
             ],
             'description' => [
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
@@ -154,11 +154,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'M 2 viandes',
-                'en'   => 'M 2 meats',
-                'tnfr' => 'M 2 viandes',
-                'tnar' => 'إم لحمتين',
-                'ar'   => 'إم لحمتان',
+                'fr'   => 'Medium 2 viandes',
+                'en'   => 'Medium 2 meats',
+                'tnfr' => 'Medium 2 viandes',
+                'tnar' => 'متوسط لحمتين',
+                'ar'   => 'متوسط لحمتان',
             ],
             'description' => [
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
@@ -176,11 +176,11 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'L 3 viandes',
-                'en'   => 'L 3 meats',
-                'tnfr' => 'L 3 viandes',
-                'tnar' => 'إل ثلاث لحمات',
-                'ar'   => 'إل ثلاث لحوم',
+                'fr'   => 'Large 3 viandes',
+                'en'   => 'Large 3 meats',
+                'tnfr' => 'Large 3 viandes',
+                'tnar' => 'كبير ثلاث لحمات',
+                'ar'   => 'كبير ثلاث لحوم',
             ],
             'description' => [
                 'fr'   => '1 viande au choix, sauces au choix, frites et notre sauce fromagère',
@@ -631,6 +631,22 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
+                'fr'   => 'Végétariéne',
+                'en'   => 'Vegetarian',
+                'tnfr' => 'Végétariéne',
+                'tnar' => 'نباتية',
+                'ar'   => 'نباتية',
+            ],
+            'photo' => 'example/restaurant/product/pizza_jambon.jpg',
+            'category_id' => $pizzaId,
+            'type' => Product::TYPE_FIXED,
+            'order' => $order++,
+            'added_loyalty_points' => 3,
+            'price' => 11000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
                 'fr'   => 'Napolitaine',
                 'en'   => 'Napolitan',
                 'tnfr' => 'Napolitaine',
@@ -659,22 +675,6 @@ class ProductsTableSeeder extends Seeder
             'order' => $order++,
             'added_loyalty_points' => 3,
             'price' => 12000,
-        ]);
-
-        Product::factory()->create([
-            'name' => [
-                'fr'   => '4 fromages',
-                'en'   => '4 cheese',
-                'tnfr' => '4 fromages',
-                'tnar' => '4 فرماج',
-                'ar'   => '4 أجبان',
-            ],
-            'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
-            'category_id' => $pizzaId,
-            'type' => Product::TYPE_FIXED,
-            'order' => $order++,
-            'added_loyalty_points' => 3,
-            'price' => 13000,
         ]);
 
         Product::factory()->create([
@@ -711,18 +711,18 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Végétariéne',
-                'en'   => 'Vegetary',
-                'tnfr' => 'Végétariéne',
-                'tnar' => 'نباتية',
-                'ar'   => 'نباتية',
+                'fr'   => '4 fromages',
+                'en'   => '4 cheese',
+                'tnfr' => '4 fromages',
+                'tnar' => '4 فرماج',
+                'ar'   => '4 أجبان',
             ],
-            'photo' => 'example/restaurant/product/pizza_jambon.jpg',
+            'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
             'category_id' => $pizzaId,
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 11000,
+            'price' => 13000,
         ]);
 
         Product::factory()->create([
@@ -768,22 +768,6 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => '4 fromages',
-                'en'   => '4 cheese',
-                'tnfr' => '4 fromages',
-                'tnar' => '4 فرماج',
-                'ar'   => '4 أجبان',
-            ],
-            'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
-            'category_id' => $pizzaSauceBlancheId,
-            'type' => Product::TYPE_FIXED,
-            'order' => $order++,
-            'added_loyalty_points' => 3,
-            'price' => 13000,
-        ]);
-
-        Product::factory()->create([
-            'name' => [
                 'fr'   => 'Capricciosa',
                 'en'   => 'Capricciosa',
                 'tnfr' => 'Capricciosa',
@@ -796,6 +780,22 @@ class ProductsTableSeeder extends Seeder
             'order' => $order++,
             'added_loyalty_points' => 2,
             'price' => 12000,
+        ]);
+
+        Product::factory()->create([
+            'name' => [
+                'fr'   => '4 fromages',
+                'en'   => '4 cheese',
+                'tnfr' => '4 fromages',
+                'tnar' => '4 فرماج',
+                'ar'   => '4 أجبان',
+            ],
+            'photo' => 'example/restaurant/product/pizza_4fromage.jpg',
+            'category_id' => $pizzaSauceBlancheId,
+            'type' => Product::TYPE_FIXED,
+            'order' => $order++,
+            'added_loyalty_points' => 3,
+            'price' => 13000,
         ]);
 
         Product::factory()->create([
