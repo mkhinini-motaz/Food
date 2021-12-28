@@ -228,13 +228,6 @@ class OrdersTableSeeder extends Seeder
                 'created_at'    => time(),
                 'updated_at'    => time(),
             ],
-            [
-                'product_id'    => 40,
-                'order_id'      => $order->id,
-                'product_count' => 5,
-                'created_at'    => time(),
-                'updated_at'    => time(),
-            ],
         ]);
         $choices = $order->choices()
             ->whereHas('product', function ($query) {

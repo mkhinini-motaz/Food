@@ -14,136 +14,12 @@ class OptionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $this->optionsForRice();
         $this->optionsForSalad();
         $this->optionsForPotatos();
         $this->optionsForSauce();
-        $this->optionsForSaucePizza();
         $this->optionsForViande();
         $this->optionsForSauceFromagere();
         $this->optionsForSupplement();
-    }
-
-    /**
-     *
-     */
-    public function optionsForRice()
-    {
-        $optionGroupRice = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Riz'")->first();
-
-        $optionRizJaune = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Riz jaune',
-                'en'   => 'Yellow rice',
-                'tnfr' => 'Roz asfar',
-                'tnar' => 'روز أصفر',
-                'ar'   => 'ارز أصفر',
-            ],
-            'photo' => 'example/restaurant/option/yellow_rice.jpg',
-        ]);
-
-        $optionRizAil = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Riz à l\'ail',
-                'en'   => 'Garlic rice',
-                'tnfr' => 'Roz bi thom',
-                'tnar' => 'روز بالثوم',
-                'ar'   => 'أرز بالثوم',
-            ],
-            'photo' => 'example/restaurant/option/rice_garlic_persley.jpg',
-        ]);
-
-        $optionRizFruitsSec = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Riz fruits sec',
-                'en'   => 'Dry fruits rice',
-                'tnfr' => 'Roz fruits sec',
-                'tnar' => 'روز فواكه جافة',
-                'ar'   => 'أرز فواكه جافة',
-            ],
-            'photo' => 'example/restaurant/option/rice_kajo.jpg',
-        ]);
-
-        $order = 1;
-        $optionGroupRice->options()->sync([
-            $optionRizJaune->id     => [ 'order' => $order++, 'is_selected_by_default' => 1 ],
-            $optionRizAil->id       => [ 'order' => $order++, ],
-            $optionRizFruitsSec->id => [ 'order' => $order++, ],
-        ]);
-    }
-
-    /**
-     *
-     */
-    public function optionsForSaladOld()
-    {
-        $optionGroupSalad = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
-
-        $optionSaladeConcombre = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Salade concombre',
-                'en'   => 'Cucumber salad',
-                'tnfr' => 'Slatet fa9ous',
-                'tnar' => 'سلاطة فقوس',
-                'ar'   => 'سلطة خيار',
-            ],
-            'photo' => 'example/restaurant/option/salad_concumber.jpg',
-        ]);
-
-        $optionSaladeChouxRouge = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Salade choux rouge',
-                'en'   => 'Red cabbage salad',
-                'tnfr' => 'Salatet cromb a7mar',
-                'tnar' => 'سلاطة كرمب أحمر',
-                'ar'   => 'سلطة ملفوف أحمر',
-            ],
-            'photo' => 'example/restaurant/option/salad_kronb.jpg',
-        ]);
-
-/*
-        $optionSaSaladeFruitsDeMer = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Salade fruits de mer',
-                'en'   => 'Seafood salad',
-                'tnfr' => 'Slatet fruits de mer',
-                'tnar' => 'سلاطة غلال البحر',
-                'ar'   => 'سلطة غلال البحر',
-            ],
-            'photo' => 'example/restaurant/option/salade_fruit_de_mer.jpg',
-        ]);
-*/
-
-        $optionSaladeCarotte = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Salade carotte',
-                'en'   => 'Carrot salad',
-                'tnfr' => 'Slatet sfennaria',
-                'tnar' => 'سلاطة سفناريا',
-                'ar'   => 'سلطة الجزر',
-            ],
-            'photo' => 'example/restaurant/option/salad_carrot.jpg',
-        ]);
-
-        $optionSaladeBetterave = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Salade betterave',
-                'en'   => 'Beet salad',
-                'tnfr' => 'Slatet bettrave',
-                'tnar' => 'سلطة بتراف',
-                'ar'   => 'سلطة البنجر',
-            ],
-            'photo' => 'example/restaurant/option/salad_beet.jpg',
-        ]);
-
-        $order = 1;
-        $optionGroupSalad->options()->sync([
-            $optionSaladeConcombre     => [ 'order' => $order++ ],
-            $optionSaladeChouxRouge    => [ 'order' => $order++ ],
-//            $optionSaSaladeFruitsDeMer => [ 'order' => $order++ ],
-            $optionSaladeCarotte       => [ 'order' => $order++ ],
-            $optionSaladeBetterave     => [ 'order' => $order++ ],
-        ]);
     }
 
     /**
@@ -331,11 +207,11 @@ class OptionsTableSeeder extends Seeder
 
         $optionSauceHoumous = Option::factory()->create([
             'name' => [
-                'fr'   => 'Houmous',
-                'en'   => 'Houmous',
-                'tnfr' => '7oms',
-                'tnar' => 'حمص',
-                'ar'   => 'حمص',
+                'fr'   => 'Ghost',
+                'en'   => 'Ghost',
+                'tnfr' => 'Ghost',
+                'tnar' => 'ڨوست',
+                'ar'   => 'ڨوست',
             ],
             'photo' => 'example/restaurant/option/saucehommos.jpg',
         ]);
@@ -348,43 +224,6 @@ class OptionsTableSeeder extends Seeder
             $optionKetchup->id         => [ 'order' => $order++, ],
             $optionSauceBarbecue->id   => [ 'order' => $order++, ],
             $optionSauceHoumous->id    => [ 'order' => $order++, 'price' => 200, ],
-        ]);
-    }
-
-    /**
-     *
-     */
-    public function optionsForSaucePizza()
-    {
-
-        $optionGroupSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce pizza'")->first();
-
-        $optionSauceTomate = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Sauce tomate',
-                'en'   => 'Tomato sauce',
-                'tnfr' => 'Sauce tomate',
-                'tnar' => 'سوس طماطم',
-                'ar'   => 'صلصة الطماطم',
-            ],
-            'photo' => 'example/restaurant/option/sauce_tomate.jpg',
-        ]);
-
-        $optionSauceBlanche = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Sauce blanche',
-                'en'   => 'White sauce',
-                'tnfr' => 'Sauce blanche',
-                'tnar' => 'سوس بلانش',
-                'ar'   => 'صلصة بيضاء',
-            ],
-            'photo' => 'example/restaurant/option/sauce_blanche.jpg',
-        ]);
-
-        $order = 1;
-        $optionGroupSauce->options()->sync([
-            $optionSauceTomate->id  => [ 'order' => $order++, 'is_selected_by_default' => 1 ],
-            $optionSauceBlanche->id => [ 'order' => $order++, ],
         ]);
     }
 
@@ -594,28 +433,6 @@ class OptionsTableSeeder extends Seeder
             'photo' => 'example/restaurant/option/chicken.jpg',
         ]);
 
-        $optionThon = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Thon',
-                'en'   => 'Tuna',
-                'tnfr' => 'Thon',
-                'tnar' => 'تن',
-                'ar'   => 'تن',
-            ],
-            'photo' => 'example/restaurant/option/thon.jpg',
-        ]);
-
-        $optionFruitsDeMer = Option::factory()->create([
-            'name' => [
-                'fr'   => 'Fruits de mer',
-                'en'   => 'Seafood',
-                'tnfr' => 'Fruits de mer',
-                'tnar' => 'غلال البحر',
-                'ar'   => 'غلال البحر',
-            ],
-            'photo' => 'example/restaurant/option/fruits_de_mer.jpg',
-        ]);
-
         $order = 1;
         $optionGroupViande->options()->sync([
             $optionChawarma->id    => [ 'order' => $order++ ],
@@ -623,8 +440,6 @@ class OptionsTableSeeder extends Seeder
             $optionEscalope->id    => [ 'order' => $order++ ],
             $optionNuggets->id     => [ 'order' => $order++ ],
             $optionChicken->id     => [ 'order' => $order++ ],
-            $optionThon->id        => [ 'order' => $order++ ],
-            $optionFruitsDeMer->id => [ 'order' => $order++ ],
         ]);
     }
 

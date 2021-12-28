@@ -16,12 +16,9 @@ class OptionGroupsTableSeeder extends Seeder
     {
         $this->create();
 
-//        $this->boxOptionGroupAttach();
-        $this->platOptionGroupAttach();
         $this->sandwichOptionGroupAttach();
         $this->tacosOptionGroupAttach();
 //        $this->pizza4ChoicesOptionGroupAttach();
-        $this->makloubOptionGroupAttach();
     }
 
     /**
@@ -29,18 +26,6 @@ class OptionGroupsTableSeeder extends Seeder
      */
     public function create()
     {
-        OptionGroup::factory()->create([
-            'name' => [
-                'fr'   => 'Riz',
-                'en'   => 'Rice',
-                'tnar' => 'روز',
-                'tnfr' => 'Roz',
-                'ar'   => 'أرز',
-            ],
-            'photo' => 'example/restaurant/optionGroup/rice.jpg',
-            'shop_id' => 1,
-        ]);
-
         OptionGroup::factory()->create([
             'name' => [
                 'fr'   => 'Salade',
@@ -74,18 +59,6 @@ class OptionGroupsTableSeeder extends Seeder
                 'ar'   => 'صلصة',
             ],
             'photo' => 'example/restaurant/optionGroup/sauce.jpg',
-            'shop_id' => 1,
-        ]);
-
-        OptionGroup::factory()->create([
-            'name' => [
-                'fr'   => 'Sauce pizza',
-                'en'   => 'Pizza Sauce',
-                'tnar' => 'سوس بيتزا',
-                'tnfr' => 'Sauce pizza',
-                'ar'   => 'صلصة البيتزا',
-            ],
-            'photo' => 'example/restaurant/optionGroup/sauce_pizza.jpg',
             'shop_id' => 1,
         ]);
 
@@ -129,76 +102,6 @@ class OptionGroupsTableSeeder extends Seeder
     /**
      *
      */
-    public function boxOptionGroupAttach()
-    {
-        $order = 1;
-        $optionGroupViande = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Viande'")->first();
-        $optionGroupFromagereSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce fromagère'")->first();
-        $optionGroupSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
-        $optionGroupSupplement = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
-
-        $boxSimple = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box simple'")->first();
-
-        $boxSimple->optionGroups()->sync([
-            $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
-            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
-            $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
-        ]);
-
-        $boxBrochette = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box brochette'")->first();
-
-        $boxBrochette->optionGroups()->sync([
-            $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
-            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
-            $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
-        ]);
-
-        $boxMixt = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Box Mixte'")->first();
-
-        $boxMixt->optionGroups()->sync([
-            $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
-            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
-            $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
-        ]);
-
-        $boxGhost = Product::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Ghost box'")->first();
-
-        $boxGhost->optionGroups()->sync([
-            $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 1, 'max_options' => 1, ],
-            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
-            $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
-        ]);
-    }
-
-    /**
-     *
-     */
-    public function platOptionGroupAttach()
-    {
-        $order = 1;
-        $optionGroupSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
-        $optionGroupRice = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Riz'")->first();
-        $optionGroupSalad = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
-        $optionGroupPotatoes = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first();
-
-        $platProducts = Product::where('category_id', '=', 1)->get();
-        foreach ($platProducts as $product) {
-            $product->optionGroups()->sync([
-                $optionGroupRice->id     => [ 'order' => $order++, ],
-                $optionGroupSalad->id    => [ 'order' => $order++, ],
-                $optionGroupPotatoes->id => [ 'order' => $order++, ],
-                $optionGroupSauce->id    => [ 'order' => $order++, 'max_options' => 3, ]
-            ]);
-        }
-    }
-
-    /**
-     *
-     */
     public function sandwichOptionGroupAttach()
     {
         $order = 1;
@@ -207,7 +110,7 @@ class OptionGroupsTableSeeder extends Seeder
         $optionGroupSalad = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
         $optionGroupPotatoes = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first();
 
-        $sandwichProducts = Product::where('category_id', '=', 4)->get();
+        $sandwichProducts = Product::where('category_id', '=', 3)->get();
 
         foreach ($sandwichProducts as $product) {
             $product->optionGroups()->sync([
@@ -244,8 +147,8 @@ class OptionGroupsTableSeeder extends Seeder
         $order = 1;
         $tacosM->optionGroups()->sync([
             $optionGroupViande->id => [ 'order' => $order++, 'min_options' => 2, 'max_options' => 2, ],
-            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, 'options_are_billable' => 1, ],
-            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
+            $optionGroupFromagereSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 1, ],
+            $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1 ],
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
         ]);
 
@@ -258,29 +161,6 @@ class OptionGroupsTableSeeder extends Seeder
             $optionGroupSauce->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1, ],
             $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 5, 'options_are_billable' => 1, ],
         ]);
-    }
-
-    /**
-     *
-     */
-    public function makloubOptionGroupAttach()
-    {
-        $order = 1;
-        $optionGroupSauce = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Sauce'")->first();
-        $optionGroupSupplement = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Supplément'")->first();
-        $optionGroupSalad = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Salade'")->first();
-        $optionGroupPotatoes = OptionGroup::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Pomme de terre'")->first();
-
-        $makloubProducts = Product::where('category_id', '=', 5)->get();
-
-        foreach ($makloubProducts as $product) {
-            $product->optionGroups()->sync([
-                $optionGroupSauce->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, 'options_are_billable' => 1, ],
-                $optionGroupSalad->id      => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 3, 'options_are_quantifiable' => 1, ],
-                $optionGroupPotatoes->id   => [ 'order' => $order++, ],
-                $optionGroupSupplement->id => [ 'order' => $order++, 'min_options' => 0, 'max_options' => 4, 'options_are_billable' => 1, ],
-            ]);
-        }
     }
 
     /**
