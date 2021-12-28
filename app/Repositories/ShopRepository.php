@@ -73,10 +73,11 @@ class ShopRepository
      * @param string      $orderDirection
      * @param array|null  $categoryIds
      * @param array|null  $productIds
+     * @param bool        $withCategory
      *
      * @return LengthAwarePaginator
      */
-    public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $categoryIds = null, $productIds = null)
+    public function paginateProducts($page = 1, $perPage = 20, $search = null, $orderBy = 'created_at', $orderDirection = 'desc', $categoryIds = null, $productIds = null, $withCategory = false)
     {
         $products = $this->shop->products();
 
@@ -90,6 +91,10 @@ class ShopRepository
 
         if (isset($categoryIds) && is_array($categoryIds) && count($categoryIds) !== 0) {
             $products->whereIn('category_id', $categoryIds);
+        }
+
+        if ($withCategory) {
+            $products->with('category');
         }
 
         if (isset($orderBy) && isset($orderDirection)) {

@@ -151,6 +151,7 @@ class Order extends Model
             'shopTransporter',
             'choices.product.optionGroups' => $orderByOrder,
             'choices.product.optionGroups.options',
+            'choices.product.category',
             'choices.options',
         ]);
     }

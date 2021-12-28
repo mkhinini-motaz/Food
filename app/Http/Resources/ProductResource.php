@@ -31,6 +31,7 @@ class ProductResource extends JsonResource
 
             'option_groups' => OptionGroupsResource::collection($this->whenLoaded('optionGroups')),
 
+            'category'      => $this->whenLoaded('category'),
             'product_count' => $this->when($this->product_count, $this->product_count),
 
             $this->mergeWhen($canSeeIsVisible, function() {
