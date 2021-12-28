@@ -51,28 +51,6 @@ class ProductsTableSeeder extends Seeder
 
         Product::factory()->create([
             'name' => [
-                'fr'   => 'Brochette',
-                'en'   => 'Skewer',
-                'tnfr' => 'Brochette',
-                'tnar' => 'بروشات',
-                'ar'   => 'سيخ',
-            ],
-            'description' => [
-                'fr'   => 'Tacos 1 viande au choix, brochette, escalope panné, 2 jambons, salami, cheddar et frites',
-                'en'   => '1 meat tacos of your choice, skewer, breaded escalope, 2 hams, salami, cheddar and french fries',
-                'tnfr' => 'Tacos 1 viande au choix, brochette, escalope panné, 2 jambons, salami, cheddar w frites',
-                'tnar' => 'تاكو 1 لحم من اختيارك، بروشات، اسكالوب باني، 2 جمبون، سلامي، شيدر و فريت',
-                'ar'   => 'تاكو 1 لحم من اختيارك، سيخ، اسكالوب مخبوز، 2 جمبون، سلامي، جبن شيدر و بطاطس مقلية',
-            ],
-            'photo' => 'example/restaurant/product/box_brochette.png',
-            'category_id' => $categoryBoxId,
-            'type' => Product::TYPE_FIXED,
-            'order' => $order++,
-            'added_loyalty_points' => 5,
-        ]);
-
-        Product::factory()->create([
-            'name' => [
                 'fr'   => 'Mixte',
                 'en'   => 'Mixed',
                 'tnfr' => 'Mixte',
@@ -253,21 +231,6 @@ class ProductsTableSeeder extends Seeder
                 'ar'   => 'ناجت',
             ],
             'photo' => 'example/restaurant/product/sandwich_nugget.jpg',
-            'category_id' => $categorySandwichId,
-            'type' => Product::TYPE_WITH_OPTIONS,
-            'order' => $order++,
-            'added_loyalty_points' => 0,
-        ]);
-
-        Product::factory()->create([
-            'name' => [
-                'fr'   => 'Brochette',
-                'en'   => 'Skewer',
-                'tnfr' => 'Brochette',
-                'tnar' => 'بروشات',
-                'ar'   => 'سيخ',
-            ],
-            'photo' => 'example/restaurant/product/sandwich_brochette.jpg',
             'category_id' => $categorySandwichId,
             'type' => Product::TYPE_WITH_OPTIONS,
             'order' => $order++,
