@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('additional_note')->nullable();
             $table->unsignedTinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
             $table->unsignedTinyInteger('payment_method')->default(Order::PAYMENT_METHOD_CASH)->comment('@see \App\Model\Order::PAYMENT_METHODS');
-            $table->unsignedTinyInteger('collection_method')->comment('@see \App\Model\Order::COLLECTION_METHODS');
+            $table->unsignedTinyInteger('type')->comment('@see \App\Model\Order::TYPES');
             $table->unsignedTinyInteger('is_payed')->default(0);
 
             $table->unsignedBigInteger('client_id');

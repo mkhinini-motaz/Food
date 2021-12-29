@@ -17,14 +17,14 @@ class OrderResource extends JsonResource
     {
         return [
             'id'                 => $this->id,
+            'type'               => $this->type,
+            'source'             => $this->source,
             'status'             => $this->status,
             'total_price'        => $this->total_price,
             'associated_phone'   => $this->associated_phone,
             'delivery_latitude'  => $this->delivery_latitude,
             'delivery_longitude' => $this->delivery_longitude,
             'additional_note'    => $this->additional_note,
-            'source'             => $this->source,
-            'collection_method'  => $this->collection_method,
             'created_at'         => $this->created_at,
 
             'shop_transporter'   => new ShopUserResource($this->whenLoaded('shopTransporter')),

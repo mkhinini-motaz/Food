@@ -29,6 +29,7 @@ class OrdersTableSeeder extends Seeder
         /** @var Order $order */
         $order = Order::factory()->create([
             'shop_transporter_id' => 1,
+            'type' => Order::TYPE_DELIVERY,
             'client_id'     => 1,
             'promo_code_id' => 1,
             'delivery_latitude' => 35.7327203,
@@ -119,6 +120,7 @@ class OrdersTableSeeder extends Seeder
         $order = Order::factory()->create([
             'shop_transporter_id' => 1,
             'client_id' => 2,
+            'type' => Order::TYPE_DELIVERY,
             'delivery_latitude' => 35.742093,
             'delivery_longitude' => 10.584897,
             'additional_note' => 'Pizza 4 fromages men ghir roquefort',
@@ -193,6 +195,7 @@ class OrdersTableSeeder extends Seeder
         $order = Order::factory()->create([
             'shop_transporter_id' => 2,
             'client_id' => 3,
+            'type' => Order::TYPE_DELIVERY,
             'delivery_latitude' => 35.723200,
             'delivery_longitude' => 10.587157,
             'additional_note' => 'Chwaya bsal fi wost baguette farcie',
@@ -241,6 +244,7 @@ class OrdersTableSeeder extends Seeder
         $optionHarissaId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
         $optionMayonnaiseId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
         $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
+        $optionBaconId  = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Bacon'")->first()->id;
 
         foreach ($choices as $choice) {
             $choiceId = $choice->id;
@@ -269,6 +273,11 @@ class OrdersTableSeeder extends Seeder
                     'option_id'    => $optionMayonnaiseId,
                     'choice_id' => $choiceId,
                     'quantity' => 3,
+                ],
+                [
+                    'option_id'    => $optionBaconId,
+                    'choice_id' => $choiceId,
+                    'quantity'  => null,
                 ],
                 [
                     'option_id'    => $optionFritesId,

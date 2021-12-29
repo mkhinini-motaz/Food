@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string delivery_longitude
  * @property string additional_note
  * @property int    source
- * @property int    collection_method
+ * @property int    type
  * @property int    payment_method
  *
  * @property int client_id
@@ -73,17 +73,16 @@ class Order extends Model
 
     const SOURCES = [ self::SOURCE_ONLINE, self::SOURCE_ON_SITE ];
 
-    // TODO: type to_be_delivered, to_be_eaten_on_site, ... ????
+    const TYPE_ON_SITE   = 1;
+    const TYPE_TAKE_AWAY = 2;
+    const TYPE_DELIVERY  = 3;
+
+    const TYPES = [ self::TYPE_ON_SITE, self::TYPE_TAKE_AWAY, self::TYPE_DELIVERY ];
 
     const PAYMENT_METHOD_CASH         = 1;
     const PAYMENT_METHOD_CREDIT_CARD  = 2;
     const PAYMENT_METHOD_ON_THE_HOUSE = 3;
     const PAYMENT_METHODS = [ self::PAYMENT_METHOD_CASH, self::PAYMENT_METHOD_CREDIT_CARD, self::PAYMENT_METHOD_ON_THE_HOUSE ];
-
-    const COLLECTION_METHOD_PICK_UP = 1;
-    const COLLECTION_METHOD_DELIVER = 2;
-
-    const COLLECTION_METHODS = [ self::COLLECTION_METHOD_PICK_UP, self::COLLECTION_METHOD_DELIVER, ];
 
     protected $dateFormat = 'U';
 

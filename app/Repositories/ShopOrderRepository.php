@@ -37,34 +37,34 @@ class ShopOrderRepository
      * @param array          $products
      * @param string         $deliveryLatitude
      * @param string         $deliveryLongitude
-     * @param int            $source           @see Order::SOURCES
-     * @param int            $collectionMethod @see Order::COLLECTION_METHODS
+     * @param int            $source @see Order::SOURCES
+     * @param int            $type   @see Order::TYPES
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
      * @return Order
      * @throws OrderException
      */
-    public function create(Client $client, $products, $deliveryLatitude, $deliveryLongitude, $source, $collectionMethod, $additionalNote = null, PromoCode $promoCode = null)
+    public function create(Client $client, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $additionalNote = null, PromoCode $promoCode = null)
     {
         $order = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
 
-        $order->status = Order::STATUS_NEW;
-        $order->source = $source;
-        $order->client_id = $client->id;
-        $order->location_id = $location->id;
-        $order->additional_note = $additionalNote;
-        $order->associated_phone = $client->phone;
-        $order->collection_method = $collectionMethod;
-        $order->delivery_latitude = $deliveryLatitude;
+        $order->type               = $type;
+        $order->status             = Order::STATUS_NEW;
+        $order->source             = $source;
+        $order->client_id          = $client->id;
+        $order->location_id        = $location->id;
+        $order->additional_note    = $additionalNote;
+        $order->associated_phone   = $client->phone;
+        $order->delivery_latitude  = $deliveryLatitude;
         $order->delivery_longitude = $deliveryLongitude;
 
         $order->total_price = $this->validateAndCalculateProductsPrice($products);
 
         if ($promoCode) {
-            $order->total_price -= $promoCode->reduction_amount;
-            $order->total_price = $order->total_price > 0 ? $order->total_price : 0;
+            $order->total_price   -= $promoCode->reduction_amount;
+            $order->total_price   = $order->total_price > 0 ? $order->total_price : 0;
             $order->promo_code_id = $promoCode->id;
         }
 
