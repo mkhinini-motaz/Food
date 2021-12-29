@@ -486,6 +486,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 1,
+            'price' => 1000,
         ]);
 
         Product::factory()->create([
@@ -501,6 +502,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 1500,
         ]);
 
         Product::factory()->create([
@@ -516,6 +518,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 1500,
         ]);
 
         Product::factory()->create([
@@ -531,6 +534,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 1500,
         ]);
 
         Product::factory()->create([
@@ -546,6 +550,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 1500,
         ]);
 
         Product::factory()->create([
@@ -561,6 +566,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 1500,
         ]);
 
         Product::factory()->create([
@@ -576,6 +582,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 2000,
         ]);
     }
 }
