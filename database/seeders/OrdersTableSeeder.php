@@ -16,9 +16,11 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
+/*
         $this->order1();
         $this->order2();
         $this->order3();
+*/
     }
 
     /**

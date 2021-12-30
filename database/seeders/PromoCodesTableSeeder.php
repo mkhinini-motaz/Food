@@ -18,7 +18,7 @@ class PromoCodesTableSeeder extends Seeder
             'code' => 'ghostchef',
             'reduction_amount' => 2000,
             ]);
-
+/*
         PromoCode::factory()->create([
             'code' => 'codeclient1',
             'creator_id' => 1,
@@ -39,5 +39,6 @@ class PromoCodesTableSeeder extends Seeder
         for ($i = 0; $i <= 100; $i++) {
             PromoCode::factory()->create([ 'code' => 'code' . $i ]);
         }
+*/
     }
 }

@@ -22,7 +22,7 @@ class ClientsTableSeeder extends Seeder
             'is_phone_confirmed' => 1,
             'loyalty_points_count' => 10000,
         ]);
-
+/*
         Client::factory()->create([
             'first_name' => 'user 2',
             'last_name' => 'user 2',
@@ -40,5 +40,6 @@ class ClientsTableSeeder extends Seeder
             'password' => bcrypt('azerty'),
             'is_phone_confirmed' => 1,
         ]);
+*/
     }
 }
