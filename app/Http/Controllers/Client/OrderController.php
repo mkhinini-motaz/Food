@@ -34,7 +34,8 @@ class OrderController extends Controller
         /** @var Shop $shop */
         $shop = $request->get('shop');
         /** @var PromoCode $promoCode */
-        $promoCode = ! $promoCodeId ? null : $shop->usablePromoCodes()->findOrFail($promoCodeId);
+// TODO: duplicate db query
+        $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->create(auth()->user(), $products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::TYPE_DELIVERY, $additionalNote, $promoCode);
