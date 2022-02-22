@@ -50,7 +50,7 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'تمتع بتاكوس البنين بالعجينة الاوريجينال متاعنا',
                 'ar'   => 'استمتع بتاكوس اللذيذ بعجينتنا الأصلية',
             ],
-            'photo' => 'example/restaurant/category/tacos.jpg',
+            'photo' => 'example/restaurant/category/tacos1.jpg',
             'is_visible' => 1,
             'order' => $order++,
         ]);
@@ -70,7 +70,7 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'مكونات فرشكة في خبز بنين و خفيف',
                 'ar'   => 'مكونات طازجة في خبز لذيذ و خفيف',
             ],
-            'photo' => 'example/restaurant/category/sandwich.jpg',
+            'photo' => 'example/restaurant/category/sandwich3.jpg',
             'is_visible' => 1,
             'order' => $order++,
         ]);
@@ -90,7 +90,7 @@ class CategoriesTableSeeder extends Seeder
                 'tnar' => 'بات نابوليتان صحيحة مع فورماج كاليتاي',
                 'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
             ],
-            'photo' => 'example/restaurant/category/pizza.jpg',
+            'photo' => 'example/restaurant/category/pizza1.jpg',
             'is_visible' => 1,
             'order' => $order++,
         ]);
