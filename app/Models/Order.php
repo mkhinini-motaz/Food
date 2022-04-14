@@ -164,7 +164,7 @@ class Order extends Model
     {
         return $query->with([
             'client',
-            'products',
+            'products.category',
         ]);
     }
     /**
