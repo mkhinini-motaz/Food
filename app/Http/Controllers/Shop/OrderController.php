@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Events\OrderAction;
+use App\Exceptions\OrderException;
+use App\Http\Resources\Resource;
 use App\Models\Order;
+use App\Models\PromoCode;
 use App\Models\Shop;
 use App\Models\ShopUser;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\ResourceCollection;
 use App\Repositories\OrderRepository;
+use App\Repositories\ShopOrderRepository;
 use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Shop\Order\OrderCreateRequest;
 use App\Http\Requests\Shop\Order\OrderStatusUpdateRequest;
 
 use Illuminate\Http\JsonResponse;
@@ -37,6 +42,37 @@ class OrderController extends Controller
         $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection, true);
 
         return ResourceCollection::jsonResponse($orders);
+    }
+
+    /**
+     * @param OrderCreateRequest $request
+     *
+     * @return JsonResponse
+     * @throws OrderException
+     */
+    public function create(OrderCreateRequest $request)
+    {
+        $products          = $request->input('products');
+        $promoCodeId       = $request->input('promo_code_id', null);
+        $additionalNote    = $request->input('additional_note', null);
+        $deliveryLatitude  = $request->input('delivery_latitude', null);
+        $deliveryLongitude = $request->input('delivery_longitude', null);
+// TODO: order type
+// TODO: client
+// TODO: is_payed
+
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var PromoCode $promoCode */
+// TODO: duplicate db query
+        $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
+
+        $shopOrderRepo = new ShopOrderRepository($shop);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ON_SITE, Order::TYPE_ON_SITE, null, $additionalNote, $promoCode);
+
+        OrderAction::dispatch($order->id);
+
+        return Resource::jsonResponse($order);
     }
 
     /**

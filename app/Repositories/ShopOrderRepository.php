@@ -14,6 +14,7 @@ use App\Models\Shop;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use Throwable;
 
 class ShopOrderRepository
 {
@@ -33,19 +34,19 @@ class ShopOrderRepository
     }
 
     /**
-     * @param Client         $client
      * @param array          $products
      * @param string         $deliveryLatitude
      * @param string         $deliveryLongitude
      * @param int            $source @see Order::SOURCES
      * @param int            $type   @see Order::TYPES
+     * @param Client         $client
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
      * @return Order
-     * @throws OrderException
+     * @throws OrderException|Throwable
      */
-    public function create(Client $client, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $additionalNote = null, PromoCode $promoCode = null)
+    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, Client $client = null, $additionalNote = null, PromoCode $promoCode = null)
     {
         $order = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
@@ -53,14 +54,17 @@ class ShopOrderRepository
         $order->type               = $type;
         $order->status             = Order::STATUS_NEW;
         $order->source             = $source;
-        $order->client_id          = $client->id;
         $order->location_id        = $location->id;
         $order->additional_note    = $additionalNote;
-        $order->associated_phone   = $client->phone;
         $order->delivery_latitude  = $deliveryLatitude;
         $order->delivery_longitude = $deliveryLongitude;
 
         $order->total_price = $this->validateAndCalculateProductsPrice($products);
+
+        if ($client) {
+            $order->client_id        = $client->id;
+            $order->associated_phone = $client->phone;
+        }
 
         if ($promoCode) {
             $order->total_price   -= $promoCode->reduction_amount;
@@ -104,11 +108,13 @@ class ShopOrderRepository
 
             $optionsInput = $product['options'] ?? null;
             if ($productFromDb->type !== Product::TYPE_WITH_OPTIONS || ! $optionsInput) {
-                continue;
+                $optionsPrice = 0;
+            } else {
+                $optionsPrice = $this->validateAndCalculatePriceForProductOptions($productFromDb, $optionsInput);
             }
 
-            $optionsPrice = $this->validateAndCalculatePriceForProductOptions($productFromDb, $optionsInput);
-            $totalPrice += $productFromDb->price + $optionsPrice;
+            $count = $product['product_count'] ?? 1;
+            $totalPrice += ($productFromDb->price + $optionsPrice) * $count;
         }
 
         return $totalPrice;
@@ -137,7 +143,7 @@ class ShopOrderRepository
                 throw new OrderException('option_group:max_options');
             }
 
-            $optionsAddedPrice += $optionFromDb->price;
+            $optionsAddedPrice += $optionFromDb->pivot->price;
             $optionGroupCheck[$optionGroupId]['options_count']++;
         }
 

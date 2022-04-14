@@ -75,8 +75,8 @@ class OptionsTableSeeder extends Seeder
 
         $optionCarotte = Option::factory()->create([
             'name' => [
-                'fr'   => 'Corotte',
-                'en'   => 'Corot',
+                'fr'   => 'Carotte',
+                'en'   => 'Carrot',
                 'tnfr' => 'Sfennaria',
                 'tnar' => 'سفنارية',
                 'ar'   => 'جزر',

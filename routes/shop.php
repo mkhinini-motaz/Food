@@ -21,12 +21,15 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
     });
 
     Route::group([ 'prefix' => 'product', 'as' => 'product.', ], function () {
+        Route::get('/', [ ProductController::class, 'index' ])->name('index');
         Route::post('/{productId}/show', [ ProductController::class, 'makeVisible' ])->name('makeVisible');
         Route::post('/{productId}/hide', [ ProductController::class, 'makeInvisible' ])->name('makeInvisible');
     });
 
     Route::group([ 'prefix' => 'order', 'as' => 'order.', ], function () {
         Route::get('/current', [ OrderController::class, 'current' ])->name('current');
+        Route::post('/', [ OrderController::class, 'create' ])->name('create');
+
         Route::group([ 'prefix' => '{orderId}' ], function () {
             Route::post('/transporter', [ OrderController::class, 'attachTransporter' ])->name('attachTransporter');
             Route::post('/status', [ OrderController::class, 'updateStatus' ])->name('updateStatus');

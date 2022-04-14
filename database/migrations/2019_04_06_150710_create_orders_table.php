@@ -20,17 +20,17 @@ class CreateOrdersTable extends Migration
 
             $table->unsignedTinyInteger('status')->default(Order::STATUS_NEW)->comment('@see \App\Model\Order::STATUSES');
             $table->integer('total_price');
-            $table->string('associated_phone');
-            $table->float('delivery_latitude', 10, 6);
-            $table->float('delivery_longitude', 10, 6);
+            $table->string('associated_phone')->nullable();
+            $table->float('delivery_latitude', 10, 6)->nullable();
+            $table->float('delivery_longitude', 10, 6)->nullable();
             $table->string('additional_note')->nullable();
             $table->unsignedTinyInteger('source')->comment('@see \App\Model\Order::SOURCES');
             $table->unsignedTinyInteger('payment_method')->default(Order::PAYMENT_METHOD_CASH)->comment('@see \App\Model\Order::PAYMENT_METHODS');
             $table->unsignedTinyInteger('type')->comment('@see \App\Model\Order::TYPES');
             $table->unsignedTinyInteger('is_payed')->default(0);
 
-            $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->unsignedBigInteger('promo_code_id')->nullable();
             $table->unsignedBigInteger('transporter_id')->nullable();
             $table->unsignedBigInteger('shop_transporter_id')->nullable();
