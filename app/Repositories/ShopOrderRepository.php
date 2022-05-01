@@ -40,13 +40,14 @@ class ShopOrderRepository
      * @param int            $source @see Order::SOURCES
      * @param int            $type   @see Order::TYPES
      * @param Client         $client
+     * @param bool           $isPayed
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
      * @return Order
      * @throws OrderException|Throwable
      */
-    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, Client $client = null, $additionalNote = null, PromoCode $promoCode = null)
+    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, Client $client = null, $isPayed = false, $additionalNote = null, PromoCode $promoCode = null)
     {
         $order = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
@@ -54,6 +55,7 @@ class ShopOrderRepository
         $order->type               = $type;
         $order->status             = Order::STATUS_NEW;
         $order->source             = $source;
+        $order->is_payed           = $isPayed;
         $order->location_id        = $location->id;
         $order->additional_note    = $additionalNote;
         $order->delivery_latitude  = $deliveryLatitude;

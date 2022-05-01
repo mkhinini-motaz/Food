@@ -52,6 +52,7 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request)
     {
+        $isPayed           = $request->input('is_payed', false);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);
         $additionalNote    = $request->input('additional_note', null);
@@ -59,7 +60,6 @@ class OrderController extends Controller
         $deliveryLongitude = $request->input('delivery_longitude', null);
 // TODO: order type
 // TODO: client
-// TODO: is_payed
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -68,7 +68,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ON_SITE, Order::TYPE_ON_SITE, null, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ON_SITE, Order::TYPE_ON_SITE, null, $isPayed, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 

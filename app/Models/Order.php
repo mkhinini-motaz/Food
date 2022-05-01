@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int    source
  * @property int    type
  * @property int    payment_method
+ * @property bool   is_payed
  *
  * @property int client_id
  * @property int location_id
