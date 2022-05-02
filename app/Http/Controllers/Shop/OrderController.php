@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Events\OrderAction;
 use App\Exceptions\OrderException;
+use App\Http\Requests\Shop\Order\OrderIsPayedUpdateRequest;
 use App\Http\Resources\Resource;
 use App\Models\Order;
 use App\Models\PromoCode;
@@ -101,6 +102,7 @@ class OrderController extends Controller
         return (new OrderResource($order));
     }
 
+    // TODO: edit order
 
     /**
      * @param int                      $orderId
@@ -119,6 +121,29 @@ class OrderController extends Controller
         $status = $request->input('status');
         $orderRepo = new OrderRepository($order);
         $orderRepo->updateStatus($status);
+
+        OrderAction::dispatch($order->id);
+
+        return (new OrderResource($order));
+    }
+
+    /**
+     * @param int                      $orderId
+     * @param OrderIsPayedUpdateRequest $request
+     *
+     * @return OrderResource
+     */
+    public function updateIsPayed($orderId, OrderIsPayedUpdateRequest $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+
+        /** @var Order $order */
+        $order = $shop->orders()->findOrFail($orderId);
+
+        $isPayed = $request->input('is_payed');
+        $orderRepo = new OrderRepository($order);
+        $orderRepo->updateIsPayed($isPayed);
 
         OrderAction::dispatch($order->id);
 

@@ -69,6 +69,15 @@ class OrderRepository
     }
 
     /**
+     * @param bool $isPayed
+     */
+    public function updateIsPayed($isPayed)
+    {
+        $this->order->is_payed = $isPayed;
+        $this->order->save();
+    }
+
+    /**
      * @return array
      */
     public function productsShopIds()

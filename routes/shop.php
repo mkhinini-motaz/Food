@@ -33,6 +33,7 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
         Route::group([ 'prefix' => '{orderId}' ], function () {
             Route::post('/transporter', [ OrderController::class, 'attachTransporter' ])->name('attachTransporter');
             Route::post('/status', [ OrderController::class, 'updateStatus' ])->name('updateStatus');
+            Route::post('/is-payed', [ OrderController::class, 'updateIsPayed' ])->name('updateIsPayed');
         });
     });
 
