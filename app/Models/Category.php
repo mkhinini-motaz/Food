@@ -80,9 +80,9 @@ class Category extends Model
      */
     public function scopeWithProducts($query, $onlyVisible, $orderBy, $orderDirection)
     {
-        return $query->with(
-            'products',
-            function($subQuery) use ($onlyVisible, $orderBy, $orderDirection) {
+        return $query->with([
+            'products.category',
+            'products' => function($subQuery) use ($onlyVisible, $orderBy, $orderDirection) {
                 $subQuery->with('optionGroups.options');
                 if ($onlyVisible) {
                     $subQuery->where('is_visible', '=', 1);
@@ -92,6 +92,6 @@ class Category extends Model
                     $subQuery->orderBy($orderBy, $orderDirection);
                 }
             }
-        );
+        ]);
     }
 }
