@@ -31,6 +31,8 @@ class OrderResource extends JsonResource
             'shop_transporter'   => new ShopUserResource($this->whenLoaded('shopTransporter')),
             'promo_code'         => new PromoCodeResource($this->whenLoaded('promoCode')),
             'client'             => new ClientResource($this->whenLoaded('client')),
+// TODO: refactor
+//            'choices'            => $this->when($this->choices, ChoiceResource::collection(collect($this->choices))),
             'products'           => $this->when($this->products, ProductResource::collection(collect($this->products))),
         ];
     }

@@ -152,7 +152,6 @@ class Order extends Model
             'choices.product.optionGroups' => $orderByOrder,
             'choices.product.optionGroups.options',
             'choices.product.category',
-            'choices.options',
         ]);
     }
 

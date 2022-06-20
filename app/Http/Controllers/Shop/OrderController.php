@@ -65,7 +65,7 @@ class OrderController extends Controller
         /** @var Shop $shop */
         $shop = $request->get('shop');
         /** @var PromoCode $promoCode */
-// TODO: duplicate db query
+// TODO: refactor duplicate db query
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);

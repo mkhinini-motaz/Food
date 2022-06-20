@@ -32,7 +32,7 @@ class OrderRepository
      */
     public static function attachChoicesToOrders($orders)
     {
-// TODO: make food-shop project use choices and remove this function
+// TODO: refactor
         $ordersIds = $orders->pluck('id');
         $choiceOptionRelationData = OptionOrderProductRepository::optionChoicesForOrders($ordersIds);
 
