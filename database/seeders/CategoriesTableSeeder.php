@@ -14,7 +14,7 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $order = 1;
-
+/*
         Category::factory()->create([
             'name' => [
                 'fr'   => 'Box',
@@ -34,7 +34,7 @@ class CategoriesTableSeeder extends Seeder
             'is_visible' => 1,
             'order' => $order++,
         ]);
-
+*/
         Category::factory()->create([
             'name' => [
                 'fr'   => 'Tacos',
@@ -111,6 +111,19 @@ class CategoriesTableSeeder extends Seeder
                 'ar'   => 'عجينة نابولي الأصلية مع جبنة عالية الجودة',
             ],
             'photo' => 'example/restaurant/category/pizza_sauce_blanche.jpg',
+            'is_visible' => 1,
+            'order' => $order++,
+        ]);
+
+        Category::factory()->create([
+            'name' => [
+                'fr'   => 'Entrées',
+                'en'   => 'Appetizers',
+                'tnfr' => 'Entrées',
+                'tnar' => 'وجبات خفيفة',
+                'ar'   => 'وجبات خفيفة',
+            ],
+            'photo' => 'example/restaurant/category/entree.jpg',
             'is_visible' => 1,
             'order' => $order++,
         ]);

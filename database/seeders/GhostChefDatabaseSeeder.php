@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Ghostchef\FirstDayDataSeeder;
 use Illuminate\Database\Seeder;
 
 class GhostChefDatabaseSeeder extends Seeder
@@ -30,5 +31,7 @@ class GhostChefDatabaseSeeder extends Seeder
 //        $this->call(ShopPaymentsTableSeeder::class);
 //        $this->call(TransporterPaymentsTableSeeder::class);
 //        $this->call(VehiculesTableSeeder::class);
+
+//        $this->call(FirstDayDataSeeder::class);
     }
 }

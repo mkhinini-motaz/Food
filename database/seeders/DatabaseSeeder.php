@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicesTableSeeder::class);
 
         $this->call(GhostChefDatabaseSeeder::class);
-        $this->call(GhostMarketDatabaseSeeder::class);
+//        $this->call(GhostMarketDatabaseSeeder::class);
     }
 }
