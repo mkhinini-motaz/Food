@@ -417,7 +417,7 @@ class OptionsTableSeeder extends Seeder
                 'tnar' => 'جوست',
                 'ar'   => 'جوست',
             ],
-            'photo' => 'example/restaurant/option/chicken.jpg',
+            'photo' => 'example/restaurant/option/ghost.jpg',
         ]);
 
         $order = 1;
