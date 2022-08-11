@@ -40,7 +40,7 @@ class OrderController extends Controller
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection, true);
+        $orders = $shopRepository->paginateOrders($page, 200, $orderBy, $orderDirection, true);
 
         return ResourceCollection::jsonResponse($orders);
     }
@@ -53,13 +53,15 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request)
     {
+        $type              = $request->input('type', false);
+        $source            = $request->input('source', false);
         $isPayed           = $request->input('is_payed', false);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);
         $additionalNote    = $request->input('additional_note', null);
+        $associatedPhone   = $request->input('associatedPhone', null);
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
-// TODO: order type
 // TODO: client
 
         /** @var Shop $shop */
@@ -69,7 +71,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ON_SITE, Order::TYPE_ON_SITE, null, $isPayed, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, null, $isPayed, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 

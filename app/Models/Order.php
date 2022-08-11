@@ -69,8 +69,9 @@ class Order extends Model
 
     const ACTIVE_TRANSPORTER_STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_PICKED_BY_TRANSPORTER, ];
 
-    const SOURCE_ONLINE  = 1;
-    const SOURCE_ON_SITE = 2;
+    const SOURCE_ONLINE   = 1;
+    const SOURCE_ON_SITE  = 2;
+    const SOURCE_BY_PHONE = 3;
 
     const SOURCES = [ self::SOURCE_ONLINE, self::SOURCE_ON_SITE ];
 

@@ -6,8 +6,10 @@ use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\OrderController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\Shop\ShopUserController;
+use App\Http\Controllers\Shop\PromoCodeController;
 
 Route::post('/login', [ AuthController::class, 'login' ])->name('login');
+Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('promo-code.show');
 
 Route::group([ 'middleware' => [ 'authShop'] ], function() {
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');

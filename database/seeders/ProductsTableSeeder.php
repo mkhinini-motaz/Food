@@ -648,6 +648,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 2500,
         ]);
 
         Product::factory()->create([
@@ -663,6 +664,7 @@ class ProductsTableSeeder extends Seeder
             'type' => Product::TYPE_FIXED,
             'order' => $order++,
             'added_loyalty_points' => 0,
+            'price' => 2000,
         ]);
     }
 

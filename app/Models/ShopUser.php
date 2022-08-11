@@ -36,8 +36,9 @@ class ShopUser extends Authenticatable
 
     const ROLE_OWNER       = 1;
     const ROLE_MASTER_CHEF = 2;
+    const ROLE_SHOP_KEEPER = 3;
+    const ROLE_COOK        = 4;
     const ROLE_TRANSPORTER = 5;
-    const ROLE_SHOP_KEEPER = 20;
 
     const ROLES = [ self::ROLE_OWNER, self::ROLE_TRANSPORTER, self::ROLE_MASTER_CHEF, self::ROLE_SHOP_KEEPER ];
     const ROLES_CAN_TRANSPORT = [ self::ROLE_OWNER, self::ROLE_TRANSPORTER, self::ROLE_SHOP_KEEPER ];

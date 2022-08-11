@@ -3,8 +3,10 @@
 namespace App\Http\Requests\Shop\Order;
 
 use App\Models\Client;
+use App\Models\Order;
 use App\Models\Shop;
 use App\Models\PromoCode;
+use App\Models\ShopUser;
 use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -17,7 +19,7 @@ class OrderCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user() instanceof ShopUser;
     }
 
     /**
@@ -31,20 +33,17 @@ class OrderCreateRequest extends FormRequest
         /** @var Shop $shop */
         $shop = Shop::isApproved()->findOrFail(auth()->user()->shop_id);
         $this->attributes->set('shop', $shop);
-        $deliveryLatitude  = request()->input('delivery_latitude');
 
         // TODO: max products count
         // TODO: max products value
 
         return [
-            'additional_note'    => [ 'max:190' ],
-            'delivery_latitude'  => [ 'between:-90,90' ],
-            'delivery_longitude' => [ 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $shop) {
-                if ($shop->locationNotWithinServiceArea($deliveryLatitude, $value)) {
-                    $fail('delivery_latitude.location_not_served');
-                    $fail('delivery_longitude.location_not_served');
-                }
-            } ],
+            'associated_phone' => [ 'max:50', 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/' ],
+            'additional_note'  => [ 'max:190' ],
+
+            'source'   => [ 'required', 'in:' . implode(',', Order::SOURCES) ],
+            'type'     => [ 'required', 'in:' . implode(',', Order::TYPES) ],
+            'is_payed' => [ 'integer', 'min:0', 'max:1' ],
 
             'products'                  => [ 'required', 'array' ],
             'products.*.product_id'     => [ 'required', 'integer' ],
