@@ -73,7 +73,7 @@ class Order extends Model
     const SOURCE_ON_SITE  = 2;
     const SOURCE_BY_PHONE = 3;
 
-    const SOURCES = [ self::SOURCE_ONLINE, self::SOURCE_ON_SITE ];
+    const SOURCES = [ self::SOURCE_ONLINE, self::SOURCE_ON_SITE, self::SOURCE_BY_PHONE ];
 
     const TYPE_ON_SITE   = 1;
     const TYPE_TAKE_AWAY = 2;
