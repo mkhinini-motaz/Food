@@ -39,7 +39,7 @@ class OrderRepository
         foreach ($orders as &$order) {
             $products = [];
             foreach ($order->choices as $choice) {
-                $product = $choice->product;
+                $product = $choice->product->replicate();
                 $productChoicesRelationData = $choiceOptionRelationData[$choice->id] ?? [];
                 ProductRepository::attachOptionChoicesToProduct($product, $choice, $productChoicesRelationData);
                 $products[] = $product;
