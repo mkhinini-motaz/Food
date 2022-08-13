@@ -167,10 +167,6 @@ class ShopRepository
 
         $orders = $orders->paginate($perPage, [ '*' ], 'page', $page);
 
-        if ($withChoices) {
-            return OrderRepository::attachChoicesToOrders($orders);
-        }
-
         return $orders;
     }
 

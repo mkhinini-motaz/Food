@@ -36,11 +36,11 @@ class OrderController extends Controller
         $shopRepository = new ShopRepository($shop);
 
         $page    = $request->input('page', 1);
-        $perPage = $request->input('perPage', 20);
+        $perPage = $request->input('perPage', 160);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
-        $orders = $shopRepository->paginateOrders($page, 200, $orderBy, $orderDirection, true);
+        $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection);
 
         return ResourceCollection::jsonResponse($orders);
     }

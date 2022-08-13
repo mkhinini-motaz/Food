@@ -26,31 +26,6 @@ class OrderRepository
     }
 
     /**
-     * @param Collection|array|LengthAwarePaginator $orders
-     *
-     * @return Collection|array|LengthAwarePaginator
-     */
-    public static function attachChoicesToOrders($orders)
-    {
-// TODO: refactor
-        $ordersIds = $orders->pluck('id');
-        $choiceOptionRelationData = OptionOrderProductRepository::optionChoicesForOrders($ordersIds);
-
-        foreach ($orders as &$order) {
-            $products = [];
-            foreach ($order->choices as $choice) {
-                $product = $choice->product->replicate();
-                $productChoicesRelationData = $choiceOptionRelationData[$choice->id] ?? [];
-                ProductRepository::attachOptionChoicesToProduct($product, $choice, $productChoicesRelationData);
-                $products[] = $product;
-            }
-            $order->products = $products;
-        }
-
-        return $orders;
-    }
-
-    /**
      * @param ShopUser $shopTransporter
      */
     public function attachShopTransporter(ShopUser $shopTransporter)

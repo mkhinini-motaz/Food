@@ -143,15 +143,12 @@ class Order extends Model
      */
     public function scopeWithNeededRelationsForProcessing($query)
     {
-        $orderByOrder = function($query) { $query->orderBy('pivot_order'); };
-
         return $query->with([
             'client',
             'promoCode',
             'transporter',
             'shopTransporter',
-            'choices.product.optionGroups' => $orderByOrder,
-            'choices.product.optionGroups.options',
+            'choices.options',
             'choices.product.category',
         ]);
     }

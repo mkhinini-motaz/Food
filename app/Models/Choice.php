@@ -40,6 +40,7 @@ class Choice extends Model
      */
     public function options()
     {
-        return $this->belongsToMany(Option::class);
+        return $this->belongsToMany(Option::class)
+            ->withPivot(Option::ORDER_CHOICES_FIELDS);
     }
 }
