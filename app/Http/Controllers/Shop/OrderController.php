@@ -59,7 +59,7 @@ class OrderController extends Controller
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);
         $additionalNote    = $request->input('additional_note', null);
-        $associatedPhone   = $request->input('associatedPhone', null);
+        $associatedPhone   = $request->input('associated_phone', null);
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
 // TODO: client
@@ -71,7 +71,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, null, $isPayed, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 

@@ -16,6 +16,7 @@ class CreateChoiceOptionTable extends Migration
         Schema::create('choice_option', function (Blueprint $table) {
             $table->id();
             $table->unsignedSmallInteger('quantity')->nullable();
+            $table->unsignedSmallInteger('price')->nullable();
 
             $table->unsignedBigInteger('choice_id');
             $table->unsignedBigInteger('option_id');

@@ -22,8 +22,8 @@ class ChoiceResource extends JsonResource
             'id'            => $this->id,
             'product_count' => $this->product_count,
 
-            'product'       => $this->whenLoaded('product'),
-            'options'       => $this->whenLoaded('options'),
+            'product'        => new ProductResource($this->whenLoaded('product')),
+            'options'       => $this->when($this->options, OptionResource::collection($this->options)),
         ];
     }
 }

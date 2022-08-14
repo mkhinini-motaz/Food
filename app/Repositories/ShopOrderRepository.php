@@ -12,8 +12,8 @@ use App\Models\Product;
 use App\Models\PromoCode;
 use App\Models\Shop;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
 class ShopOrderRepository
@@ -39,15 +39,17 @@ class ShopOrderRepository
      * @param string         $deliveryLongitude
      * @param int            $source @see Order::SOURCES
      * @param int            $type   @see Order::TYPES
+     * @param string         $associatedPhone
      * @param Client         $client
      * @param bool           $isPayed
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
      * @return Order
-     * @throws OrderException|Throwable
+     * @throws OrderException
+     * @throws Throwable
      */
-    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, Client $client = null, $isPayed = false, $additionalNote = null, PromoCode $promoCode = null)
+    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $additionalNote = null, PromoCode $promoCode = null)
     {
         $order = new Order();
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
@@ -58,14 +60,19 @@ class ShopOrderRepository
         $order->is_payed           = $isPayed;
         $order->location_id        = $location->id;
         $order->additional_note    = $additionalNote;
+        $order->associated_phone   = $associatedPhone;
         $order->delivery_latitude  = $deliveryLatitude;
         $order->delivery_longitude = $deliveryLongitude;
 
-        $order->total_price = $this->validateAndCalculateProductsPrice($products);
+        $productsFromDb = $this->productsFromInput($products)
+            ->keyBy('id');
+        $order->total_price = $this->validateAndCalculateProductsPrice($products, $productsFromDb);
 
         if ($client) {
-            $order->client_id        = $client->id;
-            $order->associated_phone = $client->phone;
+            $order->client_id = $client->id;
+            if (! $associatedPhone) {
+                $order->associated_phone = $client->phone;
+            }
         }
 
         if ($promoCode) {
@@ -74,11 +81,12 @@ class ShopOrderRepository
             $order->promo_code_id = $promoCode->id;
         }
 
+        $optionsPrices = $this->optionsPricesByProduct($productsFromDb);
         try {
             DB::beginTransaction();
             $order->saveOrFail();
             $this->saveChoicesForOrder($order, $products);
-            $this->saveOptionsForOrder($order, $products);
+            $this->saveOptionsForOrder($order, $products, $optionsPrices);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -90,16 +98,15 @@ class ShopOrderRepository
     }
 
     /**
-     * @param array $productsInput
+     * @param array      $productsInput
+     * @param Collection $productsFromDb
      *
      * @return int
      * @throws OrderException
      */
-    public function validateAndCalculateProductsPrice($productsInput)
+    public function validateAndCalculateProductsPrice($productsInput, $productsFromDb)
     {
         $totalPrice = 0;
-        $productsFromDb = $this->productsFromInput($productsInput)
-            ->keyBy('id');
 
         foreach ($productsInput as $product) {
             /** @var Product $productFromDb */
@@ -219,14 +226,15 @@ class ShopOrderRepository
             ];
         }
 
-        \DB::table('choices')->insert($productRelationshipInfos);
+        \DB::table('choices')->insert($productRelationshipInfos); // TODO: better code
     }
 
     /**
      * @param Order $order
      * @param array $productsInput
+     * @param array $optionsPrices
      */
-    private function saveOptionsForOrder(Order $order, $productsInput)
+    private function saveOptionsForOrder(Order $order, $productsInput, $optionsPrices)
     {
         /** @var Choice[] $choices */
         $choices = $order->choices()->get();
@@ -239,14 +247,41 @@ class ShopOrderRepository
 
             $choiceId = $choice->id;
             foreach ($productsInput[$index]['options'] as $option) {
-                $optionsRelationshipInfos[$option['id']] = [
+                $optionId = $option['id'];
+                $optionsRelationshipInfos[$optionId] = [
                     'choice_id' => $choiceId,
-                    'option_id' => $option['id'],
+                    'option_id' => $optionId,
                     'quantity'  => $option['quantity'] ?? 0,
+                    'price'     => $optionsPrices[$choice->product_id][$optionId],
                 ];
             }
         }
 
-        \DB::table('choice_option')->insert($optionsRelationshipInfos);
+        \DB::table('choice_option')->insert($optionsRelationshipInfos); // TODO: better code
+    }
+
+    /**
+     * @param Collection $products
+     *
+     * @return array
+     */
+    private function optionsPricesByProduct(Collection $products)
+    {
+        $prices = [];
+
+        foreach ($products as $product) {
+            $productId = $product->id;
+            if (! isset($prices[$productId])) {
+                $prices[$productId] = [];
+            }
+
+            foreach ($product->optionGroups as $optionGroup) {
+                foreach ($optionGroup->options as $option) {
+                    $prices[$productId][$option->id] = $option->pivot->price;
+                }
+            }
+        }
+
+        return $prices;
     }
 }

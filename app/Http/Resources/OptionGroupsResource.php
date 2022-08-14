@@ -43,7 +43,7 @@ class OptionGroupsResource extends JsonResource
                 function() { return $this->pivot->order; }
             ),
 
-            'options' => OptionsResource::collection($this->whenLoaded('options')),
+            'options' => OptionResource::collection($this->whenLoaded('options')),
         ];
     }
 }

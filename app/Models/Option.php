@@ -30,12 +30,13 @@ use Spatie\Translatable\HasTranslations;
  *
  * @property Shop       shop
  * @property Collection orders
+ * @property Collection optionGroups
  */
 class Option extends Model
 {
     use HasFactory, HasTranslations;
 
-    const ORDER_CHOICES_FIELDS = [ 'quantity' ];
+    const ORDER_CHOICES_FIELDS = [ 'quantity', 'price' ];
 
     protected $dateFormat = 'U';
     public $translatable = [ 'name', 'description' ];
