@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Events\OrderAction;
 use App\Exceptions\OrderException;
+use App\Http\Requests\Shop\Order\OrderCurrentRequest;
 use App\Http\Requests\Shop\Order\OrderIsPayedUpdateRequest;
 use App\Http\Resources\Resource;
 use App\Models\Order;
@@ -29,18 +30,15 @@ class OrderController extends Controller
      *
      * @return JsonResponse
      */
-    public function current(Request $request)
+    public function current(OrderCurrentRequest $request)
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
         $shopRepository = new ShopRepository($shop);
 
-        $page    = $request->input('page', 1);
-        $perPage = $request->input('perPage', 160);
-        $orderBy = $request->input('orderBy', 'created_at');
-        $orderDirection = $request->input('orderDirection', 'desc');
+        $dateTime = $request->input('date_time', date('d-m-Y'));
 
-        $orders = $shopRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection);
+        $orders = $shopRepository->orders($dateTime);
 
         return ResourceCollection::jsonResponse($orders);
     }

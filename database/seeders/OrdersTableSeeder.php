@@ -16,11 +16,9 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-/*
         $this->order1();
         $this->order2();
         $this->order3();
-*/
     }
 
     /**
@@ -32,11 +30,11 @@ class OrdersTableSeeder extends Seeder
         $order = Order::factory()->create([
             'shop_transporter_id' => 1,
             'type' => Order::TYPE_DELIVERY,
-            'client_id'     => 1,
             'promo_code_id' => 1,
             'delivery_latitude' => 35.7327203,
             'delivery_longitude' => 10.571216,
             'additional_note' => 'Bellahi fissa3 5ater jo3t hhh',
+            'associated_phone' => '+21623456789',
             'created_at' => time() + 40,
         ]);
 
@@ -121,11 +119,11 @@ class OrdersTableSeeder extends Seeder
         /** @var Order $order */
         $order = Order::factory()->create([
             'shop_transporter_id' => 1,
-            'client_id' => 2,
             'type' => Order::TYPE_DELIVERY,
             'delivery_latitude' => 35.742093,
             'delivery_longitude' => 10.584897,
             'additional_note' => 'Pizza 4 fromages men ghir roquefort',
+            'associated_phone' => '+21699999999',
             'created_at' => time() + 20,
         ]);
 
@@ -196,7 +194,6 @@ class OrdersTableSeeder extends Seeder
     {
         $order = Order::factory()->create([
             'shop_transporter_id' => 2,
-            'client_id' => 3,
             'type' => Order::TYPE_DELIVERY,
             'delivery_latitude' => 35.723200,
             'delivery_longitude' => 10.587157,
@@ -245,8 +242,6 @@ class OrdersTableSeeder extends Seeder
         $optionSalad3Id = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Tomate'")->first()->id;
         $optionHarissaId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Harissa'")->first()->id;
         $optionMayonnaiseId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Mayonnaise'")->first()->id;
-        $optionFritesId = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Frites'")->first()->id;
-        $optionBaconId  = Option::whereRaw("JSON_EXTRACT(name, '$.fr') = 'Bacon'")->first()->id;
 
         foreach ($choices as $choice) {
             $choiceId = $choice->id;
@@ -276,16 +271,6 @@ class OrdersTableSeeder extends Seeder
                     'choice_id' => $choiceId,
                     'quantity' => 3,
                 ],
-                [
-                    'option_id'    => $optionBaconId,
-                    'choice_id' => $choiceId,
-                    'quantity'  => null,
-                ],
-                [
-                    'option_id'    => $optionFritesId,
-                    'choice_id' => $choiceId,
-                    'quantity'  => null,
-                ]
             ]);
         }
     }

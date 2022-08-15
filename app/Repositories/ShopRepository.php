@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shop;
 
+use function App\Support\Helpers\columnInPeriod;
 use function App\Support\Helpers\fieldsLike;
 
 use Illuminate\Database\Eloquent\Model;
@@ -141,31 +142,33 @@ class ShopRepository
     }
 
     /**
-     * Paginate products
+     * @param null  $dateTime
+     * @param array $statuses
      *
-     * @param int    $page
-     * @param int    $perPage
-     * @param string $orderBy
-     * @param string $orderDirection
-     * @param bool   $withChoices
-     * @param array  $statuses
-     *
-     * @return LengthAwarePaginator
+     * @return Collection
      */
-    public function paginateOrders($page = 1, $perPage = 20, $orderBy = 'created_at', $orderDirection = 'desc', $withChoices = false, $statuses = [])
+    public function orders($dateTime = null, $statuses = [])
     {
-        $orders = $this->shop->orders()
-            ->withNeededRelationsForProcessing();
-
-        if (isset($orderBy) && isset($orderDirection)) {
-            $orders->orderBy($orderBy, $orderDirection);
+        if (! $dateTime) {
+            $dateTime = date('d-m-Y');
         }
+
+        $workingHours = $this->shop->workingHoursForDate($dateTime);
+        if (0 === count($workingHours)) {
+            return collect();
+        }
+
+        $orders = $this->shop->orders()
+            ->withNeededRelationsForProcessing()
+            ->orderByDesc('created_at');
+
+        $orders->where(columnInPeriod($workingHours, 'orders.created_at'));
 
         if (is_array($statuses) && count($statuses) > 0) {
             $orders->whereIn('status', $statuses);
         }
 
-        $orders = $orders->paginate($perPage, [ '*' ], 'page', $page);
+        $orders = $orders->get();
 
         return $orders;
     }

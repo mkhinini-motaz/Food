@@ -29,6 +29,7 @@ class CreateShopsTable extends Migration
             $table->unsignedTinyInteger('is_approved')->default(0);
             $table->unsignedTinyInteger('signup_is_open')->default(0);
             $table->text('service_area')->nullable()->comment('array of arrays, [ [lat, lng], ...]'); // TODO serviceAreas table
+            $table->text('working_hours')->nullable()->comment('array of arrays, [ "monday" => [ "start" => "11:30", "end" => "01:30" ], ... ]');
 
             $table->text('loyalty_action_rewards')->default(Shop::defaultLoyaltyActionRewardsValue());
             $table->string('domain')->nullable();

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection as BaseResourceCollection;
+use Illuminate\Support\Collection;
 
 class ResourceCollection extends BaseResourceCollection
 {
@@ -17,12 +18,15 @@ class ResourceCollection extends BaseResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data'        => $this->collection,
-            'total'       => $this->resource->total(),
-            'lastPage'    => $this->resource->lastPage(),
-            'currentPage' => $this->resource->currentPage(),
-        ];
+        $result = [ 'data' => $this->collection, ];
+
+        if ($this->resource instanceof LengthAwarePaginator) {
+            $result['total']       = $this->resource->total();
+            $result['lastPage']    = $this->resource->lastPage();
+            $result['currentPage'] = $this->resource->currentPage();
+        }
+
+        return $result;
     }
 
     /**
@@ -36,11 +40,11 @@ class ResourceCollection extends BaseResourceCollection
     }
 
     /**
-     * @param LengthAwarePaginator $data
+     * @param LengthAwarePaginator|Collection $data
      *
      * @return JsonResponse
      */
-    public static function jsonResponse(LengthAwarePaginator $data)
+    public static function jsonResponse($data)
     {
         return (new self($data))->response();
     }

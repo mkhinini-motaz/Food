@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property bool   is_approved
  * @property bool   signup_is_open
  * @property array  service_area
+ * @property array  working_hours
  * @property string domain
  * @property array  loyalty_action_rewards
  * @property string menu_displayed_lang
@@ -77,8 +78,9 @@ class Shop extends Model
 
     protected $dateFormat = 'U';
     protected $casts = [
-        'loyalty_action_rewards' => Json::class,
         'service_area'           => 'array',
+        'working_hours'          => Json::class,
+        'loyalty_action_rewards' => Json::class,
     ];
 
     /**
@@ -296,5 +298,39 @@ class Shop extends Model
     public function tapActivity(ActivityLog $activityLog, string $eventName)
     {
         $activityLog->shop_id = $this->shop_id;
+    }
+
+    /**
+     * @param string $dateTime
+     *
+     * @return array
+     */
+    public function workingHoursForDate(string $dateTime)
+    {
+        $date = date('d-m-Y', strtotime($dateTime)) . ' ';
+        // TODO: consider creating a schedule model
+        $workingHours = $this->working_hours[date('w', strtotime($dateTime))];
+
+        if (! $workingHours) {
+            return [];
+        }
+
+        $start = strtotime($date . $workingHours->start);
+        $end = strtotime($date . $workingHours->end);
+        $midnight = strtotime($date . '00:00');
+        $dateTimestamp = strtotime($dateTime);
+
+        if ($end > $midnight && $start > $end) {
+            if (
+                $dateTimestamp > $midnight &&
+                $dateTimestamp < $end
+            ) {
+                $start = strtotime('-1 day', $start);
+            } else {
+                $end = strtotime('+1 day', $end);
+            }
+        }
+
+        return [ $start, $end ];
     }
 }

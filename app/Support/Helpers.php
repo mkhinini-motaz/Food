@@ -43,11 +43,27 @@ function firstNameLastNameLike($term)
 }
 
 /**
+ * Query builder helper to get today row
+ *
+ * @param array  $period [ start, end ]
+ * @param string $columnName
+ *
+ * @return \Closure
+ */
+function columnInPeriod($period, $columnName)
+{
+    return function ($query) use ($period, $columnName) {
+        $query->where($columnName, '>', $period[0])
+            ->where($columnName, '<', $period[1]);
+    };
+}
+
+/**
  * Check if a point is within polygon
  * @example pointInPolygon([31.111, 10.111], [35.7331,10.5589, 35.7346,10.54816, 35.73618,10.53051, 35.7345,10.5306, ...])
  *
  * @param array    $point   [ latitude, longitude ]
- * @param array    $polygon [ latitude, longitude, latitude, longitude, ... ]
+ * @param array    $polygon [ [latitude, longitude], [latitude, longitude], ... ]
  * @param int      $start
  * @param int|null $end
  *
