@@ -303,21 +303,33 @@ class ShopRepository
             ->get()
             ->keyBy('id');
 
-        $categories = $this->shop->categories()
-            ->whereIn('categories.id', $countCategory->keys())
-            ->orderByRaw("FIELD(categories.id , " . implode(',', $countCategory->keys()->toArray()) . ") DESC")
-            ->get();
+        $categoryKeys = $countCategory->keys();
+        $categories = [];
+        if ($categoryKeys->count() > 0) {
+            $categories = $this->shop->categories()
+                ->whereIn('categories.id', $categoryKeys)
+                ->orderByRaw("FIELD(categories.id , " . implode(',', $categoryKeys->toArray()) . ") DESC")
+                ->get();
+        }
 
-        $products = $this->shop->products()
-            ->with('category')
-            ->whereIn('products.id', $countProduct->keys())
-            ->orderByRaw("FIELD(products.id , " . implode(',', $countProduct->keys()->toArray()) . ") DESC")
-            ->get();
+        $products = [];
+        $productKeys = $countProduct->keys();
+        if ($productKeys->count() > 0) {
+            $products =$this->shop->products()
+                ->with('category')
+                ->whereIn('products.id', $productKeys)
+                ->orderByRaw("FIELD(products.id , " . implode(',', $productKeys->toArray()) . ") DESC")
+                ->get();
+        }
 
-        $options = $this->shop->options()
-            ->whereIn('options.id', $countOptions->keys())
-            ->orderByRaw("FIELD(options.id , " . implode(',', $countOptions->keys()->toArray()) . ") DESC")
-            ->get();
+        $optionKeys = $countOptions->keys();
+        $options = [];
+        if ($optionKeys->count() > 0) {
+            $options = $this->shop->options()
+                ->whereIn('options.id', $optionKeys)
+                ->orderByRaw("FIELD(options.id , " . implode(',', $optionKeys->toArray()) . ") DESC")
+                ->get();
+        }
 
         foreach ($categories as $category) {
             $category->count = $countCategory->get($category->id)->count;
