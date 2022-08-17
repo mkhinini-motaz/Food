@@ -6,6 +6,9 @@ use App\Events\OrderAction;
 use App\Exceptions\OrderException;
 use App\Http\Requests\Shop\Order\OrderCurrentRequest;
 use App\Http\Requests\Shop\Order\OrderIsPayedUpdateRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\OptionResource;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\Resource;
 use App\Models\Order;
 use App\Models\PromoCode;
@@ -40,7 +43,19 @@ class OrderController extends Controller
 
         $orders = $shopRepository->orders($dateTime);
 
-        return ResourceCollection::jsonResponse($orders);
+        // TODO: extract to seperate model
+        $report = $shopRepository->ordersReportForDateTime($dateTime);
+
+        return new JsonResponse([ 'data' => [
+            'orders' => OrderResource::collection($orders),
+            'report' => [
+                'categories' => CategoryResource::collection($report['categories']),
+                'products' => ProductResource::collection($report['products']),
+                'options' => OptionResource::collection($report['options']),
+                'countStatus' => $report['countStatus'],
+                'count' => $report['count'],
+            ],
+        ] ]);
     }
 
     /**

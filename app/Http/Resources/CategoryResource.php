@@ -26,6 +26,9 @@ class CategoryResource extends JsonResource
 
             'products'    => ProductResource::collection($this->whenLoaded('products')),
 
+            'count'       => $this->when($this->count, $this->count),
+            'sum_price'   => $this->when($this->sum_price, $this->sum_price),
+
             $this->mergeWhen(auth()->user() instanceof ShopUser, function() {
                 return [ 'is_visible' => $this->is_visible ];
             }),

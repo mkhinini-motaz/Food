@@ -29,6 +29,9 @@ class ProductResource extends JsonResource
             'description' => $this->getTranslations('description'),
             'name'        => $this->getTranslations('name'),
 
+            'count'       => $this->when($this->count, $this->count),
+            'sum_price'   => $this->when($this->sum_price, $this->sum_price),
+
             'option_groups' => OptionGroupsResource::collection($this->whenLoaded('optionGroups')),
 
             'category'      => $this->whenLoaded('category'),

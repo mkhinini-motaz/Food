@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests\Shop\Order;
 
-use App\Models\Client;
 use App\Models\Order;
 use App\Models\Shop;
 use App\Models\PromoCode;
 use App\Models\ShopUser;
-use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
 class OrderCreateRequest extends FormRequest

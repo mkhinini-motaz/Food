@@ -3,11 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\Client;
+use App\Models\Option;
 use App\Models\OptionGroup;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shop;
 
+use Illuminate\Database\Query\Builder;
 use function App\Support\Helpers\columnInPeriod;
 use function App\Support\Helpers\fieldsLike;
 
@@ -245,5 +247,108 @@ class ShopRepository
     {
         $this->shop->menu_displayed_lang = $menuDisplayedLang;
         $this->shop->saveOrFail();
+    }
+
+    public static function test()
+    {
+        $shop = Shop::find(1);
+        $repo = new self($shop);
+        dd($repo->ordersReportForDateTime('15-08-2022'));
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return array
+     */
+    public function ordersReportForDateTime($dateTime)
+    {
+        $countStatus = $this->ordersReportQuery($dateTime)
+            ->groupBy('status')
+            ->selectRaw('status, COUNT(status) AS count')
+            ->orderBy('count')
+            ->get();
+
+        $count = $this->ordersReportQuery($dateTime)
+            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->first();
+
+        $countProduct = $this->ordersReportQuery($dateTime)
+            ->join('choices', 'choices.order_id', '=', 'orders.id')
+            ->join('products', 'choices.product_id', '=', 'products.id')
+            ->groupBy('products.id')
+            ->selectRaw('products.id, SUM(product_count) AS count, SUM(product_price * product_count) AS sum_price')
+            ->orderBy('count')
+            ->get()
+            ->keyBy('id');
+
+        $countCategory = $this->ordersReportQuery($dateTime)
+            ->join('choices', 'choices.order_id', '=', 'orders.id')
+            ->join('products', 'products.id', '=', 'choices.product_id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->groupBy('categories.id')
+            ->selectRaw('categories.id, SUM(product_count) AS count, SUM(product_price * product_count) AS sum_price')
+            ->orderBy('count')
+            ->get()
+            ->keyBy('id');
+
+        $countOptions = $this->ordersReportQuery($dateTime)
+            ->join('choices', 'choices.order_id', '=', 'orders.id')
+            ->join('choice_option', 'choice_option.choice_id', '=', 'choices.id')
+            ->join('options', 'options.id', '=', 'choice_option.option_id')
+            ->where('choice_option.price', '>', 0)
+            ->groupBy('options.id')
+            ->selectRaw('options.id, SUM(choices.product_count) AS count, SUM(price * product_count) AS sum_price')
+            ->orderBy('count')
+            ->get()
+            ->keyBy('id');
+
+        $categories = $this->shop->categories()
+            ->whereIn('categories.id', $countCategory->keys())
+            ->orderByRaw("FIELD(categories.id , " . implode(',', $countCategory->keys()->toArray()) . ") DESC")
+            ->get();
+
+        $products = $this->shop->products()
+            ->with('category')
+            ->whereIn('products.id', $countProduct->keys())
+            ->orderByRaw("FIELD(products.id , " . implode(',', $countProduct->keys()->toArray()) . ") DESC")
+            ->get();
+
+        $options = $this->shop->options()
+            ->whereIn('options.id', $countOptions->keys())
+            ->orderByRaw("FIELD(options.id , " . implode(',', $countOptions->keys()->toArray()) . ") DESC")
+            ->get();
+
+        foreach ($categories as $category) {
+            $category->count = $countCategory->get($category->id)->count;
+            $category->sum_price = (int) $countCategory->get($category->id)->sum_price;
+        }
+
+        foreach ($products as $product) {
+            $product->count = $countProduct->get($product->id)->count;
+            $product->sum_price = (int) $countProduct->get($product->id)->sum_price;
+        }
+
+        foreach ($options as $option) {
+            $option->count = $countOptions->get($option->id)->count;
+            $option->sum_price = (int) $countOptions->get($option->id)->sum_price;
+        }
+
+        return compact('categories', 'products', 'options', 'countStatus', 'count');
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Builder
+     */
+    private function ordersReportQuery($dateTime)
+    {
+        $workingHours = $this->shop->workingHoursForDate($dateTime); // TODO: missing closed day case
+
+        return \DB::table('orders')
+            ->join('locations', 'locations.id', '=', 'orders.location_id')
+            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where(columnInPeriod($workingHours, 'orders.created_at'));
     }
 }

@@ -90,6 +90,7 @@ class ShopOrderRepository
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error($e->getMessage());
             \Log::error($e->getTraceAsString());
             throw new OrderException('order:save:fail');
         }
@@ -104,11 +105,11 @@ class ShopOrderRepository
      * @return int
      * @throws OrderException
      */
-    public function validateAndCalculateProductsPrice($productsInput, $productsFromDb)
+    public function validateAndCalculateProductsPrice(&$productsInput, $productsFromDb)
     {
         $totalPrice = 0;
 
-        foreach ($productsInput as $product) {
+        foreach ($productsInput as &$product) {
             /** @var Product $productFromDb */
             $productFromDb = $productsFromDb->get($product['product_id']);
             if (! $productFromDb) {
@@ -124,6 +125,7 @@ class ShopOrderRepository
 
             $count = $product['product_count'] ?? 1;
             $totalPrice += ($productFromDb->price + $optionsPrice) * $count;
+            $product['product_price'] = $productFromDb->price;
         }
 
         return $totalPrice;
@@ -217,10 +219,12 @@ class ShopOrderRepository
     {
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
+            // TOdO: save product price on sale
             $productRelationshipInfos[] = [
                 'order_id'      => $order->id,
                 'product_id'    => $product['product_id'],
                 'product_count' => $product['product_count'],
+                'product_price' => $product['product_price'],
                 'created_at'    => time(),
                 'updated_at'    => time(),
             ];

@@ -22,6 +22,9 @@ class OptionResource extends JsonResource
             'name'                   => $this->getTranslations('name'),
             'description'            => $this->getTranslations('description'),
 
+            'count'       => $this->when($this->count, $this->count),
+            'sum_price'   => $this->when($this->sum_price, $this->sum_price),
+
             'quantity'  => $this->whenPivotLoaded(
                 'choice_option',
                 function() { return $this->pivot->quantity; }

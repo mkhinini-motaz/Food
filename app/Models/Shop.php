@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int deleted_at
  *
  * @property Collection categories
+ * @property Collection options
  * @property Collection shopTransporters
  * @property Collection locations
  * @property Collection orders
@@ -105,6 +106,14 @@ class Shop extends Model
     public function categories()
     {
         return $this->hasMany(Category::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function options()
+    {
+        return $this->hasMany(Option::class);
     }
 
     /**
