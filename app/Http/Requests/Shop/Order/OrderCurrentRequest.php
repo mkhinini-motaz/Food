@@ -27,7 +27,7 @@ class OrderCurrentRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_time' => [ 'date', 'before:tomorrow', 'date_format:d-m-Y H:i' ],
+            'date_time' => [ 'date', 'date_format:d-m-Y H:i' ],
         ];
     }
 }
