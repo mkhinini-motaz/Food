@@ -39,7 +39,7 @@ class OrderController extends Controller
         $shop = $request->get('shop');
         $shopRepository = new ShopRepository($shop);
 
-        $dateTime = $request->input('date_time', date('d-m-Y'));
+        $dateTime = $request->input('date_time', date('d-m-Y H:i'));
 
         $orders = $shopRepository->orders($dateTime);
 

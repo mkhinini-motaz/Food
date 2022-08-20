@@ -219,7 +219,6 @@ class ShopOrderRepository
     {
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
-            // TOdO: save product price on sale
             $productRelationshipInfos[] = [
                 'order_id'      => $order->id,
                 'product_id'    => $product['product_id'],
@@ -252,7 +251,7 @@ class ShopOrderRepository
             $choiceId = $choice->id;
             foreach ($productsInput[$index]['options'] as $option) {
                 $optionId = $option['id'];
-                $optionsRelationshipInfos[$optionId] = [
+                $optionsRelationshipInfos[] = [
                     'choice_id' => $choiceId,
                     'option_id' => $optionId,
                     'quantity'  => $option['quantity'] ?? 0,
