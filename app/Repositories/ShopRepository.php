@@ -264,7 +264,6 @@ class ShopRepository
     public function ordersReportForDateTime($dateTime)
     {
         $countStatus = $this->ordersReportQuery($dateTime)
-            ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->groupBy('status')
             ->selectRaw('status, SUM(total_price) AS total_price, COUNT(status) AS count')
             ->orderBy('count')
