@@ -264,16 +264,19 @@ class ShopRepository
     public function ordersReportForDateTime($dateTime)
     {
         $countStatus = $this->ordersReportQuery($dateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->groupBy('status')
-            ->selectRaw('status, COUNT(status) AS count')
+            ->selectRaw('status, SUM(total_price) AS total_price, COUNT(status) AS count')
             ->orderBy('count')
             ->get();
 
         $count = $this->ordersReportQuery($dateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
             ->first();
 
         $countProduct = $this->ordersReportQuery($dateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->join('choices', 'choices.order_id', '=', 'orders.id')
             ->join('products', 'choices.product_id', '=', 'products.id')
             ->groupBy('products.id')
@@ -283,6 +286,7 @@ class ShopRepository
             ->keyBy('id');
 
         $countCategory = $this->ordersReportQuery($dateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->join('choices', 'choices.order_id', '=', 'orders.id')
             ->join('products', 'products.id', '=', 'choices.product_id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
@@ -293,6 +297,7 @@ class ShopRepository
             ->keyBy('id');
 
         $countOptions = $this->ordersReportQuery($dateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->join('choices', 'choices.order_id', '=', 'orders.id')
             ->join('choice_option', 'choice_option.choice_id', '=', 'choices.id')
             ->join('options', 'options.id', '=', 'choice_option.option_id')
