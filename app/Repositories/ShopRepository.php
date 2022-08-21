@@ -266,7 +266,7 @@ class ShopRepository
         $countStatus = $this->ordersReportQuery($dateTime)
             ->groupBy('status')
             ->selectRaw('status, SUM(total_price) AS total_price, COUNT(status) AS count')
-            ->orderBy('count')
+            ->orderByDesc('count')
             ->get();
 
         $count = $this->ordersReportQuery($dateTime)
