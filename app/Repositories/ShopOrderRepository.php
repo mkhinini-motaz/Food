@@ -85,7 +85,7 @@ class ShopOrderRepository
         try {
             DB::beginTransaction();
             $order->saveOrFail();
-            $this->saveChoicesForOrder($order, $products);
+            $this->saveChoicesForOrder($order, $products, $productsFromDb);
             $this->saveOptionsForOrder($order, $products, $optionsPrices);
             DB::commit();
         } catch (\Exception $e) {
@@ -176,6 +176,7 @@ class ShopOrderRepository
         return $this->shop->products()
             ->with('optionGroups.options')
             ->whereIn('products.id', $productsIds)
+            ->orderBy('order')
             ->get();
     }
 
@@ -215,8 +216,13 @@ class ShopOrderRepository
      * @param Order $order
      * @param array $productsInput
      */
-    private function saveChoicesForOrder(Order $order, $productsInput)
+    private function saveChoicesForOrder(Order $order, $productsInput, $products)
     {
+        $productIds = $products->keyBy('id')->keys()->toarray();
+        $productsInput = collect($productsInput);
+        $productsInput = $productsInput->sortBy(function($productInput) use ($productIds) {
+            return array_search($productInput['product_id'], $productIds);
+        });
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
             $productRelationshipInfos[] = [
@@ -240,16 +246,26 @@ class ShopOrderRepository
     private function saveOptionsForOrder(Order $order, $productsInput, $optionsPrices)
     {
         /** @var Choice[] $choices */
-        $choices = $order->choices()->get();
+        $choices = $order->choices()
+            ->with('product.options')
+            ->get();
 
         $optionsRelationshipInfos = [];
+        $productsInput = collect($productsInput);
         foreach ($choices as $index => $choice) {
-            if (! isset($productsInput[$index]['options'])) {
+            $productInput = $productsInput->where('product_id', '=', $choice->product_id)
+                ->first();
+            if (! isset($productInput['options'])) {
                 continue;
             }
 
+            $optionKeys = $choice->product->options->keyBy('id')->keys()->toArray();
+            $optionInputs = collect($productInput['options'])->sortBy(function($optionInput) use ($optionKeys) {
+                return array_search($optionInput['id'], $optionKeys);
+            });
+
             $choiceId = $choice->id;
-            foreach ($productsInput[$index]['options'] as $option) {
+            foreach ($optionInputs as $option) {
                 $optionId = $option['id'];
                 $optionsRelationshipInfos[] = [
                     'choice_id' => $choiceId,

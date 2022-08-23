@@ -41,6 +41,7 @@ class Choice extends Model
     public function options()
     {
         return $this->belongsToMany(Option::class)
-            ->withPivot(Option::ORDER_CHOICES_FIELDS);
+            ->withPivot(Option::ORDER_CHOICES_FIELDS)
+            ->orderByPivot('choice_option.id');
     }
 }

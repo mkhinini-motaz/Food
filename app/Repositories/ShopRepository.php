@@ -249,13 +249,6 @@ class ShopRepository
         $this->shop->saveOrFail();
     }
 
-    public static function test()
-    {
-        $shop = Shop::find(1);
-        $repo = new self($shop);
-        dd($repo->ordersReportForDateTime('15-08-2022'));
-    }
-
     /**
      * @param $dateTime
      *

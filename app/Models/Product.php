@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
@@ -41,6 +42,7 @@ use Spatie\Translatable\HasTranslations;
  * @property Shop       shop
  * @property Collection orders
  * @property Collection optionGroups
+ * @property Collection options
  */
 class Product extends Model
 {
@@ -86,5 +88,34 @@ class Product extends Model
         return $this->belongsToMany(OptionGroup::class)
             ->withPivot([ 'min_options', 'max_options', 'order', 'options_are_quantifiable', 'options_are_billable' ])
             ->orderBy('option_group_product.order');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function options()
+    {
+        $instance = $this->newRelatedInstance(Option::class);
+
+        return $this->newHasMany($instance->newQuery(), $this, 'product_id', 'id')
+            ->join('option_option_group', 'option_option_group.option_id', '=', 'options.id')
+            ->join('option_groups', 'option_option_group.option_group_id', '=', 'option_groups.id')
+            ->join('option_group_product', 'option_group_product.option_group_id', '=', 'option_groups.id')
+            ->selectRaw('options.*, option_group_product.product_id')
+            ->orderByRaw('option_group_product.order, option_option_group.order');
+    }
+
+    public static function withOptions()
+    {
+        return function ($query) {
+
+            return $query->join('option_option_group', 'option_option_group.option_id', '=', 'options.id')
+                ->join('option_groups', 'option_option_group.option_group_id', '=', 'option_groups.id')
+                ->join('option_group_product', 'option_group_product.option_group_id', '=', 'option_groups.id')
+                ->where('product_id', '=', $this->id)
+                ->selectRaw('options.*, option_group_product.product_id')
+                ->orderBy('option_group_product.order')
+                ->orderBy('option_option_group.order');
+        };
     }
 }
