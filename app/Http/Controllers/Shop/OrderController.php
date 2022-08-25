@@ -10,6 +10,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\Resource;
+use App\Http\Resources\ShopUserResource;
 use App\Models\Order;
 use App\Models\PromoCode;
 use App\Models\Shop;
@@ -48,12 +49,14 @@ class OrderController extends Controller
 
         return new JsonResponse([ 'data' => [
             'orders' => OrderResource::collection($orders),
-            'report' => [
+            'report' => [ // TODO: move to a seperate route
                 'categories' => CategoryResource::collection($report['categories']),
                 'products' => ProductResource::collection($report['products']),
                 'options' => OptionResource::collection($report['options']),
                 'countStatus' => $report['countStatus'],
                 'count' => $report['count'],
+                'countType' => $report['countType'],
+                'transporters' => ShopUserResource::collection($report['transporters']),
             ],
         ] ]);
     }

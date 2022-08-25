@@ -254,11 +254,35 @@ class ShopRepository
      *
      * @return array
      */
+    // TODO: refactor unto multiple functions
     public function ordersReportForDateTime($dateTime)
     {
+        $countTransporter = $this->ordersReportQuery($dateTime)
+            ->selectRaw('shop_transporter_id AS id, COUNT(shop_transporter_id) AS count')
+            ->groupBy('shop_transporter_id')
+            ->orderBy('count')
+            ->get()
+            ->keyBy('id');
+
+        $workingHours = $this->shop->workingHoursForDate($dateTime); // TODO: missing closed day case
+        $ordersRelationForTransporters = ['orders' => function ($query) use ($workingHours) {
+            $query->where(columnInPeriod($workingHours, 'orders.created_at'));
+        }];
+        $transporters = $this->shop->shopTransporters()
+            ->whereIn('id', $countTransporter->keys())
+            ->withCount($ordersRelationForTransporters)
+            ->withSum($ordersRelationForTransporters, 'total_price')
+            ->get();
+
         $countStatus = $this->ordersReportQuery($dateTime)
             ->groupBy('status')
             ->selectRaw('status, SUM(total_price) AS total_price, COUNT(status) AS count')
+            ->orderByDesc('count')
+            ->get();
+
+        $countType = $this->ordersReportQuery($dateTime)
+            ->groupBy('type')
+            ->selectRaw('type, SUM(total_price) AS total_price, COUNT(type) AS count')
             ->orderByDesc('count')
             ->get();
 
@@ -343,7 +367,7 @@ class ShopRepository
             $option->sum_price = (int) $countOptions->get($option->id)->sum_price;
         }
 
-        return compact('categories', 'products', 'options', 'countStatus', 'count');
+        return compact('categories', 'products', 'options', 'countStatus', 'count', 'transporters', 'countType');
     }
 
     /**

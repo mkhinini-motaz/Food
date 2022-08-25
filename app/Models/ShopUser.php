@@ -41,7 +41,7 @@ class ShopUser extends Authenticatable
     const ROLE_TRANSPORTER = 5;
 
     const ROLES = [ self::ROLE_OWNER, self::ROLE_TRANSPORTER, self::ROLE_MASTER_CHEF, self::ROLE_SHOP_KEEPER ];
-    const ROLES_CAN_TRANSPORT = [ self::ROLE_OWNER, self::ROLE_TRANSPORTER, self::ROLE_SHOP_KEEPER ];
+    const ROLES_CAN_TRANSPORT = [ self::ROLE_COOK, self::ROLE_MASTER_CHEF, self::ROLE_OWNER, self::ROLE_TRANSPORTER, self::ROLE_SHOP_KEEPER ];
 
     protected $dateFormat = 'U';
 

@@ -47,7 +47,7 @@ class ShopUserController extends Controller
         $search  = $request->input('search', null);
         $perPage = $request->input('perPage', 20);
         $orderBy = $request->input('orderBy', 'created_at');
-        $orderDirection = $request->input('orderDirection', 'desc');
+        $orderDirection = $request->input('orderDirection', 'asc');
 
         $shopUsers = $shopRepository->paginateTransporters($page, $perPage, $search, $orderBy, $orderDirection);
 
