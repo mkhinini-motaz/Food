@@ -324,9 +324,9 @@ class Shop extends Model
             return [];
         }
 
-        $start = strtotime($date . $workingHours->start);
-        $end = strtotime($date . $workingHours->end);
-        $midnight = strtotime($date . '00:00');
+        $start         = strtotime($date . $workingHours->start);
+        $end           = strtotime($date . $workingHours->end);
+        $midnight      = strtotime($date . '00:00');
         $dateTimestamp = strtotime($dateTime);
 
         if ($end > $midnight && $start > $end) {

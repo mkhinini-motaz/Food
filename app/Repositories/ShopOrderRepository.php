@@ -176,7 +176,8 @@ class ShopOrderRepository
         return $this->shop->products()
             ->with('optionGroups.options')
             ->whereIn('products.id', $productsIds)
-            ->orderBy('order')
+            ->orderBy('categories.order')
+            ->orderBy('products.order')
             ->get();
     }
 

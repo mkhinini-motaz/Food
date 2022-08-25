@@ -152,7 +152,7 @@ class ShopRepository
     public function orders($dateTime = null, $statuses = [])
     {
         if (! $dateTime) {
-            $dateTime = date('d-m-Y');
+            $dateTime = date('d-m-Y H:i');
         }
 
         $workingHours = $this->shop->workingHoursForDate($dateTime);
