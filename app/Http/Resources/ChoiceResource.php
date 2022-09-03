@@ -23,7 +23,8 @@ class ChoiceResource extends JsonResource
             'product_count' => $this->product_count,
 
             'product'        => new ProductResource($this->whenLoaded('product')),
-            'options'       => $this->when($this->options, OptionResource::collection($this->options)),
+            'options'        => $this->when($this->options, OptionResource::collection($this->options)),
+            'options_str'    => $this->when($this->options, $this->optionsPrintableForm(', ', '')),
         ];
     }
 }

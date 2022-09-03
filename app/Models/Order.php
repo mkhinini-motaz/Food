@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function Symfony\Component\String\slice;
 
 /**
  * Class Order
@@ -76,11 +77,22 @@ class Order extends Model
 
     const SOURCES = [ self::SOURCE_ONLINE, self::SOURCE_ON_SITE, self::SOURCE_BY_PHONE ];
 
+    const SOURCES_TEXT = [
+        self::SOURCE_ONLINE => 'Online',
+        self::SOURCE_ON_SITE => 'Caisse',
+        self::SOURCE_BY_PHONE => 'Téléphone',
+    ];
+
     const TYPE_ON_SITE   = 1;
     const TYPE_TAKE_AWAY = 2;
     const TYPE_DELIVERY  = 3;
 
     const TYPES = [ self::TYPE_ON_SITE, self::TYPE_TAKE_AWAY, self::TYPE_DELIVERY ];
+    const TYPES_TEXT = [
+        self::TYPE_ON_SITE => 'Sur place',
+        self::TYPE_TAKE_AWAY => 'Emporté',
+        self::TYPE_DELIVERY => 'Livraison',
+    ];
 
     const PAYMENT_METHOD_CASH         = 1;
     const PAYMENT_METHOD_CREDIT_CARD  = 2;
@@ -151,6 +163,7 @@ class Order extends Model
             'shopTransporter',
             'choices.options',
             'choices.product.category',
+            'choices.product.defaultOptions',
         ]);
     }
 
@@ -166,6 +179,67 @@ class Order extends Model
             'products.category',
         ]);
     }
+
+    /**
+     * TODO: promo code, delivery fee
+     * @return string
+     */
+    public function toString()
+    {
+        $result = "_________ Ghostchef _________\n";
+        $result .= date('H:i d/m/Y', $this->created_at) . "\n";
+        $result .= '#Order: ' . substr((string) $this->id, -2) . "\n";
+
+        if ($this->associated_phone) {
+            $result .= 'Telephone : ' . $this->associated_phone . "\n";
+            $result .= "---------------\n\n";
+        }
+
+        if ($this->additional_note) {
+            $result .= $this->additional_note . "\n";
+            $result .= "---------------\n\n";
+        }
+
+        $result .= 'source : ' . self::SOURCES_TEXT[$this->source] . "\n";
+        $result .= 'type : ' . self::TYPES_TEXT[$this->type] . "\n";
+        $result .= "---------------\n\n";
+
+        $choicesOutput = '';
+        $choicesSummary = [];
+        foreach ($this->choices as $choice) {
+            $product = $choice->product;
+            $categoryId = $product->category_id;
+            if (! isset($choicesSummary[$categoryId])) {
+                $choicesSummary[$categoryId] = [
+                    'name'  => $product->category->getTranslation('name', 'tnfr'),
+                    'count' => $choice->product_count,
+                ];
+            } else {
+                $choicesSummary[$categoryId]['count'] += $choice->product_count;
+            }
+
+            $choicesOutput .= $choice->printableForm();
+        }
+
+        foreach ($choicesSummary as $categoryData) {
+            $result .= $categoryData['count'] . ' ' . $categoryData['name'] . "\n";
+        }
+
+        $result .= "---------------\n\n" . $choicesOutput . "---------------\n\n";
+
+        $result .= 'Total : "' . substr($this->total_price, 0, -3) . ',' .
+            substr($this->total_price, -3, 3) . "\"\n";
+
+        if ($this->type === self::TYPE_DELIVERY) {
+            $result .= "Livraison : *****\n";
+        }
+
+        $result .= "\nMerci !\n";
+        $result .= "A la prochaine !\n";
+
+        return $result;
+    }
+
     /**
      * Appends additional data to the activity log
      *

@@ -32,6 +32,7 @@ class OrderResource extends JsonResource
             'promo_code'         => new PromoCodeResource($this->whenLoaded('promoCode')),
             'client'             => new ClientResource($this->whenLoaded('client')),
 
+            'printable_form'     => $this->when($this->choices, $this->toString()),
             'choices'            => $this->when($this->choices, ChoiceResource::collection(collect($this->choices))),
             'products'           => $this->when($this->products, ProductResource::collection(collect($this->products))),
         ];

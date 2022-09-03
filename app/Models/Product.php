@@ -43,6 +43,7 @@ use Spatie\Translatable\HasTranslations;
  * @property Collection orders
  * @property Collection optionGroups
  * @property Collection options
+ * @property Collection defaultOptions
  */
 class Product extends Model
 {
@@ -105,17 +106,12 @@ class Product extends Model
             ->orderByRaw('option_group_product.order, option_option_group.order');
     }
 
-    public static function withOptions()
+    /**
+     * @return HasMany
+     */
+    public function defaultOptions()
     {
-        return function ($query) {
-
-            return $query->join('option_option_group', 'option_option_group.option_id', '=', 'options.id')
-                ->join('option_groups', 'option_option_group.option_group_id', '=', 'option_groups.id')
-                ->join('option_group_product', 'option_group_product.option_group_id', '=', 'option_groups.id')
-                ->where('product_id', '=', $this->id)
-                ->selectRaw('options.*, option_group_product.product_id')
-                ->orderBy('option_group_product.order')
-                ->orderBy('option_option_group.order');
-        };
+        return $this->options()
+            ->where('is_selected_by_default', '=', 1);
     }
 }

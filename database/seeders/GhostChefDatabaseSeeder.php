@@ -33,5 +33,7 @@ class GhostChefDatabaseSeeder extends Seeder
 //        $this->call(VehiculesTableSeeder::class);
 
 //        $this->call(FirstDayDataSeeder::class);
+
+        $this->call(ProductsTableSeederV2::class);
     }
 }
