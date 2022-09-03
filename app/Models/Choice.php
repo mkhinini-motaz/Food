@@ -101,7 +101,7 @@ class Choice extends Model
 
         if (0 === $countCounts) {
             return "\n";
-        } else if (5 >= $countCounts) {
+        } else if (4 >= $countCounts) {
             $addedAndChangedOptionIds = array_merge($addedOptions, $changedDefaultOptionsIds);
             $options = $this->product->defaultOptions->whereIn('id', $removedOptions)
                 ->merge($this->options->whereIn('id', $addedAndChangedOptionIds));
