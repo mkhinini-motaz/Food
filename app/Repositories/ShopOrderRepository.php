@@ -24,6 +24,11 @@ class ShopOrderRepository
     private $shop;
 
     /**
+     * @var Order
+     */
+    private $order = null;
+
+    /**
      * ShopRepository constructor.
      *
      * @param Shop $shop
@@ -51,42 +56,93 @@ class ShopOrderRepository
      */
     public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $additionalNote = null, PromoCode $promoCode = null)
     {
-        $order = new Order();
+        $this->order = new Order();
+        return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $additionalNote, $promoCode);
+    }
+
+    /**
+     * @param int            $orderId
+     * @param array          $products
+     * @param string         $deliveryLatitude
+     * @param string         $deliveryLongitude
+     * @param int            $source @see Order::SOURCES
+     * @param int            $type   @see Order::TYPES
+     * @param string         $associatedPhone
+     * @param Client         $client
+     * @param bool           $isPayed
+     * @param string|null    $additionalNote
+     * @param PromoCode|null $promoCode
+     *
+     * @return Order
+     * @throws OrderException
+     * @throws Throwable
+     */
+    public function update($orderId, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $additionalNote = null, PromoCode $promoCode = null)
+    {
+        $this->order = $this->shop->orders()->findOrFail($orderId);
+        $choiceIds   = $this->order->choices()->pluck('id');
+
+        \DB::table('choice_option')
+            ->whereIn('choice_id', $choiceIds)
+            ->delete();
+        $this->order->choices()->delete();
+
+        return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $additionalNote, $promoCode);
+    }
+
+    /**
+     * @param array          $products
+     * @param string         $deliveryLatitude
+     * @param string         $deliveryLongitude
+     * @param int            $source @see Order::SOURCES
+     * @param int            $type   @see Order::TYPES
+     * @param string         $associatedPhone
+     * @param Client         $client
+     * @param bool           $isPayed
+     * @param string|null    $additionalNote
+     * @param PromoCode|null $promoCode
+     *
+     * @return Order
+     * @throws OrderException
+     * @throws Throwable
+     */
+    public function hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $additionalNote = null, PromoCode $promoCode = null)
+    {
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
 
-        $order->type               = $type;
-        $order->status             = Order::STATUS_NEW;
-        $order->source             = $source;
-        $order->is_payed           = $isPayed;
-        $order->location_id        = $location->id;
-        $order->additional_note    = $additionalNote;
-        $order->associated_phone   = $associatedPhone;
-        $order->delivery_latitude  = $deliveryLatitude;
-        $order->delivery_longitude = $deliveryLongitude;
+        $this->order->type               = $type;
+        $this->order->status             = Order::STATUS_NEW;
+        $this->order->source             = $source;
+        $this->order->is_payed           = $isPayed;
+        $this->order->location_id        = $location->id;
+        $this->order->additional_note    = $additionalNote;
+        $this->order->associated_phone   = $associatedPhone;
+        $this->order->delivery_latitude  = $deliveryLatitude;
+        $this->order->delivery_longitude = $deliveryLongitude;
 
         $productsFromDb = $this->productsFromInput($products)
             ->keyBy('id');
-        $order->total_price = $this->validateAndCalculateProductsPrice($products, $productsFromDb);
+        $this->order->total_price = $this->validateAndCalculateProductsPrice($products, $productsFromDb);
 
         if ($client) {
-            $order->client_id = $client->id;
+            $this->order->client_id = $client->id;
             if (! $associatedPhone) {
-                $order->associated_phone = $client->phone;
+                $this->order->associated_phone = $client->phone;
             }
         }
 
         if ($promoCode) {
-            $order->total_price   -= $promoCode->reduction_amount;
-            $order->total_price   = $order->total_price > 0 ? $order->total_price : 0;
-            $order->promo_code_id = $promoCode->id;
+            $this->order->total_price   -= $promoCode->reduction_amount;
+            $this->order->total_price   = $this->order->total_price > 0 ? $this->order->total_price : 0;
+            $this->order->promo_code_id = $promoCode->id;
         }
 
         $optionsPrices = $this->optionsPricesByProduct($productsFromDb);
         try {
             DB::beginTransaction();
-            $order->saveOrFail();
-            $this->saveChoicesForOrder($order, $products, $productsFromDb);
-            $this->saveOptionsForOrder($order, $products, $optionsPrices);
+            $this->order->saveOrFail();
+            $this->saveChoicesForOrder($this->order, $products, $productsFromDb);
+            $this->saveOptionsForOrder($this->order, $products, $optionsPrices);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -95,7 +151,7 @@ class ShopOrderRepository
             throw new OrderException('order:save:fail');
         }
 
-        return $order;
+        return $this->order;
     }
 
     /**

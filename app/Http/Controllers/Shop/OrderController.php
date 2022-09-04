@@ -62,13 +62,32 @@ class OrderController extends Controller
     }
 
     /**
+     * @param int     $orderId
+     * @param Request $request
+     *
+     * @return OrderResource
+     */
+    public function show($orderId, Request $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        $order = $shop->orders()
+            ->withNeededRelationsForProcessing()
+            ->find($orderId);
+
+        return (new OrderResource($order));
+    }
+
+    /**
      * @param OrderCreateRequest $request
      *
-     * @return JsonResponse
+     * @return OrderResource
      * @throws OrderException
      */
     public function create(OrderCreateRequest $request)
     {
+        // TODO: delivery fee
+
         $type              = $request->input('type', false);
         $source            = $request->input('source', false);
         $isPayed           = $request->input('is_payed', false);
@@ -91,7 +110,43 @@ class OrderController extends Controller
 
         OrderAction::dispatch($order->id);
 
-        return Resource::jsonResponse($order);
+        return (new OrderResource($order));
+    }
+
+    /**
+     * @param int                $orderId
+     * @param OrderCreateRequest $request
+     *
+     * @return OrderResource
+     * @throws OrderException
+     * @throws \Throwable
+     */
+    public function update($orderId, OrderCreateRequest $request)
+    {
+        // TODO: delivery fee
+
+        $type              = $request->input('type', false);
+        $source            = $request->input('source', false);
+        $isPayed           = $request->input('is_payed', false);
+        $products          = $request->input('products');
+        $promoCodeId       = $request->input('promo_code_id', null);
+        $additionalNote    = $request->input('additional_note', null);
+        $associatedPhone   = $request->input('associated_phone', null);
+        $deliveryLatitude  = $request->input('delivery_latitude', null);
+        $deliveryLongitude = $request->input('delivery_longitude', null);
+
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var PromoCode $promoCode */
+// TODO: refactor duplicate db query
+        $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
+
+        $shopOrderRepo = new ShopOrderRepository($shop);
+        $order = $shopOrderRepo->update($orderId, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $additionalNote, $promoCode);
+
+        OrderAction::dispatch($order->id);
+
+        return (new OrderResource($order));
     }
 
     /**

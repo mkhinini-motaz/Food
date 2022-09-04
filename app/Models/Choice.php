@@ -89,7 +89,7 @@ class Choice extends Model
         $removedOptions = array_diff($defaultOptionsIds, $chosenOptionsIds);
 
         $changedDefaultOptionsIds = $this->options->filter(function($option) use ($addedOptions) {
-            return $option->pivot->quantity !== 2 && ! in_array($option->id, $addedOptions);
+            return ! in_array($option->pivot->quantity, [0, 2]) && ! in_array($option->id, $addedOptions);
         })->keyBy('id')
             ->keys()
             ->toArray();

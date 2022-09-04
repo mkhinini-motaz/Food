@@ -30,6 +30,8 @@ Route::group([ 'middleware' => [ 'authShop'] ], function() {
 
     Route::group([ 'prefix' => 'order', 'as' => 'order.', ], function () {
         Route::get('/current', [ OrderController::class, 'current' ])->name('current');
+        Route::get('/{orderId}', [ OrderController::class, 'show' ])->name('show');
+        Route::post('/{orderId}', [ OrderController::class, 'update' ])->name('update');
         Route::post('/', [ OrderController::class, 'create' ])->name('create');
 
         Route::group([ 'prefix' => '{orderId}' ], function () {
