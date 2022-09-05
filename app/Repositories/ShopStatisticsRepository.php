@@ -44,7 +44,10 @@ class ShopStatisticsRepository
     public function ordersReportForDateTime($dateTime)
     {
         return [
-            'count'        => $this->countReport($dateTime),
+            'count'                => $this->countReport($dateTime),
+            'countYesterday'       => $this->countYesterdayReport($dateTime),
+            'countLastWeekSameDay' => $this->countLastWeekSameDayReport($dateTime),
+
             'options'      => $this->optionsReport($dateTime),
             'products'     => $this->productsReport($dateTime),
             'countType'    => $this->countTypeReport($dateTime),
@@ -70,7 +73,37 @@ class ShopStatisticsRepository
     /**
      * @param $dateTime
      *
-     * @return array|\Illuminate\Database\Eloquent\Collection
+     * @return Model|Builder|object|null
+     */
+    public function countYesterdayReport($dateTime)
+    {
+        $yesterdayDateTime = date('d-m-Y H:i', strtotime('-1 day', strtotime($dateTime)));
+
+        return $this->ordersReportQuery($yesterdayDateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
+            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->first();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    public function countLastWeekSameDayReport($dateTime)
+    {
+        $lastWeekSameDayDateTime = date('d-m-Y H:i', strtotime('-1 week', strtotime($dateTime)));
+
+        return $this->ordersReportQuery($lastWeekSameDayDateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
+            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->first();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return array|Collection
      */
     public function optionsReport($dateTime)
     {
@@ -104,6 +137,11 @@ class ShopStatisticsRepository
         return $options;
     }
 
+    /**
+     * @param $dateTime
+     *
+     * @return array|Collection
+     */
     public function productsReport($dateTime)
     {
         $countProduct = $this->ordersReportQuery($dateTime)
