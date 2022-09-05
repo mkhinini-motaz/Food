@@ -111,7 +111,6 @@ class ShopOrderRepository
         $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
 
         $this->order->type               = $type;
-        $this->order->status             = Order::STATUS_NEW;
         $this->order->source             = $source;
         $this->order->is_payed           = $isPayed;
         $this->order->location_id        = $location->id;
