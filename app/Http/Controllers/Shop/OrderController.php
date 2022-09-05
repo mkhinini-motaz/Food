@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Events\OrderAction;
 use App\Exceptions\OrderException;
-use App\Http\Requests\Shop\Order\OrderCurrentRequest;
+use App\Http\Requests\Shop\Order\OrderByDateRequest;
 use App\Http\Requests\Shop\Order\OrderIsPayedUpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\OptionResource;
@@ -24,17 +24,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Shop\Order\OrderCreateRequest;
 use App\Http\Requests\Shop\Order\OrderStatusUpdateRequest;
 
+use App\Repositories\ShopStatisticsRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     /**
-     * @param Request $request
+     * @param OrderByDateRequest $request
      *
      * @return JsonResponse
      */
-    public function current(OrderCurrentRequest $request)
+    public function current(OrderByDateRequest $request)
     {
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -44,20 +45,34 @@ class OrderController extends Controller
 
         $orders = $shopRepository->orders($dateTime);
 
+        return ResourceCollection::jsonResponse($orders);
+
+    }
+
+    /**
+     * @param OrderByDateRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function report(OrderByDateRequest $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        $shopStatisticsRepository = new ShopStatisticsRepository($shop);
+
+        $dateTime = $request->input('date_time', date('d-m-Y H:i'));
+
         // TODO: extract to seperate model
-        $report = $shopRepository->ordersReportForDateTime($dateTime);
+        $report = $shopStatisticsRepository->ordersReportForDateTime($dateTime);
 
         return new JsonResponse([ 'data' => [
-            'orders' => OrderResource::collection($orders),
-            'report' => [ // TODO: move to a seperate route
-                'categories' => CategoryResource::collection($report['categories']),
-                'products' => ProductResource::collection($report['products']),
-                'options' => OptionResource::collection($report['options']),
-                'countStatus' => $report['countStatus'],
-                'count' => $report['count'],
-                'countType' => $report['countType'],
-                'transporters' => ShopUserResource::collection($report['transporters']),
-            ],
+            'count'        => $report['count'],
+            'options'      => OptionResource::collection($report['options']),
+            'products'     => ProductResource::collection($report['products']),
+            'countType'    => $report['countType'],
+            'categories'   => CategoryResource::collection($report['categories']),
+            'countStatus'  => $report['countStatus'],
+            'transporters' => ShopUserResource::collection($report['transporters']),
         ] ]);
     }
 
@@ -73,7 +88,7 @@ class OrderController extends Controller
         $shop = $request->get('shop');
         $order = $shop->orders()
             ->withNeededRelationsForProcessing()
-            ->find($orderId);
+            ->findOrFail($orderId);
 
         return (new OrderResource($order));
     }
