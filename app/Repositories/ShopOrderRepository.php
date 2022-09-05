@@ -309,8 +309,12 @@ class ShopOrderRepository
         $optionsRelationshipInfos = [];
         $productsInput = collect($productsInput);
         foreach ($choices as $index => $choice) {
-            $productInput = $productsInput->where('product_id', '=', $choice->product_id)
-                ->first();
+            $productId = $choice->product_id;
+            $productInputIndex = $productsInput->search(function($productInput) use ($productId) {
+                return $productInput['product_id'] === $productId;
+            });
+            $productInput = $productsInput->get($productInputIndex);
+            $productsInput->forget($productInputIndex);
             if (! isset($productInput['options'])) {
                 continue;
             }
