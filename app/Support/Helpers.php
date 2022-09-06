@@ -225,3 +225,16 @@ function closestDestination($origin, $destinations)
 
     return [ $closestDestination, $closestDestinationIndex, $closestDistance ];
 }
+
+/**
+ * @param string $str
+ * @param string $date
+ *
+ * @return false|string
+ */
+function strToDate(string $str, string $date)
+{
+    return date('d-m-Y H:i', strtotime($str, strtotime($date)));
+
+}
+

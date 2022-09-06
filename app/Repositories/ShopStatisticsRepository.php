@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use function App\Support\Helpers\firstNameLastNameLike;
+use function App\Support\Helpers\strToDate;
 
 class ShopStatisticsRepository
 {
@@ -48,6 +49,10 @@ class ShopStatisticsRepository
             'countYesterday'       => $this->countYesterdayReport($dateTime),
             'countLastWeekSameDay' => $this->countLastWeekSameDayReport($dateTime),
 
+            'ordersTime'           => $this->ordersTimeReport($dateTime),
+// TODO: avg count this week
+// TODO: avg count this month
+
             'options'      => $this->optionsReport($dateTime),
             'products'     => $this->productsReport($dateTime),
             'countType'    => $this->countTypeReport($dateTime),
@@ -77,7 +82,7 @@ class ShopStatisticsRepository
      */
     public function countYesterdayReport($dateTime)
     {
-        $yesterdayDateTime = date('d-m-Y H:i', strtotime('-1 day', strtotime($dateTime)));
+        $yesterdayDateTime = strToDate('-1 day', $dateTime);
 
         return $this->ordersReportQuery($yesterdayDateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
@@ -92,7 +97,7 @@ class ShopStatisticsRepository
      */
     public function countLastWeekSameDayReport($dateTime)
     {
-        $lastWeekSameDayDateTime = date('d-m-Y H:i', strtotime('-1 week', strtotime($dateTime)));
+        $lastWeekSameDayDateTime = strToDate('-1 week', $dateTime);
 
         return $this->ordersReportQuery($lastWeekSameDayDateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
@@ -260,6 +265,24 @@ class ShopStatisticsRepository
             ->withCount($ordersRelationForTransporters)
             ->withSum($ordersRelationForTransporters, 'total_price')
             ->get();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return array
+     */
+    public function ordersTimeReport($dateTime)
+    {
+        return \DB::table('orders')
+            ->join('locations', 'locations.id', '=', 'orders.location_id')
+            ->where('locations.shop_id', '=', $this->shop->id)
+            ->selectRaw('SUM(orders.total_price) AS total_price, date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
+            ->groupBy('date')
+            ->orderBy('orders.created_at')
+            ->where('orders.created_at', '>', strtotime('-3 months -1 day'))
+            ->get()
+            ->toArray();
     }
 
     /**
