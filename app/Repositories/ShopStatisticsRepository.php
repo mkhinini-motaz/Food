@@ -282,6 +282,7 @@ class ShopStatisticsRepository
             ->groupBy('date')
             ->orderBy('orders.created_at')
             ->where('orders.created_at', '>', strtotime('-3 months -1 day'))
+            ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
             ->get()
             ->toArray();
     }
@@ -302,6 +303,7 @@ class ShopStatisticsRepository
             ->groupBy('date', 'products.category_id')
             ->orderBy('orders.created_at')
             ->where('orders.created_at', '>', strtotime('-3 months -1 day'))
+            ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
             ->get();
 
         $categories = $this->shop->categories()
