@@ -70,11 +70,12 @@ class OrderController extends Controller
             'countYesterday'       => $report['countYesterday'],
             'countLastWeekSameDay' => $report['countLastWeekSameDay'],
 
+            'ordersTime'     => $report['ordersTime'],
+            'categoriesTime' => $report['categoriesTime'],
 
             'options'      => OptionResource::collection($report['options']),
             'products'     => ProductResource::collection($report['products']),
             'countType'    => $report['countType'],
-            'ordersTime'   => $report['ordersTime'],
             'categories'   => CategoryResource::collection($report['categories']),
             'countStatus'  => $report['countStatus'],
             'transporters' => ShopUserResource::collection($report['transporters']),

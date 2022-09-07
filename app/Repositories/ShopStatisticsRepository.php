@@ -49,7 +49,8 @@ class ShopStatisticsRepository
             'countYesterday'       => $this->countYesterdayReport($dateTime),
             'countLastWeekSameDay' => $this->countLastWeekSameDayReport($dateTime),
 
-            'ordersTime'           => $this->ordersTimeReport($dateTime),
+            'ordersTime'     => $this->ordersTimeReport($dateTime),
+            'categoriesTime' => $this->categoriesTimeReport($dateTime),
 // TODO: avg count this week
 // TODO: avg count this month
 
@@ -283,6 +284,33 @@ class ShopStatisticsRepository
             ->where('orders.created_at', '>', strtotime('-3 months -1 day'))
             ->get()
             ->toArray();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return array
+     */
+    public function categoriesTimeReport($dateTime)
+    {
+        $report = \DB::table('choices')
+            ->join('orders', 'orders.id', '=', 'choices.order_id')
+            ->join('locations', 'locations.id', '=', 'orders.location_id')
+            ->join('products', 'products.id', '=', 'choices.product_id')
+            ->where('locations.shop_id', '=', $this->shop->id)
+            ->selectRaw('products.category_id AS id, SUM(product_count) AS count, SUM(product_price * product_count) AS sum_price, date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
+            ->groupBy('date', 'products.category_id')
+            ->orderBy('orders.created_at')
+            ->where('orders.created_at', '>', strtotime('-3 months -1 day'))
+            ->get();
+
+        $categories = $this->shop->categories()
+            ->get();
+
+        return [
+            'report'     => $report->toArray(),
+            'categories' => $categories->toArray(),
+        ];
     }
 
     /**
