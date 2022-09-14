@@ -265,6 +265,7 @@ class ShopStatisticsRepository
             ->whereIn('id', $countTransporter->keys())
             ->withCount($ordersRelationForTransporters)
             ->withSum($ordersRelationForTransporters, 'total_price')
+            ->withSum($ordersRelationForTransporters, 'delivery_fee')
             ->get();
     }
 

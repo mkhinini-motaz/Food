@@ -31,6 +31,7 @@ class ShopUserResource extends JsonResource
             'orders' => OrderResource::collection($this->whenLoaded('orders')),
             'orders_count' => $this->when($this->orders_count, $this->orders_count),
             'orders_sum_total_price' => $this->when($this->orders_sum_total_price, $this->orders_sum_total_price),
+            'orders_sum_delivery_fee' => $this->when($this->orders_sum_delivery_fee, $this->orders_sum_delivery_fee),
         ];
     }
 }
