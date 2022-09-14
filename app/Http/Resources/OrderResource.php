@@ -25,6 +25,7 @@ class OrderResource extends JsonResource
             'associated_phone'   => $this->associated_phone,
             'delivery_latitude'  => $this->delivery_latitude,
             'delivery_longitude' => $this->delivery_longitude,
+            'delivery_fee'       => $this->delivery_fee,
             'additional_note'    => $this->additional_note,
             'created_at'         => $this->created_at,
 

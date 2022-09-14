@@ -7,13 +7,9 @@ use App\Support\LogsActivity;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use function Symfony\Component\String\slice;
 
 /**
  * Class Order
@@ -25,6 +21,7 @@ use function Symfony\Component\String\slice;
  * @property string associated_phone
  * @property string delivery_latitude
  * @property string delivery_longitude
+ * @property int    delivery_fee
  * @property string additional_note
  * @property int    source
  * @property int    type
@@ -230,8 +227,12 @@ class Order extends Model
         $result .= 'Total : "' . substr($this->total_price, 0, -3) . ',' .
             substr($this->total_price, -3, 3) . "\"\n";
 
-        if ($this->type === self::TYPE_DELIVERY) {
-            $result .= "Livraison : *****\n";
+        if ($this->type === self::TYPE_DELIVERY || $this->delivery_fee) {
+            $result .= 'Livraison : ';
+            $result .= $this->delivery_fee ?
+                substr($this->total_price, 0, -3) . ',' .
+                    substr($this->total_price, -3, 3) . "\n":
+                "*****\n";
         }
 
         $result .= "\nMerci !\n";

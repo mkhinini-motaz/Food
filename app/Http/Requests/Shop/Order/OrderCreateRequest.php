@@ -38,6 +38,7 @@ class OrderCreateRequest extends FormRequest
         return [
             'associated_phone' => [ 'max:50', 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/' ],
             'additional_note'  => [ 'max:190' ],
+            'delivery_fee'  => [ 'integer', 'min:0', 'max:20000' ],
 
             'source'   => [ 'required', 'in:' . implode(',', Order::SOURCES) ],
             'type'     => [ 'required', 'in:' . implode(',', Order::TYPES) ],

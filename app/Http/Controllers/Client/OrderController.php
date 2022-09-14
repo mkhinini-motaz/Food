@@ -38,7 +38,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::TYPE_DELIVERY, null, auth()->user(), $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::TYPE_DELIVERY, null, auth()->user(), false, 2000, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 

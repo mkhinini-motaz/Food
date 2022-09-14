@@ -114,8 +114,10 @@ class OrderController extends Controller
         $isPayed           = $request->input('is_payed', false);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);
+        $deliveryFee       = $request->input('delivery_fee', null);
         $additionalNote    = $request->input('additional_note', null);
         $associatedPhone   = $request->input('associated_phone', null);
+// TODO: remove delivery coordinates
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
 // TODO: client
@@ -127,7 +129,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 
@@ -151,6 +153,7 @@ class OrderController extends Controller
         $isPayed           = $request->input('is_payed', false);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);
+        $deliveryFee       = $request->input('delivery_fee', null);
         $additionalNote    = $request->input('additional_note', null);
         $associatedPhone   = $request->input('associated_phone', null);
         $deliveryLatitude  = $request->input('delivery_latitude', null);
@@ -163,7 +166,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->update($orderId, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->update($orderId, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 
