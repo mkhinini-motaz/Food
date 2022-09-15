@@ -49,6 +49,7 @@ class ShopStatisticsRepository
             'countYesterday'       => $this->countYesterdayReport($dateTime),
             'countLastWeekSameDay' => $this->countLastWeekSameDayReport($dateTime),
 
+            'ordersHours'    => $this->ordersHoursReport($dateTime),
             'ordersTime'     => $this->ordersTimeReport($dateTime),
             'categoriesTime' => $this->categoriesTimeReport($dateTime),
 // TODO: avg count this week
@@ -314,6 +315,21 @@ class ShopStatisticsRepository
             'report'     => $report->toArray(),
             'categories' => $categories->toArray(),
         ];
+    }
+    /**
+     * @param $dateTime
+     *
+     * @return array
+     */
+    private function ordersHoursReport($dateTime)
+    {
+        return $this->ordersReportQuery($dateTime)
+            ->selectRaw('SUM(orders.total_price) AS total_price, COUNT(*) AS count, date_format(FROM_UNIXTIME(orders.created_at),\'%H\') + 1 AS hour') // TODO: temporary fix to lack of support of timezones
+            ->groupBy('hour')
+            ->orderBy('hour')
+            ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
+            ->get()
+            ->toArray();
     }
 
     /**
