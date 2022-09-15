@@ -68,6 +68,10 @@ class OrderController extends Controller
         return new JsonResponse([ 'data' => [
             'count'                => $report['count'],
             'countYesterday'       => $report['countYesterday'],
+            'countAvgThisWeek'     => $report['countAvgThisWeek'],
+            'countAvgLastWeek'     => $report['countAvgLastWeek'],
+            'countAvgThisMonth'    => $report['countAvgThisMonth'],
+            'countAvgLastMonth'    => $report['countAvgLastMonth'],
             'countLastWeekSameDay' => $report['countLastWeekSameDay'],
 
             'ordersTime'     => $report['ordersTime'],
@@ -79,6 +83,7 @@ class OrderController extends Controller
             'countType'    => $report['countType'],
             'categories'   => CategoryResource::collection($report['categories']),
             'countStatus'  => $report['countStatus'],
+            'countSource'  => $report['countSource'],
             'transporters' => ShopUserResource::collection($report['transporters']),
         ] ]);
     }

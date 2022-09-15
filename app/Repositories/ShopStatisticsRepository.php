@@ -48,6 +48,10 @@ class ShopStatisticsRepository
             'count'                => $this->countReport($dateTime),
             'countYesterday'       => $this->countYesterdayReport($dateTime),
             'countLastWeekSameDay' => $this->countLastWeekSameDayReport($dateTime),
+            'countAvgThisWeek'     => $this->countAvgThisWeekReport($dateTime),
+            'countAvgLastWeek'     => $this->countAvgLastWeekReport($dateTime),
+            'countAvgThisMonth'    => $this->countAvgThisMonthReport($dateTime),
+            'countAvgLastMonth'    => $this->countAvgLastMonthReport($dateTime),
 
             'ordersHours'    => $this->ordersHoursReport($dateTime),
             'ordersTime'     => $this->ordersTimeReport($dateTime),
@@ -59,6 +63,7 @@ class ShopStatisticsRepository
             'products'     => $this->productsReport($dateTime),
             'countType'    => $this->countTypeReport($dateTime),
             'categories'   => $this->categoriesReport($dateTime),
+            'countSource'  => $this->countSourceReport($dateTime),
             'countStatus'  => $this->countStatusReport($dateTime),
             'transporters' => $this->transportersReport($dateTime),
         ];
@@ -330,6 +335,100 @@ class ShopStatisticsRepository
             ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
             ->get()
             ->toArray();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Collection
+     */
+    private function countSourceReport($dateTime)
+    {
+        return $this->ordersReportQuery($dateTime)
+            ->groupBy('source')
+            ->selectRaw('source, SUM(total_price) AS total_price, COUNT(source) AS count')
+            ->orderByDesc('count')
+            ->get();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    private function countAvgThisWeekReport($dateTime)
+    {
+        $weekStartDateTime = strtotime('monday this week 09:00', strtotime($dateTime));
+        $weekEndDateTime = strtotime('monday next week 04:00', strtotime($dateTime));
+
+        return $this->countDayAvgForPeriod($weekStartDateTime, $weekEndDateTime);
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    private function countAvgLastWeekReport($dateTime)
+    {
+        $weekStartDateTime = strtotime('monday last week 09:00', strtotime($dateTime));
+        $weekEndDateTime = strtotime('monday this week 04:00', strtotime($dateTime));
+
+        return $this->countDayAvgForPeriod($weekStartDateTime, $weekEndDateTime);
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    private function countAvgThisMonthReport($dateTime)
+    {
+        $weekStartDateTime = strtotime('first day of this month 09:00', strtotime($dateTime));
+        $weekEndDateTime = strtotime('last day of this month 04:00', strtotime($dateTime));
+
+        return $this->countDayAvgForPeriod($weekStartDateTime, $weekEndDateTime);
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    private function countAvgLastMonthReport($dateTime)
+    {
+        $weekStartDateTime = strtotime('first day of last month 09:00', strtotime($dateTime));
+        $weekEndDateTime = strtotime('last day of last month 04:00', strtotime($dateTime));
+
+        return $this->countDayAvgForPeriod($weekStartDateTime, $weekEndDateTime);
+    }
+
+    /**
+     * @param $periodStart
+     * @param $periodEnd
+     *
+     * @return Model|Builder|object|null
+     */
+    private function countDayAvgForPeriod($periodStart, $periodEnd)
+    {
+        $hours = [$periodStart, $periodEnd];
+
+        $numberOfDays = \DB::table('orders')
+            ->join('locations', 'locations.id', '=', 'orders.location_id')
+            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where(columnInPeriod($hours, 'orders.created_at'))
+            ->selectRaw('date_format(FROM_UNIXTIME(orders.created_at),\'%W\') AS day')
+            ->groupBy('day')
+            ->get()
+            ->count();
+
+        return \DB::table('orders')
+            ->join('locations', 'locations.id', '=', 'orders.location_id')
+            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where(columnInPeriod($hours, 'orders.created_at'))
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
+            ->selectRaw("SUM(total_price) DIV $numberOfDays AS total_price, COUNT(*) DIV $numberOfDays AS count")
+            ->first();
     }
 
     /**
