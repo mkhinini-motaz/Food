@@ -385,7 +385,7 @@ class ShopStatisticsRepository
     private function countAvgThisMonthReport($dateTime)
     {
         $weekStartDateTime = strtotime('first day of this month 09:00', strtotime($dateTime));
-        $weekEndDateTime = strtotime('last day of this month 04:00', strtotime($dateTime));
+        $weekEndDateTime = strtotime('first day of next month 04:00', strtotime($dateTime));
 
         return $this->countDayAvgForPeriod($weekStartDateTime, $weekEndDateTime);
     }
@@ -398,7 +398,7 @@ class ShopStatisticsRepository
     private function countAvgLastMonthReport($dateTime)
     {
         $weekStartDateTime = strtotime('first day of last month 09:00', strtotime($dateTime));
-        $weekEndDateTime = strtotime('last day of last month 04:00', strtotime($dateTime));
+        $weekEndDateTime = strtotime('first day of this month 04:00', strtotime($dateTime));
 
         return $this->countDayAvgForPeriod($weekStartDateTime, $weekEndDateTime);
     }
@@ -417,8 +417,8 @@ class ShopStatisticsRepository
             ->join('locations', 'locations.id', '=', 'orders.location_id')
             ->where('locations.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($hours, 'orders.created_at'))
-            ->selectRaw('date_format(FROM_UNIXTIME(orders.created_at),\'%W\') AS day')
-            ->groupBy('day')
+            ->selectRaw('date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
+            ->groupBy('date')
             ->get()
             ->count();
 
