@@ -228,10 +228,10 @@ class Order extends Model
             substr($this->total_price, -3, 3) . "\"\n";
 
         if ($this->type === self::TYPE_DELIVERY || $this->delivery_fee) {
-            $result .= 'Livraison : ';
+            $result .= 'Livraison : "';
             $result .= $this->delivery_fee ?
-                substr($this->total_price, 0, -3) . ',' .
-                    substr($this->total_price, -3, 3) . "\n":
+                substr($this->delivery_fee, 0, -3) . ',' .
+                    substr($this->delivery_fee, -3, 3) . "\"\n":
                 "*****\n";
         }
 
