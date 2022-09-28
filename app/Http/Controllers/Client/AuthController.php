@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\ClientRegistered;
+use App\Http\Requests\Client\PasswordUpdateRequest;
 use App\Models\Client;
 use App\Repositories\ClientRepository;
 use App\Http\Requests\Client\RegisterRequest;
@@ -73,9 +74,9 @@ class AuthController extends Controller
         $inviteCode = $request->input('invite_code', null);
 
         $client = ClientRepository::create($firstName, $lastName, $password, $phone, true);
+        ClientRegistered::dispatch($client, $inviteCode);
         $client->load([ 'promoCodes' ]);
         $client->loadPlatformInfo();
-        ClientRegistered::dispatch($client, $inviteCode);
 
         $token = auth('client')->login($client);
         $client->access_token = $token;
@@ -92,14 +93,50 @@ class AuthController extends Controller
     {
         $email     = $request->input('email', null);
         $phone     = $request->input('phone', null);
-        $password  = $request->input('password', null);
         $lastName  = $request->input('last_name', null);
         $firstName = $request->input('first_name', null);
+
+        /** @var Client $authClient */
+        $authClient = auth()->user();
+        $clientRepository = new ClientRepository($authClient);
+        $clientRepository->update($firstName, $lastName, $email, $phone);
+
+        $authClient->load([ 'promoCodes' ]);
+        $authClient->loadPlatformInfo();
+
+        return (new ClientResource($authClient))->response();
+    }
+
+    /**
+     * @param PasswordUpdateRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updatePassword(PasswordUpdateRequest $request)
+    {
+        $password = $request->input('password', null);
 
         /** @var Client $client */
         $client = auth()->user();
         $clientRepository = new ClientRepository($client);
-        $clientRepository->update($firstName, $lastName, $email, $password, $phone);
+        $clientRepository->updatePassword($password);
+
+        return Resource::jsonResponse($client);
+    }
+
+    /**
+     * @param PasswordUpdateRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function resetPassword(PasswordUpdateRequest $request)
+    {
+        $password = $request->input('password', null);
+
+        /** @var Client $client */
+        $client = auth()->user();
+        $clientRepository = new ClientRepository($client);
+        $clientRepository->updatePassword($password);
 
         return Resource::jsonResponse($client);
     }

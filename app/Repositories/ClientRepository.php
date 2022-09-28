@@ -56,11 +56,10 @@ class ClientRepository
      * @param string|null $firstName
      * @param string|null $lastName
      * @param string|null $email
-     * @param string|null $password
      * @param string|null $phone
      * @param bool|null   $isPhoneConfirmed
      */
-    public function update($firstName = null, $lastName = null, $email = null, $password = null, $phone = null, $isPhoneConfirmed = false)
+    public function update($firstName = null, $lastName = null, $email = null, $phone = null, $isPhoneConfirmed = false)
     {
 // TODO: handle nullable fields
 
@@ -73,12 +72,9 @@ class ClientRepository
         if (isset($email)) {
             $this->client->email = $email;
         }
-        if (isset($password)) {
-            $this->client->password = bcrypt($password);
-        }
         if (isset($phone)) {
             $this->client->phone = preg_replace('#\s#', '', $phone);
-            $this->client->is_phone_confirmed = $isPhoneConfirmed;
+            $this->client->is_phone_confirmed = $isPhoneConfirmed; // TODO: WTF is this ???
         }
 
         $this->client->save();
@@ -118,5 +114,14 @@ class ClientRepository
 
         LoyaltyActionRepository::createTypePromoCodeBought($this->client, $promoCodeShopItem);
         return $promoCode;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function updatePassword($password)
+    {
+        $this->client->password = bcrypt($password);
+        $this->client->save();
     }
 }

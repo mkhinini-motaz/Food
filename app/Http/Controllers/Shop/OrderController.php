@@ -46,7 +46,6 @@ class OrderController extends Controller
         $orders = $shopRepository->orders($dateTime);
 
         return ResourceCollection::jsonResponse($orders);
-
     }
 
     /**
@@ -113,8 +112,6 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request)
     {
-        // TODO: delivery fee
-
         $type              = $request->input('type', false);
         $source            = $request->input('source', false);
         $isPayed           = $request->input('is_payed', false);
@@ -135,6 +132,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
+// TODO: make order status as accepted because it was created by shop users
         $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
@@ -152,8 +150,6 @@ class OrderController extends Controller
      */
     public function update($orderId, OrderCreateRequest $request)
     {
-        // TODO: delivery fee
-
         $type              = $request->input('type', false);
         $source            = $request->input('source', false);
         $isPayed           = $request->input('is_payed', false);

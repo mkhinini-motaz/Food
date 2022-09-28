@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Models\Client;
 use App\Repositories\PhoneValidationRepository;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +15,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user() instanceof Client;
     }
 
     /**
@@ -24,21 +25,27 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $phoneConfirmation = $this->request->get('phone_confirmation');
+        $otp      = $this->request->get('otp');
+        $phone    = $this->input('phone');
+        $otpRules = ['max:10'];
+
+        $phoneHasChanged = $phone !== auth()->user()->phone;
+        if ($phoneHasChanged) {
+            $otpRules[] = 'required';
+        }
+
         return [
             'first_name' => 'max:190',
             'last_name'  => 'max:190',
             'email'      => 'unique:clients,email,' . auth()->user()->id . 'max:190',
-            'password'   => 'confirmed|max:190',
-            'latitude'   => 'required_with:longitude|numeric|between:-90,90|max:50',
-            'longitude'  => 'required_with:latitude|numeric|between:-180,180|max:50',
-            'phone_code' => 'required_with:phone|max:10', // TODO: handle case phone not changed
+
+            'otp'        => $otpRules,
             'phone'      => [
                 'max:50',
                 'unique:clients,phone,' . auth()->user()->id,
                 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/',
-                function($attribute, $value, $fail) use ($phoneConfirmation) {
-                    if (PhoneValidationRepository::isNotValid($value, $phoneConfirmation)) {
+                function($attribute, $value, $fail) use ($otp, $phoneHasChanged) {
+                    if ($phoneHasChanged && PhoneValidationRepository::isNotValid($value, $otp)) {
                         $fail('phone.code');
                     }
                 }
