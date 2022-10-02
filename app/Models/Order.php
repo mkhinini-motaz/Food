@@ -225,15 +225,21 @@ class Order extends Model
 
         $result .= "---------------\n\n" . $choicesOutput . "---------------\n\n";
 
-        $result .= 'Total : "' . substr($this->total_price, 0, -3) . ',' .
-            substr($this->total_price, -3, 3) . "\"\n";
-
         if ($this->type === self::TYPE_DELIVERY || $this->delivery_fee) {
+            $result .= 'Total : "' . substr($this->total_price, 0, -3) . ',' .
+                substr($this->total_price, -3, 3) . "\"\n";
+
             $result .= 'Livraison : "';
             $result .= $this->delivery_fee ?
                 substr($this->delivery_fee, 0, -3) . ',' .
                     substr($this->delivery_fee, -3, 3) . "\"\n":
                 "*****\n";
+
+            $result .= 'Total à payer : "' . substr($this->total_price + $this->delivery_fee, 0, -3) . ',' .
+                substr($this->total_price + $this->delivery_fee, -3, 3) . "\"\n";
+        } else {
+            $result .= 'Total à payer : "' . substr($this->total_price, 0, -3) . ',' .
+                substr($this->total_price, -3, 3) . "\"\n";
         }
 
         $result .= "\nMerci !\n";
