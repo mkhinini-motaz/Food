@@ -28,7 +28,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int updated_at
  * @property int deleted_at
  *
- * @property-read  Shop shop
+ * @property-read Shop shop
+ * @mixin IdeHelperShopUser
  */
 class ShopUser extends Authenticatable
 {

@@ -21,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SmsSender::class, OrangeSmsSender::class);
         $this->app->singleton(MessagingClientInterface::class, FirebaseMessagingClient::class);
 
+        if ($this->app->isLocal()) {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 
     /**

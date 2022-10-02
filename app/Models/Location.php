@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int deleted_at
  *
  * @property Shop shop
+ * @mixin IdeHelperLocation
  */
 class Location extends Model
 {

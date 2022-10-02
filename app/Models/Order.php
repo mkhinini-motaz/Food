@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Transporter transporter
  * @property ShopUser    shopTransporter
  * @property Choice[]    choices
+ * @mixin IdeHelperOrder
  */
 class Order extends Model
 {

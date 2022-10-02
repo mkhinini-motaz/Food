@@ -13,6 +13,7 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Option
+ *
  * @package App\Models
  *
  * @property int    id
@@ -31,6 +32,7 @@ use Spatie\Translatable\HasTranslations;
  * @property Shop       shop
  * @property Collection orders
  * @property Collection optionGroups
+ * @mixin IdeHelperOption
  */
 class Option extends Model
 {

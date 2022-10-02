@@ -5,6 +5,9 @@ namespace App\Support;
 use Illuminate\Foundation\Auth\User;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * @mixin IdeHelperAuthenticatable
+ */
 class Authenticatable extends User implements JWTSubject
 {
     protected $dateFormat = 'U';

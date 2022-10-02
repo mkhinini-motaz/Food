@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int deleted_at
  *
  * @property Admin|Client|ShopUser creator
+ * @mixin IdeHelperPromoCode
  */
 class PromoCode extends Model
 {

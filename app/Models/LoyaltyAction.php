@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class LoyaltyAction
- *
+ * @package App\Models
  *
  * @property int    id
  * @property int    type
@@ -20,8 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property int created_at
  * @property int updated_at
- *
- * @package App\Models
+ * @mixin IdeHelperLoyaltyAction
  */
 class LoyaltyAction extends Model
 {

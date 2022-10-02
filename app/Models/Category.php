@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property-read Shop      shop
  * @property-read Product[] products
+ *
+ * @mixin IdeHelperCategory
  */
 class Category extends Model
 {

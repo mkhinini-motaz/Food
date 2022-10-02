@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int updated_at
  *
  * @package App\Models
+ * @mixin IdeHelperPromoCodeShopItem
  */
 class PromoCodeShopItem extends Model
 {

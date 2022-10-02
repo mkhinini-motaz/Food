@@ -28,6 +28,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \stdClass  pivot
  * @property Collection products
  * @property Collection options
+ * @mixin IdeHelperOptionGroup
  */
 class OptionGroup extends Model
 {

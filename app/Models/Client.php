@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property Collection orders
  * @property Collection loyaltyActions
+ * @mixin IdeHelperClient
  */
 class Client extends Authenticatable
 {

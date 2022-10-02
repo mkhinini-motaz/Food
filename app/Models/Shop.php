@@ -54,6 +54,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Collection orders
  * @property Collection products
  * @property Collection activityLogs
+ * @mixin IdeHelperShop
  */
 class Shop extends Model
 {

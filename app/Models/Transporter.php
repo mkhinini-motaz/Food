@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int deleted_at
  *
  * @property Collection orders
+ * @mixin IdeHelperTransporter
  */
 class Transporter extends Authenticatable
 {

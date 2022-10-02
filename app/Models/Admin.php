@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int    deleted_at
  *
  * @property Collection promo_codes
+ * @mixin IdeHelperAdmin
  */
 class Admin extends Authenticatable
 {

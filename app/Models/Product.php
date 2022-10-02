@@ -44,6 +44,7 @@ use Spatie\Translatable\HasTranslations;
  * @property Collection optionGroups
  * @property Collection options
  * @property Collection defaultOptions
+ * @mixin IdeHelperProduct
  */
 class Product extends Model
 {

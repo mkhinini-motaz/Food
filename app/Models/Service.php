@@ -8,6 +8,9 @@ use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @mixin IdeHelperService
+ */
 class Service extends Model
 {
     use HasFactory, HasTranslations;

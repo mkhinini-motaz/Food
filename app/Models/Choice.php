@@ -23,6 +23,7 @@ use Illuminate\Support\Collection;
  *
  * @property-read Product  product
  * @property-read Collection options
+ * @mixin IdeHelperChoice
  */
 class Choice extends Model
 {

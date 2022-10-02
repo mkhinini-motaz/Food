@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class ActivityLog
+ * @package App\Models
  *
  * @property int        id
  * @property string     log_name
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property Shop shop
  *
- * @package App\Models
+ * @mixin IdeHelperActivityLog
  */
 class ActivityLog extends Activity
 {
