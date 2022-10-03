@@ -94,4 +94,18 @@ class PromoCode extends Model
 
         return $code;
     }
+
+    /**
+     * @return bool
+     */
+    public function getIsUsableAttribute()
+    {
+        if ($this->expires_at < time()) {
+            return false;
+        }
+
+        $maxUsageCount = $this->max_usage_count ?? 1;
+
+        return $this->orders_count < $maxUsageCount;
+    }
 }
