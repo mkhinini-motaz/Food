@@ -58,6 +58,7 @@ class ShopOrderRepository
     public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
     {
         $this->order = new Order();
+
         return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
     }
 

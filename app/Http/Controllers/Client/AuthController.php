@@ -28,6 +28,9 @@ class AuthController extends Controller
         $authClient = auth()->user();
         if (! $authClient) {
             $authClient = new Client();
+        } else {
+            $authClient->last_login_at = time();
+            $authClient->save();
         }
 
         $authClient->load([ 'promoCodes' ]);
