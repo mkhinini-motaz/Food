@@ -28,7 +28,7 @@ class ShopUserFactory extends Factory
 
             'first_name' => $this->faker->firstName,
             'last_name'  => $this->faker->lastName,
-            'email'      => $this->faker->email,
+            'email'      => null,
             'role'       => $this->faker->randomElement(ShopUser::ROLES),
             'phone'      => $this->faker->phoneNumber,
             'password'   => bcrypt('azerty'),

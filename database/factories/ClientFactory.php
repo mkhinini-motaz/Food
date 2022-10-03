@@ -30,7 +30,7 @@ class ClientFactory extends Factory
             'first_name'  => $this->faker->firstName,
             'last_name'   => $this->faker->lastName,
             'password'    => bcrypt('azerty'),
-            'email'       => $this->faker->email,
+            'email'       => null,
             'phone'       => $this->faker->phoneNumber,
 
             'last_login_at'      => null,

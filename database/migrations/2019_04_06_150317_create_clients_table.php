@@ -18,7 +18,7 @@ class CreateClientsTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email')->unique()->nullable(); // TODO: login with either email, phone or facebook
+            $table->string('email')->unique()->nullable();
             $table->string('phone', 52)->unique()->nullable();
             // TODO: add Facebook id
             $table->string('password');
