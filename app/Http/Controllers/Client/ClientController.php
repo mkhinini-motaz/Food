@@ -22,6 +22,6 @@ class ClientController extends Controller
     {
         $phone = $request->input('phone');
 
-        return response()->json([ 'status' => 'success', 'data' => Client::phoneExists($phone) ], 200);
+        return response()->json([ 'status' => 'success', 'data' => Client::phoneIsActive($phone) ], 200);
     }
 }

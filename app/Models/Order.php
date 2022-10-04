@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int updated_at
  * @property int deleted_at
  *
- * @property Order       client
+ * @property Client      client
  * @property Location    location
  * @property PromoCode   promo_code
  * @property Transporter transporter

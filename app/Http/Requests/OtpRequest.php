@@ -24,8 +24,8 @@ class OtpRequest extends FormRequest
     public function rules()
     {
         return [
+            'lang'  => 'in:en,fr,ar,tnfr,tnar',
             'phone' => [ 'required', 'max:50', 'regex:/^(00|\+)2 *1 *6 *[234579] *([0-9] *){7}$/' ],
-            'lang' => 'in:en,fr,tn,ar'
         ];
     }
 }

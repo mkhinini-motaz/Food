@@ -6,6 +6,7 @@ use App\Events\ShopMenuLangUpdated;
 use App\Events\ShopMenuUpdated;
 use App\Events\ClientRegistered;
 use App\Events\OrderAction;
+use App\Listeners\Client\AttributePointsToInviterClient;
 use App\Listeners\Shop\NotifyShopMenuLangUpdated;
 use App\Listeners\Shop\NotifyShopMenuUpdated;
 use App\Listeners\Client\AttributePointsToRegisteredClient;
@@ -22,10 +23,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ClientRegistered::class => [
             AttributePointsToRegisteredClient::class,
-//            AttributePointsToInviterClient::class, // TODO: user must make his first order to reward the inviter
         ],
         OrderAction::class => [
             NotifyForOrderAction::class,
+            AttributePointsToInviterClient::class,
         ],
         ShopMenuUpdated::class => [
             NotifyShopMenuUpdated::class,

@@ -3,7 +3,6 @@
 namespace App\Events;
 
 use App\Models\Client;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -17,19 +16,12 @@ class ClientRegistered
     public $registeredClient;
 
     /**
-     * @var string
-     */
-    public $inviteCode;
-
-    /**
      * Create a new event instance.
      *
      * @param Client      $registeredClient
-     * @param string|null $inviteCode
      */
-    public function __construct(Client $registeredClient, $inviteCode = null)
+    public function __construct(Client $registeredClient)
     {
         $this->registeredClient = $registeredClient;
-        $this->inviteCode       = $inviteCode;
     }
 }

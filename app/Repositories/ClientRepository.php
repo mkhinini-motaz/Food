@@ -31,15 +31,19 @@ class ClientRepository
      * @param string      $password
      * @param string      $phone
      * @param bool        $isPhoneConfirmed
-     * @param string      $email
+     * @param string|null $inviteCode
      *
      * @return Client
      */
-    public static function create($firstName, $lastName, $password, $phone, $isPhoneConfirmed = false,  $email = null)
+    public static function createOrHydrateNonActive($firstName, $lastName, $password, $phone, $isPhoneConfirmed = false, $inviteCode = null)
     {
-        $client = new Client();
+        /** @var Client $client */
+        $client = Client::where('phone', '=', $phone)
+            ->whereNull('last_login_at')
+            ->first() ??
+            new Client();
 
-        $client->email       = $email;
+        $client->email       = $inviteCode;
         $client->phone       = $phone;
         $client->password    = bcrypt($password);
         $client->last_name   = $lastName;
@@ -47,8 +51,14 @@ class ClientRepository
         $client->invite_code = Client::generateInviteCode();
         $client->is_phone_confirmed = $isPhoneConfirmed;
 
-        $client->save();
+        if ($inviteCode) {
+            $inviterClient = Client::whereInviteCode($inviteCode)->first();
+            if ($inviterClient) {
+                $client->inviter_client_id = $inviterClient->id;
+            }
+        }
 
+        $client->save();
         return $client;
     }
 

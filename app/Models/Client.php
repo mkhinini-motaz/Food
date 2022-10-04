@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Authenticatable;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,10 +20,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int    id
  * @property string first_name
  * @property string last_name
+ * @property int    gender
  * @property string email
  * @property string password
  * @property string phone
  * @property int|null last_login_at
+ * @property int|null inviter_client_id
  * @property bool   is_phone_confirmed
  * @property int    loyalty_points_count
  * @property string invite_code
@@ -31,6 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int updated_at
  * @property int deleted_at
  *
+ * @property Client     inviterClient
  * @property Collection orders
  * @property Collection loyaltyActions
  * @mixin IdeHelperClient
@@ -40,6 +44,10 @@ class Client extends Authenticatable
     use HasFactory, SoftDeletes;
 
     public const INVITE_CODE_LENGTH = 10;
+
+    public const GENDER_MALE   = 1;
+    public const GENDER_FEMALE = 2;
+    public const GENDERS = [ self::GENDER_MALE, self::GENDER_FEMALE ];
 
     protected $dateFormat = 'U';
 
@@ -74,7 +82,24 @@ class Client extends Authenticatable
     public function promoCodes()
     {
         return $this->morphMany(PromoCode::class, 'creator')
-            ->orderByDesc('created_at');
+            ->orderByDesc('created_at')
+            ->withCount('orders');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function invitedClients()
+    {
+        return $this->hasMany(Client::class, 'inviter_client_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function inviterClient()
+    {
+        return $this->belongsTo(Client::class, 'inviter_client_id', 'id');
     }
 
     /**
@@ -91,9 +116,10 @@ class Client extends Authenticatable
      *
      * @return bool
      */
-    public static function phoneExists($phone)
+    public static function phoneIsActive($phone)
     {
         return 1 <= self::where('phone', '=', $phone)
+            ->whereNotNull('last_login_at')
             ->count();
     }
 

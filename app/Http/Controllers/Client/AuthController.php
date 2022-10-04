@@ -76,8 +76,8 @@ class AuthController extends Controller
         $firstName  = $request->input('first_name');
         $inviteCode = $request->input('invite_code', null);
 
-        $client = ClientRepository::create($firstName, $lastName, $password, $phone, true);
-        ClientRegistered::dispatch($client, $inviteCode);
+        $client = ClientRepository::createOrHydrateNonActive($firstName, $lastName, $password, $phone, true, $inviteCode);
+        ClientRegistered::dispatch($client->id);
         $client->load([ 'promoCodes' ]);
         $client->loadPlatformInfo();
 
@@ -134,13 +134,20 @@ class AuthController extends Controller
      */
     public function resetPassword(PasswordUpdateRequest $request)
     {
-        $password = $request->input('password', null);
+        $password = $request->get('password');
+        $phone    = preg_replace('#\s#', '', $request->get('phone'));
 
         /** @var Client $client */
-        $client = auth()->user();
+        $client = Client::where('phone', '=', $phone)->firstOrFail();
         $clientRepository = new ClientRepository($client);
         $clientRepository->updatePassword($password);
 
-        return Resource::jsonResponse($client);
+        $credentials = compact('phone', 'password');
+        $token = auth('client')->attempt($credentials);
+        $client->load([ 'promoCodes' ]);
+        $client->loadPlatformInfo();
+        $client->access_token = $token;
+
+        return (new ClientResource($client))->response();
     }
 }
