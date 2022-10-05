@@ -43,12 +43,12 @@ class ClientRepository
             ->first() ??
             new Client();
 
-        $client->email       = $inviteCode;
-        $client->phone       = $phone;
-        $client->password    = bcrypt($password);
-        $client->last_name   = $lastName;
-        $client->first_name  = $firstName;
-        $client->invite_code = Client::generateInviteCode();
+        $client->phone         = $phone;
+        $client->password      = bcrypt($password);
+        $client->last_name     = $lastName;
+        $client->first_name    = $firstName;
+        $client->invite_code   = Client::generateInviteCode();
+        $client->last_login_at = time();
         $client->is_phone_confirmed = $isPhoneConfirmed;
 
         if ($inviteCode) {
