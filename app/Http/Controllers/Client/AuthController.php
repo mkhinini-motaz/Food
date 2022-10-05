@@ -77,7 +77,7 @@ class AuthController extends Controller
         $inviteCode = $request->input('invite_code', null);
 
         $client = ClientRepository::createOrHydrateNonActive($firstName, $lastName, $password, $phone, true, $inviteCode);
-        ClientRegistered::dispatch($client->id);
+        ClientRegistered::dispatch($client);
         $client->load([ 'promoCodes' ]);
         $client->loadPlatformInfo();
 
