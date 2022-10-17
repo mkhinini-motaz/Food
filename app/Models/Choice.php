@@ -102,7 +102,7 @@ class Choice extends Model
 
         if (0 === $countCounts) {
             return "\n";
-        } else if (4 >= $countCounts) {
+        } else if (4 >= $countCounts && 3 > $countRemovedOptions) { // TODO: case deleted > chosen
             $addedAndChangedOptionIds = array_merge($addedOptions, $changedDefaultOptionsIds);
             $options = $this->product->defaultOptions->whereIn('id', $removedOptions)
                 ->merge($this->options->whereIn('id', $addedAndChangedOptionIds));
