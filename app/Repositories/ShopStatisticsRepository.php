@@ -329,7 +329,8 @@ class ShopStatisticsRepository
     private function ordersHoursReport($dateTime)
     {
         return $this->ordersReportQuery($dateTime)
-            ->selectRaw('SUM(orders.total_price) AS total_price, COUNT(*) AS count, date_format(FROM_UNIXTIME(orders.created_at),\'%H\') + 1 AS hour') // TODO: temporary fix to lack of support of timezones
+            ->join('choices', 'choices.order_id', '=', 'orders.id')
+            ->selectRaw('SUM(choices.product_count) AS count, date_format(FROM_UNIXTIME(orders.created_at),\'%H\') + 1 AS hour') // TODO: the "+ 1" is a temporary fix due to lack of timezones support
             ->groupBy('hour')
             ->orderBy('hour')
             ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
