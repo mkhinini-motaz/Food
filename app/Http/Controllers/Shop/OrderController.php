@@ -9,9 +9,9 @@ use App\Http\Requests\Shop\Order\OrderIsPayedUpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\OptionResource;
 use App\Http\Resources\ProductResource;
-use App\Http\Resources\Resource;
 use App\Http\Resources\ShopUserResource;
 use App\Models\Order;
+use App\Models\Client;
 use App\Models\PromoCode;
 use App\Models\Shop;
 use App\Models\ShopUser;
@@ -123,7 +123,8 @@ class OrderController extends Controller
 // TODO: remove delivery coordinates
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
-// TODO: client
+
+        $client = Client::wherePhone($associatedPhone)->first();
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -133,9 +134,9 @@ class OrderController extends Controller
 
         $shopOrderRepo = new ShopOrderRepository($shop);
 // TODO: make order status as accepted because it was created by shop users
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $deliveryFee, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
-        OrderAction::dispatch($order->id);
+        OrderAction::dispatch($order->id); // TODO: Replace with OrderCreated
 
         return (new OrderResource($order));
     }
@@ -163,12 +164,19 @@ class OrderController extends Controller
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
+        $order = $shop->orders()->findOrFail($orderId);
+
+        $client = null;
+        if ($associatedPhone !== $order->associated_phone) {
+            $client = Client::wherePhone($associatedPhone)->first();
+        }
+
         /** @var PromoCode $promoCode */
 // TODO: refactor duplicate db query
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->update($orderId, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, null, $isPayed, $deliveryFee, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
         OrderAction::dispatch($order->id);
 

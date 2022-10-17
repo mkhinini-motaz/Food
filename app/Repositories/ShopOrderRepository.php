@@ -63,7 +63,7 @@ class ShopOrderRepository
     }
 
     /**
-     * @param int            $orderId
+     * @param Order          $order
      * @param array          $products
      * @param string         $deliveryLatitude
      * @param string         $deliveryLongitude
@@ -80,9 +80,9 @@ class ShopOrderRepository
      * @throws OrderException
      * @throws Throwable
      */
-    public function update($orderId, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
+    public function update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
     {
-        $this->order = $this->shop->orders()->findOrFail($orderId);
+        $this->order = $order;
         $choiceIds   = $this->order->choices()->pluck('id');
 
         \DB::table('choice_option')
