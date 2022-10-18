@@ -53,11 +53,10 @@ class ShopStatisticsRepository
             'countAvgThisMonth'    => $this->countAvgThisMonthReport($dateTime),
             'countAvgLastMonth'    => $this->countAvgLastMonthReport($dateTime),
 
-            'ordersHours'    => $this->ordersHoursReport($dateTime),
-            'ordersTime'     => $this->ordersTimeReport($dateTime),
-            'categoriesTime' => $this->categoriesTimeReport($dateTime),
-// TODO: avg count this week
-// TODO: avg count this month
+            'ordersTime'           => $this->ordersTimeReport($dateTime),
+            'ordersHours'          => $this->fillEmptyHours($this->ordersHoursReport($dateTime)),
+            'categoriesTime'       => $this->categoriesTimeReport($dateTime),
+            'ordersYesterdayHours' => $this->fillEmptyHours($this->ordersYesterdayHoursReport($dateTime)),
 
             'options'      => $this->optionsReport($dateTime),
             'products'     => $this->productsReport($dateTime),
@@ -336,6 +335,59 @@ class ShopStatisticsRepository
             ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
             ->get()
             ->toArray();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return array
+     */
+    private function ordersYesterdayHoursReport($dateTime)
+    {
+        return $this->ordersHoursReport(strToDate('-1 day', $dateTime));
+
+    }
+
+    private function fillEmptyHours($data)
+    {
+        if (0 === count($data)) {
+            return $data;
+        }
+
+        $result = [];
+        $lastIndex = -1;
+        foreach ($data as $datum) {
+            if ($lastIndex === -1) {
+                $result[] = [ 'hour'  => $datum->hour, 'count' => $datum->count, ];
+                $lastIndex++;
+                continue;
+            }
+
+            $hour = $datum->hour;
+            $lastInsertedHour = $result[$lastIndex]['hour'];
+            $hoursDifference = $hour - $lastInsertedHour;
+            if ($hoursDifference > 1) {
+                for ($i = $lastInsertedHour + 1; $i < $hour; $i++) {
+                    $result[] = [ 'hour'  => $i, 'count' => 0, ];
+                }
+
+                $result[] = [ 'hour'  => $hour + 1, 'count' => $datum->count, ];
+                $lastIndex = count($result) - 1;
+                continue;
+            }
+
+            $result[] = [ 'hour'  => $datum->hour, 'count' => $datum->count, ];
+            $lastIndex++;
+        }
+
+        $lastInsertedHour = $result[$lastIndex]['hour'];
+        if (24 > $lastInsertedHour) {
+            for ($i = $lastInsertedHour + 1; $i <= 24; $i++) {
+                $result[] = [ 'hour'  => $i, 'count' => 0, ];
+            }
+        }
+
+        return $result;
     }
 
     /**
