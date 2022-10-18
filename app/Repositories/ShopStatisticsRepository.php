@@ -53,10 +53,12 @@ class ShopStatisticsRepository
             'countAvgThisMonth'    => $this->countAvgThisMonthReport($dateTime),
             'countAvgLastMonth'    => $this->countAvgLastMonthReport($dateTime),
 
-            'ordersTime'           => $this->ordersTimeReport($dateTime),
-            'ordersHours'          => $this->fillEmptyHours($this->ordersHoursReport($dateTime)),
-            'categoriesTime'       => $this->categoriesTimeReport($dateTime),
-            'ordersYesterdayHours' => $this->fillEmptyHours($this->ordersYesterdayHoursReport($dateTime)),
+            'ordersTime'     => $this->ordersTimeReport($dateTime),
+            'categoriesTime' => $this->categoriesTimeReport($dateTime),
+
+            'ordersHours'                => $this->fillEmptyHours($this->ordersHoursReport($dateTime)),
+            'ordersYesterdayHours'       => $this->fillEmptyHours($this->ordersHoursReport(strToDate('-1 day', $dateTime))),
+            'ordersLastWeekSameDayHours' => $this->fillEmptyHours($this->ordersHoursReport(strToDate('-1 week', $dateTime))),
 
             'options'      => $this->optionsReport($dateTime),
             'products'     => $this->productsReport($dateTime),
@@ -335,17 +337,6 @@ class ShopStatisticsRepository
             ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
             ->get()
             ->toArray();
-    }
-
-    /**
-     * @param $dateTime
-     *
-     * @return array
-     */
-    private function ordersYesterdayHoursReport($dateTime)
-    {
-        return $this->ordersHoursReport(strToDate('-1 day', $dateTime));
-
     }
 
     private function fillEmptyHours($data)

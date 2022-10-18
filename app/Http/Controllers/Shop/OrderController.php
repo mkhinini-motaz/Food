@@ -73,10 +73,11 @@ class OrderController extends Controller
             'countAvgLastMonth'    => $report['countAvgLastMonth'],
             'countLastWeekSameDay' => $report['countLastWeekSameDay'],
 
-            'ordersTime'           => $report['ordersTime'],
-            'ordersHours'          => $report['ordersHours'],
-            'categoriesTime'       => $report['categoriesTime'],
-            'ordersYesterdayHours' => $report['ordersYesterdayHours'],
+            'ordersTime'                 => $report['ordersTime'],
+            'ordersHours'                => $report['ordersHours'],
+            'categoriesTime'             => $report['categoriesTime'],
+            'ordersYesterdayHours'       => $report['ordersYesterdayHours'],
+            'ordersLastWeekSameDayHours' => $report['ordersLastWeekSameDayHours'],
 
             'options'      => OptionResource::collection($report['options']),
             'products'     => ProductResource::collection($report['products']),
