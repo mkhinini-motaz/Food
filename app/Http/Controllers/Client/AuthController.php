@@ -71,12 +71,16 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $phone      = $request->input('phone');
+        $gender     = $request->input('gender');
         $password   = $request->input('password');
         $lastName   = $request->input('last_name');
         $firstName  = $request->input('first_name');
+        $birthDate  = $request->input('birth_date');
         $inviteCode = $request->input('invite_code', null);
 
-        $client = ClientRepository::createOrHydrateNonActive($firstName, $lastName, $password, $phone, true, $inviteCode);
+        // TODO: birthdate
+
+        $client = ClientRepository::createOrHydrateNonActive($firstName, $lastName, $birthDate, $gender, $password, $phone, true, $inviteCode);
         ClientRegistered::dispatch($client);
         $client->load([ 'promoCodes' ]);
         $client->loadPlatformInfo();

@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int    id
  * @property string first_name
  * @property string last_name
+ * @property string birth_date
  * @property int    gender
  * @property string email
  * @property string password

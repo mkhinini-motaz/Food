@@ -38,6 +38,8 @@ class AddColumnsToClientsTable extends Migration
     {
         Schema::table('clients', function (Blueprint $table) {
             $table->dropColumn('gender');
+
+            $table->dropForeign('clients_inviter_client_id_foreign');
             $table->dropColumn('inviter_client_id');
         });
     }

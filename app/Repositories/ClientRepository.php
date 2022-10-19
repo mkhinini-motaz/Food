@@ -28,6 +28,8 @@ class ClientRepository
     /**
      * @param string      $firstName
      * @param string      $lastName
+     * @param string      $birthDate
+     * @param string      $gender
      * @param string      $password
      * @param string      $phone
      * @param bool        $isPhoneConfirmed
@@ -35,7 +37,7 @@ class ClientRepository
      *
      * @return Client
      */
-    public static function createOrHydrateNonActive($firstName, $lastName, $password, $phone, $isPhoneConfirmed = false, $inviteCode = null)
+    public static function createOrHydrateNonActive($firstName, $lastName, $birthDate, $gender, $password, $phone, $isPhoneConfirmed = false, $inviteCode = null)
     {
         /** @var Client $client */
         $client = Client::where('phone', '=', $phone)
@@ -44,9 +46,11 @@ class ClientRepository
             new Client();
 
         $client->phone         = $phone;
+        $client->gender        = $gender;
         $client->password      = bcrypt($password);
         $client->last_name     = $lastName;
         $client->first_name    = $firstName;
+        $client->birth_date    = $birthDate;
         $client->invite_code   = Client::generateInviteCode();
         $client->last_login_at = time();
         $client->is_phone_confirmed = $isPhoneConfirmed;
