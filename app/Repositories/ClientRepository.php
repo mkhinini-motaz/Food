@@ -138,4 +138,23 @@ class ClientRepository
         $this->client->password = bcrypt($password);
         $this->client->save();
     }
+
+    /**
+     * @param int    $page
+     * @param int    $perPage
+     * @param string $orderBy
+     * @param string $orderDirection
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginateOrders($page, $perPage, $orderBy, $orderDirection)
+    {
+        $orders = $this->client->orders();
+
+        if (isset($orderBy) && isset($orderDirection)) {
+            $orders->orderBy($orderBy, $orderDirection);
+        }
+
+        return $orders->paginate($perPage, [ '*' ], 'page', $page);
+    }
 }

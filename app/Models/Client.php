@@ -62,11 +62,11 @@ class Client extends Authenticatable
     ];
 
     /**
-     * @return BelongsToMany
+     * @return HasMany
      */
     public function orders()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     /**

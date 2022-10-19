@@ -32,6 +32,10 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
     });
 });
 
+Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
+    Route::get('/order', [ OrderController::class, 'index' ])->name('index');
+});
+
 Route::post('/login', [ AuthController::class, 'login' ])->name('login');
 Route::post('/phone', [ ClientController::class, 'checkPhone' ])->name('checkPhone');
 Route::post('/register', [ AuthController::class, 'register' ])->name('register');

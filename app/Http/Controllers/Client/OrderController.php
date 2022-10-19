@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Client;
 
 use App\Events\OrderEvent;
 use App\Http\Resources\Resource;
+use App\Http\Resources\ResourceCollection;
 use App\Models\Order;
 use App\Models\Shop;
 use App\Models\PromoCode;
 use App\Exceptions\OrderException;
 use App\Http\Controllers\Controller;
+use App\Repositories\ClientRepository;
 use App\Repositories\ShopOrderRepository;
 use App\Http\Requests\Client\OrderCreateRequest;
 
@@ -17,6 +19,26 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function index(Request $request)
+    {
+        $clientRepository = new ClientRepository(auth()->user());
+
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 20);
+        $orderBy = $request->input('orderBy', 'created_at');
+        $orderDirection = $request->input('orderDirection', 'desc');
+
+        $orders = $clientRepository->paginateOrders($page, $perPage, $orderBy, $orderDirection);
+
+        return ResourceCollection::jsonResponse($orders);
+    }
+
     /**
      * @param OrderCreateRequest $request
      *
