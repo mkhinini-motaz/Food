@@ -98,15 +98,16 @@ class AuthController extends Controller
      */
     public function updateProfile(ProfileUpdateRequest $request)
     {
-        $email     = $request->input('email', null);
         $phone     = $request->input('phone', null);
+        $gender    = $request->input('gender');
         $lastName  = $request->input('last_name', null);
         $firstName = $request->input('first_name', null);
+        $birthDate = $request->input('birth_date');
 
         /** @var Client $authClient */
         $authClient = auth()->user();
         $clientRepository = new ClientRepository($authClient);
-        $clientRepository->update($firstName, $lastName, $email, $phone);
+        $clientRepository->update($firstName, $lastName, $birthDate, $gender, $phone);
 
         $authClient->load([ 'promoCodes' ]);
         $authClient->loadPlatformInfo();

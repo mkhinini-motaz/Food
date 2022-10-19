@@ -69,11 +69,12 @@ class ClientRepository
     /**
      * @param string|null $firstName
      * @param string|null $lastName
-     * @param string|null $email
+     * @param string|null $birthDate
+     * @param string|null $gender
      * @param string|null $phone
      * @param bool|null   $isPhoneConfirmed
      */
-    public function update($firstName = null, $lastName = null, $email = null, $phone = null, $isPhoneConfirmed = false)
+    public function update($firstName = null, $lastName = null, $birthDate = null, $gender = null, $phone = null, $isPhoneConfirmed = false)
     {
 // TODO: handle nullable fields
 
@@ -83,8 +84,11 @@ class ClientRepository
         if (isset($lastName)) {
             $this->client->last_name = $lastName;
         }
-        if (isset($email)) {
-            $this->client->email = $email;
+        if (isset($birthDate)) {
+            $this->client->birth_date = $birthDate;
+        }
+        if (isset($gender)) {
+            $this->client->gender = $gender;
         }
         if (isset($phone)) {
             $this->client->phone = preg_replace('#\s#', '', $phone);
