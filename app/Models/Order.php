@@ -67,6 +67,7 @@ class Order extends Model
     const ACTIVE_SHOP_STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_PROCESSING_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, ];
 
     const ACTIVE_TRANSPORTER_STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_PICKED_BY_TRANSPORTER, ];
+
     const CANCELED_STATUSES = [ self::STATUS_REFUSED_BY_SHOP, self::STATUS_CANCELED, self::STATUS_CLIENT_NOT_FOUND, ];
 
     const SOURCE_ONLINE   = 1;
@@ -257,5 +258,29 @@ class Order extends Model
     public function tapActivity(ActivityLog $activityLog, string $eventName)
     {
         $activityLog->shop_id = $this->location->shop_id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTheFirstForClient()
+    {
+        $client = $this->client;
+        return $client && $client->inviterClient && 1 >= $client->orders()->count();
+    }
+
+    /**
+     *
+     */
+    public function awardedPoints()
+    {
+        $this->load('choices.product');
+
+        $addedLoyaltyPoints = 0;
+        foreach ($this->choices as $choice) {
+            $addedLoyaltyPoints += $choice->product->added_loyalty_points * $choice->product_count;
+        }
+
+        return $addedLoyaltyPoints;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Client;
 use App\Models\LoyaltyAction;
+use App\Models\Order;
 use App\Models\PromoCodeShopItem;
 
 class LoyaltyActionRepository
@@ -72,13 +73,45 @@ class LoyaltyActionRepository
 
         $loyaltyAction = new LoyaltyAction();
 
-        $loyaltyAction->type            = LoyaltyAction::TYPE_FRIEND_INVITE;
+        $loyaltyAction->type            = LoyaltyAction::TYPE_PROMO_CODE_BOUGHT;
         $loyaltyAction->client_id       = $client->id;
         $loyaltyAction->points_rewarded = -$promoCodeShopItem->points;
 
         $loyaltyAction->save();
 
         self::updateClientLoyaltyPointsCount($client, $loyaltyAction);
+
+        return $loyaltyAction;
+    }
+
+    /**
+     * @param Order $order
+     *
+     * @return LoyaltyAction
+     */
+    public static function createTypeOrder(Order $order)
+    {
+        if (! $order->client_id) {
+            throw new \InvalidArgumentException('Order doesn\'t have a client');
+        }
+
+        $pointsRewarded = $order->awardedPoints();
+        if ($pointsRewarded === 0) {
+            return null;
+        }
+
+        $loyaltyAction = new LoyaltyAction();
+
+        $loyaltyAction->type            = LoyaltyAction::TYPE_ORDER;
+        $loyaltyAction->meta            = json_encode([ 'order_id' => $order->id ]);
+        $loyaltyAction->client_id       = $order->client_id;
+        $loyaltyAction->points_rewarded = $pointsRewarded;
+        $loyaltyAction->created_at      = $order->created_at;
+        $loyaltyAction->updated_at      = $order->updated_at;
+
+        $loyaltyAction->save();
+
+        self::updateClientLoyaltyPointsCount($order->client, $loyaltyAction);
 
         return $loyaltyAction;
     }
