@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Events\OrderAction;
+use App\Events\OrderEvent;
 use App\Exceptions\OrderException;
 use App\Http\Requests\Shop\Order\OrderByDateRequest;
 use App\Http\Requests\Shop\Order\OrderIsPayedUpdateRequest;
@@ -138,7 +138,7 @@ class OrderController extends Controller
 // TODO: make order status as accepted because it was created by shop users
         $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
-        OrderAction::dispatch($order->id); // TODO: Replace with OrderCreated
+        OrderEvent::dispatch($order->id);
 
         return (new OrderResource($order));
     }
@@ -180,7 +180,7 @@ class OrderController extends Controller
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
 
-        OrderAction::dispatch($order->id);
+        OrderEvent::dispatch($order->id);
 
         return (new OrderResource($order));
     }
@@ -206,7 +206,7 @@ class OrderController extends Controller
         $orderRepo = new OrderRepository($order);
         $orderRepo->attachShopTransporter($shopTransporter);
 
-        OrderAction::dispatch($order->id);
+        OrderEvent::dispatch($order->id);
 
         return (new OrderResource($order));
     }
@@ -231,7 +231,7 @@ class OrderController extends Controller
         $orderRepo = new OrderRepository($order);
         $orderRepo->updateStatus($status);
 
-        OrderAction::dispatch($order->id);
+        OrderEvent::dispatch($order->id);
 
         return (new OrderResource($order));
     }
@@ -254,7 +254,7 @@ class OrderController extends Controller
         $orderRepo = new OrderRepository($order);
         $orderRepo->updateIsPayed($isPayed);
 
-        OrderAction::dispatch($order->id);
+        OrderEvent::dispatch($order->id);
 
         return (new OrderResource($order));
     }

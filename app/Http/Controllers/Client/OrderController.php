@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Events\OrderAction;
+use App\Events\OrderEvent;
 use App\Http\Resources\Resource;
 use App\Models\Order;
 use App\Models\Shop;
@@ -40,7 +40,7 @@ class OrderController extends Controller
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::TYPE_DELIVERY, auth()->user()->phone, auth()->user(), false, 2000, $additionalNote, $promoCode); // TODO: dynamic delivery fee
 
-        OrderAction::dispatch($order->id);
+        OrderEvent::dispatch($order->id);
 
         return Resource::jsonResponse($order);
     }

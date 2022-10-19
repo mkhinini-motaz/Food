@@ -3,7 +3,6 @@
 namespace App\Listeners\Client;
 
 use App\Events\ClientRegistered;
-use App\Models\Client;
 use App\Repositories\LoyaltyActionRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
