@@ -2,11 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Console\Commands\ClientInitializer;
 use App\Models\Client;
 
+use App\Models\Order;
 use App\Models\PromoCode;
 use App\Models\PromoCodeShopItem;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class ClientRepository
 {
@@ -64,6 +67,47 @@ class ClientRepository
 
         $client->save();
         return $client;
+    }
+
+    /**
+     * @param Collection|array $phones
+     *
+     * @return bool|int
+     */
+    public static function associateOrdersByPhone($phones)
+    {
+        return Order::query()
+            ->join('clients', 'clients.phone', '=', 'orders.associated_phone')
+            ->whereNotNull('associated_phone')
+            ->whereIn('associated_phone', $phones)
+            ->whereNull('client_id')
+            ->update([ 'orders.client_id' => \DB::raw('clients.id') ]);
+    }
+
+    /**
+     * @param Collection $phones
+     * @param int        $initialLoyaltyPoints
+     *
+     * @return int
+     */
+    public static function createFromPhones($phones, $initialLoyaltyPoints)
+    {
+        $clients = [];
+        foreach ($phones as $phone) {
+            $clients[] = [
+                'phone' => $phone,
+                'password' => '',
+                'last_name' => '',
+                'first_name' => '',
+                'created_at' => time(),
+                'updated_at' => time(),
+                'invite_code' => Client::generateInviteCode(),
+                'loyalty_points_count' => $initialLoyaltyPoints,
+            ];
+        }
+
+        Client::query()->insert($clients);
+        return count($clients);
     }
 
     /**

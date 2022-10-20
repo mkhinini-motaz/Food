@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\LoyaltyAction;
 use App\Models\Order;
 use App\Models\PromoCodeShopItem;
+use Illuminate\Support\Collection;
 
 class LoyaltyActionRepository
 {
@@ -114,6 +115,57 @@ class LoyaltyActionRepository
         self::updateClientLoyaltyPointsCount($order->client, $loyaltyAction);
 
         return $loyaltyAction;
+    }
+
+    /**
+     * @param Collection|array $phones
+     *
+     * @return int
+     */
+    public static function createTypeOrderByPhone($phones)
+    {
+        $orders = Order::query()
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
+            ->whereIn('associated_phone', $phones)
+            ->get();
+        if ($orders->isEmpty()) {
+            return 0;
+        }
+
+        $ordersPointsSum = 0;
+        foreach ($orders as $order) {
+            $ordersPointsSum += LoyaltyActionRepository::createTypeOrder($order)
+                ->points_rewarded ?? 0;
+        }
+
+        return $ordersPointsSum;
+    }
+
+    /**
+     * @param Collection $phones
+     *
+     * @return int
+     */
+    public static function createTypeLoyaltyBonusByPhone(Collection $phones)
+    {
+        $pointsAwarded = LoyaltyAction::POINTS_AWARDED_BY_TYPE[LoyaltyAction::TYPE_LOYALTY_BONUS];
+        $clientIds = Client::query()
+            ->whereIn('phone', $phones)
+            ->pluck('id');
+
+        $loyaltyActions = [];
+        foreach ($clientIds as $clientId) {
+            $loyaltyActions[] = [
+                'type' => LoyaltyAction::TYPE_LOYALTY_BONUS,
+                'client_id' => $clientId,
+                'points_rewarded' => $pointsAwarded,
+                'created_at' => time(),
+                'updated_at' => time(),
+            ];
+        }
+
+        LoyaltyAction::query()->insert($loyaltyActions);
+        return $pointsAwarded * count($clientIds);
     }
 
     /**
