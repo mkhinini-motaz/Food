@@ -6,6 +6,7 @@ use App\Events\ShopMenuLangUpdated;
 use App\Events\ShopMenuUpdated;
 use App\Events\ClientRegistered;
 use App\Events\OrderEvent;
+use App\Listeners\Client\AttributePastOrdersToClient;
 use App\Listeners\Shop\NotifyShopMenuLangUpdated;
 use App\Listeners\Shop\NotifyShopMenuUpdated;
 use App\Listeners\Client\AttributePointsToRegisteredClient;
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ClientRegistered::class => [
             AttributePointsToRegisteredClient::class,
+            AttributePastOrdersToClient::class, // TODO: test
         ],
         OrderEvent::class => [
             NotifyForOrderAction::class,
