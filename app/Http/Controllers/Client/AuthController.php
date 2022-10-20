@@ -78,8 +78,6 @@ class AuthController extends Controller
         $birthDate  = $request->input('birth_date');
         $inviteCode = $request->input('invite_code', null);
 
-        // TODO: birthdate
-
         $client = ClientRepository::createOrHydrateNonActive($firstName, $lastName, $birthDate, $gender, $password, $phone, true, $inviteCode);
         ClientRegistered::dispatch($client);
         $client->load([ 'promoCodes' ]);
@@ -107,7 +105,7 @@ class AuthController extends Controller
         /** @var Client $authClient */
         $authClient = auth()->user();
         $clientRepository = new ClientRepository($authClient);
-        $clientRepository->update($firstName, $lastName, $birthDate, $gender, $phone);
+        $clientRepository->update($firstName, $lastName, $birthDate, $gender, $phone, true);
 
         $authClient->load([ 'promoCodes' ]);
         $authClient->loadPlatformInfo();
