@@ -197,7 +197,8 @@ class ClientRepository
      */
     public function paginateOrders($page, $perPage, $orderBy, $orderDirection)
     {
-        $orders = $this->client->orders();
+        $orders = $this->client->orders()
+            ->withNeededRelationsForClient();
 
         if (isset($orderBy) && isset($orderDirection)) {
             $orders->orderBy($orderBy, $orderDirection);

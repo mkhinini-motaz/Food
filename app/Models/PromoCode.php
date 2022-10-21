@@ -68,11 +68,11 @@ class PromoCode extends Model
             ->where('expires_at', '>', time())
             ->find($promoCodeId);
 
-        return isset($promoCode) && $promoCode->max_usage_count > $promoCode->orders_count;
+        return isset($promoCode) && ($promoCode->max_usage_count ?? 1) > $promoCode->orders_count;
     }
 
     /**
-     * @param int  $promoCodeId
+     * @param int $promoCodeId
      *
      * @return bool
      */

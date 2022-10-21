@@ -171,6 +171,21 @@ class Order extends Model
      *
      * @return Builder
      */
+    public function scopeWithNeededRelationsForClient($query)
+    {
+        return $query->with([
+            'promoCode',
+            'choices.options',
+            'choices.product.category',
+            'choices.product.defaultOptions',
+        ]);
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
     public function scopeWithNeededRelationsForTransporting($query)
     {
         return $query->with([
