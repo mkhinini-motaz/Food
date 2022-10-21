@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
+use function App\Support\Helpers\formatMoneyLessThanMillion;
 
 /**
  * Class Choice
@@ -121,8 +122,7 @@ class Choice extends Model
             $result .= $option->getTranslation('name', 'tnfr');
 
             if (isset($option->pivot) && $option->pivot->price) {
-                $result .= ' "' . substr($option->pivot->price, 0, -3) . ',' .
-                    substr($option->pivot->price, -3, 3) . '"';
+                $result .= ' "' . formatMoneyLessThanMillion($option->pivot->price) . '"';
             }
             $result .= $optionsSeparator;
         }

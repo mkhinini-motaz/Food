@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function App\Support\Helpers\formatMoneyLessThanMillion;
 
 /**
  * Class Order
@@ -241,23 +242,26 @@ class Order extends Model
 
         $result .= "---------------\n\n" . $choicesOutput . "---------------\n\n";
 
-        if ($this->type === self::TYPE_DELIVERY || $this->delivery_fee) {
-            $result .= 'Total : "' . substr($this->total_price, 0, -3) . ',' .
-                substr($this->total_price, -3, 3) . "\"\n";
+        $total = (int) $this->total_price + ($this->promo_code_id ? $this->promoCode->reduction_amount : 0);
+        $totalToPay = $this->total_price;
+        if ($this->type === self::TYPE_DELIVERY || $this->delivery_fee || $this->promo_code_id) {
+            if ($this->type === self::TYPE_DELIVERY || $this->delivery_fee) {
+                $totalToPay += $this->delivery_fee;
 
-            $result .= 'Livraison : "';
-            $result .= $this->delivery_fee ?
-                substr($this->delivery_fee, 0, -3) . ',' .
-                    substr($this->delivery_fee, -3, 3) . "\"\n":
-                "*****\n";
+                $result .= 'Total : "' . formatMoneyLessThanMillion($total) . "\"\n";
 
-            $result .= 'Total à payer : "' . substr($this->total_price + $this->delivery_fee, 0, -3) . ',' .
-                substr($this->total_price + $this->delivery_fee, -3, 3) . "\"\n";
-        } else {
-            $result .= 'Total à payer : "' . substr($this->total_price, 0, -3) . ',' .
-                substr($this->total_price, -3, 3) . "\"\n";
+                $result .= 'Livraison : "';
+                $result .= $this->delivery_fee ?
+                    formatMoneyLessThanMillion($this->delivery_fee) . "\"\n" :
+                    "*****\n";
+            }
+
+            if ($this->promo_code_id) {
+                $result .= 'Code promo : "- ' . formatMoneyLessThanMillion($this->promoCode->reduction_amount) . "\"\n";
+            }
         }
 
+        $result .= 'Total à payer : "' . formatMoneyLessThanMillion($totalToPay) . "\"\n";
         $result .= "\nMerci !\n";
         $result .= "A la prochaine !\n";
 

@@ -238,3 +238,13 @@ function strToDate(string $str, string $date)
 
 }
 
+/**
+ * @param int|string $money
+ *
+ * @return string
+ */
+function formatMoneyLessThanMillion($money)
+{
+    return substr($money, 0, -3) . ',' . substr($money, -3, 3);
+}
+
