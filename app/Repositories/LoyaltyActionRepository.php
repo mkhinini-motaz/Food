@@ -119,15 +119,20 @@ class LoyaltyActionRepository
 
     /**
      * @param Collection|array $phones
+     * @param bool             $shouldNotIncludeToday
      *
      * @return int
      */
-    public static function createTypeOrderByPhone($phones)
+    public static function createTypeOrderByPhone($phones, $shouldNotIncludeToday = false)
     {
         $orders = Order::query()
             ->whereNotIn('status', Order::CANCELED_STATUSES)
-            ->whereIn('associated_phone', $phones)
-            ->get();
+            ->whereIn('associated_phone', $phones);
+        if ($shouldNotIncludeToday) {
+            $orders->where('created_at', '<', strtotime(date('H') > 10 ? 'today 10:00' : 'yesterday 03:00'));
+        }
+
+        $orders = $orders->get();
         if ($orders->isEmpty()) {
             return 0;
         }

@@ -31,6 +31,6 @@ class AttributePastOrdersToClient implements ShouldQueue
         $client = Client::findOrFail($event->registeredClient->id);
 
         ClientRepository::associateOrdersByPhone([ $client->phone ]);
-        LoyaltyActionRepository::createTypeOrderByPhone([ $client->phone ]);
+        LoyaltyActionRepository::createTypeOrderByPhone([ $client->phone ], true);
     }
 }
