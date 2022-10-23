@@ -36,7 +36,10 @@ class ResourceCollection extends BaseResourceCollection
      */
     protected function collects()
     {
-        return 'App\Http\Resources\\' . class_basename($this->resource->first()) . 'Resource';
+        $result = 'App\Http\Resources\\' . class_basename($this->resource->first()) . 'Resource';
+        $result = str_replace('ResourceResource', 'Resource', $result);
+
+        return $result;
     }
 
     /**
