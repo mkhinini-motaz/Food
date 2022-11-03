@@ -57,6 +57,9 @@ class AuthController extends Controller
         }
 
         $authUser = auth($guard)->user(); // TODO: do shouldUse guard globally for folder
+        $authUser->device_id = $request->input('device_id');
+        $authUser->save();
+
         $authUser->access_token = $token;
 
         return response()->json([ 'status' => 'success', 'data' => $authUser ], 200);

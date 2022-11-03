@@ -12,6 +12,7 @@ Route::post('/login', [ AuthController::class, 'login' ])->name('login');
 Route::get('/promo-code/{code}', [ PromoCodeController::class, 'show' ])->name('promo-code.show');
 
 Route::group([ 'middleware' => [ 'authShop'] ], function() {
+    Route::post('/device-id', [ AuthController::class, 'deviceId' ])->name('deviceId');
     Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
     Route::post('/service-area', [ ShopController::class, 'updateServiceArea' ])->name('updateServiceArea');
 

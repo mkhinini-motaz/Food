@@ -153,4 +153,18 @@ class AuthController extends Controller
 
         return (new ClientResource($client))->response();
     }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function deviceId(Request $request)
+    {
+        $client = auth()->user();
+        $client->device_id = $request->input('device_id');
+        $client->save();
+
+        return response()->json();
+    }
 }

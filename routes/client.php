@@ -33,6 +33,7 @@ Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
 });
 
 Route::group(['middleware' => [ 'authClient', 'accessible_by:client' ]], function () {
+    Route::post('/device-id', [ AuthController::class, 'deviceId' ])->name('deviceId');
     Route::get('/order', [ OrderController::class, 'index' ])->name('index');
 });
 

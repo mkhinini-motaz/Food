@@ -31,4 +31,18 @@ class AuthController extends Controller
     {
         return BaseAuthController::login('shop', $request);
     }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function deviceId(Request $request)
+    {
+        $shopUser = auth()->user();
+        $shopUser->device_id = $request->input('device_id');
+        $shopUser->save();
+
+        return response()->json();
+    }
 }
