@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Console\Commands\PriceChangeV2Command;
 use App\Exceptions\OrderException;
 use App\Models\Choice;
 use App\Models\Client;
@@ -12,6 +13,8 @@ use App\Models\Product;
 use App\Models\PromoCode;
 use App\Models\Shop;
 
+use App\Models\ShopUser;
+use Database\Seeders\PriceChanger\GhostChefPriceChangerV2;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -184,7 +187,11 @@ class ShopOrderRepository
             }
 
             $count = $product['product_count'] ?? 1;
-            $totalPrice += ($productFromDb->price + $optionsPrice) * $count;
+$price = $productFromDb->price; // TODO: move back to original place
+if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
+    $price = GhostChefPriceChangerV2::PRODUCT_PRICES[$product['product_id']];
+}
+            $totalPrice += ($price + $optionsPrice) * $count;
             $product['product_price'] = $productFromDb->price;
         }
 
@@ -214,7 +221,11 @@ class ShopOrderRepository
                 throw new OrderException('option_group:max_options');
             }
 
-            $optionsAddedPrice += $optionFromDb->pivot->price;
+$price = $optionFromDb->pivot->price; // TODO: move back to original place
+if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
+    $price = GhostChefPriceChangerV2::OPTION_PRICES[$option['id']] ?? 0;
+}
+            $optionsAddedPrice += $price;
             $optionGroupCheck[$optionGroupId]['options_count']++;
         }
 
@@ -286,13 +297,17 @@ class ShopOrderRepository
         });
         $productRelationshipInfos = [];
         foreach ($productsInput as $product) {
+$price = $product['product_price']; // TODO: move back to original place
+if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
+    $price = GhostChefPriceChangerV2::PRODUCT_PRICES[$product['product_id']];
+}
             $productRelationshipInfos[] = [
                 'order_id'      => $order->id,
                 'product_id'    => $product['product_id'],
                 'product_count' => $product['product_count'],
-                'product_price' => $product['product_price'],
-                'created_at'    => time(),
-                'updated_at'    => time(),
+                'product_price' => $price,
+                'created_at'    => time(),// strtotime('06-08-2022')
+                'updated_at'    => time(),// strtotime('06-08-2022')
             ];
         }
 
@@ -332,11 +347,15 @@ class ShopOrderRepository
             $choiceId = $choice->id;
             foreach ($optionInputs as $option) {
                 $optionId = $option['id'];
+$price = $optionsPrices[$choice->product_id][$optionId]; // TODO: move back to original place
+if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
+    $price = GhostChefPriceChangerV2::OPTION_PRICES[$optionId] ?? 0;
+}
                 $optionsRelationshipInfos[] = [
                     'choice_id' => $choiceId,
                     'option_id' => $optionId,
                     'quantity'  => $option['quantity'] ?? 0,
-                    'price'     => $optionsPrices[$choice->product_id][$optionId],
+                    'price'     => $price,
                 ];
             }
         }
