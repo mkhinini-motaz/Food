@@ -44,11 +44,11 @@ class Option extends Model
     public $translatable = [ 'name', 'description' ];
 
     /**
-     * @return HasOneThrough
+     * @return BelongsTo
      */
     public function shop()
     {
-        return $this->hasOneThrough(Shop::class, OptionGroup::class, 'id', 'id', 'option_group_id', 'shop_id');
+        return $this->belongsTo(Shop::class);
     }
 
     /**

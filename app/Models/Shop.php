@@ -62,6 +62,8 @@ class Shop extends Model
 
     const TYPE_RESTAURANT = 1;
     // TODO: grocery
+    // TODO: butcher
+    // TODO: chicken
     // TODO: hardware
     // TODO: services
     const TYPES = [ self::TYPE_RESTAURANT ];
