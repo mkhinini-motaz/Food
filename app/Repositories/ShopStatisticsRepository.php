@@ -289,7 +289,7 @@ class ShopStatisticsRepository
             ->selectRaw('SUM(orders.total_price) AS total_price, date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
             ->groupBy('date')
             ->orderBy('orders.created_at')
-            ->where('orders.created_at', '>', strtotime('-3 months -1 day'))
+            ->where('orders.created_at', '>', strtotime('-9 months'))
             ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
             ->get()
             ->toArray();
