@@ -339,6 +339,11 @@ class ShopStatisticsRepository
             ->toArray();
     }
 
+    /**
+     * @param $data
+     *
+     * @return array
+     */
     private function fillEmptyHours($data)
     {
         if (0 === count($data)) {
@@ -362,7 +367,7 @@ class ShopStatisticsRepository
                     $result[] = [ 'hour'  => $i, 'count' => 0, ];
                 }
 
-                $result[] = [ 'hour'  => $hour + 1, 'count' => $datum->count, ];
+                $result[] = [ 'hour'  => $hour, 'count' => $datum->count, ];
                 $lastIndex = count($result) - 1;
                 continue;
             }
