@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Client;
 
 use App\Models\Client;
+use App\Models\Order;
 use App\Models\Shop;
 use App\Models\PromoCode;
 use App\Repositories\PhoneValidationRepository;
@@ -30,15 +31,19 @@ class OrderCreateRequest extends FormRequest
         /** @var Shop $shop */
         $shop = Shop::isApproved()->findOrFail(request()->route('shopId'));
         $this->attributes->set('shop', $shop);
+
+        $type = request()->input('type');
+        $locationIsRequired = $type == Order::TYPE_DELIVERY ? 'required' : '';
         $deliveryLatitude  = request()->input('delivery_latitude');
 
         // TODO: max products count
         // TODO: max products value
 
         return [
+            'type'               => [ 'required', 'in:' . implode(',', Order::TYPES) ],
             'additional_note'    => [ 'max:190' ],
-            'delivery_latitude'  => [ 'required', 'between:-90,90' ],
-            'delivery_longitude' => [ 'required', 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $shop) {
+            'delivery_latitude'  => [ $locationIsRequired, 'between:-90,90' ],
+            'delivery_longitude' => [ $locationIsRequired, 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $shop) {
                 if ($shop->locationNotWithinServiceArea($deliveryLatitude, $value)) {
                     $fail('delivery_latitude.location_not_served');
                     $fail('delivery_longitude.location_not_served');

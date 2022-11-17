@@ -47,11 +47,14 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request)
     {
+        $type              = $request->input('type', null);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);
         $additionalNote    = $request->input('additional_note', null);
-        $deliveryLatitude  = $request->input('delivery_latitude');
-        $deliveryLongitude = $request->input('delivery_longitude');
+        $deliveryLatitude  = $request->input('delivery_latitude', null);
+        $deliveryLongitude = $request->input('delivery_longitude', null);
+
+        $deliveryFee = $type == Order::TYPE_DELIVERY ? 2000 : null;
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -60,7 +63,7 @@ class OrderController extends Controller
         $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, Order::TYPE_DELIVERY, auth()->user()->phone, auth()->user(), false, 2000, $additionalNote, $promoCode); // TODO: dynamic delivery fee
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, $type, auth()->user()->phone, auth()->user(), false, $deliveryFee, $additionalNote, $promoCode); // TODO: dynamic delivery fee
 
         OrderEvent::dispatch($order->id);
 
