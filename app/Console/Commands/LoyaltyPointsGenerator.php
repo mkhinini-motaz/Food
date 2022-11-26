@@ -46,7 +46,8 @@ class LoyaltyPointsGenerator extends Command
     public function handle()
     {
         if ($this->alreadyBeenDoneToday()) {
-            $this->info('Loyalty points can be generated only one time per day');
+            $this->warn('Loyalty points can be generated only one time per day');
+            \Log::warning('Loyalty points can be generated only one time per day');
             return 1;
         }
 
