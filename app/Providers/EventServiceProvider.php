@@ -23,7 +23,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ClientRegistered::class => [
             AttributePointsToRegisteredClient::class,
-            AttributePastOrdersToClient::class,
         ],
         OrderEvent::class => [
             NotifyForOrderAction::class,
