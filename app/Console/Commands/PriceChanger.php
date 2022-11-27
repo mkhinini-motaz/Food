@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Option;
 use App\Models\Product;
-use Database\Seeders\PriceChanger\GhostChefPriceChangerV3Promo26112022;
+use Database\Seeders\PriceChanger\GhostChefPriceChangerV3;
 use Illuminate\Console\Command;
 
 class PriceChanger extends Command
@@ -38,12 +38,12 @@ class PriceChanger extends Command
      */
     public function handle()
     {
-        foreach (GhostChefPriceChangerV3Promo26112022::PRODUCT_PRICES as $productId => $price) {
+        foreach (GhostChefPriceChangerV3::PRODUCT_PRICES as $productId => $price) {
             Product::whereId($productId)
                 ->update(compact('price'));
         }
 
-        foreach (GhostChefPriceChangerV3Promo26112022::OPTION_PRICES as $optionId => $price) {
+        foreach (GhostChefPriceChangerV3::OPTION_PRICES as $optionId => $price) {
             \DB::table('option_option_group')
                 ->where('option_id', '=', $optionId)
                 ->update(compact('price'));
