@@ -162,7 +162,8 @@ class ShopRepository
 
         $orders = $this->shop->orders()
             ->withNeededRelationsForProcessing()
-            ->orderByDesc('created_at');
+            ->orderByDesc('created_at')
+            ->orderByDesc('id');
 
         $orders->where(columnInPeriod($workingHours, 'orders.created_at'));
 
