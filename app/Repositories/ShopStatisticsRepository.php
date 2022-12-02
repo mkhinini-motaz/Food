@@ -25,6 +25,10 @@ class ShopStatisticsRepository
      * @var Shop
      */
     private $shop;
+    /**
+     * @var array
+     */
+    private $ordersMinHour;
 
     /**
      * ShopRepository constructor.
@@ -44,6 +48,8 @@ class ShopStatisticsRepository
     // TODO: refactor unto multiple functions
     public function ordersReportForDateTime($dateTime)
     {
+        $this->ordersMinHour = $this->ordersMinHour($dateTime);
+
         return [
             'count'                => $this->countReport($dateTime),
             'countYesterday'       => $this->countYesterdayReport($dateTime),
@@ -340,6 +346,36 @@ class ShopStatisticsRepository
     }
 
     /**
+     * @param $dateTime
+     *
+     * @return int
+     */
+    private function ordersMinHour($dateTime)
+    {
+        $workingHours1 = $this->shop->workingHoursForDate($dateTime);
+        $workingHours2 = $this->shop->workingHoursForDate(strToDate('-1 day', $dateTime));
+        $workingHours3 = $this->shop->workingHoursForDate(strToDate('-1 week', $dateTime));
+
+        $result = \DB::table('orders')
+            ->join('locations', 'locations.id', '=', 'orders.location_id')
+            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where(function($query) use ($workingHours3, $workingHours2, $workingHours1) {
+                $query->orWhere(columnInPeriod($workingHours1, 'orders.created_at'))
+                    ->orWhere(columnInPeriod($workingHours2, 'orders.created_at'))
+                    ->orWhere(columnInPeriod($workingHours3, 'orders.created_at'));
+            })
+            ->join('choices', 'choices.order_id', '=', 'orders.id')
+            ->selectRaw('SUM(choices.product_count) AS count, date_format(FROM_UNIXTIME(orders.created_at),\'%H\') + 1 AS hour') // TODO: the "+ 1" is a temporary fix due to lack of timezones support
+            ->groupBy('hour')
+            ->orderBy('hour')
+            ->whereNotIn('orders.status', Order::CANCELED_STATUSES)
+            ->get()
+            ->toArray();
+
+        return (int) $result[0]->hour;
+    }
+
+    /**
      * @param $data
      *
      * @return array
@@ -351,11 +387,18 @@ class ShopStatisticsRepository
         }
 
         $result = [];
+        $firstHour = $data[0]->hour;
+        if ($firstHour > $this->ordersMinHour) {
+            for ($i = $this->ordersMinHour; $i < $firstHour; $i++) {
+                $result[] = [ 'hour'  => $i, 'count' => 0, ];
+            }
+        }
+
         $lastIndex = -1;
         foreach ($data as $datum) {
             if ($lastIndex === -1) {
                 $result[] = [ 'hour'  => $datum->hour, 'count' => $datum->count, ];
-                $lastIndex++;
+                $lastIndex = count($result) - 1;
                 continue;
             }
 
