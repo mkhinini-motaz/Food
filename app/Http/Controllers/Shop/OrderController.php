@@ -65,13 +65,14 @@ class OrderController extends Controller
         $report = $shopStatisticsRepository->ordersReportForDateTime($dateTime);
 
         return new JsonResponse([ 'data' => [
-            'count'                => $report['count'],
-            'countYesterday'       => $report['countYesterday'],
-            'countAvgThisWeek'     => $report['countAvgThisWeek'],
-            'countAvgLastWeek'     => $report['countAvgLastWeek'],
-            'countAvgThisMonth'    => $report['countAvgThisMonth'],
-            'countAvgLastMonth'    => $report['countAvgLastMonth'],
-            'countLastWeekSameDay' => $report['countLastWeekSameDay'],
+            'count'                 => $report['count'],
+            'countYesterday'        => $report['countYesterday'],
+            'countAvgThisWeek'      => $report['countAvgThisWeek'],
+            'countAvgLastWeek'      => $report['countAvgLastWeek'],
+            'countAvgThisMonth'     => $report['countAvgThisMonth'],
+            'countAvgLastMonth'     => $report['countAvgLastMonth'],
+            'countLastWeekSameDay'  => $report['countLastWeekSameDay'],
+            'countLastMonthSameDay' => $report['countLastMonthSameDay'],
 
             'ordersTime'                 => $report['ordersTime'],
             'ordersHours'                => $report['ordersHours'],

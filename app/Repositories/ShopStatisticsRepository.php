@@ -51,13 +51,14 @@ class ShopStatisticsRepository
         $this->ordersMinHour = $this->ordersMinHour($dateTime);
 
         return [
-            'count'                => $this->countReport($dateTime),
-            'countYesterday'       => $this->countYesterdayReport($dateTime),
-            'countLastWeekSameDay' => $this->countLastWeekSameDayReport($dateTime),
-            'countAvgThisWeek'     => $this->countAvgThisWeekReport($dateTime),
-            'countAvgLastWeek'     => $this->countAvgLastWeekReport($dateTime),
-            'countAvgThisMonth'    => $this->countAvgThisMonthReport($dateTime),
-            'countAvgLastMonth'    => $this->countAvgLastMonthReport($dateTime),
+            'count'                 => $this->countReport($dateTime),
+            'countYesterday'        => $this->countYesterdayReport($dateTime),
+            'countLastWeekSameDay'  => $this->countLastWeekSameDayReport($dateTime),
+            'countLastMonthSameDay' => $this->countLastMonthSameDayReport($dateTime),
+            'countAvgThisWeek'      => $this->countAvgThisWeekReport($dateTime),
+            'countAvgLastWeek'      => $this->countAvgLastWeekReport($dateTime),
+            'countAvgThisMonth'     => $this->countAvgThisMonthReport($dateTime),
+            'countAvgLastMonth'     => $this->countAvgLastMonthReport($dateTime),
 
             'ordersTime'     => $this->ordersTimeReport($dateTime),
             'categoriesTime' => $this->categoriesTimeReport($dateTime),
@@ -112,6 +113,21 @@ class ShopStatisticsRepository
     public function countLastWeekSameDayReport($dateTime)
     {
         $lastWeekSameDayDateTime = strToDate('-1 week', $dateTime);
+
+        return $this->ordersReportQuery($lastWeekSameDayDateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
+            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->first();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    public function countLastMonthSameDayReport($dateTime)
+    {
+        $lastWeekSameDayDateTime = strToDate('-1 month', $dateTime);
 
         return $this->ordersReportQuery($lastWeekSameDayDateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
