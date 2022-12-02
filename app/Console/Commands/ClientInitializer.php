@@ -128,7 +128,7 @@ class ClientInitializer extends Command
             $this->loyaltyBonusPointsSum += LoyaltyActionRepository::createTypeLoyaltyBonusByPhone($phones);
             $this->ordersPointsSum       += LoyaltyActionRepository::createTypeOrderByPhone($phones);
 
-            $this->progressBar->advance($perPage);
+            $this->progressBar->advance($phones->count());
         }
     }
 
