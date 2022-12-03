@@ -202,7 +202,7 @@ class Order extends Model
     public function toString()
     {
         $result = "_________ Ghostchef _________\n";
-        $result .= date('H:i d/m/Y', $this->created_at) . "\n";
+        $result .= date('H:i d/m/Y', $this->created_at + 3600) . "\n"; // TODO: temporary fix for lack of timezone support
         $result .= '#Order: ' . substr((string) $this->id, -2) . "\n";
 
         if ($this->associated_phone) {
