@@ -25,10 +25,11 @@ class PromoCodeShopItem extends Model
     use HasFactory;
 
     const DEFAULT_POINTS_TO_VALUE = [
-        50  => 2500,
-        100 => 5000,
-        190 => 10000,
-        360 => 20000,
+        48  => 2000,
+        107 => 5000,
+        165 => 8000,
+        243 => 12000,
+        380 => 20000,
     ];
 
     protected $dateFormat = 'U';
