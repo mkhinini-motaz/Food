@@ -154,6 +154,11 @@ class OrderController extends Controller
      */
     public function update($orderId, OrderCreateRequest $request)
     {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var Order $order */
+        $order = $shop->orders()->findOrFail($orderId);
+
         $type              = $request->input('type', false);
         $source            = $request->input('source', false);
         $isPayed           = $request->input('is_payed', false);
@@ -162,12 +167,8 @@ class OrderController extends Controller
         $deliveryFee       = $request->input('delivery_fee', null);
         $additionalNote    = $request->input('additional_note', null);
         $associatedPhone   = $request->input('associated_phone', null);
-        $deliveryLatitude  = $request->input('delivery_latitude', null);
-        $deliveryLongitude = $request->input('delivery_longitude', null);
-
-        /** @var Shop $shop */
-        $shop = $request->get('shop');
-        $order = $shop->orders()->findOrFail($orderId);
+        $deliveryLatitude  = $request->input('delivery_latitude', $order->delivery_latitude);
+        $deliveryLongitude = $request->input('delivery_longitude', $order->delivery_longitude);
 
         $client = null;
         if ($associatedPhone !== $order->associated_phone) {

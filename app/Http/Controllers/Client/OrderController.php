@@ -54,7 +54,7 @@ class OrderController extends Controller
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
 
-        $deliveryFee = $type == Order::TYPE_DELIVERY ? 2000 : null;
+        $deliveryFee = $type == Order::TYPE_DELIVERY ? 2000 : null; // TODO: make delivery fee dynamic
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
