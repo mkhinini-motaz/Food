@@ -47,6 +47,10 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request)
     {
+        if (date('H') < 12 || date('N') == 7) {
+            return response()->json([ 'message' => 'shop:closed' ], 423);
+        }
+
         $type              = $request->input('type', null);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);

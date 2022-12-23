@@ -72,7 +72,6 @@ class OrderCreateRequest extends FormRequest
                 }
             ],
             // TODO: handle to_be_delivered_at case
-            // TODO: accept order type
         ];
     }
 }
