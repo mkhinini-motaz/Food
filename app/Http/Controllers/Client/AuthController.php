@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\ClientRegistered;
+use App\Http\Requests\Client\PasswordResetRequest;
 use App\Http\Requests\Client\PasswordUpdateRequest;
 use App\Models\Client;
 use App\Repositories\ClientRepository;
@@ -133,11 +134,11 @@ class AuthController extends Controller
     }
 
     /**
-     * @param PasswordUpdateRequest $request
+     * @param PasswordResetRequest $request
      *
      * @return JsonResponse
      */
-    public function resetPassword(PasswordUpdateRequest $request)
+    public function resetPassword(PasswordResetRequest $request)
     {
         $password = $request->get('password');
         $phone    = preg_replace('#\s#', '', $request->get('phone'));
