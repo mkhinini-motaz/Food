@@ -86,7 +86,7 @@ class ShopStatisticsRepository
     {
         return $this->ordersReportQuery($dateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
-            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->selectRaw('SUM(total_price) AS total_price, AVG(total_price) AS avg_total_price, COUNT(*) AS count')
             ->first();
     }
 
@@ -101,7 +101,7 @@ class ShopStatisticsRepository
 
         return $this->ordersReportQuery($yesterdayDateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
-            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->selectRaw('SUM(total_price) AS total_price, AVG(total_price) AS avg_total_price, COUNT(*) AS count')
             ->first();
     }
 
@@ -116,7 +116,7 @@ class ShopStatisticsRepository
 
         return $this->ordersReportQuery($lastWeekSameDayDateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
-            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->selectRaw('SUM(total_price) AS total_price, AVG(total_price) AS avg_total_price, COUNT(*) AS count')
             ->first();
     }
 
@@ -131,7 +131,7 @@ class ShopStatisticsRepository
 
         return $this->ordersReportQuery($lastWeekSameDayDateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
-            ->selectRaw('SUM(total_price) AS total_price, COUNT(*) AS count')
+            ->selectRaw('SUM(total_price) AS total_price, AVG(total_price) AS avg_total_price, COUNT(*) AS count')
             ->first();
     }
 
@@ -535,7 +535,7 @@ class ShopStatisticsRepository
             ->where('locations.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($hours, 'orders.created_at'))
             ->whereNotIn('status', Order::CANCELED_STATUSES)
-            ->selectRaw("SUM(total_price) DIV $numberOfDays AS total_price, COUNT(*) DIV $numberOfDays AS count")
+            ->selectRaw("SUM(total_price) DIV $numberOfDays AS total_price, COUNT(*) DIV $numberOfDays AS count, AVG(total_price) AS avg_total_price")
             ->first();
     }
 
