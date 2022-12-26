@@ -205,14 +205,18 @@ class Order extends Model
         $result .= date('H:i d/m/Y', $this->created_at + 3600) . "\n"; // TODO: temporary fix for lack of timezone support
         $result .= '#Order: ' . substr((string) $this->id, -2) . "\n";
 
+        if ($this->client_id) {
+            $result .= 'Client : ' . $this->client->first_name . ' ' . $this->client->last_name . "\n";
+        }
+
         if ($this->associated_phone) {
             $result .= 'Telephone : ' . $this->associated_phone . "\n";
-            $result .= "---------------\n\n";
         }
 
         if ($this->additional_note) {
+            $result .= "---------------\n";
             $result .= $this->additional_note . "\n";
-            $result .= "---------------\n\n";
+            $result .= "---------------\n";
         }
 
         $result .= 'source : ' . self::SOURCES_TEXT[$this->source] . "\n";
