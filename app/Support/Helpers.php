@@ -248,3 +248,32 @@ function formatMoneyLessThanMillion($money)
     return substr($money, 0, -3) . ',' . substr($money, -3, 3);
 }
 
+/**
+ * @param $latitude
+ * @param $longitude
+ *
+ * @return int
+ */
+function distanceFromGhostChef($latitude, $longitude)
+{
+    $lat1 = 35.7312178;
+    $lng1 = 10.5801707;
+    return distance($lat1, $lng1, $latitude, $longitude);
+}
+
+/**
+ * @param $latitude
+ * @param $longitude
+ *
+ * @return int
+ */
+function deliveryFeeForPosition($latitude, $longitude)
+{
+    $messadineLimitLat = 35.7342041;
+    $messadineLimitLng = 10.5880765;
+    if (distanceFromGhostChef($latitude, $longitude) > 2500 && $latitude >  $messadineLimitLat && $longitude > $messadineLimitLng) {
+        return 3000;
+    }
+
+    return 2000;
+}

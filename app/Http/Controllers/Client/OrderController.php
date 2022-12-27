@@ -16,6 +16,7 @@ use App\Http\Requests\Client\OrderCreateRequest;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function App\Support\Helpers\deliveryFeeForPosition;
 
 class OrderController extends Controller
 {
@@ -58,7 +59,7 @@ class OrderController extends Controller
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
 
-        $deliveryFee = $type == Order::TYPE_DELIVERY ? 2000 : null; // TODO: make delivery fee dynamic
+        $deliveryFee = $type == Order::TYPE_DELIVERY ? deliveryFeeForPosition($deliveryLatitude, $deliveryLongitude) : null;
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
