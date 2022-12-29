@@ -14,6 +14,7 @@ use App\Repositories\ClientRepository;
 use App\Repositories\ShopOrderRepository;
 use App\Http\Requests\Client\OrderCreateRequest;
 
+use App\Support\SmsSender;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use function App\Support\Helpers\deliveryFeeForPosition;
@@ -43,10 +44,13 @@ class OrderController extends Controller
     /**
      * @param OrderCreateRequest $request
      *
+     * @param SmsSender          $smsSender
+     *
      * @return JsonResponse
      * @throws OrderException
+     * @throws \Throwable
      */
-    public function create(OrderCreateRequest $request)
+    public function create(OrderCreateRequest $request, SmsSender $smsSender)
     {
         if ((date('H') + 1) < 12 || date('N') == 7) {
             return response()->json([ 'message' => 'shop:closed' ], 423);
@@ -71,6 +75,10 @@ class OrderController extends Controller
         $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, $type, auth()->user()->phone, auth()->user(), false, $deliveryFee, $additionalNote, $promoCode); // TODO: dynamic delivery fee
 
         OrderEvent::dispatch($order->id);
+
+        $message = 'Order : ' . substr((string) $order->id, -2) . ', ' .
+            date('H:i', $order->created_at + (60*60)); // TODO: temporary fix for lack of timezone support
+        $smsSender->sendMessage('+21655668393', $message); // TODO: temporary until push notification is implemented
 
         return Resource::jsonResponse($order);
     }
