@@ -76,8 +76,8 @@ class OrderController extends Controller
 
         OrderEvent::dispatch($order->id);
 
-        $message = 'Order : ' . substr((string) $order->id, -2) . ', ' .
-            date('H:i', $order->created_at + (60*60)); // TODO: temporary fix for lack of timezone support
+        $message = 'Order : ' . substr((string) $order->id, -2) . ' - ' .
+            date('H:i', $order->created_at + 3600); // TODO: temporary fix for lack of timezone support
         $smsSender->sendMessage('+21655668393', $message); // TODO: temporary until push notification is implemented
 
         return Resource::jsonResponse($order);
