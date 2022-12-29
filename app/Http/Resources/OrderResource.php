@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Order;
+use App\Models\ShopUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,8 +28,14 @@ class OrderResource extends JsonResource
             'delivery_latitude'  => $this->delivery_latitude,
             'delivery_longitude' => $this->delivery_longitude,
             'delivery_fee'       => $this->delivery_fee,
-            'additional_note'    => $this->additional_note,
             'created_at'         => $this->created_at,
+
+            'additional_note'    => value(function() {
+                if ($this->source === Order::SOURCE_ONLINE || auth()->user() instanceof ShopUser) {
+                    return $this->additional_note;
+                }
+                return '';
+            }),
 
             'shop_transporter'   => new ShopUserResource($this->whenLoaded('shopTransporter')),
             'promo_code'         => new PromoCodeResource($this->whenLoaded('promoCode')),
