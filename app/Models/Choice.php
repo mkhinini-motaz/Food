@@ -101,25 +101,34 @@ class Choice extends Model
         $countChangedDefaultOptionsIds = count($changedDefaultOptionsIds);
         $countCounts = $countAddedOptions + $countRemovedOptions + $countChangedDefaultOptionsIds;
 
+        $modifiedOutput = false;
         if (0 === $countCounts) {
             return "\n";
         } else if (4 >= $countCounts && 3 > $countRemovedOptions) { // TODO: case deleted > chosen
             $addedAndChangedOptionIds = array_merge($addedOptions, $changedDefaultOptionsIds);
-            $options = $this->product->defaultOptions->whereIn('id', $removedOptions)
-                ->merge($this->options->whereIn('id', $addedAndChangedOptionIds));
+            $options = $this->product->defaultOptions
+                ->whereIn('id', $removedOptions)
+                ->merge(
+                    $this->options->whereIn('id', $addedAndChangedOptionIds)
+                );
+            $modifiedOutput = true;
         } else {
             $options = $this->options;
         }
 
         $result = '';
+        if ($modifiedOutput) {
+            $result .= 'modifié :' . "\n";
+        }
+
         /** @var Option $option */
         foreach ($options as $option) {
             if (in_array($option->id, $removedOptions)) {
-                $result .= $optionsPrefix . 'XX ';
+                $result .= $optionsPrefix . 'XX';
             } else {
-                $result .= $optionsPrefix . str_repeat('+', $option->pivot->quantity ?? 0) . ' ';
+                $result .= $optionsPrefix . str_repeat('+', $option->pivot->quantity ?? 0);
             }
-            $result .= $option->getTranslation('name', 'tnfr');
+            $result .= ' ' . $option->getTranslation('name', 'tnfr');
 
             if (isset($option->pivot) && $option->pivot->price) {
                 $result .= ' "' . formatMoneyLessThanMillion($option->pivot->price) . '"';
