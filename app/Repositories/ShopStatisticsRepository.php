@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Client;
+use App\Models\Ingredient;
 use App\Models\Option;
 use App\Models\OptionGroup;
 use App\Models\Order;
@@ -67,6 +68,7 @@ class ShopStatisticsRepository
             'ordersYesterdayHours'       => $this->fillEmptyHours($this->ordersHoursReport(strToDate('-1 day', $dateTime))),
             'ordersLastWeekSameDayHours' => $this->fillEmptyHours($this->ordersHoursReport(strToDate('-1 week', $dateTime))),
 
+            'ingredients'  => $this->ingredientsReport($dateTime),
             'options'      => $this->optionsReport($dateTime),
             'products'     => $this->productsReport($dateTime),
             'countType'    => $this->countTypeReport($dateTime),
@@ -388,7 +390,7 @@ class ShopStatisticsRepository
             ->get()
             ->toArray();
 
-        return (int) $result[0]->hour;
+        return isset($result[0]) ? (int) $result[0]->hour : 12;
     }
 
     /**
@@ -552,5 +554,25 @@ class ShopStatisticsRepository
             ->join('locations', 'locations.id', '=', 'orders.location_id')
             ->where('locations.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($workingHours, 'orders.created_at'));
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Collection
+     */
+    private function ingredientsReport($dateTime)
+    {
+        $workingHours = $this->shop->workingHoursForDate($dateTime); // TODO: missing closed day case
+
+        return \DB::table('ingredients')
+            ->join('ingredient_product', 'ingredients.id', '=', 'ingredient_product.ingredient_id')
+            ->join('choices', 'ingredient_product.product_id', '=', 'choices.product_id')
+            ->where(columnInPeriod($workingHours, 'choices.created_at'))
+            ->groupBy('ingredients.name', 'ingredients.dose_unit')
+            ->selectRaw('ingredients.name, ingredients.dose_unit, SUM(choices.product_count * ingredient_product.dose) AS dose_sum')
+            ->orderByRaw('FIELD(ingredients.dose_unit,\'' . implode('\',\'', Ingredient::DOSE_UNITS) . '\')')
+            ->orderByDesc('dose_sum')
+            ->get();
     }
 }

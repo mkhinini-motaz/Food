@@ -80,6 +80,7 @@ class OrderController extends Controller
             'ordersYesterdayHours'       => $report['ordersYesterdayHours'],
             'ordersLastWeekSameDayHours' => $report['ordersLastWeekSameDayHours'],
 
+            'ingredients'  => $report['ingredients'],
             'options'      => OptionResource::collection($report['options']),
             'products'     => ProductResource::collection($report['products']),
             'countType'    => $report['countType'],

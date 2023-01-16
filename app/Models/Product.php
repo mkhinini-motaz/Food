@@ -115,4 +115,13 @@ class Product extends Model
         return $this->options()
             ->where('is_selected_by_default', '=', 1);
     }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class)
+            ->withPivot([ 'dose', ]);
+    }
 }

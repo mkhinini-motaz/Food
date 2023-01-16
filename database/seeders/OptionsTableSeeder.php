@@ -257,7 +257,7 @@ class OptionsTableSeeder extends Seeder
             'photo' => 'example/restaurant/option/bacon.jpg',
         ]);
 
-        $optionJambonDinde = Option::factory()->create([
+        $optionBaconDinde = Option::factory()->create([
             'name' => [
                 'fr'   => 'Bacon de dinde',
                 'en'   => 'Turkey bacon',
@@ -327,7 +327,7 @@ class OptionsTableSeeder extends Seeder
         $optionGroupSupplement->options()->sync([
             $option4Fromages->id      => [ 'order' => $order++, 'price' => 3000, ],
             $optionBacon->id          => [ 'order' => $order++, 'price' => 3000, ],
-            $optionJambonDinde->id    => [ 'order' => $order++, 'price' => 2500, ],
+            $optionBaconDinde->id     => [ 'order' => $order++, 'price' => 2500, ],
             $optionPeperoni->id       => [ 'order' => $order++, 'price' => 2500, ],
             $optionCordonBleu->id     => [ 'order' => $order++, 'price' => 2500, ],
             $optionCheddar->id        => [ 'order' => $order++, 'price' => 2000, ],
