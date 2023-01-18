@@ -202,9 +202,12 @@ class OrderController extends Controller
         /** @var Order $order */
         $order = $shop->orders()->findOrFail($orderId);
 
-        $shopTransporterId = $request->input('transporter_id');
+        $shopTransporterId = $request->input('transporter_id', null);
         /** @var ShopUser $shopTransporter */
-        $shopTransporter = $shop->shopTransporters()->findOrFail($shopTransporterId);
+        $shopTransporter = null;
+        if ($shopTransporterId) {
+            $shopTransporter = $shop->shopTransporters()->findOrFail($shopTransporterId);
+        }
 
         $orderRepo = new OrderRepository($order);
         $orderRepo->attachShopTransporter($shopTransporter);

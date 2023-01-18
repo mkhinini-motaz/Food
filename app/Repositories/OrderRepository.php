@@ -28,9 +28,9 @@ class OrderRepository
     /**
      * @param ShopUser $shopTransporter
      */
-    public function attachShopTransporter(ShopUser $shopTransporter)
+    public function attachShopTransporter(ShopUser $shopTransporter = null)
     {
-        $this->order->shop_transporter_id = $shopTransporter->id;
+        $this->order->shop_transporter_id = $shopTransporter->id ?? null;
         $this->order->save();
     }
 
