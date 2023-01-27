@@ -16,7 +16,7 @@ class ServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name'  => $this->name,
+            'name'  => $this->getTranslations('name'),
             'photo' => $this->photo,
 
             'shops' => $this->when($this->shops, ShopResource::collection(collect($this->shops))),
