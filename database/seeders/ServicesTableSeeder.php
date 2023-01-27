@@ -16,22 +16,33 @@ class ServicesTableSeeder extends Seeder
     {
         Service::factory()->create([
             'name' => [
-                'fr'   => 'Ghostchef',
-                'en'   => 'Ghostchef',
-                'tnfr' => 'Ghostchef',
-                'tnar' => 'Ghostchef',
-                'ar'   => 'Ghostchef',
+                'fr'   => 'Restaurant',
+                'en'   => 'Restaurant',
+                'tnfr' => 'Restaurant',
+                'tnar' => 'رستورون',
+                'ar'   => 'مطعم',
             ],
             'photo' => 'example/service/food.jpg',
         ]);
 
         Service::factory()->create([
             'name' => [
-                'fr'   => 'GhostMarket',
-                'en'   => 'GhostMarket',
-                'tnfr' => 'GhostMarket',
-                'tnar' => 'GhostMarket',
-                'ar'   => 'GhostMarket',
+                'fr'   => 'Épicerie',
+                'en'   => 'Supermarket',
+                'tnfr' => 'Superet',
+                'tnar' => 'سوبرات',
+                'ar'   => 'سوبر ماركت',
+            ],
+            'photo' => 'example/service/grocery.jpg',
+        ]);
+
+        Service::factory()->create([
+            'name' => [
+                'fr'   => 'Produits frais',
+                'en'   => 'Fresh products',
+                'tnfr' => 'Produits frais',
+                'tnar' => 'برودوي فراي',
+                'ar'   => 'منتجات طازجة',
             ],
             'photo' => 'example/service/grocery.jpg',
         ]);

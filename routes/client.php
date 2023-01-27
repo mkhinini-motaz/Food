@@ -7,6 +7,9 @@ use \App\Http\Controllers\Client\ShopController;
 use \App\Http\Controllers\Client\OrderController;
 use \App\Http\Controllers\Client\ClientController;
 use \App\Http\Controllers\Client\LoyaltyActionController;
+use \App\Http\Controllers\Client\ServiceController;
+
+Route::get('/service', [ ServiceController::class, 'index' ])->name('service.index');
 
 Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     Route::get('/', [ CategoryController::class, 'index' ])->name('index');
