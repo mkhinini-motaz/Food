@@ -56,8 +56,8 @@ class ShopController extends Controller
 
         $page = $request->input('page', 1);
         $perPage = $request->input('perPage', 20);
-        $orderBy = $request->input('orderBy', 'created_at');
-        $orderDirection = $request->input('orderDirection', 'desc');
+        $orderBy = $request->input('orderBy', 'order');
+        $orderDirection = $request->input('orderDirection', 'asc');
         $search = $request->input('search', null);
 
         $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
