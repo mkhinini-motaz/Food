@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Events\ShopMenuUpdated;
+use App\Exceptions\UnableToSaveFileException;
 use App\Http\Requests\Shop\Category\MakeInVisibleRequest;
 use App\Http\Requests\Shop\Category\MakeVisibleRequest;
+use App\Http\Requests\Shop\Category\UpdateRequest;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
 use App\Models\ActivityLog;
@@ -16,6 +19,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ShopRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function App\Support\Helpers\uploadFile;
 
 class CategoryController extends Controller
 {
@@ -45,6 +49,22 @@ class CategoryController extends Controller
      * @param int     $categoryId
      * @param Request $request
      *
+     * @return CategoryResource
+     */
+    public function show($categoryId, Request $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var Category $category */
+        $category = $shop->categories()->findOrFail($categoryId);
+
+        return new CategoryResource($category);
+    }
+
+    /**
+     * @param int     $categoryId
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function product($categoryId, Request $request)
@@ -64,6 +84,44 @@ class CategoryController extends Controller
         $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection, false);
 
         return ResourceCollection::jsonResponse($products);
+    }
+
+    /**
+     * @param int           $categoryId
+     * @param UpdateRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function update($categoryId, UpdateRequest $request)
+    {
+        /** @var Shop $shop */
+        $shop = $request->get('shop');
+        /** @var Category $category */
+        $category = $shop->categories()->findOrFail($categoryId);
+
+        $name        = $request->input('name');
+        $description = $request->input('description');
+        $isVisible   = $request->input('is_visible');
+
+        $photoFile          = $request->file('photo', null);
+        $photoName          = $request->input('photo', null);
+        $photo              = null;
+        if (isset($photoFile)) {
+            $photo = uploadFile($photoFile, 'category');
+            if (!$photo) {
+                throw new UnableToSaveFileException();
+            }
+        } else if ($photoName === $category->photo) {
+            $photo = $photoName;
+        }
+
+
+        $categoryRepository = new CategoryRepository($category);
+        $categoryRepository->update($name, $description, $isVisible, $photo);
+
+        ShopMenuUpdated::dispatch($shop->id);
+
+        return Resource::jsonResponse($category);
     }
 
     /**

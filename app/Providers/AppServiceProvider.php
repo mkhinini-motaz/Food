@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Rules\Translatable;
 use App\Support\FirebaseMessagingClient;
 use App\Support\MessagingClientInterface;
 use App\Support\OrangeSmsSender;
@@ -33,6 +34,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \Validator::extend('translatable', function ($attribute, $value, $parameters, $validator) {
+            $langKeys = [ 'en', 'fr', 'tnfr', 'tnar', 'ar' ];
+            foreach ($langKeys as $lang) {
+                if (! isset($value[$lang])) {
+                    return false;
+                }
+            }
+            return true;
+        });
         //
     }
 }

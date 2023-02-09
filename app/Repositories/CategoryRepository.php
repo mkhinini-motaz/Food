@@ -106,4 +106,20 @@ class CategoryRepository
         $this->category->is_visible = false;
         $this->category->save();
     }
+
+    /**
+     * @param string $name
+     * @param string $description
+     * @param bool   $isVisible
+     * @param string $photo
+     */
+    public function update($name, $description, $isVisible, $photo)
+    {
+        $this->category->name = $name;
+        $this->category->description = $description;
+        $this->category->is_visible = $isVisible;
+        $this->category->photo = $photo;
+
+        $this->category->save();
+    }
 }

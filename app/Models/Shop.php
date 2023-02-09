@@ -309,7 +309,7 @@ class Shop extends Model
      */
     public function tapActivity(ActivityLog $activityLog, string $eventName)
     {
-        $activityLog->shop_id = $this->shop_id;
+        $activityLog->shop_id = $this->id;
     }
 
     /**

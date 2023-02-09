@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Support\Model;
 
+use App\Support\LogsActivity;
 use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Category extends Model
 {
-    use HasFactory, HasTranslations, SoftDeletes;
+    use HasFactory, HasTranslations, SoftDeletes, LogsActivity;
 
     protected $dateFormat = 'U';
 
@@ -95,5 +95,16 @@ class Category extends Model
                 }
             }
         ]);
+    }
+
+    /**
+     * Appends additional data to the activity log
+     *
+     * @param ActivityLog $activityLog
+     * @param string      $eventName
+     */
+    public function tapActivity(ActivityLog $activityLog, string $eventName)
+    {
+        $activityLog->shop_id = $this->shop_id;
     }
 }

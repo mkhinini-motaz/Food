@@ -2,6 +2,88 @@
 
 namespace App\Support\Helpers;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+
+/**
+ * @param UploadedFile $file
+ * @param string       $type
+ * @param bool         $storage
+ *
+ * @return null|string
+ */
+function uploadFile(UploadedFile $file, $type = 'default')
+{
+    if (! $file->isValid()) {
+        \Log::error("uploadFile error : file is not valid");
+        return null;
+    }
+
+    $customString = time();
+    $uploadAttributes = config("mimetypes.$type");
+    $path = config("paths.$type");
+    if (Str::contains($path, '%s')) {
+        $path = str_replace('%s', substr($customString, -1) . '/' . $customString, $path);
+    }
+    $storagePath = $path;
+
+
+    $mimeType = $file->getMimeType();
+    if (! isset($uploadAttributes[$mimeType])) {
+        \Log::error('File mime type not found. Type :" ' . $type . ' " for mimetype :" ' . $mimeType . ' "');
+        return null;
+    }
+
+    $extension = $uploadAttributes[$mimeType];
+    $name = Str::random(10) . '_' . time();
+    $fullName = $name . '.' . $extension;
+
+    if (! $file->move($storagePath, $fullName)) {
+        return null;
+    }
+
+    if (isset($uploadAttributes['size'])) {
+        $dimension = explode('x', $uploadAttributes['size']);
+        if (count($dimension) == 2) {
+            $image = \Image::make($storagePath . '/' . $fullName);
+            $image->resize($dimension[0], null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($storagePath . '/' . $fullName);
+            unset($image);
+        }
+    }
+
+    if (isset($uploadAttributes['max_size'])) {
+        $dimension = explode('x', $uploadAttributes['max_size']);
+        if (count($dimension) == 2) {
+            $image = \Image::make($storagePath . '/' . $fullName);
+            if ($dimension[0] < $image->getWidth() || $dimension[1] < $image->getHeight()) {
+                $useWidth = ($image->getWidth() / $dimension[0]) > ($image->getHeight() / $dimension[1]);
+                $image->resize($useWidth ? $dimension[0] : null, $useWidth ? null : $dimension[1], function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($storagePath . '/' . $fullName);
+            }
+            unset($image);
+        }
+    }
+
+    if (isset($uploadAttributes['thumbnails'])) {
+        foreach ($uploadAttributes['thumbnails'] as $suffix => $size) {
+            $dimension = explode('x', $size);
+            if (count($dimension) != 2) {
+                continue;
+            }
+            $image = \Image::make($storagePath . '/' . $fullName);
+            $image->resize($dimension[0], null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($storagePath . '/' . $name . '_' . $suffix . '.' . $extension);
+        }
+    }
+
+\Log::info('File : ' . $path . '/' . $fullName);
+    return $path . '/' . $fullName;
+}
+
 /**
  * Query builder helper for the Like operator
  *
@@ -246,6 +328,33 @@ function strToDate(string $str, string $date)
 function formatMoneyLessThanMillion($money)
 {
     return substr($money, 0, -3) . ',' . substr($money, -3, 3);
+}
+
+/**
+ * Calculates number of minutes needed for a scooter to traverse a distance
+ *
+ * @param int $distance in meters
+ *
+ * @return int in minutes
+ */
+function timeToTravelForScooter($distance)
+{
+    return timeToTravel(25, $distance);
+}
+
+/**
+ * Calculates number of minutes needed to traverse a distance fo a given average speed
+ *
+ * @param int $averageSpeed in km/h
+ * @param int $distance in meters
+ *
+ * @return int in minutes
+ */
+function timeToTravel($averageSpeed, $distance)
+{
+    $speedMetersPerMinute = $averageSpeed * 16.667;
+
+    return (int) round($distance / ($speedMetersPerMinute));
 }
 
 /**
