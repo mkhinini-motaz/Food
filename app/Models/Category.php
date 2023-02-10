@@ -98,13 +98,9 @@ class Category extends Model
     }
 
     /**
-     * Appends additional data to the activity log
-     *
-     * @param ActivityLog $activityLog
-     * @param string      $eventName
      */
-    public function tapActivity(ActivityLog $activityLog, string $eventName)
+    public function getShopId()
     {
-        $activityLog->shop_id = $this->shop_id;
+        return $this->shop_id;
     }
 }
