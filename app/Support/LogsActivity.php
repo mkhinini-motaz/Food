@@ -41,6 +41,10 @@ trait LogsActivity
      */
     public function removeUnchangedTranslationValues(ActivityLog $activityLog)
     {
+        if (! method_exists($this, 'isTranslatableAttribute')) {
+            return;
+        }
+
         $attributesValues = $activityLog->properties['attributes'];
         $oldValues = $activityLog->properties['old'];
         $attributes = [];
