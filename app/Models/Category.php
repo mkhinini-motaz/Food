@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Support\Model;
 
 use App\Support\LogsActivity;
-use Spatie\Translatable\HasTranslations;
+use App\Support\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

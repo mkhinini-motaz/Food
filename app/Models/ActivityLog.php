@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\DoesntConvertDates;
 use Closure;
 use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Collection;
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ActivityLog extends Activity
 {
+    use DoesntConvertDates;
     protected $dateFormat = 'U';
 
     const DESCRIPTION_SHOW          = 'show';

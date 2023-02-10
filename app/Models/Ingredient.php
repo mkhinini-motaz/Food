@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Support\Model;
-use Spatie\Translatable\HasTranslations;
+use App\Support\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ingredient extends Model

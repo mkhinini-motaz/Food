@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\HasTranslations;
 use App\Support\Model;
-
+use App\Support\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Product
@@ -48,7 +48,7 @@ use Spatie\Translatable\HasTranslations;
  */
 class Product extends Model
 {
-    use SoftDeletes, HasFactory, HasTranslations;
+    use SoftDeletes, HasFactory, HasTranslations, LogsActivity;
 
     const TYPE_FIXED        = 1;
     const TYPE_WITH_OPTIONS = 2;
@@ -123,5 +123,16 @@ class Product extends Model
     {
         return $this->belongsToMany(Ingredient::class)
             ->withPivot([ 'dose', ]);
+    }
+
+    /**
+     * Appends additional data to the activity log
+     *
+     * @param ActivityLog $activityLog
+     * @param string      $eventName
+     */
+    public function tapActivity(ActivityLog $activityLog, string $eventName)
+    {
+        $activityLog->shop_id = $this->category->shop_id;
     }
 }

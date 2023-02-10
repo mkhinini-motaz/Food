@@ -9,16 +9,15 @@ trait LogsActivity
 {
     use BaseLogsActivity;
 
-    protected static $logAttributes         = [ '*' ];
-    protected static $logAttributesToIgnore = [ 'updated_at'];
-    protected static $logOnlyDirty          = true;
-    protected static $submitEmptyLogs       = false;
-
     /**
      * @return LogOptions
      */
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty()
+            ->logExcept([ 'updated_at'])
+            ->dontSubmitEmptyLogs();
     }
 }
