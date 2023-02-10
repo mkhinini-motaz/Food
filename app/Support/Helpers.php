@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 /**
  * @param UploadedFile $file
  * @param string       $type
- * @param bool         $storage
  *
  * @return null|string
  */
@@ -26,7 +25,6 @@ function uploadFile(UploadedFile $file, $type = 'default')
         $path = str_replace('%s', substr($customString, -1) . '/' . $customString, $path);
     }
     $storagePath = $path;
-
 
     $mimeType = $file->getMimeType();
     if (! isset($uploadAttributes[$mimeType])) {
@@ -80,7 +78,6 @@ function uploadFile(UploadedFile $file, $type = 'default')
         }
     }
 
-\Log::info('File : ' . $path . '/' . $fullName);
     return $path . '/' . $fullName;
 }
 

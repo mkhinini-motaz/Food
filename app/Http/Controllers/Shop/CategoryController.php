@@ -115,7 +115,6 @@ class CategoryController extends Controller
             $photo = $photoName;
         }
 
-
         $categoryRepository = new CategoryRepository($category);
         $categoryRepository->update($name, $description, $isVisible, $photo);
 

@@ -38,4 +38,22 @@ class ProductRepository
         $this->product->is_visible = false;
         $this->product->save();
     }
+
+    /**
+     * @param string      $name
+     * @param string      $description
+     * @param int         $price
+     * @param int         $isVisible
+     * @param string|null $photo
+     */
+    public function update($name, $description, $price, $isVisible, $photo)
+    {
+        $this->product->name = $name;
+        $this->product->description = $description;
+        $this->product->price = $price;
+        $this->product->is_visible = $isVisible;
+        $this->product->photo = $photo;
+
+        $this->product->save();
+    }
 }
