@@ -36,11 +36,6 @@ class CategoryController extends Controller
 
         $products = $categoryRepository->paginateProducts($page, $perPage, $search, $orderBy, $orderDirection);
 
-        activity()->performedOn($category)
-            ->causedBy(auth()->user())
-            ->tap(ActivityLog::tapShopId($category->shop_id))
-            ->log(ActivityLog::DESCRIPTION_SHOW);
-
         return ResourceCollection::jsonResponse($products);
     }
 

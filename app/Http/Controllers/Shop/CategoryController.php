@@ -139,10 +139,6 @@ class CategoryController extends Controller
         $categoryRepository = new CategoryRepository($category);
         $categoryRepository->makeVisible();
 
-        activity()->performedOn($category)
-            ->causedBy(auth()->user())
-            ->log(ActivityLog::DESCRIPTION_CATEGORY_MAKE_VISIBLE);
-
         ShopMenuUpdated::dispatch($shop->id);
 
         return Resource::jsonResponse($category);
@@ -163,10 +159,6 @@ class CategoryController extends Controller
 
         $categoryRepository = new CategoryRepository($category);
         $categoryRepository->makeInvisible();
-
-        activity()->performedOn($category)
-            ->causedBy(auth()->user())
-            ->log(ActivityLog::DESCRIPTION_CATEGORY_MAKE_INVISIBLE);
 
         ShopMenuUpdated::dispatch($shop->id);
 

@@ -88,6 +88,7 @@ class ShopOrderRepository
         $this->order = $order;
         $choiceIds   = $this->order->choices()->pluck('id');
 
+        // TODO: try catch rollback
         \DB::table('choice_option')
             ->whereIn('choice_id', $choiceIds)
             ->delete();

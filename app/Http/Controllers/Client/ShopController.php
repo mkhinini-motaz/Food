@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Resources\ResourceCollection;
 use App\Http\Resources\ShopResource;
+use App\Models\ActivityLog;
 use App\Models\Shop;
 use App\Repositories\ShopRepository;
 use App\Http\Controllers\Controller;
@@ -61,6 +62,9 @@ class ShopController extends Controller
         $search = $request->input('search', null);
 
         $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
+
+        activity()->performedOn($shop)
+            ->log(ActivityLog::DESCRIPTION_SHOW);
 
         return ResourceCollection::jsonResponse($categories);
     }

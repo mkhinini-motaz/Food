@@ -115,10 +115,6 @@ class ProductController extends Controller
         $productRepository = new ProductRepository($product);
         $productRepository->makeVisible();
 
-        activity()->performedOn($product)
-            ->causedBy(auth()->user())
-            ->log(ActivityLog::DESCRIPTION_PRODUCT_MAKE_VISIBLE);
-
         ShopMenuUpdated::dispatch($shop->id);
 
         return Resource::jsonResponse($product);
@@ -139,10 +135,6 @@ class ProductController extends Controller
 
         $productRepository = new ProductRepository($product);
         $productRepository->makeInvisible();
-
-        activity()->performedOn($product)
-            ->causedBy(auth()->user())
-            ->log(ActivityLog::DESCRIPTION_PRODUCT_MAKE_INVISIBLE);
 
         ShopMenuUpdated::dispatch($shop->id);
 
