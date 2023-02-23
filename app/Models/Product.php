@@ -52,7 +52,8 @@ class Product extends Model
 
     const TYPE_FIXED        = 1;
     const TYPE_WITH_OPTIONS = 2;
-    const TYPES             = [ self::TYPE_FIXED, self::TYPE_WITH_OPTIONS, ];
+    const TYPE_WEIGHTABLE   = 3;
+    const TYPES             = [ self::TYPE_FIXED, self::TYPE_WITH_OPTIONS, self::TYPE_WEIGHTABLE, ];
 
     protected $dateFormat = 'U';
 
