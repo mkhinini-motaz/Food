@@ -64,7 +64,7 @@ class ShopController extends Controller
         $categories = $shopRepository->paginateCategories($page, $perPage, $search, $orderBy, $orderDirection);
 
         activity()->performedOn($shop)
-            ->log(ActivityLog::DESCRIPTION_SHOW);
+            ->log(ActivityLog::DESCRIPTION_CLIENT_HOMEPAGE_SHOW);
 
         return ResourceCollection::jsonResponse($categories);
     }

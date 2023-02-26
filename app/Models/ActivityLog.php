@@ -33,11 +33,11 @@ class ActivityLog extends Activity
     use DoesntConvertDates;
     protected $dateFormat = 'U';
 
-    const DESCRIPTION_SHOW          = 'show';
-    const DESCRIPTION_CREATED       = 'created';
-    const DESCRIPTION_UPDATED       = 'updated';
-    const DESCRIPTION_DELETED       = 'deleted';
-    const DESCRIPTION_FORCE_DELETED = 'force-deleted';
+    const DESCRIPTION_CLIENT_HOMEPAGE_SHOW  = 'client-home-page-show';
+    const DESCRIPTION_CREATED               = 'created';
+    const DESCRIPTION_UPDATED               = 'updated';
+    const DESCRIPTION_DELETED               = 'deleted';
+    const DESCRIPTION_FORCE_DELETED         = 'force-deleted';
 
     // WARNING: when adding a new value, consider translating in front
     const DESCRIPTION_PRODUCT_MAKE_VISIBLE    = 'product-make-visible';
