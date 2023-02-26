@@ -316,15 +316,9 @@ class Shop extends Model
     public function workingHoursForDate(string $dateTime)
     {
         $date = date('d-m-Y', strtotime($dateTime)) . ' ';
-        // TODO: consider creating a schedule model
-        $workingHours = $this->working_hours[date('w', strtotime($dateTime))];
 
-        if (! $workingHours) {
-            return [];
-        }
-
-        $start         = strtotime($date . $workingHours->start);
-        $end           = strtotime($date . $workingHours->end);
+        $start         = strtotime($date . '06:00');
+        $end           = strtotime($date . '04:00');
         $midnight      = strtotime($date . '00:00');
         $dateTimestamp = strtotime($dateTime);
 
