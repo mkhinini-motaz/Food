@@ -4,6 +4,7 @@ namespace Database\Seeders\Shop;
 
 use App\Models\Admin;
 use App\Models\Category;
+use App\Models\Location;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\ShopUser;
@@ -21,7 +22,7 @@ class BoucherieMosbahSeeder extends Seeder
             'domain' => '',
             'service_id' => 3,
             'logo' => '',
-            'is_approved' => 3,
+            'is_approved' => 1,
             'min_order_price' => 3000,
 
             'working_hours' => [
@@ -34,6 +35,8 @@ class BoucherieMosbahSeeder extends Seeder
                 6 => [ 'start' => '07:00', 'end' => '16:00' ],
             ],
         ]);
+
+        $location = Location::factory()->create([ 'name'      => 'Boucherie Mosbah M\'saken', 'shop_id'   => 2, 'latitude'  => 35.732048, 'longitude' => 10.576635,        ]);
 
         ShopUser::factory()->create([
             'first_name' => 'Ahmed',
@@ -128,7 +131,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 30,
+            'price' => 30000,
         ]);
 
         Product::factory()->create([
@@ -151,7 +154,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 27,
+            'price' => 27000,
         ]);
 
         Product::factory()->create([
@@ -174,7 +177,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 22,
+            'price' => 22000,
         ]);
 
         Product::factory()->create([
@@ -197,7 +200,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 26,
+            'price' => 26000,
         ]);
 
         Product::factory()->create([
@@ -220,7 +223,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 22,
+            'price' => 22000,
         ]);
 
         Product::factory()->create([
@@ -243,7 +246,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 30,
+            'price' => 30000,
         ]);
     }
 
@@ -272,7 +275,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 45,
+            'price' => 45000,
         ]);
 
         Product::factory()->create([
@@ -295,7 +298,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 17,
+            'price' => 17000,
         ]);
 
         Product::factory()->create([
@@ -318,7 +321,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 45,
+            'price' => 45000,
         ]);
 
         Product::factory()->create([
@@ -341,7 +344,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 40,
+            'price' => 40000,
         ]);
 
         Product::factory()->create([
@@ -364,7 +367,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 17,
+            'price' => 17000,
         ]);
 
         Product::factory()->create([
@@ -387,7 +390,7 @@ class BoucherieMosbahSeeder extends Seeder
             'type' => Product::TYPE_WEIGHTABLE,
             'order' => $order++,
             'added_loyalty_points' => 3,
-            'price' => 12,
+            'price' => 12000,
         ]);
     }
 }
