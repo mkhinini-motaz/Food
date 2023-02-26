@@ -191,7 +191,11 @@ $price = $productFromDb->price; // TODO: move back to original place
 if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
     $price = GhostChefPriceChangerV2::PRODUCT_PRICES[$product['product_id']];
 }
-            $totalPrice += ($price + $optionsPrice) * $count;
+            if ($productFromDb->type === Product::TYPE_WEIGHTABLE) {
+                $totalPrice += ($price / 1000) * $count;
+            } else {
+                $totalPrice += ($price + $optionsPrice) * $count;
+            }
             $product['product_price'] = $productFromDb->price;
         }
 
