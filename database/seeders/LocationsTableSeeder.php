@@ -14,6 +14,7 @@ class LocationsTableSeeder extends Seeder
     public function run()
     {
         $location = Location::factory()->create([
+            'name'      => 'Ghostchef 1',
             'shop_id'   => 1,
             'latitude'  => 35.731744,
             'longitude' => 10.579082,

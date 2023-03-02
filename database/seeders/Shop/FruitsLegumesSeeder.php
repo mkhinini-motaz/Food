@@ -474,9 +474,9 @@ class FruitsLegumesSeeder extends Seeder
             'name' => [
                 'fr'   => 'Citrouille rouge',
                 'en'   => 'Red pumpkin',
-                'tnfr' => '9ra3 batati',
-                'tnar' => 'قرع بطاطي',
-                'ar'   => 'يقطين بطاطي',
+                'tnfr' => '9ra3 a7mar',
+                'tnar' => 'قرع أحمر',
+                'ar'   => 'يقطين أحمر',
             ],
             'photo' => '',
             'category_id' => $categoryLegumesId,
@@ -522,7 +522,7 @@ class FruitsLegumesSeeder extends Seeder
             'name' => [
                 'fr'   => 'Tomate cerise',
                 'en'   => 'Cherry tomato',
-                'tnfr' => 'Tmatem',
+                'tnfr' => 'Tomate cerise',
                 'tnar' => 'طماطم سيريز',
                 'ar'   => 'طماطم الكرز',
             ],
@@ -893,7 +893,7 @@ class FruitsLegumesSeeder extends Seeder
             'name' => [
                 'fr'   => 'Orange amère',
                 'en'   => 'Bitter orange',
-                'tnfr' => 'Lim chroubou',
+                'tnfr' => 'Lim 9ares',
                 'tnar' => 'ليم قارص',
                 'ar'   => 'برتقال قارص',
             ],
