@@ -27,6 +27,17 @@ class ServicesTableSeeder extends Seeder
 
         Service::factory()->create([
             'name' => [
+                'fr'   => 'Chahia',
+                'en'   => 'Chahia',
+                'tnfr' => 'Chahia',
+                'tnar' => 'شهية',
+                'ar'   => 'شهية',
+            ],
+            'photo' => 'example/service/chahia.png',
+        ]);
+
+        Service::factory()->create([
+            'name' => [
                 'fr'   => 'Épicerie',
                 'en'   => 'Supermarket',
                 'tnfr' => 'Superet',
@@ -38,13 +49,24 @@ class ServicesTableSeeder extends Seeder
 
         Service::factory()->create([
             'name' => [
-                'fr'   => 'Produits frais',
-                'en'   => 'Fresh products',
-                'tnfr' => 'Produits frais',
-                'tnar' => 'برودوي فراي',
-                'ar'   => 'منتجات طازجة',
+                'fr'   => 'Boucherie Mosbah',
+                'en'   => 'Mosbah butcher shop',
+                'tnfr' => 'Boucherie Mosbah',
+                'tnar' => 'مجزرة مصباح',
+                'ar'   => 'مجزرة مصباح',
             ],
-            'photo' => 'example/service/grocery.jpg',
+            'photo' => 'example/service/fresh.jpg',
+        ]);
+
+        Service::factory()->create([
+            'name' => [
+                'fr'   => 'Fruits et légumes Brahem',
+                'en'   => 'Brahem fruits and vegetables',
+                'tnfr' => 'Fruits et légumes Brahem',
+                'tnar' => 'خضر و غلال براهم',
+                'ar'   => 'خضر و غلال براهم',
+            ],
+            'photo' => 'example/service/fresh.jpg',
         ]);
     }
 }
