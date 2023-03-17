@@ -37,7 +37,7 @@ class ProductRepository
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('products.*')
             ->orderBy('shop_id')
-            ->orderBy('order')
+            ->orderBy('products.order')
             ->where('categories.is_visible', '=', 1)
             ->where('products.is_visible', '=', 1)
             ->whereHas('shop', function ($query) { $query->where('is_approved', '=', 1); });
