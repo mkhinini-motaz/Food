@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use function App\Support\Helpers\fieldsLike;
 
 class ProductRepository
 {
@@ -19,6 +20,36 @@ class ProductRepository
     public function __construct(Product $product)
     {
         $this->product = $product;
+    }
+
+    /**
+     * @param string $search
+     * @param array  $productIds
+     */
+    public static function search(string $search = null, array $productIds = [])
+    {
+        if (! isset($search) && (! isset($productIds) || 0 === count($productIds))) {
+            throw new \InvalidArgumentException('At least one param should be set');
+        }
+
+        $products = Product::query()
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->select('products.*')
+            ->orderBy('shop_id')
+            ->orderBy('order')
+            ->where('categories.is_visible', '=', 1)
+            ->where('products.is_visible', '=', 1)
+            ->whereHas('shop', function ($query) { $query->where('is_approved', '=', 1); });
+
+        if (isset($search)) {
+            $products->where(fieldsLike($search, 'products.name', 'categories.name'));
+        }
+
+        if (0 < count($productIds)) {
+            $products->whereIn('products.id', $productIds);
+        }
+
+        return $products->get();
     }
 
     /**

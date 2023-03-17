@@ -8,6 +8,7 @@ use \App\Http\Controllers\Client\OrderController;
 use \App\Http\Controllers\Client\ClientController;
 use \App\Http\Controllers\Client\LoyaltyActionController;
 use \App\Http\Controllers\Client\ServiceController;
+use \App\Http\Controllers\Client\ProductController;
 
 Route::get('/service', [ ServiceController::class, 'index' ])->name('service.index');
 
@@ -15,6 +16,10 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
     Route::get('/', [ CategoryController::class, 'index' ])->name('index');
     Route::get('/{categoryId}', [ CategoryController::class, 'show' ])->name('show');
     Route::get('/{categoryId}/product', [ CategoryController::class, 'product' ])->name('product');
+});
+
+Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    Route::get('/search', [ ProductController::class, 'search' ])->name('search');
 });
 
 Route::group(['prefix' => 'shop', 'as' => 'shop.'], function () {
