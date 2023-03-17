@@ -33,6 +33,7 @@ class ProductRepository
         }
 
         $products = Product::query()
+            ->with('category')
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select('products.*')
             ->orderBy('shop_id')
