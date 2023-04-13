@@ -20,7 +20,7 @@ class ShopResource extends JsonResource
             'name'                  => $this->name,
             'service_area'          => $this->service_area,
 
-            'description'           => $this->service->getTranslations('name'),
+            'description'           => $this->service->getTranslations('name'), // TODO: used in reactnative/ghostclient, must find a better property name
             'photo'                 => $this->service->photo,
             'menu_displayed_lang'   => $this->menu_displayed_lang,
         ];
