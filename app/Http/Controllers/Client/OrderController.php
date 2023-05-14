@@ -52,8 +52,8 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request, SmsSender $smsSender)
     {
-        return response()->json([ 'message' => 'Fermé durant le mois de ramadhan' ], 423);
-        if ((date('H') + 1) < 12 || date('N') == 7) {
+        $currentTime = ((date('H') + 1) . date('i'));
+        if (date('N') == 7 || (date('H') + 1) < 12 || $currentTime > 2230) {
             return response()->json([ 'message' => 'shop:closed' ], 423);
         }
 
