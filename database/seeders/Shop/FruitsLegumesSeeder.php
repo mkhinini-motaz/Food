@@ -48,9 +48,9 @@ class FruitsLegumesSeeder extends Seeder
         ]);
 
         $this->categories();
-        $this->productsAgrumes();
         $this->productsFruits();
         $this->productsFruitsTropical();
+        $this->productsAgrumes();
         $this->productsLegumesSurTerre();
         $this->productsLegumesSousTerre();
         $this->productsFeuilles();
@@ -65,19 +65,6 @@ class FruitsLegumesSeeder extends Seeder
         $shopId = Shop::whereName('Fruits légumes Brahem')->first()->id;
 
         $order = 1;
-        Category::factory()->create([
-            'name' => [
-                'fr'   => 'Agrumes',
-                'en'   => 'Citrus',
-                'tnfr' => 'Bordgen',
-                'tnar' => 'بردجان',
-                'ar'   => 'حمضيات',
-            ],
-            'photo' => '',
-            'is_visible' => 1,
-            'shop_id' => $shopId,
-            'order' => $order++,
-        ]);
 
         Category::factory()->create([
             'name' => [
@@ -100,6 +87,20 @@ class FruitsLegumesSeeder extends Seeder
                 'tnfr' => 'Ghalla tropical',
                 'tnar' => 'غلة تروبيكال',
                 'ar'   => 'غلال استوائية',
+            ],
+            'photo' => '',
+            'is_visible' => 1,
+            'shop_id' => $shopId,
+            'order' => $order++,
+        ]);
+
+        Category::factory()->create([
+            'name' => [
+                'fr'   => 'Agrumes',
+                'en'   => 'Citrus',
+                'tnfr' => 'Bordgen',
+                'tnar' => 'بردجان',
+                'ar'   => 'حمضيات',
             ],
             'photo' => '',
             'is_visible' => 1,
