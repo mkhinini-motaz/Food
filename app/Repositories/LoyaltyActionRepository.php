@@ -71,12 +71,32 @@ class LoyaltyActionRepository
      */
     public static function createTypePromoCodeBought(Client $client, PromoCodeShopItem $promoCodeShopItem)
     {
-
         $loyaltyAction = new LoyaltyAction();
 
         $loyaltyAction->type            = LoyaltyAction::TYPE_PROMO_CODE_BOUGHT;
         $loyaltyAction->client_id       = $client->id;
         $loyaltyAction->points_rewarded = -$promoCodeShopItem->points;
+
+        $loyaltyAction->save();
+
+        self::updateClientLoyaltyPointsCount($client, $loyaltyAction);
+
+        return $loyaltyAction;
+    }
+
+    /**
+     * @param Client $client
+     * @param int    $awardedPoints
+     *
+     * @return LoyaltyAction
+     */
+    public static function createTypeLoyaltyBonus(Client $client, int $awardedPoints)
+    {
+        $loyaltyAction = new LoyaltyAction();
+
+        $loyaltyAction->type            = LoyaltyAction::TYPE_LOYALTY_BONUS;
+        $loyaltyAction->client_id       = $client->id;
+        $loyaltyAction->points_rewarded = $awardedPoints;
 
         $loyaltyAction->save();
 
