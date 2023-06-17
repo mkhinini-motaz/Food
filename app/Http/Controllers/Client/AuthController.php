@@ -10,7 +10,6 @@ use App\Repositories\ClientRepository;
 use App\Http\Requests\Client\RegisterRequest;
 use App\Http\Requests\Client\ProfileUpdateRequest;
 use App\Http\Resources\ClientResource;
-use App\Http\Resources\Resource;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -130,7 +129,10 @@ class AuthController extends Controller
         $clientRepository = new ClientRepository($client);
         $clientRepository->updatePassword($password);
 
-        return Resource::jsonResponse($client);
+        $client->load([ 'promoCodes' ]);
+        $client->loadPlatformInfo();
+
+        return (new ClientResource($client))->response();
     }
 
     /**
