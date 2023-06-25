@@ -309,24 +309,49 @@ class Shop extends Model
     }
 
     /**
-     * @param string $dateTime
+     * @return bool
+     */
+    public function isOpenForBusiness()
+    {
+        $workingHours = $this->workingTimestampsForDate(date('d-m-Y H:i'));
+        if (empty($workingHours)) {
+            return false;
+        }
+
+        [ $start, $end ] = $workingHours;
+        $currentTime = time();
+
+        return $currentTime > $start && $end > $currentTime;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotOpenForBusiness()
+    {
+        return ! $this->isOpenForBusiness();
+    }
+
+    /**
+     * @param string $dateTime format 'd-m-Y H:i'
      *
      * @return array
      */
     public function workingHoursForDate(string $dateTime)
     {
-        $date = date('d-m-Y', strtotime($dateTime)) . ' ';
+        $workingHours = get_object_vars($this->working_hours[date('w')]);
+        if (empty($workingHours)) {
+            return [];
+        }
 
-        $start         = strtotime($date . '06:00');
-        $end           = strtotime($date . '04:00');
-        $midnight      = strtotime($date . '00:00');
         $dateTimestamp = strtotime($dateTime);
+        $date          = date('d-m-Y', $dateTimestamp) . ' ';
 
-        if ($end > $midnight && $start > $end) {
-            if (
-                $dateTimestamp > $midnight &&
-                $dateTimestamp < $end
-            ) {
+        $start = strtotime($date . $workingHours['start']);
+        $end   = strtotime($date . $workingHours['end']);
+
+        if ($start > $end) {
+            if ($dateTimestamp < $end) {
                 $start = strtotime('-1 day', $start);
             } else {
                 $end = strtotime('+1 day', $end);

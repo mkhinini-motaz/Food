@@ -52,11 +52,6 @@ class OrderController extends Controller
      */
     public function create(OrderCreateRequest $request, SmsSender $smsSender)
     {
-        $currentTime = ((date('H') + 1) . date('i')); // TODO: replace + 1 with an international timezone fix
-        if (date('N') == 7 || (date('H') + 1) < 12 || $currentTime > 2230) {
-            return response()->json([ 'message' => 'shop:closed' ], 423);
-        }
-
         $type              = $request->input('type', null);
         $products          = $request->input('products');
         $promoCodeId       = $request->input('promo_code_id', null);

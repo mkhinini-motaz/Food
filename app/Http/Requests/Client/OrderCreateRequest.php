@@ -38,9 +38,19 @@ class OrderCreateRequest extends FormRequest
 
         // TODO: max products count
         // TODO: max products value
+        // TODO: handle to_be_delivered_at case
+
+        $this->query->add(['shop' => $shop->isNotOpenForBusiness()]);
 
         return [
-            'type'               => [ 'required', 'in:' . implode(',', Order::TYPES) ],
+            'shop'       => [
+                function($attribute, $shopIsClosed, $fail) {
+                    if ($shopIsClosed) {
+                        $fail('shop:closed');
+                    }
+                }
+            ],
+            'type'               => [ 'required', 'in:' . implode(',', Order::TYPES), ],
             'additional_note'    => [ 'max:190' ],
             'delivery_latitude'  => [ $locationIsRequired, 'between:-90,90' ],
             'delivery_longitude' => [ $locationIsRequired, 'between:-180,180', function($attribute, $value, $fail) use ($deliveryLatitude, $shop, $type) {
