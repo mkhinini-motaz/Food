@@ -133,8 +133,7 @@ class OrderController extends Controller
         /** @var Shop $shop */
         $shop = $request->get('shop');
         /** @var PromoCode $promoCode */
-// TODO: refactor duplicate db query
-        $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
+        $promoCode = PromoCode::whereIsUsable()->find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
 // TODO: make order status as accepted because it was created by shop users
@@ -177,8 +176,7 @@ class OrderController extends Controller
         }
 
         /** @var PromoCode $promoCode */
-// TODO: refactor duplicate db query
-        $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
+        $promoCode = PromoCode::whereIsUsable($order->id)->find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);

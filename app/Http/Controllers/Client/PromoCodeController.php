@@ -21,7 +21,8 @@ class PromoCodeController extends Controller
     public function show($code)
     {
         $code      = strtolower($code);
-        $promoCode = PromoCode::where('code', '=', $code)->firstOrFail();
+        $promoCode = PromoCode::whereCodeIsUsable($code)
+            ->firstOrFail();
 
         return Resource::jsonResponse($promoCode);
     }

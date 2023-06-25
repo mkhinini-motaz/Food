@@ -64,8 +64,8 @@ class OrderController extends Controller
         /** @var Shop $shop */
         $shop = $request->get('shop');
         /** @var PromoCode $promoCode */
-// TODO: duplicate db query
-        $promoCode = ! $promoCodeId || ! PromoCode::promoCodeExistsAndIsUsable($promoCodeId) ? null : PromoCode::find($promoCodeId);
+// TODO: duplicate db query in
+        $promoCode = PromoCode::whereIsUsable()->find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
         $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, $type, auth()->user()->phone, auth()->user(), false, $deliveryFee, $additionalNote, $promoCode); // TODO: dynamic delivery fee

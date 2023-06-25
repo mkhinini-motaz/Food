@@ -57,28 +57,38 @@ class PromoCode extends Model
     }
 
     /**
-     * @param int  $promoCodeId
-     *
-     * @return bool
+     * @param        $query
+     * @param string $code
+     * @param int    $excludedOrderId
      */
-    public static function promoCodeExistsAndIsUsable($promoCodeId)
+    public static function scopeWhereCodeIsUsable($query, $code, $excludedOrderId = null)
     {
-        /** @var PromoCode $promoCode */
-        $promoCode = self::withCount('orders')
-            ->where('expires_at', '>', time())
-            ->find($promoCodeId);
-
-        return isset($promoCode) && ($promoCode->max_usage_count ?? 1) > $promoCode->orders_count;
+        $query->whereIsUsable($excludedOrderId)
+            ->where('code', '=', $code);
     }
 
     /**
-     * @param int $promoCodeId
-     *
-     * @return bool
+     * @param     $query
+     * @param int $excludedOrderId
      */
-    public static function promoCodeDoesntExistsOrIsNotUsable($promoCodeId)
+    public static function scopeWhereIsUsable($query, $excludedOrderId = null)
     {
-        return ! self::promoCodeExistsAndIsUsable($promoCodeId);
+        $whereOrderExcluded = ! $excludedOrderId ? '' : 'WHERE orders.id <> ' . $excludedOrderId . ' ';
+        $query->leftJoin(
+            \DB::raw(
+                '((SELECT promo_code_id, COUNT(promo_code_id) AS orders_count ' .
+                'FROM orders ' .
+                $whereOrderExcluded .
+                'GROUP by promo_code_id ' .
+                ') AS usages )'
+            ),
+            'usages.promo_code_id',
+            '=',
+            'promo_codes.id'
+        )
+            ->selectRaw('promo_codes.*, usages.orders_count')
+            ->whereRaw('COALESCE(max_usage_count, 1) > COALESCE(orders_count, 0)')
+            ->where('expires_at', '>', time());
     }
 
     /**

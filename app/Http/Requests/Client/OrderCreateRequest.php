@@ -75,16 +75,7 @@ class OrderCreateRequest extends FormRequest
                 }
             } ],
 
-            'promo_code_id' => [
-                'integer',
-                function($attribute, $value, $fail) use ($shop) {
-                    if (PromoCode::promoCodeDoesntExistsOrIsNotUsable($value)) {
-                        $fail('promo_code.exists');
-                    }
-
-                }
-            ],
-            // TODO: handle to_be_delivered_at case
+            'promo_code_id' => 'integer',
         ];
     }
 }
