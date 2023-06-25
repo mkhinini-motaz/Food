@@ -337,7 +337,7 @@ class Shop extends Model
      *
      * @return array
      */
-    public function workingHoursForDate(string $dateTime)
+    public function workingTimestampsForDate(string $dateTime)
     {
         $workingHours = get_object_vars($this->working_hours[date('w')]);
         if (empty($workingHours)) {

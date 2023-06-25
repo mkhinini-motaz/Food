@@ -288,7 +288,7 @@ class ShopStatisticsRepository
             ->get()
             ->keyBy('id');
 
-        $workingHours = $this->shop->workingHoursForDate($dateTime); // TODO: missing closed day case
+        $workingHours = $this->shop->workingTimestampsForDate($dateTime); // TODO: missing closed day case
         $ordersRelationForTransporters = ['orders' => function ($query) use ($workingHours) {
             $query->where(columnInPeriod($workingHours, 'orders.created_at'));
         }];
@@ -370,9 +370,9 @@ class ShopStatisticsRepository
      */
     private function ordersMinHour($dateTime)
     {
-        $workingHours1 = $this->shop->workingHoursForDate($dateTime);
-        $workingHours2 = $this->shop->workingHoursForDate(strToDate('-1 day', $dateTime));
-        $workingHours3 = $this->shop->workingHoursForDate(strToDate('-1 week', $dateTime));
+        $workingHours1 = $this->shop->workingTimestampsForDate($dateTime);
+        $workingHours2 = $this->shop->workingTimestampsForDate(strToDate('-1 day', $dateTime));
+        $workingHours3 = $this->shop->workingTimestampsForDate(strToDate('-1 week', $dateTime));
 
         $result = \DB::table('orders')
             ->join('locations', 'locations.id', '=', 'orders.location_id')
@@ -548,7 +548,7 @@ class ShopStatisticsRepository
      */
     private function ordersReportQuery($dateTime)
     {
-        $workingHours = $this->shop->workingHoursForDate($dateTime); // TODO: missing closed day case
+        $workingHours = $this->shop->workingTimestampsForDate($dateTime); // TODO: missing closed day case
 
         return \DB::table('orders')
             ->join('locations', 'locations.id', '=', 'orders.location_id')
@@ -563,7 +563,7 @@ class ShopStatisticsRepository
      */
     private function ingredientsReport($dateTime)
     {
-        $workingHours = $this->shop->workingHoursForDate($dateTime); // TODO: missing closed day case
+        $workingHours = $this->shop->workingTimestampsForDate($dateTime); // TODO: missing closed day case
 
         return \DB::table('ingredients')
             ->join('ingredient_product', 'ingredients.id', '=', 'ingredient_product.ingredient_id')

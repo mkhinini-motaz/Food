@@ -155,7 +155,7 @@ class ShopRepository
             $dateTime = date('d-m-Y H:i');
         }
 
-        $workingHours = $this->shop->workingHoursForDate($dateTime);
+        $workingHours = $this->shop->workingTimestampsForDate($dateTime);
         if (0 === count($workingHours)) {
             return collect();
         }
