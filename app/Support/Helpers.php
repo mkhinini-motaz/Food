@@ -377,7 +377,11 @@ function deliveryFeeForPosition($latitude, $longitude)
 {
     $messadineLimitLat = 35.7342041;
     $messadineLimitLng = 10.5880765;
-    if (distanceFromGhostChef($latitude, $longitude) > 2500 && $latitude >  $messadineLimitLat && $longitude > $messadineLimitLng) {
+    if (
+        distanceFromGhostChef($latitude, $longitude) > 2500 &&
+        $latitude > $messadineLimitLat &&
+        $longitude > $messadineLimitLng
+    ) {
         return 3000;
     }
 
