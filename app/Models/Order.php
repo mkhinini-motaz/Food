@@ -150,6 +150,16 @@ class Order extends Model
     }
 
     /**
+     * @return LoyaltyAction
+     */
+    public function getLoyaltyAction()
+    {
+        return LoyaltyAction::query()
+            ->where('meta', 'LIKE', '%\\\"order_id\\\":' . $this->id . '%')
+            ->first();
+    }
+
+    /**
      * @param Builder $query
      *
      * @return Builder
