@@ -23,6 +23,7 @@ class ShopResource extends JsonResource
             'description'           => $this->service->getTranslations('name'), // TODO: used in reactnative/ghostclient, must find a better property name
             'photo'                 => $this->service->photo,
             'menu_displayed_lang'   => $this->menu_displayed_lang,
+            'working_hours_today'   => $this->workingTimestampsForDate(date('d-m-Y H:i')),
         ];
     }
 }
