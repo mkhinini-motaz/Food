@@ -111,6 +111,8 @@ class AuthController extends Controller
 
         $authClient->load([ 'promoCodes' ]);
         $authClient->loadPlatformInfo();
+        $token = auth('client')->login($authClient);
+        $authClient->access_token = $token;
 
         return (new ClientResource($authClient))->response();
     }
@@ -131,6 +133,8 @@ class AuthController extends Controller
 
         $client->load([ 'promoCodes' ]);
         $client->loadPlatformInfo();
+        $token = auth('client')->login($client);
+        $client->access_token = $token;
 
         return (new ClientResource($client))->response();
     }
