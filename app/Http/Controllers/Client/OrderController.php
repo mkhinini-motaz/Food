@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Events\OrderEvent;
+use App\Exceptions\SmsServiceNotAvailableException;
 use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
 use App\Models\Order;
@@ -74,7 +75,11 @@ class OrderController extends Controller
 
         $message = 'Order : ' . substr((string) $order->id, -2) . ' - ' .
             date('H:i', $order->created_at + 3600); // TODO: temporary fix for lack of timezone support
-        $smsSender->sendMessage('+21655668393', $message); // TODO: temporary until push notification is implemented
+        try {
+            $smsSender->sendMessage('+21628852800', $message); // TODO: temporary until push notification is implemented
+        } catch (SmsServiceNotAvailableException $exception) {
+            \Log::error('SmsServiceNotAvailableException');
+        }
 
         return Resource::jsonResponse($order);
     }
