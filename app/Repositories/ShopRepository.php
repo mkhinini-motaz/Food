@@ -125,7 +125,7 @@ class ShopRepository
         $categories = $this->shop->categories();
 
         if ($withProducts) {
-            $categories->withProducts($onlyVisible, $orderBy, $orderDirection);
+            $categories->withProducts($onlyVisible, $search, $orderBy, $orderDirection);
         }
 
         if ($onlyVisible) {
@@ -133,7 +133,17 @@ class ShopRepository
         }
 
         if (isset($search)) {
-            $categories->where(fieldsLike($search, 'name'));
+            $categories->where(function ($query) use ($search, $onlyVisible, $withProducts) {
+                $query->where(fieldsLike($search, 'name'));
+                if ($withProducts) {
+                    $query->orWhereHas('products', function ($productsQuery) use ($search, $onlyVisible) {
+                        if ($onlyVisible) {
+                            $productsQuery->where('is_visible', '=', 1);
+                        }
+                        $productsQuery->where(fieldsLike($search, 'name'));
+                    });
+                }
+            });
         }
 
         if (isset($orderBy) && isset($orderDirection)) {

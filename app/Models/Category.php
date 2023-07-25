@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use function App\Support\Helpers\fieldsLike;
 
 /**
  * Class Category
@@ -75,19 +76,24 @@ class Category extends Model
     /**
      * @param Builder $query
      * @param bool    $onlyVisible
+     * @param string  $search
      * @param string  $orderBy
      * @param string  $orderDirection
      *
      * @return Builder
      */
-    public function scopeWithProducts($query, $onlyVisible, $orderBy, $orderDirection)
+    public function scopeWithProducts($query, $onlyVisible, $search, $orderBy, $orderDirection)
     {
         return $query->with([
             'products.category',
-            'products' => function($subQuery) use ($onlyVisible, $orderBy, $orderDirection) {
+            'products' => function($subQuery) use ($onlyVisible, $search, $orderBy, $orderDirection) {
                 $subQuery->with('optionGroups.options');
                 if ($onlyVisible) {
                     $subQuery->where('is_visible', '=', 1);
+                }
+
+                if ($search) {
+                    $subQuery->where(fieldsLike($search, 'name'));
                 }
 
                 if (isset($orderBy) && isset($orderDirection)) {
