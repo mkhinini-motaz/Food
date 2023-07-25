@@ -86,18 +86,23 @@ class Category extends Model
     {
         return $query->with([
             'products.category',
-            'products' => function($subQuery) use ($onlyVisible, $search, $orderBy, $orderDirection) {
-                $subQuery->with('optionGroups.options');
+            'products' => function($productQuery) use ($onlyVisible, $search, $orderBy, $orderDirection) {
+                $productQuery->with('optionGroups.options');
                 if ($onlyVisible) {
-                    $subQuery->where('is_visible', '=', 1);
+                    $productQuery->where('is_visible', '=', 1);
                 }
 
                 if ($search) {
-                    $subQuery->where(fieldsLike($search, 'name'));
+                    $productQuery->where(function ($subQuery) use ($search) {
+                        $subQuery->where(fieldsLike($search, 'name'))
+                            ->orWhereHas('category', function ($categoryQuery) use ($search) {
+                                $categoryQuery->where(fieldsLike($search, 'name'));
+                            });
+                    });
                 }
 
                 if (isset($orderBy) && isset($orderDirection)) {
-                    $subQuery->orderBy($orderBy, $orderDirection);
+                    $productQuery->orderBy($orderBy, $orderDirection);
                 }
             }
         ]);
