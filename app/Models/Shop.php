@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string average_ready_minutes
  * @property bool   is_approved
  * @property bool   signup_is_open
- * @property array  service_area
  * @property array  working_hours
  * @property string domain
  * @property array  loyalty_action_rewards
