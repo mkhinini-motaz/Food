@@ -42,6 +42,9 @@ class ClientResource extends JsonResource
             $this->mergeWhen($this->promoCodeValues, function() {
                 return [ 'promoCodeValues' => PromoCodeShopItemResource::collection($this->promoCodeValues) ];
             }),
+            $this->mergeWhen($this->serviceArea, function() {
+                return [ 'serviceArea' => new ServiceAreaResource($this->serviceArea) ];
+            }),
             $this->mergeWhen($this->access_token, function() {
                 return [ 'access_token' => $this->access_token ];
             }),

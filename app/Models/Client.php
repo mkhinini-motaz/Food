@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Support\Authenticatable;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -111,6 +112,7 @@ class Client extends Authenticatable
     {
         $this->shops = Shop::isApproved()->get();
         $this->promoCodeValues = PromoCodeShopItem::where('currency', '=', 'TND')->get();
+        $this->serviceArea = ServiceArea::find(1); // TODO: make it dynamic
     }
 
     /**
