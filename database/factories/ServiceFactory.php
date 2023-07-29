@@ -30,6 +30,7 @@ class ServiceFactory extends Factory
                 'ar'   => $this->faker->word,
             ],
             'photo' => $this->faker->imageUrl(),
+            'service_area_id' => 1,
         ];
     }
 }

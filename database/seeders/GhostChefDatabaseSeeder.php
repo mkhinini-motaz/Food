@@ -23,6 +23,7 @@ class GhostChefDatabaseSeeder extends Seeder
         $this->call(ProductsTableSeeder::class);
         $this->call(OptionGroupsTableSeeder::class);
         $this->call(OptionsTableSeeder::class);
+        $this->call(ServiceAreaSeeder::class);
 //        $this->call(ClientsTableSeeder::class);
 //        $this->call(PromoCodesTableSeeder::class);
 //        $this->call(OrdersTableSeeder::class);

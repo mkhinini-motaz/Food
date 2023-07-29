@@ -23,6 +23,7 @@ class ServicesTableSeeder extends Seeder
                 'ar'   => 'مطعم',
             ],
             'photo' => 'example/service/food.jpg',
+            'service_area_id' => 1,
         ]);
 
         Service::factory()->create([
@@ -34,6 +35,7 @@ class ServicesTableSeeder extends Seeder
                 'ar'   => 'شهية',
             ],
             'photo' => 'example/service/chahia.png',
+            'service_area_id' => 1,
         ]);
 
         Service::factory()->create([
@@ -45,6 +47,7 @@ class ServicesTableSeeder extends Seeder
                 'ar'   => 'سوبر ماركت',
             ],
             'photo' => 'example/service/grocery.jpg',
+            'service_area_id' => 1,
         ]);
 
         Service::factory()->create([
@@ -56,6 +59,7 @@ class ServicesTableSeeder extends Seeder
                 'ar'   => 'مجزرة مصباح',
             ],
             'photo' => 'example/service/fresh.jpg',
+            'service_area_id' => 1,
         ]);
 
         Service::factory()->create([
@@ -67,6 +71,7 @@ class ServicesTableSeeder extends Seeder
                 'ar'   => 'خضر و غلال براهم',
             ],
             'photo' => 'example/service/fresh.jpg',
+            'service_area_id' => 1,
         ]);
     }
 }
