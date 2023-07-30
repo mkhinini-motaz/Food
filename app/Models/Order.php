@@ -30,7 +30,7 @@ use function App\Support\Helpers\formatMoneyLessThanMillion;
  * @property bool   is_payed
  *
  * @property int client_id
- * @property int location_id
+ * @property int shop_id
  * @property int promo_code_id
  * @property int transporter_id
  * @property int shop_transporter_id
@@ -40,7 +40,7 @@ use function App\Support\Helpers\formatMoneyLessThanMillion;
  * @property int deleted_at
  *
  * @property Client      client
- * @property Location    location
+ * @property Shop        shop
  * @property PromoCode   promo_code
  * @property Transporter transporter
  * @property ShopUser    shopTransporter
@@ -112,9 +112,9 @@ class Order extends Model
     /**
      * @return BelongsTo
      */
-    public function location()
+    public function shop()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsTo(Shop::class);
     }
 
     /**
@@ -286,7 +286,7 @@ class Order extends Model
      */
     public function getShopId()
     {
-        return $this->location->shop_id;
+        return $this->shop_id;
     }
 
     /**

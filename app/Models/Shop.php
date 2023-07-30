@@ -9,7 +9,6 @@ use App\Support\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use function App\Support\Helpers\pointInPolygon;
 
-use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,7 +48,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Collection categories
  * @property Collection options
  * @property Collection shopTransporters
- * @property Collection locations
  * @property Collection orders
  * @property Collection products
  * @property Collection activityLogs
@@ -65,7 +63,7 @@ class Shop extends Model
     // TODO: chicken
     // TODO: hardware
     // TODO: services
-    const TYPES = [ self::TYPE_RESTAURANT ];
+    const TYPES = [ self::TYPE_RESTAURANT ]; // TODO: maybe remove all types since we have services
 
     const IS_APPROVED_FALSE = 0;
     const IS_APPROVED_TRUE = 1;
@@ -127,15 +125,15 @@ class Shop extends Model
     }
 
     /**
-     * @return HasManyThrough
+     * @return HasMany
      */
     public function orders()
     {
-        return $this->hasManyThrough(Order::class, Location::class);
+        return $this->hasMany(Order::class);
     }
 
     /**
-     * @return HasManyThrough
+     * @return HasMany
      */
     public function activeOrders()
     {
@@ -163,25 +161,6 @@ class Shop extends Model
     /**
      * @return HasMany
      */
-    public function locations()
-    {
-        return $this->hasMany(Location::class);
-    }
-
-    /**
-     * @param string $latitude
-     * @param string $longitude
-     *
-     * @return EloquentModel|Location
-     */
-    public function nearestLocation($latitude, $longitude)
-    {
-        return $this->locations()->first(); // TODO: implement
-    }
-
-    /**
-     * @return HasMany
-     */
     public function activityLogs()
     {
         return $this->hasMany(ActivityLog::class);
@@ -195,7 +174,7 @@ class Shop extends Model
      */
     public function locationWithinServiceArea($latitude, $longitude)
     {
-        return pointInPolygon([ $latitude, $longitude ], $this->service_area);
+        return pointInPolygon([ $latitude, $longitude ], $this->service->serviceArea->area);
     }
 
     /**

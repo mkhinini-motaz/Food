@@ -115,12 +115,10 @@ class ShopOrderRepository
      */
     public function hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
     {
-        $location = $this->shop->nearestLocation($deliveryLatitude, $deliveryLongitude);
-
         $this->order->type               = $type;
         $this->order->source             = $source;
         $this->order->is_payed           = $isPayed;
-        $this->order->location_id        = $location->id;
+        $this->order->shop_id            = $this->shop->id;
         $this->order->delivery_fee       = $deliveryFee;
         $this->order->additional_note    = $additionalNote;
         $this->order->associated_phone   = $associatedPhone;
