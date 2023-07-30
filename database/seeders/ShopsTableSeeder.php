@@ -19,6 +19,8 @@ class ShopsTableSeeder extends Seeder
             'logo' => 'example/restaurant/logo/ghostchef.svg',
             'is_approved' => 1,
             'min_order_price' => 3000,
+            'latitude'  => 35.731744,
+            'longitude' => 10.579082,
 
             'working_hours' => [
                 0 => [ ],

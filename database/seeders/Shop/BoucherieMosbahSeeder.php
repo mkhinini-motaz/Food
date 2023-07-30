@@ -24,6 +24,8 @@ class BoucherieMosbahSeeder extends Seeder
             'logo' => '',
             'is_approved' => 1,
             'min_order_price' => 3000,
+            'latitude'  => 35.732048,
+            'longitude' => 10.576635,
 
             'working_hours' => [
                 0 => [ 'start' => '07:00', 'end' => '16:00' ],

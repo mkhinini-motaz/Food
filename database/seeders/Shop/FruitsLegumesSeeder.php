@@ -24,6 +24,8 @@ class FruitsLegumesSeeder extends Seeder
             'logo' => '',
             'is_approved' => 1,
             'min_order_price' => 3000,
+            'latitude'  => 35.7351956,
+            'longitude' => 10.5796655,
 
             'working_hours' => [
                 0 => [ 'start' => '07:00', 'end' => '22:00' ],
