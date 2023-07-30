@@ -308,8 +308,7 @@ class ShopStatisticsRepository
     public function ordersTimeReport($dateTime)
     {
         return \DB::table('orders')
-            ->join('locations', 'locations.id', '=', 'orders.location_id')
-            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->selectRaw('SUM(orders.total_price) AS total_price, date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
             ->groupBy('date')
             ->orderBy('orders.created_at')
@@ -328,9 +327,8 @@ class ShopStatisticsRepository
     {
         $report = \DB::table('choices')
             ->join('orders', 'orders.id', '=', 'choices.order_id')
-            ->join('locations', 'locations.id', '=', 'orders.location_id')
             ->join('products', 'products.id', '=', 'choices.product_id')
-            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->selectRaw('products.category_id AS id, SUM(product_count) AS count, SUM(product_price * product_count) AS sum_price, date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
             ->groupBy('date', 'products.category_id')
             ->orderBy('orders.created_at')
@@ -375,8 +373,7 @@ class ShopStatisticsRepository
         $workingHours3 = $this->shop->workingTimestampsForDate(strToDate('-1 week', $dateTime));
 
         $result = \DB::table('orders')
-            ->join('locations', 'locations.id', '=', 'orders.location_id')
-            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->where(function($query) use ($workingHours3, $workingHours2, $workingHours1) {
                 $query->orWhere(columnInPeriod($workingHours1, 'orders.created_at'))
                     ->orWhere(columnInPeriod($workingHours2, 'orders.created_at'))
@@ -524,8 +521,7 @@ class ShopStatisticsRepository
         $hours = [$periodStart, $periodEnd];
 
         $numberOfDays = \DB::table('orders')
-            ->join('locations', 'locations.id', '=', 'orders.location_id')
-            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($hours, 'orders.created_at'))
             ->selectRaw('date_format(FROM_UNIXTIME(orders.created_at),\'%Y-%m-%d\') AS date')
             ->groupBy('date')
@@ -533,8 +529,7 @@ class ShopStatisticsRepository
             ->count();
 
         return \DB::table('orders')
-            ->join('locations', 'locations.id', '=', 'orders.location_id')
-            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($hours, 'orders.created_at'))
             ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->selectRaw("SUM(total_price) DIV $numberOfDays AS total_price, COUNT(*) DIV $numberOfDays AS count, AVG(total_price) AS avg_total_price")
@@ -551,8 +546,7 @@ class ShopStatisticsRepository
         $workingHours = $this->shop->workingTimestampsForDate($dateTime); // TODO: missing closed day case
 
         return \DB::table('orders')
-            ->join('locations', 'locations.id', '=', 'orders.location_id')
-            ->where('locations.shop_id', '=', $this->shop->id)
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($workingHours, 'orders.created_at'));
     }
 
