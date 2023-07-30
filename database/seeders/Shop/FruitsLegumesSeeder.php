@@ -39,9 +39,9 @@ class FruitsLegumesSeeder extends Seeder
         ]);
 
         ShopUser::factory()->create([
-            'first_name' => 'Brahem',
+            'first_name' => 'Amine',
             'last_name' => 'Brahem',
-            'phone' => '+21623456789',
+            'phone' => '+21697660259',
             'password' => bcrypt('azerty'),
             'role' => ShopUser::ROLE_OWNER,
             'shop_id' => $shop->id,
