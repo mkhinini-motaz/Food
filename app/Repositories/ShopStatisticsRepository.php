@@ -562,6 +562,8 @@ class ShopStatisticsRepository
         return \DB::table('ingredients')
             ->join('ingredient_product', 'ingredients.id', '=', 'ingredient_product.ingredient_id')
             ->join('choices', 'ingredient_product.product_id', '=', 'choices.product_id')
+            ->join('orders', 'choices.order_id', '=', 'orders.id')
+            ->where('orders.shop_id', '=', $this->shop->id)
             ->where(columnInPeriod($workingHours, 'choices.created_at'))
             ->groupBy('ingredients.name', 'ingredients.dose_unit')
             ->selectRaw('ingredients.name, ingredients.dose_unit, SUM(choices.product_count * ingredient_product.dose) AS dose_sum')
