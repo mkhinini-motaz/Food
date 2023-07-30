@@ -36,8 +36,6 @@ class BoucherieMosbahSeeder extends Seeder
             ],
         ]);
 
-        $location = Location::factory()->create([ 'name'      => 'Boucherie Mosbah M\'saken', 'shop_id'   => 2, 'latitude'  => 35.732048, 'longitude' => 10.576635,        ]);
-
         ShopUser::factory()->create([
             'first_name' => 'Ahmed',
             'last_name' => 'Mosbah',

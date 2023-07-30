@@ -36,8 +36,6 @@ class FruitsLegumesSeeder extends Seeder
             ],
         ]);
 
-        $location = Location::factory()->create([ 'name' => 'Fruits légumes Brahem M\'saken', 'shop_id'   => 3, 'latitude'  => 35.7351956, 'longitude' => 10.5796655, ]);
-
         ShopUser::factory()->create([
             'first_name' => 'Brahem',
             'last_name' => 'Brahem',
