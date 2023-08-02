@@ -33,7 +33,7 @@ class OrderController extends Controller
         $clientRepository = new ClientRepository(auth()->user());
 
         $page = $request->input('page', 1);
-        $perPage = $request->input('perPage', 20);
+        $perPage = $request->input('perPage', 50);
         $orderBy = $request->input('orderBy', 'created_at');
         $orderDirection = $request->input('orderDirection', 'desc');
 
