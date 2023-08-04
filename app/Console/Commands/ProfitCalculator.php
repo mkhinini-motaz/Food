@@ -57,28 +57,34 @@ class ProfitCalculator extends Command
         $output = [
             'profit Delivery / Day' => $profitDelivery['day'],
             'expenses Delivery / Day' => $costDelivery['day'],
+            '--------------',
             'profit Service Fee / Day' => $profitServiceFee['day'],
             'expenses Service Fee / Day' => $costServiceFee['day'],
-            'profit Partner / Day' => $profitPartner['day'],
             '--------------',
+            'profit Partner / Day' => $profitPartner['day'],
+            '-------------------------',
             'profit Total / Day' => $profitTotal['day'],
             'expenses Total / Day' => $costTotal['day'],
             "---------------------------------------------\n",
             'profit Delivery / Month' => $profitDelivery['month'],
             'expenses Delivery / Month' => $costDelivery['month'],
+            '--------------',
             'profit Service Fee / Month' => $profitServiceFee['month'],
             'expenses Service Fee / Month' => $costServiceFee['month'],
-            'profit Partner / Month' => $profitPartner['month'],
             '--------------',
+            'profit Partner / Month' => $profitPartner['month'],
+            '-------------------------',
             'profit Total / Month' => $profitTotal['month'],
             'expenses Total / Month' => $costTotal['month'],
             "---------------------------------------------\n",
             'profit Delivery / Year' => $profitDelivery['year'],
             'expenses Delivery / Year' => $costDelivery['year'],
+            '--------------',
             'profit Service Fee / Year' => $profitServiceFee['year'],
             'expenses Service Fee / Year' => $costServiceFee['year'],
-            'profit Partner / Year' => $profitPartner['year'],
             '--------------',
+            'profit Partner / Year' => $profitPartner['year'],
+            "---------------------------------------------\n",
             'profit Total / Year' => $profitTotal['year'],
             'expenses Total / Year' => $costTotal['year'],
         ];
@@ -90,10 +96,10 @@ class ProfitCalculator extends Command
     private function delivery()
     {
         $avgCountDeliveriesPerDay = $this->argument('avg');
-        $transporterPayPerDay = 27000;
+        $transporterPayPerDay = 27_000;
         $fuelPerDelivery = 400;
         $scooterMaintenancePerDelivery = 100;
-        $deliveryPrice = 2000;
+        $deliveryPrice = 2_000;
         $scooterCostPerDelivery = $fuelPerDelivery + $scooterMaintenancePerDelivery;
 
         $deliveryProfit = $deliveryPrice - $scooterCostPerDelivery;
@@ -117,12 +123,12 @@ class ProfitCalculator extends Command
     private function serviceFee()
     {
         $avgCountDeliveriesPerDay = $this->argument('avg');
-        $serviceFeePerDelivery = 500;
+        $serviceFeePerDelivery = 700;
         $profit = $serviceFeePerDelivery * $avgCountDeliveriesPerDay;
 
-        $serverDeployment = round(43900 / self::DAYS_IN_MONTH);
-        $forge = round(36580 / self::DAYS_IN_MONTH);
-        $marketing = round(350000 / self::DAYS_IN_MONTH);
+        $serverDeployment = round(43_900 / self::DAYS_IN_MONTH);
+        $forge = round(36_580 / self::DAYS_IN_MONTH);
+        $marketing = round(250_000 / self::DAYS_IN_MONTH);
         $expenses = $serverDeployment + $forge + $marketing;
 
         return [
@@ -142,7 +148,7 @@ class ProfitCalculator extends Command
     {
         $avgCountDeliveriesPerDay = $this->argument('avg');
         $partnerMargin = 0.08;
-        $orderAvgPrice = 15000;
+        $orderAvgPrice = 15_000;
         $profit = round($orderAvgPrice * $partnerMargin);
         $profit *= $avgCountDeliveriesPerDay;
 
