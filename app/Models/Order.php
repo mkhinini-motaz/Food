@@ -185,6 +185,7 @@ class Order extends Model
     public function scopeWithNeededRelationsForClient($query)
     {
         return $query->with([
+            'shop',
             'promoCode',
             'choices.options',
             'choices.product.category',
