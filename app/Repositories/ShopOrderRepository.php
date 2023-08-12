@@ -51,6 +51,7 @@ class ShopOrderRepository
      * @param Client         $client
      * @param bool           $isPayed
      * @param int|null       $deliveryFee
+     * @param int            $serviceFee
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
@@ -58,11 +59,11 @@ class ShopOrderRepository
      * @throws OrderException
      * @throws Throwable
      */
-    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
+    public function create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $serviceFee = 0, $additionalNote = null, PromoCode $promoCode = null)
     {
         $this->order = new Order();
 
-        return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
+        return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $serviceFee, $additionalNote, $promoCode);
     }
 
     /**
@@ -76,6 +77,7 @@ class ShopOrderRepository
      * @param Client         $client
      * @param bool           $isPayed
      * @param int|null       $deliveryFee
+     * @param int            $serviceFee
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
@@ -83,7 +85,7 @@ class ShopOrderRepository
      * @throws OrderException
      * @throws Throwable
      */
-    public function update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
+    public function update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $serviceFee = 0, $additionalNote = null, PromoCode $promoCode = null)
     {
         $this->order = $order;
         $choiceIds   = $this->order->choices()->pluck('id');
@@ -93,7 +95,7 @@ class ShopOrderRepository
             ->delete();
         $this->order->choices()->delete();
 
-        return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
+        return $this->hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $serviceFee, $additionalNote, $promoCode);
     }
 
     /**
@@ -106,6 +108,7 @@ class ShopOrderRepository
      * @param Client         $client
      * @param bool           $isPayed
      * @param int|null       $deliveryFee
+     * @param int            $serviceFee
      * @param string|null    $additionalNote
      * @param PromoCode|null $promoCode
      *
@@ -113,13 +116,14 @@ class ShopOrderRepository
      * @throws OrderException
      * @throws Throwable
      */
-    public function hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, $additionalNote = null, PromoCode $promoCode = null)
+    public function hydrate($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, Client $client = null, $isPayed = false, $deliveryFee = null, int $serviceFee = 0, $additionalNote = null, PromoCode $promoCode = null)
     {
         $this->order->type               = $type;
         $this->order->source             = $source;
         $this->order->is_payed           = $isPayed;
         $this->order->shop_id            = $this->shop->id;
         $this->order->delivery_fee       = $deliveryFee;
+        $this->order->service_fee       = $serviceFee;
         $this->order->additional_note    = $additionalNote;
         $this->order->associated_phone   = $associatedPhone;
         $this->order->delivery_latitude  = $deliveryLatitude;

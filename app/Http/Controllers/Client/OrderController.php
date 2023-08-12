@@ -7,6 +7,7 @@ use App\Exceptions\SmsServiceNotAvailableException;
 use App\Http\Resources\Resource;
 use App\Http\Resources\ResourceCollection;
 use App\Models\Order;
+use App\Models\ServiceArea;
 use App\Models\Shop;
 use App\Models\PromoCode;
 use App\Exceptions\OrderException;
@@ -60,7 +61,9 @@ class OrderController extends Controller
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
 
-        $deliveryFee = $type == Order::TYPE_DELIVERY ? deliveryFeeForPosition($deliveryLatitude, $deliveryLongitude) : null;
+        $serviceArea = ServiceArea::find(1); // TODO: make it dynamic
+        $deliveryFee = $type == Order::TYPE_DELIVERY ? $serviceArea->delivery_fee : null;
+        $serviceFee = $serviceArea->service_fee;
 
         /** @var Shop $shop */
         $shop = $request->get('shop');
@@ -69,7 +72,7 @@ class OrderController extends Controller
         $promoCode = PromoCode::whereIsUsable()->find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, $type, auth()->user()->phone, auth()->user(), false, $deliveryFee, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, Order::SOURCE_ONLINE, $type, auth()->user()->phone, auth()->user(), false, $deliveryFee, $serviceFee, $additionalNote, $promoCode);
 
         OrderEvent::dispatch($order->id);
 

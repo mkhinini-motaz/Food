@@ -137,7 +137,7 @@ class OrderController extends Controller
 
         $shopOrderRepo = new ShopOrderRepository($shop);
 // TODO: make order status as accepted because it was created by shop users
-        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->create($products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, 0, $additionalNote, $promoCode); // TODO: make service_fee = 0 dynamic
 
         OrderEvent::dispatch($order->id);
 
@@ -179,7 +179,7 @@ class OrderController extends Controller
         $promoCode = PromoCode::whereIsUsable($order->id)->find($promoCodeId);
 
         $shopOrderRepo = new ShopOrderRepository($shop);
-        $order = $shopOrderRepo->update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $additionalNote, $promoCode);
+        $order = $shopOrderRepo->update($order, $products, $deliveryLatitude, $deliveryLongitude, $source, $type, $associatedPhone, $client, $isPayed, $deliveryFee, $order->service_fee || 0, $additionalNote, $promoCode);
 
         OrderEvent::dispatch($order->id);
 

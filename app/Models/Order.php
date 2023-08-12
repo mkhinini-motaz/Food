@@ -23,6 +23,7 @@ use function App\Support\Helpers\formatMoneyLessThanMillion;
  * @property string delivery_latitude
  * @property string delivery_longitude
  * @property int    delivery_fee
+ * @property int    service_fee
  * @property string additional_note
  * @property int    source
  * @property int    type

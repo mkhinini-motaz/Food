@@ -28,6 +28,7 @@ class OrderResource extends JsonResource
             'delivery_latitude'  => $this->delivery_latitude,
             'delivery_longitude' => $this->delivery_longitude,
             'delivery_fee'       => $this->delivery_fee,
+            'service_fee'       => $this->service_fee,
             'created_at'         => $this->created_at,
 
             'additional_note'    => value(function() {
