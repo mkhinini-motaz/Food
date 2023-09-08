@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(GhostChefDatabaseSeeder::class);
         $this->call(BoucherieMosbahSeeder::class);
         $this->call(FruitsLegumesSeeder::class);
+
+        $this->call(TransportersTableSeeder::class);
 //        $this->call(GhostMarketDatabaseSeeder::class);
     }
 }

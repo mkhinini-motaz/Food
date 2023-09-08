@@ -12,6 +12,12 @@ class AdminsTableSeeder extends Seeder
      */
     public function run()
     {
-        Admin::factory()->count(10)->create();
+         Admin::factory()->create([
+            'first_name' => 'Motaz',
+            'last_name' => 'Mkhinini',
+            'phone' => '+21628852800',
+            'password' => bcrypt('azerty'),
+            'role' => Admin::ROLE_SUPER_ADMIN,
+        ]);
     }
 }
