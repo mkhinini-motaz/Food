@@ -43,6 +43,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapClientRoutes();
             $this->mapShopRoutes();
             $this->mapTransporterRoutes();
+            $this->mapAdminRoutes();
         });
     }
 
@@ -108,7 +109,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "shop api" routes for the application.
+     * Define the "transporter api" routes for the application.
      *
      * These routes are typically stateless.
      *
@@ -122,6 +123,21 @@ class RouteServiceProvider extends ServiceProvider
             ->as('transporter.')
             ->middleware(['api'])
             ->group(base_path('routes/transporter.php'));
+    }
+
+    /**
+     * Define the "admin api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('api/admin')
+            ->as('admin.')
+            ->middleware(['api'])
+            ->group(base_path('routes/admin.php'));
     }
 
     /**

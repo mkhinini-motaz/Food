@@ -51,6 +51,11 @@ return [
             'driver'   => 'jwt',
             'hash'     => false,
         ],
+        'admin' => [
+            'provider' => 'admin',
+            'driver'   => 'jwt',
+            'hash'     => false,
+        ],
     ],
 
     /*
@@ -83,6 +88,10 @@ return [
             'driver' => 'eloquent',
             'model'  => App\Models\Transporter::class,
         ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model'  => App\Models\Admin::class,
+        ],
     ],
 
     /*
@@ -113,6 +122,11 @@ return [
         ],
         'transporter' => [
             'provider' => 'transporter',
+            'table'    => 'password_resets',
+            'expire'   => 60 * 60 * 24 * 30,
+        ],
+        'admin' => [
+            'provider' => 'admin',
             'table'    => 'password_resets',
             'expire'   => 60 * 60 * 24 * 30,
         ],
