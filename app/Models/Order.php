@@ -199,6 +199,25 @@ class Order extends Model
      *
      * @return Builder
      */
+    public function scopeWithNeededRelationsForAdmin($query)
+    {
+        return $query->with([
+            'shop',
+            'client',
+            'promoCode',
+            'transporter',
+            'shopTransporter',
+            'choices.options',
+            'choices.product.category',
+            'choices.product.defaultOptions',
+        ]);
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
     public function scopeWithNeededRelationsForTransporting($query)
     {
         return $query->with([
@@ -296,8 +315,12 @@ class Order extends Model
      */
     public function isTheFirstForClient()
     {
+        $this->load('client.inviterClient');
+
         $client = $this->client;
-        return $client && $client->inviterClient && 1 >= $client->orders()->count();
+        return $client &&
+            $client->inviterClient && // TODO: why inviter client in is_first_order_for_client ??
+            1 >= $client->orders()->count(); // TODO : orders after $client->created_at
     }
 
     /**

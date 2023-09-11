@@ -26,6 +26,26 @@ class OrderRepository
     }
 
     /**
+     * @param $page
+     * @param $perPage
+     * @param $orderBy
+     * @param $orderDirection
+     *
+     * @return mixed
+     */
+    public static function paginateOrders($page, $perPage, $orderBy, $orderDirection)
+    {
+        $orders = Order::query()
+            ->withNeededRelationsForAdmin();
+
+        if (isset($orderBy) && isset($orderDirection)) {
+            $orders->orderBy($orderBy, $orderDirection);
+        }
+
+        return $orders->paginate($perPage, [ '*' ], 'page', $page);
+    }
+
+    /**
      * @param ShopUser $shopTransporter
      */
     public function attachShopTransporter(ShopUser $shopTransporter = null)
