@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ServiceController;
-use \App\Http\Controllers\Client\ProductController;
+use \App\Http\Controllers\Client\ProductController; // ToDO: maybe implement admin own search products api endpoint
 
 Route::post('/login', [ AuthController::class, 'login' ])->name('login');
 
 Route::group([ 'middleware' => [ 'authAdmin'] ], function() {
+    Route::get('/profile', [ AuthController::class, 'profile' ])->name('profile');
+
     Route::group([ 'prefix' => 'order', 'as' => 'order.', ], function () {
         Route::get('/', [ OrderController::class, 'index' ])->name('index');
     });
