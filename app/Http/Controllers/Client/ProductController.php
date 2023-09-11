@@ -18,7 +18,6 @@ class ProductController extends Controller
      */
     public function search(Request $request)
     {
-
         $request->validate([
             'search' => 'required_without:product_ids',
             'product_ids' => 'required_without:search',
