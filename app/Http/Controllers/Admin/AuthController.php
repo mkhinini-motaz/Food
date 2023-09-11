@@ -29,4 +29,18 @@ class AuthController extends Controller
     {
         return BaseAuthController::login('admin', $request);
     }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function deviceId(Request $request)
+    {
+        $admin = auth()->user();
+        $admin->device_id = $request->input('device_id');
+        $admin->save();
+
+        return response()->json();
+    }
 }

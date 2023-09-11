@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string password
  * @property int    role
  * @property string phone
+ * @property string device_id
  *
  * @property int    created_at
  * @property int    updated_at
