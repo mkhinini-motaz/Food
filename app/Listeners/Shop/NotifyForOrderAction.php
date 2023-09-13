@@ -3,9 +3,11 @@
 namespace App\Listeners\Shop;
 
 use App\Events\OrderEvent;
+use App\Models\Admin;
 use App\Models\Order;
 use App\Repositories\OrderRepository;
 
+use App\Support\FirebaseMessagingClient;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Redis;
 
@@ -47,5 +49,12 @@ class NotifyForOrderAction implements ShouldQueue
                 ])
             );
         }
+
+        $admin = Admin::wherePhone('+21628852800')->first(); // TODO: should not directly use phone in code
+        $fcm = new FirebaseMessagingClient();
+        $content = 'Order: ' . substr((string) $order->id, -2) .
+            ' from ' . $order->shop->name .
+            ' for client ' . $order->client->first_name . ' ' . $order->client->last_name;
+        $fcm->pushNotification($admin->device_id, 'alert', 'New order', $content, $content);
     }
 }
