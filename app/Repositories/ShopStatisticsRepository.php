@@ -61,6 +61,9 @@ class ShopStatisticsRepository
             'countAvgThisMonth'     => $this->countAvgThisMonthReport($dateTime),
             'countAvgLastMonth'     => $this->countAvgLastMonthReport($dateTime),
 
+            'shopShareToday'     => $this->sumShopShareReport($dateTime),
+            'shopShareYesterday' => $this->sumShopShareReport(strToDate('-1 day', $dateTime)),
+
             'ordersTime'     => $this->ordersTimeReport($dateTime),
             'categoriesTime' => $this->categoriesTimeReport($dateTime),
 
@@ -89,6 +92,19 @@ class ShopStatisticsRepository
         return $this->ordersReportQuery($dateTime)
             ->whereNotIn('status', Order::CANCELED_STATUSES)
             ->selectRaw('SUM(total_price) AS total_price, AVG(total_price) AS avg_total_price, COUNT(*) AS count')
+            ->first();
+    }
+
+    /**
+     * @param $dateTime
+     *
+     * @return Model|Builder|object|null
+     */
+    public function sumShopShareReport($dateTime)
+    {
+        return $this->ordersReportQuery($dateTime)
+            ->whereNotIn('status', Order::CANCELED_STATUSES)
+            ->selectRaw('SUM(total_price) - SUM(profit) AS shop_share')
             ->first();
     }
 
