@@ -43,6 +43,7 @@ class ProductFactory extends Factory
             'brand'  => null,
             'photo'  => Category::first()->photo,
             'price'  => rand(1, 99) * 10,
+            'profit' => 0,
             'weight' => rand(1, 500) * 100,
             'width'  => rand(1, 50),
             'length' => rand(1, 50),
