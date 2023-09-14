@@ -18,7 +18,6 @@ class CreateOptionOptionGroupTable extends Migration
             $table->unsignedBigInteger('option_group_id');
 
             $table->unsignedTinyInteger('is_selected_by_default')->default(0);
-// TODO: quantity or doze
             $table->unsignedInteger('price')->default(0);
             $table->unsignedSmallInteger('order');
 

@@ -16,7 +16,7 @@ class CreateChoicesTable extends Migration
         Schema::create('choices', function (Blueprint $table) {
             $table->id();
             $table->unsignedSmallInteger('product_count');
-            $table->unsignedSmallInteger('product_price');
+            $table->unsignedSmallInteger('product_price'); // TODO: why unsignedSmallInteger and not integer like product.price
 
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
