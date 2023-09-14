@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
             'first_name'  => 'required|max:190',
             'last_name'   => 'required|max:190',
             'gender'      => 'required|in:' . implode(',', Client::GENDERS),
-            'birth_date'  => 'required|date|date_format:d-m-Y', // TODO: set min date
+            'birth_date'  => 'required|date|date_format:d-m-Y', // TODO: set min date here and on front end
             'password'    => 'required|confirmed|max:190',
             'otp'         => 'required|max:10',
             'invite_code' => 'max:190',

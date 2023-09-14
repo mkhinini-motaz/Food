@@ -10,7 +10,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * Class ClientResource
  * @package App\Http\Resources
  * @mixin Client
- *              //TODO
  */
 class ClientResource extends JsonResource
 {

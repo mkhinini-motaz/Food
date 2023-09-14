@@ -17,6 +17,8 @@ class AuthController extends Controller
      */
     public function profile(Request $request)
     {
+        // TODO: admin ressource
+
         return response()->json([ 'status' => 'success', 'data' => auth()->user(), ], 200);
     }
 

@@ -167,7 +167,7 @@ class ShopRepository
 
         $workingHours = $this->shop->workingTimestampsForDate($dateTime);
         if (0 === count($workingHours)) {
-            return collect();
+            return collect(); // TODO: will cause entered orders to not show when shop is closed at $dateTime
         }
 
         $orders = $this->shop->orders()

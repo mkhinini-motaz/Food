@@ -20,6 +20,7 @@ class ServiceAreaResource extends JsonResource
             'delivery_fee' => $this->delivery_fee,
             'service_fee'  => $this->service_fee,
             'area'         => $this->area,
+            // TODO: concider adding center point
         ];
     }
 }

@@ -34,5 +34,5 @@ class OrderController extends Controller
     }
 
     // TODO: WS mark as delivered
-    // TODO: WS feed back on order
+    // TODO: WS feedback on order
 }

@@ -27,6 +27,8 @@ class ShopUserRepository
     /**
      * @return Collection
      */
+    // TODO: deprecated locations usage
+    // TODO: do i still need this function in front end ?
     public function assignedOrders()
     {
         $orders = $this->shopUser->activeOrders()

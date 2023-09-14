@@ -228,7 +228,7 @@ class Order extends Model
     }
 
     /**
-     * TODO: promo code, delivery fee
+     * TODO: delivery fee
      * @return string
      */
     public function toString()

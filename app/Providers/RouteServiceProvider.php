@@ -100,8 +100,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapShopRoutes()
     {
-        // TODO: global scope to exclude content of shops having is_approved === false
-
         Route::prefix('api/shop')
             ->as('shop.')
             ->middleware(['api'])
