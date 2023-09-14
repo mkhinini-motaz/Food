@@ -131,7 +131,9 @@ class ShopOrderRepository
 
         $productsFromDb = $this->productsFromInput($products)
             ->keyBy('id');
-        $this->order->total_price = $this->validateAndCalculateProductsPrice($products, $productsFromDb);
+        [$totalPrice, $profit] = $this->validateAndCalculateProductsPrice($products, $productsFromDb);
+        $this->order->total_price = $totalPrice;
+        $this->order->profit = $profit;
 
         if ($client) {
             $this->order->client_id = $client->id;
@@ -167,12 +169,13 @@ class ShopOrderRepository
      * @param array      $productsInput
      * @param Collection $productsFromDb
      *
-     * @return int
+     * @return int[]
      * @throws OrderException
      */
     public function validateAndCalculateProductsPrice(&$productsInput, $productsFromDb)
     {
         $totalPrice = 0;
+        $profit = 0;
 
         foreach ($productsInput as &$product) {
             /** @var Product $productFromDb */
@@ -193,15 +196,19 @@ $price = $productFromDb->price; // TODO: move back to original place
 if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
     $price = GhostChefPriceChangerV2::PRODUCT_PRICES[$product['product_id']];
 }
+
+// TODO: total_price_paid_to_shop
             if ($productFromDb->type === Product::TYPE_WEIGHTABLE) {
                 $totalPrice += ($price / 1000) * $count;
+                $profit += ($productFromDb->profit / 1000) * $count;
             } else {
                 $totalPrice += ($price + $optionsPrice) * $count;
+                $profit += $productFromDb->profit * $count; // TODO: options profit not implemented
             }
             $product['product_price'] = $productFromDb->price;
         }
 
-        return $totalPrice;
+        return [ $totalPrice, $profit];
     }
 
     /**
@@ -231,6 +238,7 @@ $price = $optionFromDb->pivot->price; // TODO: move back to original place
 if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
     $price = GhostChefPriceChangerV2::OPTION_PRICES[$option['id']] ?? 0;
 }
+// TODO: profit from options not implemented
             $optionsAddedPrice += $price;
             $optionGroupCheck[$optionGroupId]['options_count']++;
         }
@@ -296,7 +304,8 @@ if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
      */
     private function saveChoicesForOrder(Order $order, $productsInput, $products)
     {
-        $productIds = $products->keyBy('id')->keys()->toarray();
+        $productsById = $products->keyBy('id');
+        $productIds = $productsById->keys()->toarray();
         $productsInput = collect($productsInput);
         $productsInput = $productsInput->sortBy(function($productInput) use ($productIds) {
             return array_search($productInput['product_id'], $productIds);
@@ -307,13 +316,15 @@ $price = $product['product_price']; // TODO: move back to original place
 if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
     $price = GhostChefPriceChangerV2::PRODUCT_PRICES[$product['product_id']];
 }
+            $productFromDb = $productsById->get($product['product_id']);
             $productRelationshipInfos[] = [
-                'order_id'      => $order->id,
-                'product_id'    => $product['product_id'],
-                'product_count' => $product['product_count'],
-                'product_price' => $price,
-                'created_at'    => time(),// strtotime('06-08-2022')
-                'updated_at'    => time(),// strtotime('06-08-2022')
+                'order_id'       => $order->id,
+                'product_id'     => $product['product_id'],
+                'product_count'  => $product['product_count'],
+                'product_price'  => $price,
+                'product_profit' => $productFromDb->profit,
+                'created_at'     => time(),// strtotime('06-08-2022')
+                'updated_at'     => time(),// strtotime('06-08-2022')
             ];
         }
 
@@ -362,6 +373,7 @@ if (auth()->id() === 7 && (auth()->user() instanceof ShopUser)) {
                     'option_id' => $optionId,
                     'quantity'  => $option['quantity'] ?? 0,
                     'price'     => $price,
+                    // todo: profit for options
                 ];
             }
         }

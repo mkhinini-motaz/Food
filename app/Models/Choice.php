@@ -16,6 +16,8 @@ use function App\Support\Helpers\formatMoneyLessThanMillion;
  *
  * @property int id
  * @property int product_count
+ * @property int product_price
+ * @property int product_profit
  * @property int order_id
  * @property int product_id
  *

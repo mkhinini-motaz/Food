@@ -28,9 +28,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int    width
  * @property int    length
  * @property int    price
+ * @property int    profit
  * @property int    order
  * @property int    added_loyalty_points
  * @property bool   is_visible
+ *
+ * @property string foreign_id
+ * @property int    foreign_quantity_in_stock
+ * @property int    foreign_buy_price
  *
  * @property int category_id
  *

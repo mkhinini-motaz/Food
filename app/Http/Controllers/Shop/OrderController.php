@@ -74,6 +74,9 @@ class OrderController extends Controller
             'countLastWeekSameDay'  => $report['countLastWeekSameDay'],
             'countLastMonthSameDay' => $report['countLastMonthSameDay'],
 
+            'shopShareToday'     => $report['shopShareToday'],
+            'shopShareYesterday' => $report['shopShareYesterday'],
+
             'ordersTime'                 => $report['ordersTime'],
             'ordersHours'                => $report['ordersHours'],
             'categoriesTime'             => $report['categoriesTime'],
@@ -124,7 +127,6 @@ class OrderController extends Controller
         $deliveryFee       = $request->input('delivery_fee', null);
         $additionalNote    = $request->input('additional_note', null);
         $associatedPhone   = $request->input('associated_phone', null);
-// TODO: remove delivery coordinates
         $deliveryLatitude  = $request->input('delivery_latitude', null);
         $deliveryLongitude = $request->input('delivery_longitude', null);
 
@@ -214,8 +216,6 @@ class OrderController extends Controller
 
         return (new OrderResource($order));
     }
-
-    // TODO: edit order
 
     /**
      * @param int                      $orderId

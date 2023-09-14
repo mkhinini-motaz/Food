@@ -18,7 +18,8 @@ use function App\Support\Helpers\formatMoneyLessThanMillion;
  *
  * @property int    id
  * @property int    status
- * @property string total_price
+ * @property int    total_price
+ * @property int    profit
  * @property string associated_phone
  * @property string delivery_latitude
  * @property string delivery_longitude
@@ -62,7 +63,7 @@ class Order extends Model
     const STATUS_DELIVERED               = 20;
     const STATUS_CANCELED                = 21;
     const STATUS_CLIENT_NOT_FOUND        = 22;
-//TODO: STATUS delayed due to weather && out capacity ===> client can cancel
+//TODO: STATUS delayed due to weather || out capacity ===> client can cancel
 
     const STATUSES = [ self::STATUS_NEW, self::STATUS_ACCEPTED_BY_SHOP, self::STATUS_PROCESSING_BY_SHOP, self::STATUS_READY_BY_SHOP, self::STATUS_REFUSED_BY_SHOP, self::STATUS_ACCEPTED_BY_TRANSPORTER, self::STATUS_PICKED_BY_TRANSPORTER, self::STATUS_DELIVERED, self::STATUS_CANCELED, self::STATUS_CLIENT_NOT_FOUND, ];
 

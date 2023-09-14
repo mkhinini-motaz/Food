@@ -28,8 +28,10 @@ class OrderResource extends JsonResource
             'delivery_latitude'  => $this->delivery_latitude,
             'delivery_longitude' => $this->delivery_longitude,
             'delivery_fee'       => $this->delivery_fee,
-            'service_fee'       => $this->service_fee,
+            'service_fee'        => $this->service_fee,
             'created_at'         => $this->created_at,
+
+            'shop_share' => $this->when(auth()->user() instanceof ShopUser, $this->total_price - $this->profit),
 
             'additional_note'    => value(function() {
                 if ($this->source === Order::SOURCE_ONLINE || auth()->user() instanceof ShopUser) {
