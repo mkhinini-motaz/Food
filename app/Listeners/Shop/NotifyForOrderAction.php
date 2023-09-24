@@ -36,19 +36,16 @@ class NotifyForOrderAction implements ShouldQueue
         /** @var Order $order */
         $order = Order::findOrFail($orderId);
 
-        $orderRepo = new OrderRepository($order);
-        $shopIds = $orderRepo->productsShopIds();
+        $shop = $order->shop;
 
         $redis = Redis::connection();
-        foreach ($shopIds as $shopId) {
-            $redis->publish(
-                'shop_' . $shopId . '.order_update',
-                json_encode([
-                    'orderId'           => $orderId,
-                    'shopTransporterId' => $order->shop_transporter_id,
-                ])
-            );
-        }
+        $redis->publish(
+            'shop_' . $shop->id . '.order_update',
+            json_encode([
+                'orderId'           => $orderId,
+                'shopTransporterId' => $order->shop_transporter_id,
+            ])
+        );
 
         $admin = Admin::wherePhone('+21628852800')->first(); // TODO: should not directly use phone in code
         $fcm = new FirebaseMessagingClient();
