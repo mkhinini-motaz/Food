@@ -4,7 +4,6 @@ namespace Database\Seeders\Shop;
 
 use App\Models\Admin;
 use App\Models\Category;
-use App\Models\Location;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\ShopUser;
