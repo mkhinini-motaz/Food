@@ -43,6 +43,15 @@ class TitosShopSeeder extends Seeder
             'shop_id' => $shop->id,
         ]);
 
+        ShopUser::factory()->create([
+            'first_name' => 'Anouar',
+            'last_name' => 'Jarrar',
+            'phone' => '+21695190159',
+            'password' => bcrypt('azerty'),
+            'role' => ShopUser::ROLE_OWNER,
+            'shop_id' => $shop->id,
+        ]);
+
         $this->categories($shop);
     }
 
