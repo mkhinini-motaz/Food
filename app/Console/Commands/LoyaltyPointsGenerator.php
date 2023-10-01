@@ -55,6 +55,8 @@ class LoyaltyPointsGenerator extends Command
 
         $page    = 1;
         $perPage = 50;
+        $addedOrdersPoints = 0;
+        $addedFriendInvitePoints = 0;
         while (true) {
             $orders = $this->ordersQuery()
                 ->paginate($perPage, ['*'], 'page', $page++);
@@ -62,12 +64,15 @@ class LoyaltyPointsGenerator extends Command
                 break;
             }
 
+            /** @var Order $order */
             foreach ($orders as $order) {
-                LoyaltyActionRepository::createTypeOrder($order);
+                $loyaltyAction = LoyaltyActionRepository::createTypeOrder($order);
+                $addedOrdersPoints += $loyaltyAction->points_rewarded;
 
-                if ($order->isTheFirstForClient()) {
-                    $client = $order->client;
-                    LoyaltyActionRepository::createTypeFriendInvite($client->inviterClient, $client);
+                $client = $order->client;
+                if ($client->inviterClient && $order->isTheFirstForClient()) {
+                    $loyaltyAction = LoyaltyActionRepository::createTypeFriendInvite($client->inviterClient, $client);
+                    $addedFriendInvitePoints += $loyaltyAction->points_rewarded;
                 }
 
                 $progressBar->advance();
@@ -75,7 +80,9 @@ class LoyaltyPointsGenerator extends Command
         }
 
         $progressBar->finish();
-        $this->output->info('Done');
+        $text = 'Done, generated ' . $addedOrdersPoints . ' points for orders and ' . $addedFriendInvitePoints . ' points for friends invite';
+        $this->output->info($text);
+        \Log::info($text); // TODO: log in db in a report
         return 1;
     }
 
@@ -84,7 +91,7 @@ class LoyaltyPointsGenerator extends Command
      */
     private function hours()
     {
-        return date('H') > 10 ?
+        return date('H') >= 3 ?
             [ strtotime('today 03:00'), strtotime('tomorrow 03:00') ] :
             [ strtotime('yesterday 03:00'), strtotime('today 03:00') ];
     }
@@ -119,7 +126,8 @@ class LoyaltyPointsGenerator extends Command
      */
     private function alreadyBeenDoneToday()
     {
-        return 0 < LoyaltyAction::where(columnInPeriod($this->hours(), 'created_at'))
+        return 0 < LoyaltyAction::where('type', '=', LoyaltyAction::TYPE_ORDER)
+            ->where(columnInPeriod($this->hours(), 'created_at'))
             ->count();
     }
 }

@@ -316,12 +316,16 @@ class Order extends Model
      */
     public function isTheFirstForClient()
     {
-        $this->load('client.inviterClient');
-
         $client = $this->client;
+        if ($client->created_at > $this->created_at) {
+            return false;
+        }
+
         return $client &&
-            $client->inviterClient && // TODO: why inviter client in is_first_order_for_client ??
-            1 >= $client->orders()->count(); // TODO : orders after $client->created_at
+            1 >= $client->orders()
+                ->where('orders.created_at', '>=', $client->created_at)
+                ->where('orders.created_at', '<=', $this->created_at)
+                ->count();
     }
 
     /**
