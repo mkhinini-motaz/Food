@@ -337,7 +337,12 @@ class Order extends Model
 
         $addedLoyaltyPoints = 0;
         foreach ($this->choices as $choice) {
-            $addedLoyaltyPoints += $choice->product->added_loyalty_points * $choice->product_count;
+            $product = $choice->product;
+            $addedLoyaltyPointsForChoice = $choice->product->added_loyalty_points * $choice->product_count;
+            if ($product->type === Product::TYPE_WEIGHTABLE) {
+                $addedLoyaltyPointsForChoice = (int) floor($addedLoyaltyPointsForChoice / 1000);
+            }
+            $addedLoyaltyPoints += $addedLoyaltyPointsForChoice;
         }
 
         return $addedLoyaltyPoints;
