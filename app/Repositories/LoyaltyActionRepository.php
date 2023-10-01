@@ -124,7 +124,7 @@ class LoyaltyActionRepository
         $loyaltyAction = new LoyaltyAction();
 
         $loyaltyAction->type            = LoyaltyAction::TYPE_ORDER;
-        $loyaltyAction->meta            = json_encode([ 'order_id' => $order->id ]);
+        $loyaltyAction->order_id        = $order->id;
         $loyaltyAction->client_id       = $order->client_id;
         $loyaltyAction->points_rewarded = $pointsRewarded;
         $loyaltyAction->created_at      = $order->created_at;

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int    type
  * @property int    points_rewarded
  * @property int    client_id
+ * @property int    order_id
  * @property array  meta
  *
  * @property int created_at
