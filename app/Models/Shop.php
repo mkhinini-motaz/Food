@@ -24,16 +24,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int    type
  * @property string logo
  * @property string phone
- * @property int    pricing_category
  * @property int    min_order_price
  * @property string average_ready_minutes
  * @property bool   is_approved
- * @property bool   signup_is_open
  * @property array  working_hours
  * @property string domain
- * @property array  loyalty_action_rewards
  * @property string menu_displayed_lang
- * @property string ga_tracking_id
  * @property string primary_color
  * @property string secondary_color
  * @property string facebook_url
@@ -70,19 +66,10 @@ class Shop extends Model
     const IS_APPROVED_TRUE = 1;
     const IS_APPROVED_VALUES = [ self::IS_APPROVED_FALSE, self::IS_APPROVED_TRUE ];
 
-    const PRICING_CATEGORY_VERY_LOW  = 1;
-    const PRICING_CATEGORY_LOW       = 2;
-    const PRICING_CATEGORY_MEDIUM    = 3;
-    const PRICING_CATEGORY_HIGH      = 4;
-    const PRICING_CATEGORY_VERY_HIGH = 5;
-
-    const PRICING_CATEGORIES = [ self::PRICING_CATEGORY_VERY_LOW, self::PRICING_CATEGORY_LOW, self::PRICING_CATEGORY_MEDIUM, self::PRICING_CATEGORY_HIGH, self::PRICING_CATEGORY_VERY_HIGH ];
-
     protected $dateFormat = 'U';
     protected $casts = [
         'service_area'           => 'array',
         'working_hours'          => Json::class,
-        'loyalty_action_rewards' => Json::class,
     ];
 
     /**
@@ -144,15 +131,6 @@ class Shop extends Model
     /**
      * @return HasMany
      */
-    public function activeOrders()
-    {
-        return $this->orders()
-            ->whereIn('status', Order::ACTIVE_TRANSPORTER_STATUSES);
-    }
-
-    /**
-     * @return HasMany
-     */
     public function promoCodes()
     {
         return $this->hasMany(PromoCode::class);
@@ -198,43 +176,6 @@ class Shop extends Model
     }
 
     /**
-     * @param int $categoryId
-     *
-     * @return bool
-     */
-    public function isLastVisibleCategory($categoryId)
-    {
-        return 0 === $this->categories()
-            ->where('id', '<>', $categoryId)
-            ->where('is_visible', '=', 0)
-            ->count();
-    }
-
-    /**
-     * @param int $categoryId
-     *
-     * @return bool
-     */
-    public function isNotLastVisibleCategory($categoryId)
-    {
-        return ! $this->isLastVisibleCategory($categoryId);
-    }
-
-    /**
-     * @param LoyaltyAction $loyaltyAction
-     *
-     * @return int
-     */
-    public function pointsRewardedForLoyaltyAction(LoyaltyAction $loyaltyAction)
-    {
-        if (! isset($this->loyalty_action_rewards[$loyaltyAction->type])) {
-            throw new \InvalidArgumentException('Loyalty action type "' . $loyaltyAction->type . '" is not valid or is not calculated in shop ' . $this->id);
-        }
-
-        return $this->loyalty_action_rewards[$loyaltyAction->type];
-    }
-
-    /**
      * @param int $isShopApproved
      *
      * @return \Closure
@@ -252,40 +193,6 @@ class Shop extends Model
     public static function scopeIsApproved($query)
     {
         $query->where('is_approved', '=', self::IS_APPROVED_TRUE);
-    }
-
-    /**
-     * @return string
-     */
-    public static function defaultLoyaltyActionRewardsValue()
-    {
-        return json_encode([
-            LoyaltyAction::TYPE_REGISTRATION                  => 10,
-            LoyaltyAction::TYPE_FRIEND_INVITE                 => 7,
-            LoyaltyAction::TYPE_FIRST_ORDER                   => 5,
-
-            LoyaltyAction::TYPE_ONLINE_ORDER_COUNT_FOR_MONTH  => 1,
-            LoyaltyAction::TYPE_ON_SITE_ORDER_COUNT_FOR_MONTH => 1,
-            LoyaltyAction::TYPE_SUBMIT_FEEDBACK               => 1,
-            LoyaltyAction::TYPE_BIRTHDAY_GIFT                 => 1,
-            LoyaltyAction::TYPE_PROMO_CODE_BOUGHT             => 1,
-            LoyaltyAction::TYPE_SHOP_REWARD                   => 1,
-            LoyaltyAction::TYPE_SEND_POINTS                   => 1,
-            LoyaltyAction::TYPE_RECEIVE_POINTS                => 1,
-        ]);
-    }
-
-    /**
-     * @return string { 'points' => 'money' }
-     */
-    public static function defaultPromoCodeShopItemsValue()
-    {
-        return json_encode([
-            50  => 2500,
-            100 => 5000,
-            190 => 10000,
-            360 => 20000,
-        ]);
     }
 
     /**

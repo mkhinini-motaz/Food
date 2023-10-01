@@ -31,7 +31,7 @@ class CreateShopsTable extends Migration
             $table->text('service_area')->nullable()->comment('array of arrays, [ [lat, lng], ...]');
             $table->text('working_hours')->nullable()->comment('array of arrays, [ "monday" => [ "start" => "11:30", "end" => "01:30" ], ... ]');
 
-            $table->text('loyalty_action_rewards')->default(Shop::defaultLoyaltyActionRewardsValue());
+            $table->text('loyalty_action_rewards')->default([]);
             $table->string('domain')->nullable();
             $table->string('ga_tracking_id', 50)->nullable()->comment('Google Analytics tracking id');
             $table->string('primary_color', 50)->nullable();
