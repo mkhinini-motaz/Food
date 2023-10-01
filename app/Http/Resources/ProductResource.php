@@ -26,6 +26,8 @@ class ProductResource extends JsonResource
             'category_id' => $this->category_id,
             'added_loyalty_points' => $this->added_loyalty_points,
 
+            'foreign_id'  => $this->when(auth()->user() instanceof ShopUser, $this->foreign_id),
+
             'description' => $this->getTranslations('description'),
             'name'        => $this->getTranslations('name'),
 

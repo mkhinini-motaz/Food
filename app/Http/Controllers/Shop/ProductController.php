@@ -77,7 +77,7 @@ class ProductController extends Controller
         $name        = $request->input('name');
         $price       = $request->input('price');
         $isVisible   = $request->input('is_visible');
-        $description = $request->input('description');
+        $description = $request->input('description', []);
 
         $photoFile          = $request->file('photo', null);
         $photoName          = $request->input('photo', null);

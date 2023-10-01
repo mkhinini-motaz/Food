@@ -31,7 +31,7 @@ class UpdateRequest extends FormRequest
         }
         return [
             'name'        => 'required|translatable',
-            'description' => 'required|translatable',
+            'description' => 'translatable',
             'is_visible'  => 'required|in:0,1',
             'price'       => [ 'required', 'numeric', 'regex:/[1-9][0-9]*[50]0$/' ],
             'photo'       => $photoRules,
