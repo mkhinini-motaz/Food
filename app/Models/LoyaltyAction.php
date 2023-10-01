@@ -46,7 +46,7 @@ class LoyaltyAction extends Model
     const POINTS_AWARDED_BY_TYPE = [
         LoyaltyAction::TYPE_REGISTRATION                  => 10,
         LoyaltyAction::TYPE_LOYALTY_BONUS                 => 20,
-        LoyaltyAction::TYPE_FRIEND_INVITE                 => 7,
+        LoyaltyAction::TYPE_FRIEND_INVITE                 => 100,
         LoyaltyAction::TYPE_FIRST_ORDER                   => 5,
         LoyaltyAction::TYPE_PROMO_CODE_BOUGHT             => 2,
 

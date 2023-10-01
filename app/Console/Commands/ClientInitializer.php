@@ -83,7 +83,9 @@ class ClientInitializer extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->existingClientsPhones = Client::query()->pluck('phone');
+        $this->existingClientsPhones = Client::query()
+            ->whereNotNull('last_login_at')
+            ->pluck('phone');
 
         $this->clientsCount                            = 0;
         $this->ordersPointsSum                         = 0;
@@ -125,7 +127,7 @@ class ClientInitializer extends Command
             }
             $this->clientsCount          += ClientRepository::createFromPhones($phones, $loyaltyBonusPoints);
             $this->updatedOrdersCount    += ClientRepository::associateOrdersByPhone($phones);
-            $this->loyaltyBonusPointsSum += LoyaltyActionRepository::createTypeLoyaltyBonusByPhone($phones);
+            $this->loyaltyBonusPointsSum += LoyaltyActionRepository::createTypeLoyaltyBonusByPhone($phones, 120); // TODO: test
             $this->ordersPointsSum       += LoyaltyActionRepository::createTypeOrderByPhone($phones);
 
             $this->progressBar->advance($phones->count());
@@ -139,7 +141,7 @@ class ClientInitializer extends Command
     {
         $this->updatedOrdersCountForExistingClients    = ClientRepository::associateOrdersByPhone($this->existingClientsPhones);
         $this->ordersPointsSumForExistingClients       = LoyaltyActionRepository::createTypeOrderByPhone($this->existingClientsPhones);
-        $this->loyaltyBonusPointsSumForExistingClients = LoyaltyActionRepository::createTypeLoyaltyBonusByPhone($this->existingClientsPhones);
+        $this->loyaltyBonusPointsSumForExistingClients = LoyaltyActionRepository::createTypeLoyaltyClientsInitialBonus();
     }
 
     /**

@@ -168,15 +168,18 @@ class LoyaltyActionRepository
 
     /**
      * @param Collection $phones
+     * @param int|null   $pointsAwarded
      *
      * @return int
      */
-    public static function createTypeLoyaltyBonusByPhone(Collection $phones)
+    public static function createTypeLoyaltyBonusByPhone(Collection $phones, int $pointsAwarded = null)
     {
-        $pointsAwarded = LoyaltyAction::POINTS_AWARDED_BY_TYPE[LoyaltyAction::TYPE_LOYALTY_BONUS];
-        $clientIds = Client::query()
-            ->whereIn('phone', $phones)
-            ->pluck('id');
+        if ($pointsAwarded === null) {
+            $pointsAwarded = LoyaltyAction::POINTS_AWARDED_BY_TYPE[LoyaltyAction::TYPE_LOYALTY_BONUS];
+        }
+
+        $clientsQuery = Client::query()->whereIn('phone', $phones);
+        $clientIds = $clientsQuery->pluck('id');
 
         $loyaltyActions = [];
         foreach ($clientIds as $clientId) {
@@ -190,7 +193,38 @@ class LoyaltyActionRepository
         }
 
         LoyaltyAction::query()->insert($loyaltyActions);
+        $clientsQuery->update([ 'loyalty_points_count' => \DB::raw('loyalty_points_count + ' . $pointsAwarded) ]);
+
         return $pointsAwarded * count($clientIds);
+    }
+
+    /**
+     * @return int
+     */
+    public static function createTypeLoyaltyClientsInitialBonus()
+    {
+        $pointsAwarded = 150;
+        $clientsQuery = Client::query()
+            ->whereNotNull('last_login_at');
+        $clients = $clientsQuery->get();
+
+        $loyaltyActions = [];
+        foreach ($clients as $client) {
+            $loyaltyActions[] = [
+                'type' => LoyaltyAction::TYPE_LOYALTY_BONUS,
+                'client_id' => $client->id,
+                'points_rewarded' => $pointsAwarded,
+                'created_at' => time(),
+                'updated_at' => time(),
+            ];
+        }
+
+        LoyaltyAction::query()->insert($loyaltyActions);
+        $clientsQuery->update([
+            'loyalty_points_count' => \DB::raw('loyalty_points_count + ' . $pointsAwarded)
+        ]);
+
+        return $pointsAwarded * $clients->count();
     }
 
     /**
