@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Client;
 use App\Models\LoyaltyAction;
 use App\Models\Order;
 use App\Repositories\LoyaltyActionRepository;
@@ -79,8 +80,29 @@ class LoyaltyPointsGenerator extends Command
             }
         }
 
+        $page    = 1;
+        $perPage = 50;
+        $addedBirthdayPoints = 0;
+        while (true) {
+            $clients = Client::where('birth_date', 'LIKE', date('d-m-') . '%')
+                ->whereNotNull('last_login_at')
+                ->paginate($perPage, ['*'], 'page', $page++);
+            if ($clients->isEmpty()) {
+                break;
+            }
+
+            /** @var Client $client */
+            foreach ($clients as $client) {
+                $loyaltyAction = LoyaltyActionRepository::createTypeBirthDay($client);
+                $addedBirthdayPoints += $loyaltyAction->points_rewarded;
+            }
+        }
+
         $progressBar->finish();
-        $text = 'Done, generated ' . $addedOrdersPoints . ' points for orders and ' . $addedFriendInvitePoints . ' points for friends invite';
+        $text = 'Done, generated ' . $addedOrdersPoints . ' points for orders and ' .
+            $addedFriendInvitePoints . ' points for friends invite and ' .
+            $addedBirthdayPoints . ' for birthdays';
+
         $this->output->info($text);
         \Log::info($text); // TODO: log in db in a report
         return 1;

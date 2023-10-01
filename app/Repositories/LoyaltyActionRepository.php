@@ -34,7 +34,7 @@ class LoyaltyActionRepository
 
         $loyaltyAction->type            = LoyaltyAction::TYPE_REGISTRATION;
         $loyaltyAction->client_id       = $client->id;
-        $loyaltyAction->points_rewarded = $loyaltyAction->calculatePointsRewarded();
+        $loyaltyAction->points_rewarded = LoyaltyAction::POINTS_AWARDED_BY_TYPE[LoyaltyAction::TYPE_REGISTRATION];
 
         $loyaltyAction->save();
 
@@ -54,7 +54,7 @@ class LoyaltyActionRepository
         $loyaltyAction->type            = LoyaltyAction::TYPE_FRIEND_INVITE;
         $loyaltyAction->meta            = json_encode([ 'invited_client_id' => $newlyRegisteredClient->id ]);
         $loyaltyAction->client_id       = $inviterClient->id;
-        $loyaltyAction->points_rewarded = $loyaltyAction->calculatePointsRewarded();
+        $loyaltyAction->points_rewarded = LoyaltyAction::POINTS_AWARDED_BY_TYPE[LoyaltyAction::TYPE_FRIEND_INVITE];
 
         $loyaltyAction->save();
 
@@ -86,17 +86,16 @@ class LoyaltyActionRepository
 
     /**
      * @param Client $client
-     * @param int    $awardedPoints
      *
      * @return LoyaltyAction
      */
-    public static function createTypeLoyaltyBonus(Client $client, int $awardedPoints)
+    public static function createTypeBirthDay(Client $client)
     {
         $loyaltyAction = new LoyaltyAction();
 
-        $loyaltyAction->type            = LoyaltyAction::TYPE_LOYALTY_BONUS;
+        $loyaltyAction->type            = LoyaltyAction::TYPE_BIRTHDAY_GIFT;
         $loyaltyAction->client_id       = $client->id;
-        $loyaltyAction->points_rewarded = $awardedPoints;
+        $loyaltyAction->points_rewarded = LoyaltyAction::POINTS_AWARDED_BY_TYPE[LoyaltyAction::TYPE_BIRTHDAY_GIFT];
 
         $loyaltyAction->save();
 
